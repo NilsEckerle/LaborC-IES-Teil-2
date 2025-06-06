@@ -3,14 +3,14 @@ CC = avr-gcc
 
 # debuginformations
 # CFLAGS = -g -Wall
-CFLAGS = -s
+CFLAGS = -Os -mmcu=atmega328p
 LDFLAGS =
 SRC_DIRECTORY = src
 BIN_DIRECTORY = bin
 BUILD_DIRECTORY = build
 
 # List your source files here (without path or extension)
-SOURCES = skeleton
+SOURCES = testat1_program
 
 # Automatically generate object file names
 OBJECTS = $(addprefix $(BUILD_DIRECTORY)/, $(addsuffix .o, $(SOURCES)))
@@ -18,7 +18,7 @@ OBJECTS = $(addprefix $(BUILD_DIRECTORY)/, $(addsuffix .o, $(SOURCES)))
 # Name of the final executable
 TARGET = $(BIN_DIRECTORY)/program
 
-all: setup_dir $(TARGET)
+all: setup_dir $(TARGET) file_for_avr
 
 setup_dir:
 	@mkdir -p $(BUILD_DIRECTORY)
