@@ -1,5 +1,9 @@
-CC = gcc
-CFLAGS = -g -Wall
+# avr-gcc for microcontroller
+CC = avr-gcc
+
+# debuginformations
+# CFLAGS = -g -Wall
+CFLAGS = -s
 LDFLAGS =
 SRC_DIRECTORY = src
 BIN_DIRECTORY = bin
@@ -25,11 +29,18 @@ $(BUILD_DIRECTORY)/%.o: $(SRC_DIRECTORY)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Link all object files into the final executable
+# $(TARGET): $(OBJECTS)
+# 	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+
+# Link all object files into the final executable
 $(TARGET): $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
 
 clean:
 	@rm -f $(BUILD_DIRECTORY)/*
 	@rm -f $(BIN_DIRECTORY)/*
+
+file_for_avr:
+	avr-objcopy -O ihex $(TARGET) flashable.hex
 
 .PHONY: all setup_dir clean
