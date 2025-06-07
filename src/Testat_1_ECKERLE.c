@@ -374,17 +374,17 @@ int main(void) {
 		//print left
 		if ((ui_lf_state_eigenvalue & (1<<2)) != (ui_lf_state_old_eigenvalue & (1<<2)) 
 				&& (ui_lf_state_eigenvalue & (1<<2))) {
-			USART_print("left");
+			USART_print("left\n");
 		}
 		//print middle
-		if ((ui_lf_state_eigenvalue & (1<<1)) != (ui_lf_state_old_eigenvalue & (2<<1)) 
+		if ((ui_lf_state_eigenvalue & (1<<1)) != (ui_lf_state_old_eigenvalue & (1<<1)) 
 				&& (ui_lf_state_eigenvalue & (1<<1))) {
-			USART_print("middle");
+			USART_print("middle\n");
 		}
 		//print right
 		if ((ui_lf_state_eigenvalue & (1<<0)) != (ui_lf_state_old_eigenvalue & (1<<0)) 
 				&& (ui_lf_state_eigenvalue & (1<<0))) {
-			USART_print("right");
+			USART_print("right\n");
 		}
 
 		ui_lf_state_old_eigenvalue = ui_lf_state_eigenvalue;
