@@ -316,9 +316,6 @@ int main(void) {
     ERROR("Line sensor DDR setup FAILED!\n");
   }
 
-  // Set Data Direction Register B, Pin 5 as output.
-  // DDRB = (1 << DDB5);
-
   unsigned int ui_lf_state[3] = {0};
 
 	while (1) {
