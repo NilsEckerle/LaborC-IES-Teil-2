@@ -360,6 +360,7 @@ int main(void) {
 		// Run Logic
 		
 		// calculate new eigenvalue (check change)
+		// each sensor sets a bit to one or zero
 		int ui_lf_state_eigenvalue = 0;
 		for (int i = 0; 3 > i; i++) {
 			ui_lf_state_eigenvalue |= ((1 << i) * (ui_lf_state[i]));
@@ -369,6 +370,23 @@ int main(void) {
 		if (ui_lf_state_old_eigenvalue == ui_lf_state_eigenvalue) {
 			continue;
 		}
+
+		//print left
+		if ((ui_lf_state_eigenvalue & (1<<2)) != (ui_lf_state_old_eigenvalue & (1<<2)) 
+				&& (ui_lf_state_eigenvalue & (1<<2))) {
+			USART_print("left");
+		}
+		//print middle
+		if ((ui_lf_state_eigenvalue & (1<<1)) != (ui_lf_state_old_eigenvalue & (2<<1)) 
+				&& (ui_lf_state_eigenvalue & (1<<1))) {
+			USART_print("middle");
+		}
+		//print right
+		if ((ui_lf_state_eigenvalue & (1<<0)) != (ui_lf_state_old_eigenvalue & (1<<0)) 
+				&& (ui_lf_state_eigenvalue & (1<<0))) {
+			USART_print("right");
+		}
+
 		ui_lf_state_old_eigenvalue = ui_lf_state_eigenvalue;
 		INFO("Eigenvalues: (old)%u (new)%u\n", ui_lf_state_old_eigenvalue, ui_lf_state_eigenvalue);
 
