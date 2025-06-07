@@ -82,13 +82,13 @@ static void debug_printf(const char* prefix, const char* format, ...) {
  * START SHIFT REGISTER LOGIC
  ********************/
 
-#define SHIFT_DATA_DDR DDRB
+#define SHIFT_DATA_DDR  DDRB
 #define SHIFT_DATA_PORT PORTB
-#define SHIFT_DATA_PIN PORTB2
+#define SHIFT_DATA_PIN  PORTB2
 
-#define SHIFT_CLOCK_DDR DDRD
+#define SHIFT_CLOCK_DDR  DDRD
 #define SHIFT_CLOCK_PORT PORTD
-#define SHIFT_CLOCK_PIN PORTD4
+#define SHIFT_CLOCK_PIN  PORTD4
 
 #define SHIFT_HIGH 1
 #define SHIFT_LOW 0
@@ -218,15 +218,30 @@ int SHIFT_init() {
 
 #define LF_0_DDR  DDRC
 #define LF_0_PORT PORTC
-#define LF_0_PIN  PORTC1
+#define LF_0_PIN  PINC
+#define LF_0_BIT  PINC0
 
 #define LF_1_DDR  DDRC
 #define LF_1_PORT PORTC
-#define LF_1_PIN  PORTC2
+#define LF_1_PIN  PINC
+#define LF_1_BIT  PINC1
 
 #define LF_2_DDR  DDRC
 #define LF_2_PORT PORTC
-#define LF_2_PIN  PORTC3
+#define LF_2_PIN  PINC
+#define LF_2_BIT  PINC2
+
+int LF_init() {
+	LF_0_DDR &= ~(1 << LF_0_BIT);
+	LF_1_DDR &= ~(1 << LF_1_BIT);
+	LF_2_DDR &= ~(1 << LF_2_BIT);
+
+	LF_0_PORT |= (1 << LF_0_BIT);
+	LF_1_PORT |= (1 << LF_1_BIT);
+	LF_2_PORT |= (1 << LF_2_BIT);
+
+	return 0;
+}
 
 /**
  * @brief gets the state of the line sensor of index
@@ -237,12 +252,13 @@ int SHIFT_init() {
 int LF_get_state(unsigned int ui_lf_index) {
   switch (ui_lf_index) {
   case 0:
-    return (LF_0_PORT & (1 << LF_0_PIN)) ? 1 : 0;
+    return (LF_0_PIN & (1 << LF_0_BIT)) ? 1 : 0;
   case 1:
-    return (LF_1_PORT & (1 << LF_1_PIN)) ? 1 : 0;
+    return (LF_1_PIN & (1 << LF_1_BIT)) ? 1 : 0;
   case 2:
-    return (LF_2_PORT & (1 << LF_2_PIN)) ? 1 : 0;
+    return (LF_2_PIN & (1 << LF_2_BIT)) ? 1 : 0;
   default:
+		ERROR("Invalid line follower sensor index: %u\n", ui_lf_index);
     break;
   }
   return -1;
@@ -259,6 +275,10 @@ int LF_get_states(unsigned int *uiarray_output) {
   int i_lf0_state = LF_get_state(0);
   int i_lf1_state = LF_get_state(1);
   int i_lf2_state = LF_get_state(2);
+
+	TRACE("LF0 state: %i\n", i_lf0_state);
+	TRACE("LF1 state: %i\n", i_lf1_state);
+	TRACE("LF2 state: %i\n", i_lf2_state);
 
   // Validate all sensor readings
   if (i_lf0_state < 0 || i_lf1_state < 0 || i_lf2_state < 0) {
@@ -289,6 +309,13 @@ int main(void) {
     ERROR("Shift register DDR setup FAILED!\n");
   }
 
+  rc = LF_init();
+  if (0 == rc) {
+    INFO("Line sensor DDR setup successful.\n");
+  } else {
+    ERROR("Line sensor DDR setup FAILED!\n");
+  }
+
   // Set Data Direction Register B, Pin 5 as output.
   // DDRB = (1 << DDB5);
 
@@ -308,7 +335,6 @@ int main(void) {
 		} else {
 			WARNING("Sensor read failed - skipping update\n");
 		}
-		_delay_ms(100);
 	}
 	return 0;
 }
