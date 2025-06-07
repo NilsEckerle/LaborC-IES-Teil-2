@@ -8,51 +8,71 @@
  * START DEBUG LOGIC
  ********************/
 
-#define DEBUG_LEVEL 1
+#include <stdio.h>
+#include <stdarg.h>
+#include <string.h>
+
+#define DEBUG_LEVEL 0
 
 #ifndef DEBUG_LEVEL
 #define DEBUG_LEVEL 3
 #endif /* ifndef DEBUG_LEVEL */
 
+
+// Buffer for formatted debug messages
+static char debug_buffer[256];
+
+// Helper function for formatted debug output
+static void debug_printf(const char* prefix, const char* format, ...) {
+    va_list args;
+    va_start(args, format);
+    
+    // Format the message
+    snprintf(debug_buffer, sizeof(debug_buffer), "%s", prefix);
+    vsnprintf(debug_buffer + strlen(debug_buffer), 
+              sizeof(debug_buffer) - strlen(debug_buffer), 
+              format, args);
+    
+    va_end(args);
+    
+    // Send to USART
+    USART_print(debug_buffer);
+}
+
+// TRACE: Very detailed execution flow
 #if DEBUG_LEVEL <= 0
-#define TRACE(msg) USART_print("[TRACE] " msg)
+#define TRACE(format, ...) debug_printf("[TRACE] ", format, ##__VA_ARGS__)
 #else
-// ((void)0) needed for correctly handle the semicolon when using the function
-// anything possible which is beeing deleted by the compiler.
-#define TRACE(msg) ((void)0)
-#endif /* if DEBUG_LEVEL>=0 */
+#define TRACE(format, ...) ((void)0)
+#endif
 
+// INFO: General information
 #if DEBUG_LEVEL <= 1
-#define INFO(msg) USART_print("[INFO] " msg)
+#define INFO(format, ...) debug_printf("[INFO] ", format, ##__VA_ARGS__)
 #else
-// ((void)0) needed for correctly handle the semicolon when using the function
-// anything possible which is beeing deleted by the compiler.
-#define INFO(msg) ((void)0)
-#endif /* if DEBUG_LEVEL>=1 */
+#define INFO(format, ...) ((void)0)
+#endif
 
+// WARNING: Something unusual but not critical
 #if DEBUG_LEVEL <= 2
-#define WARNING(msg) USART_print("[WARNING] " msg)
+#define WARNING(format, ...) debug_printf("[WARN] ", format, ##__VA_ARGS__)
 #else
-// ((void)0) needed for correctly handle the semicolon when using the function
-// anything possible which is beeing deleted by the compiler.
-#define WARNING(msg) ((void)0)
-#endif /* if DEBUG_LEVEL>=2 */
+#define WARNING(format, ...) ((void)0)
+#endif
 
+// ERROR: Something went wrong but program can continue
 #if DEBUG_LEVEL <= 3
-#define ERROR(msg) USART_print("[ERROR] " msg)
+#define ERROR(format, ...) debug_printf("[ERROR] ", format, ##__VA_ARGS__)
 #else
-// ((void)0) needed for correctly handle the semicolon when using the function
-// anything possible which is beeing deleted by the compiler.
-#define ERROR(msg) ((void)0)
-#endif /* if DEBUG_LEVEL>=3 */
+#define ERROR(format, ...) ((void)0)
+#endif
 
+// FATAL: Critical error, program should stop
 #if DEBUG_LEVEL <= 4
-#define FATAL(msg) USART_print("[FATAL] " msg)
+#define FATAL(format, ...) debug_printf("[FATAL] ", format, ##__VA_ARGS__)
 #else
-// ((void)0) needed for correctly handle the semicolon when using the function
-// anything possible which is beeing deleted by the compiler.
-#define FATAL(msg) ((void)0)
-#endif /* if DEBUG_LEVEL>=4 */
+#define FATAL(format, ...) ((void)0)
+#endif
 
 /********************
  * END DEBUG LOGIC
@@ -196,17 +216,17 @@ int SHIFT_init() {
  * START LINIENFOLGER LOGIC
  ********************/
 
-#define LF_0_DDR DDRC
-#define LF_0_PORT PORTD
-#define LF_0_PIN PORTD1
+#define LF_0_DDR  DDRC
+#define LF_0_PORT PORTC
+#define LF_0_PIN  PORTC1
 
-#define LF_1_DDR DDRC
-#define LF_1_PORT PORTD
-#define LF_1_PIN PORTD2
+#define LF_1_DDR  DDRC
+#define LF_1_PORT PORTC
+#define LF_1_PIN  PORTC2
 
-#define LF_2_DDR DDRC
-#define LF_2_PORT PORTD
-#define LF_2_PIN PORTD3
+#define LF_2_DDR  DDRC
+#define LF_2_PORT PORTC
+#define LF_2_PIN  PORTC3
 
 /**
  * @brief gets the state of the line sensor of index
@@ -274,16 +294,21 @@ int main(void) {
 
   unsigned int ui_lf_state[3] = {0};
 
-  while (1) {
-		int rc = LF_get_states(ui_lf_state);
-		if (0 != rc) {
-			ERROR("LF_get_states returned 0.");
-		}
+	while (1) {
+		rc = LF_get_states(ui_lf_state);
+		if (0 == rc) {
+			// Only push if sensor reading was successful
+			TRACE("Sensors: [%u, %u, %u]\n", 
+					ui_lf_state[0], ui_lf_state[1], ui_lf_state[2]);
 
-		rc = SHIFT_push_state(ui_lf_state, 3);
-		if (0 != rc) {
-			ERROR("SHIFT_push_state returned 0.");
+			rc = SHIFT_push_state(ui_lf_state, 3);
+			if (0 != rc) {
+				ERROR("Failed to push states to shift register\n");
+			}
+		} else {
+			WARNING("Sensor read failed - skipping update\n");
 		}
-  }
-  return 0;
+		_delay_ms(100);
+	}
+	return 0;
 }
