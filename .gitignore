@@ -4,4 +4,5 @@ testat1/.cache/clangd/index
 testat1/bin/program
 testat1/build/skeleton.o
 testat1/2
-testat1/flashable.hex
+*.hex
+!C_Robot_firmware.hex
