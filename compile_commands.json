@@ -1,0 +1,50 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/avr-gcc",
+      "-c",
+      "-Os",
+      "-mmcu=atmega328p",
+      "-D",
+      "F_CPU=16E6",
+      "-o",
+      "bin/program",
+      "src/main.c"
+    ],
+    "directory": "/home/nilse/Documents/LaborC-IES-Teil-2/Newell",
+    "file": "/home/nilse/Documents/LaborC-IES-Teil-2/Newell/src/main.c",
+    "output": "/home/nilse/Documents/LaborC-IES-Teil-2/Newell/bin/program"
+  },
+  {
+    "arguments": [
+      "/usr/bin/avr-gcc",
+      "-c",
+      "-Os",
+      "-mmcu=atmega328p",
+      "-D",
+      "F_CPU=16E6",
+      "-o",
+      "bin/program",
+      "src/iesusart.c"
+    ],
+    "directory": "/home/nilse/Documents/LaborC-IES-Teil-2/Newell",
+    "file": "/home/nilse/Documents/LaborC-IES-Teil-2/Newell/src/iesusart.c",
+    "output": "/home/nilse/Documents/LaborC-IES-Teil-2/Newell/bin/program"
+  },
+  {
+    "arguments": [
+      "/usr/bin/avr-gcc",
+      "-c",
+      "-Os",
+      "-mmcu=atmega328p",
+      "-D",
+      "F_CPU=16E6",
+      "-o",
+      "bin/program",
+      "src/shift_register.c"
+    ],
+    "directory": "/home/nilse/Documents/LaborC-IES-Teil-2/Newell",
+    "file": "/home/nilse/Documents/LaborC-IES-Teil-2/Newell/src/shift_register.c",
+    "output": "/home/nilse/Documents/LaborC-IES-Teil-2/Newell/bin/program"
+  }
+]
