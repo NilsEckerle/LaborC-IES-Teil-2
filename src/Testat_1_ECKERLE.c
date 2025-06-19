@@ -19,7 +19,7 @@
 #define DEBUG_LEVEL_FATAL 4
 #define DEBUG_LEVEL_DISABLE 100
 
-#define DEBUG_LEVEL DEBUG_LEVEL_TRACE
+#define DEBUG_LEVEL DEBUG_LEVEL_INFO
 
 #ifndef DEBUG_LEVEL
 #define DEBUG_LEVEL DEBDEBUG_LEVEL_ERROR
@@ -435,7 +435,14 @@ int ENGINE_drive(ENGINE_drive_direction direction){
 	return 0;
 }
 
-int ENGINE_drive_logic(LF_detection_state new_lf_state, unsigned int *LMR_itterations_since_entry){
+int ENGINE_drive_logic(LF_detection_state new_lf_state, LF_detection_state old_lf_state, unsigned int *LMR_itterations_since_entry){
+	// change drive state only when LF has detected changes
+	if (new_lf_state == old_lf_state 									// check change
+			&& new_lf_state != (LF_detection_state)LF_LMR // if LF_LMR then it shold go anyway
+			) {
+		return 0;
+	}
+
 	switch (new_lf_state){
 		case (LF_detection_state)LF_NONE:
 			ENGINE_drive((ENGINE_drive_direction)ENGINE_BACKWARDS);
@@ -527,10 +534,11 @@ int main(void) {
 
 		// Controll Motors
 
-		ENGINE_drive_logic(lf_state_current, &LMR_delay);
+		ENGINE_drive_logic(lf_state_current, lf_state_old, &LMR_delay);
 
 		// Update LED
 
+		// change shift register only when LF has detected changes
 		if (lf_state_old != lf_state_current) {
 			rc = SHIFT_push_state(lf_state_current);
 			if (0 != rc) {
