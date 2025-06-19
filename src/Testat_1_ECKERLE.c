@@ -19,7 +19,7 @@
 #define DEBUG_LEVEL_FATAL 4
 #define DEBUG_LEVEL_DISABLE 100
 
-#define DEBUG_LEVEL DEBUG_LEVEL_DISABLE
+#define DEBUG_LEVEL DEBUG_LEVEL_TRACE
 
 #ifndef DEBUG_LEVEL
 #define DEBUG_LEVEL DEBDEBUG_LEVEL_ERROR
@@ -161,6 +161,19 @@ int SHIFT_push(unsigned int ui_value) {
   return 0;
 }
 
+
+typedef enum { 
+	LF_UNDEFINED,
+	LF_NONE,
+	LF_LMR,
+	LF_LR,
+	LF_L,
+	LF_LM,
+	LF_M,
+	LF_MR,
+	LF_R
+} LF_detection_state;
+
 /**
  * @brief Pushes an array of values to the shift register in reverse order
  * @param uiarrayp_values Pointer to array of unsigned int values
@@ -171,20 +184,54 @@ int SHIFT_push(unsigned int ui_value) {
  * 1 on invalid parameters (NULL pointer or zero size)
  * 2 on SHIFT_push failure
  */
-int SHIFT_push_state(unsigned int *uiarray_values, unsigned int ui_size) {
-  if (uiarray_values == NULL || ui_size == 0) {
-    ERROR("Invalid parameters for SHIFT_push_state\n");
+int SHIFT_push_state(LF_detection_state lf_state) {
+  if ((LF_detection_state)LF_UNDEFINED == lf_state) {
+    ERROR("Invalid linienfolger state for SHIFT_push_state\n");
     return 1;
   }
 
-  // Iterate backwards over array
-  for (int i = ui_size - 1; i >= 0; i--) {
-    int rc = SHIFT_push(uiarray_values[i]);
-    if (rc != 0) {
-      ERROR("SHIFT_push failed during state push\n");
-      return 2;
-    }
-  }
+	switch (lf_state) {
+		case (LF_detection_state)LF_NONE:
+			SHIFT_push(0);
+			SHIFT_push(0);
+			SHIFT_push(0);
+			break;
+		case (LF_detection_state)LF_LMR:
+			SHIFT_push(1);
+			SHIFT_push(1);
+			SHIFT_push(1);
+			break;
+		case (LF_detection_state)LF_L:
+			SHIFT_push(1);
+			SHIFT_push(0);
+			SHIFT_push(0);
+			break;
+		case (LF_detection_state)LF_LM:
+			SHIFT_push(1);
+			SHIFT_push(1);
+			SHIFT_push(0);
+			break;
+		case (LF_detection_state)LF_M:
+			SHIFT_push(0);
+			SHIFT_push(1);
+			SHIFT_push(0);
+			break;
+		case (LF_detection_state)LF_MR:
+			SHIFT_push(0);
+			SHIFT_push(1);
+			SHIFT_push(1);
+			break;
+		case (LF_detection_state)LF_R:
+			SHIFT_push(0);
+			SHIFT_push(0);
+			SHIFT_push(1);
+			break;
+		case (LF_detection_state)LF_LR:
+			SHIFT_push(1);
+			SHIFT_push(0);
+			SHIFT_push(1);
+			break;
+	}
 
   TRACE("State pushed to shift register\n");
   return 0;
@@ -205,8 +252,7 @@ int SHIFT_init() {
   SHIFT_CLOCK_PORT &= ~(1 << SHIFT_CLOCK_BIT);
   TRACE("Shift register initialized PORT of data and clock to low\n");
 
-  unsigned int uiarray_low[3] = {SHIFT_LOW, SHIFT_LOW, SHIFT_LOW};
-  int rc = SHIFT_push_state(uiarray_low, 3);
+  int rc = SHIFT_push_state((LF_detection_state)LF_NONE);
   if (0 != rc) {
     ERROR("Shift register init failed");
     return 1;
@@ -277,17 +323,43 @@ int LF_get_state(unsigned int ui_lf_index) {
   return -1;
 }
 
+LF_detection_state LF_bitstring_to_state(unsigned int ui_lf_detection_bitstring) {
+  // sanitize input
+	unsigned int mask = 0;
+	mask |= (1 << 0);
+	mask |= (1 << 1);
+	mask |= (1 << 2);
+	unsigned int ui_cleaned_lf_detection_bitstring = ui_lf_detection_bitstring & mask;
+
+	// a lot of magic numbers representing the different bit strings
+	switch (ui_cleaned_lf_detection_bitstring) {
+		case 0: // no lf sees line
+			return (LF_detection_state)LF_NONE;
+		case 1: // right lf sees line
+			return (LF_detection_state)LF_R;
+		case 2: // middle lf sees line
+			return (LF_detection_state)LF_M;
+		case 3: // middle, right lf sees line
+			return (LF_detection_state)LF_MR;
+		case 4: // left lf sees line
+			return (LF_detection_state)LF_L;
+		case 5: // left, right lf sees line (not possible)
+			return (LF_detection_state)LF_LR;
+		case 6: // left, middle lf sees line
+			return (LF_detection_state)LF_LM;
+		case 7: // left, middle, right lf sees line
+			return (LF_detection_state)LF_LMR;
+	}
+
+	return (LF_detection_state)LF_UNDEFINED;
+}
+
 /**
  * @brief Reads all three line follower sensor states and stores them in output array
  * @param uiarray_output Pointer to array of 3 unsigned int elements [left, center, right]
  * @return 0 on success, 1 on sensor error, 2 on NULL pointer
  */
-int LF_get_states(unsigned int *uiarray_output) {
-  if (uiarray_output == NULL) {
-    ERROR("NULL pointer passed to LF_get_states\n");
-    return 2;
-  }
-
+LF_detection_state LF_get_states() {
   TRACE("Reading all line follower sensor states\n");
 
   int i_lf0_state = LF_get_state(0);
@@ -305,15 +377,108 @@ int LF_get_states(unsigned int *uiarray_output) {
   }
 
   // Store valid results in output array
-  uiarray_output[0] = (unsigned int)i_lf0_state;
-  uiarray_output[1] = (unsigned int)i_lf1_state;
-  uiarray_output[2] = (unsigned int)i_lf2_state;
+	unsigned int lf_state_bitstring = 0;
+  lf_state_bitstring |= (i_lf0_state << 0);
+  lf_state_bitstring |= (i_lf1_state << 1);
+  lf_state_bitstring |= (i_lf2_state << 2);
 
-  return 0;
+  return LF_bitstring_to_state(lf_state_bitstring);
 }
 
 /********************
  * END LINIENFOLGER LOGIC
+ ********************/
+
+
+/********************
+ * START MOTOREN LOGIC
+ ********************/
+
+#define LMR_FORWARD_DELAY_IN_ITTERATIONS 20
+
+typedef enum { 
+	ENGINE_UNDEFINED,
+	ENGINE_STOP,
+	ENGINE_BACKWARDS,
+	ENGINE_FORWARD,
+	ENGINE_HARD_LEFT,
+	ENGINE_LEFT,
+	ENGINE_HARD_RIGHT,
+	ENGINE_RIGHT
+} ENGINE_drive_direction;
+
+int ENGINE_drive(ENGINE_drive_direction direction){
+	INFO("");
+	switch (direction) {
+		case ENGINE_STOP:
+			INFO("Robi is: STOP\n");
+			break;
+		case ENGINE_BACKWARDS:
+			INFO("Robi is: BACKWARDS\n");
+			break;
+		case ENGINE_FORWARD:
+			INFO("Robi is: FORWARD\n");
+			break;
+		case ENGINE_HARD_LEFT:
+			INFO("Robi is: HARD_LEFT\n");
+			break;
+		case ENGINE_LEFT:
+			INFO("Robi is: LEFT\n");
+			break;
+		case ENGINE_HARD_RIGHT:
+			INFO("Robi is: HARD_RIGHT\n");
+			break;
+		case ENGINE_RIGHT:
+			INFO("Robi is: RIGHT\n");
+			break;
+	}
+	return 0;
+}
+
+int ENGINE_drive_logic(LF_detection_state new_lf_state, unsigned int *LMR_itterations_since_entry){
+	switch (new_lf_state){
+		case (LF_detection_state)LF_NONE:
+			ENGINE_drive((ENGINE_drive_direction)ENGINE_BACKWARDS);
+			break;
+		case (LF_detection_state)LF_LMR:
+			if (*LMR_itterations_since_entry > LMR_FORWARD_DELAY_IN_ITTERATIONS){
+				ENGINE_drive((ENGINE_drive_direction)ENGINE_STOP);
+				return 0;
+			}
+			ENGINE_drive((ENGINE_drive_direction)ENGINE_FORWARD);
+			*LMR_itterations_since_entry += 1;
+			return 0;
+		case (LF_detection_state)LF_L:
+			ENGINE_drive((ENGINE_drive_direction)ENGINE_HARD_LEFT);
+			break;
+		case (LF_detection_state)LF_LM:
+			ENGINE_drive((ENGINE_drive_direction)ENGINE_LEFT);
+			break;
+		case (LF_detection_state)LF_M:
+			ENGINE_drive((ENGINE_drive_direction)ENGINE_FORWARD);
+			break;
+		case (LF_detection_state)LF_MR:
+			ENGINE_drive((ENGINE_drive_direction)ENGINE_RIGHT);
+			break;
+		case (LF_detection_state)LF_R:
+			ENGINE_drive((ENGINE_drive_direction)ENGINE_HARD_RIGHT);
+			break;
+		case (LF_detection_state)LF_LR:
+			ENGINE_drive((ENGINE_drive_direction)ENGINE_STOP);
+			FATAL("ENGINE_drive_logic LR should not be possible!\n");
+			return -1;
+		case (LF_detection_state)LF_UNDEFINED:
+			ENGINE_drive((ENGINE_drive_direction)ENGINE_STOP);
+			FATAL("ENGINE_drive_logic UNDEFINED should not be possible!\n");
+			return -1;
+	}
+
+	*LMR_itterations_since_entry = 0;
+	return 0;
+}
+
+/********************
+ * END MOTOREN LOGIC
  ********************/
 
 int main(void) {
@@ -343,61 +508,38 @@ int main(void) {
 	// main loop
 
 	// variables to detect state change to optimize runtime
-  unsigned int ui_lf_state[3] = {0};
-  unsigned int ui_lf_state_old_eigenvalue = ~(0);
+  LF_detection_state lf_state_old = (LF_detection_state)LF_UNDEFINED;
+
+	// variable to delay stopping when hitting LMR with LF sensor
+	unsigned int LMR_delay = 0;
 
   while (1) {
 
 		// Update Inputs
 		
-    rc = LF_get_states(ui_lf_state);
-    if (0 != rc) {
+    LF_detection_state lf_state_current = LF_get_states();
+    if ((LF_detection_state)LF_UNDEFINED == lf_state_current) {
       WARNING("Sensor read failed\n");
-			continue;
 		}
-		INFO("Sensors: [%u, %u, %u]\n", ui_lf_state[0], ui_lf_state[1], ui_lf_state[2]);
+		INFO("Sensors state: %d\n", lf_state_current);
 
 		// Run Logic
-		
-		// calculate new eigenvalue (check change)
-		// each sensor sets a bit to one or zero
-		int ui_lf_state_eigenvalue = 0;
-		for (int i = 0; 3 > i; i++) {
-			ui_lf_state_eigenvalue |= ((1 << i) * (ui_lf_state[i]));
-		}
-		TRACE("Eigenvalues: (old)%u (new)%u\n", ui_lf_state_old_eigenvalue, ui_lf_state_eigenvalue);
 
-		if (ui_lf_state_old_eigenvalue == ui_lf_state_eigenvalue) {
-			continue;
-		}
+		// Controll Motors
 
-		//print left
-		if ((ui_lf_state_eigenvalue & (1<<2)) != (ui_lf_state_old_eigenvalue & (1<<2)) 
-				&& (ui_lf_state_eigenvalue & (1<<2))) {
-			USART_print("left\n");
-		}
-		//print middle
-		if ((ui_lf_state_eigenvalue & (1<<1)) != (ui_lf_state_old_eigenvalue & (1<<1)) 
-				&& (ui_lf_state_eigenvalue & (1<<1))) {
-			USART_print("middle\n");
-		}
-		//print right
-		if ((ui_lf_state_eigenvalue & (1<<0)) != (ui_lf_state_old_eigenvalue & (1<<0)) 
-				&& (ui_lf_state_eigenvalue & (1<<0))) {
-			USART_print("right\n");
+		ENGINE_drive_logic(lf_state_current, &LMR_delay);
+
+		// Update LED
+
+		if (lf_state_old != lf_state_current) {
+			rc = SHIFT_push_state(lf_state_current);
+			if (0 != rc) {
+				ERROR("Failed to push states to shift register\n");
+			}
 		}
 
-		ui_lf_state_old_eigenvalue = ui_lf_state_eigenvalue;
-		INFO("Eigenvalues: (old)%u (new)%u\n", ui_lf_state_old_eigenvalue, ui_lf_state_eigenvalue);
-
-		// Update Outputs
-
-		INFO("Sensors: [%u, %u, %u]\n", ui_lf_state[0], ui_lf_state[1], ui_lf_state[2]);
-
-		rc = SHIFT_push_state(ui_lf_state, 3);
-		if (0 != rc) {
-			ERROR("Failed to push states to shift register\n");
-		}
+		// Update lf_state_old
+		lf_state_old = lf_state_current;
   }
 
   return 0;
