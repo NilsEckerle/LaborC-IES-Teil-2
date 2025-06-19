@@ -9,7 +9,7 @@ BIN_DIRECTORY = bin
 BUILD_DIRECTORY = build
 FIRMWARE_DIRECTORY = firmware
 # List your source files here (without path or extension)
-SOURCES = testat1_program iesusart
+SOURCES = Testat_2_ECKERLE iesusart
 # Automatically generate object file names
 OBJECTS = $(addprefix $(BUILD_DIRECTORY)/, $(addsuffix .o, $(SOURCES)))
 # Name of the final executable
@@ -18,7 +18,7 @@ TARGET = $(BIN_DIRECTORY)/program
 all: setup_dir compile_and_link file_for_avr
 
 testat:
-	./compile.sh simulate src/Testat_1_ECKERLE.c src/iesusart.c
+	./compile.sh simulate src/Testat_2_ECKERLE.c src/iesusart.c
 
 setup_dir:
 	@mkdir -p $(BUILD_DIRECTORY)
