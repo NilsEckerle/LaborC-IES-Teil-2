@@ -394,7 +394,37 @@ LF_detection_state LF_get_states() {
  * START MOTOREN LOGIC
  ********************/
 
-#define LMR_FORWARD_DELAY_IN_ITTERATIONS 20
+#define LMR_FORWARD_DELAY_IN_ITTERATIONS 1
+
+#define ENGINE_HB_ENA_DDR DDRD
+#define ENGINE_HB_ENA_PORT PORTD
+#define ENGINE_HB_ENA_PIN PIND
+#define ENGINE_HB_ENA_BIT 5
+
+#define ENGINE_HB_ENB_DDR DDRD
+#define ENGINE_HB_ENB_PORT PORTD
+#define ENGINE_HB_ENB_PIN PIND
+#define ENGINE_HB_ENB_BIT 6
+
+#define ENGINE_HB_IN1_DDR DDRD
+#define ENGINE_HB_IN1_PORT PORTD
+#define ENGINE_HB_IN1_PIN PIND
+#define ENGINE_HB_IN1_BIT 7
+
+#define ENGINE_HB_IN2_DDR DDRB
+#define ENGINE_HB_IN2_PORT PORTB
+#define ENGINE_HB_IN2_PIN PINB
+#define ENGINE_HB_IN2_BIT 0
+
+#define ENGINE_HB_IN3_DDR DDRB
+#define ENGINE_HB_IN3_PORT PORTB
+#define ENGINE_HB_IN3_PIN PINB
+#define ENGINE_HB_IN3_BIT 1
+
+#define ENGINE_HB_IN4_DDR DDRB
+#define ENGINE_HB_IN4_PORT PORTB
+#define ENGINE_HB_IN4_PIN PINB
+#define ENGINE_HB_IN4_BIT 3
 
 typedef enum { 
 	ENGINE_UNDEFINED,
@@ -407,29 +437,87 @@ typedef enum {
 	ENGINE_RIGHT
 } ENGINE_drive_direction;
 
+int ENGINE_init() {
+	// set DDR a output
+	ENGINE_HB_ENA_DDR |= (1 << ENGINE_HB_ENA_BIT);
+	ENGINE_HB_ENB_DDR |= (1 << ENGINE_HB_ENB_BIT);
+  ENGINE_HB_IN1_DDR |= (1 << ENGINE_HB_IN1_BIT);
+  ENGINE_HB_IN2_DDR |= (1 << ENGINE_HB_IN2_BIT);
+  ENGINE_HB_IN3_DDR |= (1 << ENGINE_HB_IN3_BIT);
+  ENGINE_HB_IN4_DDR |= (1 << ENGINE_HB_IN4_BIT);
+
+	// enable engines
+	ENGINE_HB_ENA_PORT |= (1 << ENGINE_HB_ENA_BIT); // left engines
+	ENGINE_HB_ENB_PORT |= (1 << ENGINE_HB_ENB_BIT); // right engines
+	
+	return 0;
+}
+
 int ENGINE_drive(ENGINE_drive_direction direction){
 	INFO("");
 	switch (direction) {
 		case ENGINE_STOP:
 			INFO("Robi is: STOP\n");
+			// left engines stop
+			ENGINE_HB_IN1_PORT &= ~(1 << ENGINE_HB_IN1_BIT);
+			ENGINE_HB_IN2_PORT &= ~(1 << ENGINE_HB_IN2_BIT);
+			// right engines stop
+			ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
+			ENGINE_HB_IN4_PORT &= ~(1 << ENGINE_HB_IN4_BIT);
 			break;
 		case ENGINE_BACKWARDS:
 			INFO("Robi is: BACKWARDS\n");
+			// left engines backwards
+			ENGINE_HB_IN1_PORT &= ~(1 << ENGINE_HB_IN1_BIT);
+			ENGINE_HB_IN2_PORT |= (1 << ENGINE_HB_IN2_BIT);
+			// right engines backwards
+			ENGINE_HB_IN3_PORT |= (1 << ENGINE_HB_IN3_BIT);
+			ENGINE_HB_IN4_PORT &= ~(1 << ENGINE_HB_IN4_BIT);
 			break;
 		case ENGINE_FORWARD:
 			INFO("Robi is: FORWARD\n");
+			// left engines forward
+			ENGINE_HB_IN1_PORT |= (1 << ENGINE_HB_IN1_BIT);
+			ENGINE_HB_IN2_PORT &= ~(1 << ENGINE_HB_IN2_BIT);
+			// right engines forward
+			ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
+			ENGINE_HB_IN4_PORT |= (1 << ENGINE_HB_IN4_BIT);
 			break;
 		case ENGINE_HARD_LEFT:
 			INFO("Robi is: HARD_LEFT\n");
+			// left engines backwards
+			ENGINE_HB_IN1_PORT &= ~(1 << ENGINE_HB_IN1_BIT);
+			ENGINE_HB_IN2_PORT |= (1 << ENGINE_HB_IN2_BIT);
+			// right engines forwards
+			ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
+			ENGINE_HB_IN4_PORT |= (1 << ENGINE_HB_IN4_BIT);
 			break;
 		case ENGINE_LEFT:
 			INFO("Robi is: LEFT\n");
+			// left engines stop
+			ENGINE_HB_IN1_PORT &= ~(1 << ENGINE_HB_IN1_BIT);
+			ENGINE_HB_IN2_PORT &= ~(1 << ENGINE_HB_IN2_BIT);
+			// right engines forwards
+			ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
+			ENGINE_HB_IN4_PORT |= (1 << ENGINE_HB_IN4_BIT);
 			break;
 		case ENGINE_HARD_RIGHT:
 			INFO("Robi is: HARD_RIGHT\n");
+			// left engines forward
+			ENGINE_HB_IN1_PORT |= (1 << ENGINE_HB_IN1_BIT);
+			ENGINE_HB_IN2_PORT &= ~(1 << ENGINE_HB_IN2_BIT);
+			// right engines Backwards
+			ENGINE_HB_IN3_PORT |= (1 << ENGINE_HB_IN3_BIT);
+			ENGINE_HB_IN4_PORT &= ~(1 << ENGINE_HB_IN4_BIT);
 			break;
 		case ENGINE_RIGHT:
 			INFO("Robi is: RIGHT\n");
+			// left engines forward
+			ENGINE_HB_IN1_PORT |= (1 << ENGINE_HB_IN1_BIT);
+			ENGINE_HB_IN2_PORT &= ~(1 << ENGINE_HB_IN2_BIT);
+			// right engines stop
+			ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
+			ENGINE_HB_IN4_PORT &= ~(1 << ENGINE_HB_IN4_BIT);
 			break;
 	}
 	return 0;
@@ -510,6 +598,14 @@ int main(void) {
     INFO("Line sensor DDR setup successful.\n");
   } else {
     ERROR("Line sensor DDR setup FAILED!\n");
+  }
+
+	// init Engines sensor
+  rc = ENGINE_init();
+  if (0 == rc) {
+    INFO("Engine DDR setup successful.\n");
+  } else {
+    ERROR("Engine DDR setup FAILED!\n");
   }
 
 	// main loop
