@@ -759,6 +759,14 @@ static int init_robi() {
 }
 
 /**
+ * @brief drive robi forward over start/end
+ */
+static void start_robi() {
+	ENGINE_drive((ENGINE_drive_direction)ENGINE_FORWARD);
+	return;
+}
+
+/**
  * @brief Main program entry point and control loop
  * 
  * Implements the main robot behavior loop.
@@ -793,6 +801,8 @@ int main(void) {
   
 	// Intersection delay counter for LMR state handling
 	unsigned int LMR_delay = 0;
+
+	unsigned int ui_robi_has_moved = 0;
 	
   // Infinite main control loop
   while (1) {
@@ -812,22 +822,30 @@ int main(void) {
 		 * CONTROL LOGIC PHASE
 		 */
 		
-		// Execute line following motor control logic
-		// Handles all movement decisions based on sensor input
-		ENGINE_drive_logic(lf_state_current, lf_state_old, &LMR_delay);
+		if (ui_robi_has_moved) { // TODO: remove this auto start logic
+			// Execute line following motor control logic
+			// Handles all movement decisions based on sensor input
+			ENGINE_drive_logic(lf_state_current, lf_state_old, &LMR_delay);
+		} else {
+			start_robi();
+		}
+		
 		
 		// Handle USART communication - echo any received data
 		if (UCSR0A & (1 << RXC0)) { // Check if data available in receive buffer
 			char received_byte = USART_receiveByte();
 			USART_transmitByte(received_byte); // Echo back to sender
 		}
-		
+
 		/*
 		 * OUTPUT UPDATE PHASE
 		 */
 		
 		// Update LED status display (only when state changes for efficiency and preventing flashing LED)
 		if (lf_state_old != lf_state_current) { 
+			if (LF_UNDEFINED != lf_state_old) { // TODO: remove this auto start logic
+				ui_robi_has_moved = 1;
+			}
 			rc = SHIFT_push_state(lf_state_current);
 			if (0 != rc) {
 				WARNING("Failed to push states to shift register\n");
