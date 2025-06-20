@@ -13,10 +13,11 @@
 #include <string.h>
 
 #define DEBUG_LEVEL_TRACE 0
-#define DEBUG_LEVEL_INFO 1
-#define DEBUG_LEVEL_WARNING 2
-#define DEBUG_LEVEL_ERROR 3
-#define DEBUG_LEVEL_FATAL 4
+#define DEBUG_LEVEL_INFO_SPAM 1
+#define DEBUG_LEVEL_INFO 2
+#define DEBUG_LEVEL_WARNING 3
+#define DEBUG_LEVEL_ERROR 4
+#define DEBUG_LEVEL_FATAL 5
 #define DEBUG_LEVEL_DISABLE 100
 
 #define DEBUG_LEVEL DEBUG_LEVEL_INFO
@@ -45,35 +46,42 @@ static void debug_printf(const char *prefix, const char *format, ...) {
 }
 
 // TRACE: Very detailed execution flow
-#if DEBUG_LEVEL <= 0
+#if DEBUG_LEVEL <= DEBUG_LEVEL_TRACE
 #define TRACE(format, ...) debug_printf("[TRACE] ", format, ##__VA_ARGS__)
 #else
 #define TRACE(format, ...) ((void)0)
 #endif
 
+// INFO_SPAM: General information whith high apperence volume
+#if DEBUG_LEVEL <= DEBUG_LEVEL_INFO_SPAM
+#define INFO_SPAM(format, ...) debug_printf("[INFO] ", format, ##__VA_ARGS__)
+#else
+#define INFO_SPAM(format, ...) ((void)0)
+#endif
+
 // INFO: General information
-#if DEBUG_LEVEL <= 1
+#if DEBUG_LEVEL <= DEBUG_LEVEL_INFO
 #define INFO(format, ...) debug_printf("[INFO] ", format, ##__VA_ARGS__)
 #else
 #define INFO(format, ...) ((void)0)
 #endif
 
 // WARNING: Something unusual but not critical
-#if DEBUG_LEVEL <= 2
+#if DEBUG_LEVEL <= DEBUG_LEVEL_WARNING
 #define WARNING(format, ...) debug_printf("[WARN] ", format, ##__VA_ARGS__)
 #else
 #define WARNING(format, ...) ((void)0)
 #endif
 
 // ERROR: Something went wrong but program can continue
-#if DEBUG_LEVEL <= 3
+#if DEBUG_LEVEL <= DEBUG_LEVEL_ERROR
 #define ERROR(format, ...) debug_printf("[ERROR] ", format, ##__VA_ARGS__)
 #else
 #define ERROR(format, ...) ((void)0)
 #endif
 
 // FATAL: Critical error, program should stop
-#if DEBUG_LEVEL <= 4
+#if DEBUG_LEVEL <= DEBUG_LEVEL_FATAL
 #define FATAL(format, ...) debug_printf("[FATAL] ", format, ##__VA_ARGS__)
 #else
 #define FATAL(format, ...) ((void)0)
@@ -523,7 +531,11 @@ int ENGINE_drive(ENGINE_drive_direction direction){
 	return 0;
 }
 
-int ENGINE_drive_logic(LF_detection_state new_lf_state, LF_detection_state old_lf_state, unsigned int *LMR_itterations_since_entry){
+int ENGINE_drive_logic(
+		LF_detection_state new_lf_state, 
+		LF_detection_state old_lf_state, 
+		unsigned int *LMR_itterations_since_entry
+		){
 	// change drive state only when LF has detected changes
 	if (new_lf_state == old_lf_state 									// check change
 			&& new_lf_state != (LF_detection_state)LF_LMR // if LF_LMR then it shold go anyway
@@ -534,6 +546,7 @@ int ENGINE_drive_logic(LF_detection_state new_lf_state, LF_detection_state old_l
 	switch (new_lf_state){
 		case (LF_detection_state)LF_NONE:
 			ENGINE_drive((ENGINE_drive_direction)ENGINE_BACKWARDS);
+			// ENGINE_drive_logic(old_lf_state, (ENGINE_drive_direction)ENGINE_UNDEFINED, LMR_itterations_since_entry);
 			break;
 		case (LF_detection_state)LF_LMR:
 			if (*LMR_itterations_since_entry > LMR_FORWARD_DELAY_IN_ITTERATIONS){
@@ -576,13 +589,9 @@ int ENGINE_drive_logic(LF_detection_state new_lf_state, LF_detection_state old_l
  * END MOTOREN LOGIC
  ********************/
 
-int main(void) {
-
-	// Initialize
-	
+static int init_robi() {
 	// init usart
   USART_init(UBRR_SETTING);
-  INFO("USART working! Hooray!\n");
 
 	// init shift register
   int rc = SHIFT_init();
@@ -590,6 +599,7 @@ int main(void) {
     INFO("Shift register DDR setup successful.\n");
   } else {
     ERROR("Shift register DDR setup FAILED!\n");
+		return 1;
   }
 
 	// init Line sensor
@@ -598,6 +608,7 @@ int main(void) {
     INFO("Line sensor DDR setup successful.\n");
   } else {
     ERROR("Line sensor DDR setup FAILED!\n");
+		return 1;
   }
 
 	// init Engines sensor
@@ -606,7 +617,22 @@ int main(void) {
     INFO("Engine DDR setup successful.\n");
   } else {
     ERROR("Engine DDR setup FAILED!\n");
+		return 1;
   }
+
+	return 0;
+}
+
+int main(void) {
+
+	// Initialize
+	int rc = init_robi();
+	if (0 != rc) {
+		while (1) {
+			FATAL("Roboter initialization failed. Please fix and flash new firmware.\n");
+		}
+	}
+  INFO("USART working! Hooray!\n");
 
 	// main loop
 
@@ -617,20 +643,29 @@ int main(void) {
 	unsigned int LMR_delay = 0;
 
   while (1) {
-
-		// Update Inputs
-		
+		/*
+		 * Update Inputs
+		 */
     LF_detection_state lf_state_current = LF_get_states();
     if ((LF_detection_state)LF_UNDEFINED == lf_state_current) {
       WARNING("Sensor read failed\n");
 		}
-		INFO("Sensors state: %d\n", lf_state_current);
+		INFO_SPAM("Sensors state: %d\n", lf_state_current);
 
-		// Run Logic
+		/*
+		 * Run Logic
+		 */
 
 		// Controll Motors
 
 		ENGINE_drive_logic(lf_state_current, lf_state_old, &LMR_delay);
+
+		// Echo USART received
+		
+		if (UCSR0A & (1 << RXC0)) { // check if USART receive register got some thing
+			char received_byte = USART_receiveByte();
+			USART_transmitByte(received_byte);
+		}
 
 		// Update LED
 
@@ -643,6 +678,7 @@ int main(void) {
 		}
 
 		// Update lf_state_old
+		
 		lf_state_old = lf_state_current;
   }
 
