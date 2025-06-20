@@ -433,13 +433,16 @@ LF_detection_state LF_get_states() {
  * END LINIENFOLGER LOGIC
  ********************/
 
-
 /********************
  * START MOTOREN LOGIC
  ********************/
 
 // Forward delay configuration
+#if DEBUG_LEVEL <= DEBUG_LEVEL_INFO
 #define LMR_FORWARD_DELAY_IN_ITTERATIONS 1
+#else
+#define LMR_FORWARD_DELAY_IN_ITTERATIONS 20000
+#endif
 
 // H-Bridge Enable pins
 #define ENGINE_HB_ENA_DDR DDRD
