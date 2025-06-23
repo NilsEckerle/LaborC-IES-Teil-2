@@ -36,11 +36,7 @@ static void debug_printf(const char *prefix, const char *format, ...) {
   USART_print(debug_buffer);
 }
 
-#ifndef LOG_TEST
-#define LOG_PRINTF(format, ...) debug_printf(format, ##__VA_ARGS__)
-#else
 #define LOG_PRINTF(format, ...) printf(format, ##__VA_ARGS__)
-#endif // !LOG_TEST
 
 // TRACE: Very detailed execution flow
 #if LOG_LEVEL <= LOG_LEVEL_TRACE
