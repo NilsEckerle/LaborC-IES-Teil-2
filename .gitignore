@@ -1,8 +1,2 @@
-Bachmann/bin
-Bachmann/build
-testat1/.cache/clangd/index
-testat1/bin/program
-testat1/build/skeleton.o
-testat1/2
-*.hex
-!C_Robot_firmware.hex
+bin/
+build/
