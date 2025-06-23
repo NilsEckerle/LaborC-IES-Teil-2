@@ -13,22 +13,10 @@
 #include <util/delay.h>
 #include "logger.h"
 
+
 /********************
- * START SHIFT REGISTER LOGIC
+ * START LINIENFOLGER LOGIC
  ********************/
-
-#define SHIFT_DATA_DDR DDRB
-#define SHIFT_DATA_PORT PORTB
-#define SHIFT_DATA_PIN PINB
-#define SHIFT_DATA_BIT PINB2
-
-#define SHIFT_CLOCK_DDR DDRD
-#define SHIFT_CLOCK_PORT PORTD
-#define SHIFT_CLOCK_PIN PIND
-#define SHIFT_CLOCK_BIT PIND4
-
-#define SHIFT_HIGH 1
-#define SHIFT_LOW 0
 
 /**
  * @brief Enumeration representing line detection states from a 3-sensor line follower
@@ -45,181 +33,21 @@
  * @note LF_LR represents an edge case where only left and right sensors detect
  *       a line simultaneously, which may indicate a wide line, intersection,
  *       or sensor malfunction.
+ *       Enum member values got chosen for its bit representation to work with 
+ *       the shift register (last 3 bit representing Left Middle Right in this order).
  */
 typedef enum { 
-	LF_UNDEFINED,  /**< Invalid/uninitialized state or sensor read error */
-	LF_NONE,       /**< No sensors detect a line (000) */
-	LF_LMR,        /**< All sensors detect a line (111) - wide line or intersection */
-	LF_LR,         /**< Left and right sensors detect a line (101) - edge case */
-	LF_L,          /**< Only left sensor detects a line (100) */
-	LF_LM,         /**< Left and middle sensors detect a line (110) */
-	LF_M,          /**< Only middle sensor detects a line (010) - centered on line */
-	LF_MR,         /**< Middle and right sensors detect a line (011) */
-	LF_R           /**< Only right sensor detects a line (001) */
+	LF_UNDEFINED = 8,  /**< Invalid/uninitialized state or sensor read error */
+	LF_NONE = 0,       /**< No sensors detect a line (000) */
+	LF_LMR = 7,        /**< All sensors detect a line (111) - wide line or intersection */
+	LF_LR = 5,         /**< Left and right sensors detect a line (101) - edge case */
+	LF_L = 4,          /**< Only left sensor detects a line (100) */
+	LF_LM = 6,         /**< Left and middle sensors detect a line (110) */
+	LF_M = 2,          /**< Only middle sensor detects a line (010) - centered on line */
+	LF_MR = 3,         /**< Middle and right sensors detect a line (011) */
+	LF_R = 1           /**< Only right sensor detects a line (001) */
 } LF_detection_state;
 
-/**
- * @brief sets data pin high or low
- * @param value either SHIFT_HIGH or SHIFT_LOW, gets set into the pin
- * @return nothing, this function can't fail
- * */
-void _SHIFT_set_data_pin(unsigned int ui_value) {
-  SHIFT_DATA_PORT &= ~(1 << SHIFT_DATA_BIT); // enshure data pin is zero
-
-  // set data pin as needed
-  if (SHIFT_HIGH == ui_value) {
-    SHIFT_DATA_PORT |= (1 << SHIFT_DATA_BIT);
-  }
-  TRACE("Shift register Data set.\n");
-
-  return;
-}
-
-/**
- * @brief cicles the shift register one time
- * @return nothing, this function can't fail
- * */
-void _SHIFT_cicle() {
-  SHIFT_CLOCK_PORT &= ~(1 << SHIFT_CLOCK_BIT); // ensure clock pin is zero
-
-  // toggle clock
-  SHIFT_CLOCK_PORT |= (1 << SHIFT_CLOCK_BIT);
-  SHIFT_CLOCK_PORT &= ~(1 << SHIFT_CLOCK_BIT);
-  TRACE("Shift register cicle send.\n");
-
-  return;
-}
-
-/**
- * @brief pushes one bit into the shift register
- * on false input the modolo 2 of the number is pushed
- * @param value either SHIFT_HIGH or SHIFT_LOW
- * @return nothing, this function can't fail
- * */
-void SHIFT_push(unsigned int ui_value) {
-  unsigned int ui_value_to_push = ui_value % 2;
-
-  // set data
-  _SHIFT_set_data_pin(ui_value_to_push);
-
-  // toggle clock
-  _SHIFT_cicle();
-
-  return;
-}
-
-/**
- * @brief Converts line follower detection state to shift register output
- * @param lf_state The line follower detection state to convert and push
- * @return
- * 0 on success
- * 1 on invalid state (LF_UNDEFINED)
- * 
- * @note The function pushes 3 bits to the shift register representing
- *       Left, Middle, Right sensor states in that order.
- *       Each push sends one bit, with 1 = sensor active, 0 = sensor inactive.
- */
-int SHIFT_push_state(LF_detection_state lf_state) {
-  // Validate input state - reject undefined states
-  if ((LF_detection_state)LF_UNDEFINED == lf_state) {
-    ERROR("Invalid linienfolger state for SHIFT_push_state\n");
-    return 1;
-  }
-
-  // Convert detection state to shift register bit pattern
-  // Push order: Left sensor bit, Middle sensor bit, Right sensor bit
-	switch (lf_state) {
-		case (LF_detection_state)LF_NONE:
-			// No sensors active: 000
-			SHIFT_push(0);
-			SHIFT_push(0);
-			SHIFT_push(0);
-			break;
-			
-		case (LF_detection_state)LF_LMR:
-			// All sensors active: 111
-			SHIFT_push(1);
-			SHIFT_push(1);
-			SHIFT_push(1);
-			break;
-			
-		case (LF_detection_state)LF_L:
-			// Only left sensor active: 100
-			SHIFT_push(1);
-			SHIFT_push(0);
-			SHIFT_push(0);
-			break;
-			
-		case (LF_detection_state)LF_LM:
-			// Left and middle sensors active: 110
-			SHIFT_push(1);
-			SHIFT_push(1);
-			SHIFT_push(0);
-			break;
-			
-		case (LF_detection_state)LF_M:
-			// Only middle sensor active: 010
-			SHIFT_push(0);
-			SHIFT_push(1);
-			SHIFT_push(0);
-			break;
-			
-		case (LF_detection_state)LF_MR:
-			// Middle and right sensors active: 011
-			SHIFT_push(0);
-			SHIFT_push(1);
-			SHIFT_push(1);
-			break;
-			
-		case (LF_detection_state)LF_R:
-			// Only right sensor active: 001
-			SHIFT_push(0);
-			SHIFT_push(0);
-			SHIFT_push(1);
-			break;
-			
-		case (LF_detection_state)LF_LR:
-			// Left and right sensors active (edge case): 101
-			SHIFT_push(1);
-			SHIFT_push(0);
-			SHIFT_push(1);
-			break;
-	}
-
-  TRACE("State pushed to shift register\n");
-  return 0; // Success
-}
-
-/**
- * @brief Initializes DDR and Port of the shift register
- * @return nothing, this function can't fail
- * */
-void SHIFT_init() {
-  // set as output
-  SHIFT_DATA_DDR |= (1 << SHIFT_DATA_BIT);
-  SHIFT_CLOCK_DDR |= (1 << SHIFT_CLOCK_BIT);
-  TRACE("Shift register setup DDR of data and clock\n");
-
-  // set default as low
-  SHIFT_DATA_PORT &= ~(1 << SHIFT_DATA_BIT);
-  SHIFT_CLOCK_PORT &= ~(1 << SHIFT_CLOCK_BIT);
-  TRACE("Shift register initialized PORT of data and clock to low\n");
-
-  int rc = SHIFT_push_state((LF_detection_state)LF_NONE);
-  if (0 != rc) {
-    WARNING("Shift register push state failed");
-  }
-
-  return;
-}
-
-/********************
- * END SHIFT REGISTER LOGIC
- ********************/
-
-/********************
- * START LINIENFOLGER LOGIC
- ********************/
 
 #define LF_0_DDR DDRC
 #define LF_0_PORT PORTC

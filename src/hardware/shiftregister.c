@@ -1,0 +1,74 @@
+#include "hardware/shiftregister.h"
+#include "logger.h"
+#include <stdint.h>
+#include <util/delay.h>
+
+void _SHIFT_set_data_pin(unsigned int ui_value) {
+  SHIFT_DATA_PORT &= ~(1 << SHIFT_DATA_BIT); // ensure data pin is zero
+
+  // set data pin as needed
+  if (SHIFT_HIGH == ui_value) {
+		_delay_us(1);
+    SHIFT_DATA_PORT |= (1 << SHIFT_DATA_BIT);
+  }
+  TRACE("Shift register Data set.\n");
+
+  return;
+}
+
+void _SHIFT_cicle() {
+  SHIFT_CLOCK_PORT &= ~(1 << SHIFT_CLOCK_BIT); // ensure clock pin is zero
+	_delay_us(1);
+
+  // toggle clock
+  SHIFT_CLOCK_PORT |= (1 << SHIFT_CLOCK_BIT);
+	_delay_us(1);
+  SHIFT_CLOCK_PORT &= ~(1 << SHIFT_CLOCK_BIT);
+  TRACE("Shift register cicle send.\n");
+
+  return;
+}
+
+void SHIFT_push(unsigned int ui_value) {
+  unsigned int ui_value_to_push = ui_value % 2;
+
+  // set data
+  _SHIFT_set_data_pin(ui_value_to_push);
+
+  // toggle clock
+  _SHIFT_cicle();
+
+  return;
+}
+
+void SHIFT_push_state(uint8_t bitstring_to_push) {
+	for (int i = 3; 0 < i; i--) { // itterate over last 3 bits
+		int mask = (1 << i);
+		int masked_bitstring = bitstring_to_push & mask;
+
+		if (masked_bitstring > 0) {
+			SHIFT_push(1);
+		} else {
+			SHIFT_push(0);
+		}
+	}
+
+  return;
+}
+
+void SHIFT_init() {
+  // set as output
+  SHIFT_DATA_DDR |= (1 << SHIFT_DATA_BIT);
+  SHIFT_CLOCK_DDR |= (1 << SHIFT_CLOCK_BIT);
+  TRACE("Shift register setup DDR of data and clock\n");
+
+  // set default as low
+  SHIFT_DATA_PORT &= ~(1 << SHIFT_DATA_BIT);
+  SHIFT_CLOCK_PORT &= ~(1 << SHIFT_CLOCK_BIT);
+  TRACE("Shift register initialized PORT of data and clock to low\n");
+
+  SHIFT_push_state(0);
+  INFO("Shift register initialized and 000 send to it.\n");
+
+  return;
+}
