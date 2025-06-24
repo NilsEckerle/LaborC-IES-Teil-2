@@ -1,5 +1,5 @@
-#include "hardware/linienfolger.h"
 #include "logger.h"
+#include "hardware/linienfolger.h"
 
 void LF_init() {
 	// set DDR as input

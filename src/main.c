@@ -6,7 +6,6 @@
  * -Nils Eckerle 2025-06-20 
  */
 
-#define LOG_LEVEL LOG_LEVEL_DISABLED
 
 // #define F_CPU 16E6
 #include "iesusart.h"
@@ -17,10 +16,6 @@
 #include "hardware/shiftregister.h"
 #include "hardware/linienfolger.h"
 #include "hardware/engine.h"
-
-/********************
- * START MAIN LOGIC 
- ********************/
 
 /**
  * @brief Initializes all robot subsystems in proper sequence
@@ -156,7 +151,3 @@ int main(void) {
   
   return 0; // Never reached due to infinite loop
 }
-
-/********************
- * END MAIN LOGIC 
- ********************/

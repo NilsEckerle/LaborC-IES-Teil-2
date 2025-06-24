@@ -1,5 +1,5 @@
-#include "hardware/shiftregister.h"
 #include "logger.h"
+#include "hardware/shiftregister.h"
 #include <stdint.h>
 #include <util/delay.h>
 

@@ -2,6 +2,7 @@
 #define ENGINE_H
 
 #include <avr/io.h>
+#include <stdint.h>
 #include "hardware/linienfolger.h"
 
 // Drive Forward delay configuration
@@ -47,6 +48,10 @@
 #define ENGINE_HB_IN4_PIN PINB
 #define ENGINE_HB_IN4_BIT 3
 
+// PWM
+#define ENGINE_PWM_LEFT 0
+#define ENGINE_PWM_RIGHT 1
+
 /**
  * @brief Enumeration representing robot movement directions
  * 
@@ -84,6 +89,26 @@ typedef enum {
  * @note After initialization, motors are enabled but stopped (direction pins not set)
  */
 void ENGINE_init();
+
+/**
+ * @brief Initializes motor pulse width modulation (pwm) system
+ * 
+ * Sets up pins for H-bridge pwm control.
+ * 
+ * @return nothing, this function can't fail.
+ */
+void ENGINE_init_pwm();
+
+/**
+ * @brief sets the dudy cicle of the pwm for the engine.
+ *
+ * @param ui8_side (ENGINE_PWM_LEFT/ENGINE_PWM_RIGHT) is the side which the pwm is set.
+ * @param ui8_pwm_compare_value (0 - 255 = 0% - 100%) is the compare value for the pwm clock.
+ *
+ * @return nothing, this function can't fail.
+ */
+void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value);
+
 
 /**
  * @brief Controls robot movement direction
