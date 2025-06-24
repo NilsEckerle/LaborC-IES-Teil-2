@@ -6,6 +6,8 @@
  * -Nils Eckerle 2025-06-20 
  */
 
+// #define LOG_LEVEL LOG_LEVEL_TRACE
+
 // #define F_CPU 16E6
 #include "iesusart.h"
 #include <avr/io.h>
@@ -382,7 +384,7 @@ int main(void) {
 	}
 	
   INFO("Robi initialized! Hooray!\n");
-  
+
 	// Main control loop variables
 	// State change detection for performance optimization
   LF_detection_state lf_state_old = (LF_detection_state)LF_UNDEFINED;
