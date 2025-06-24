@@ -12,168 +12,9 @@
 #include <stdlib.h>
 #include <util/delay.h>
 #include "logger.h"
+#include "hardware/shiftregister.h"
+#include "hardware/linienfolger.h"
 
-
-/********************
- * START LINIENFOLGER LOGIC
- ********************/
-
-/**
- * @brief Enumeration representing line detection states from a 3-sensor line follower
- * 
- * This enum defines the possible states detected by a line following sensor array
- * consisting of three sensors arranged as Left (L), Middle (M), and Right (R).
- * Each state represents which combination of sensors detect a line.
- * 
- * The sensors are mapped as follows:
- * - L (Left): Sensor 0 (LF_0)
- * - M (Middle): Sensor 1 (LF_1) 
- * - R (Right): Sensor 2 (LF_2)
- * 
- * @note LF_LR represents an edge case where only left and right sensors detect
- *       a line simultaneously, which may indicate a wide line, intersection,
- *       or sensor malfunction.
- *       Enum member values got chosen for its bit representation to work with 
- *       the shift register (last 3 bit representing Left Middle Right in this order).
- */
-typedef enum { 
-	LF_UNDEFINED = 8,  /**< Invalid/uninitialized state or sensor read error */
-	LF_NONE = 0,       /**< No sensors detect a line (000) */
-	LF_LMR = 7,        /**< All sensors detect a line (111) - wide line or intersection */
-	LF_LR = 5,         /**< Left and right sensors detect a line (101) - edge case */
-	LF_L = 4,          /**< Only left sensor detects a line (100) */
-	LF_LM = 6,         /**< Left and middle sensors detect a line (110) */
-	LF_M = 2,          /**< Only middle sensor detects a line (010) - centered on line */
-	LF_MR = 3,         /**< Middle and right sensors detect a line (011) */
-	LF_R = 1           /**< Only right sensor detects a line (001) */
-} LF_detection_state;
-
-
-#define LF_0_DDR DDRC
-#define LF_0_PORT PORTC
-#define LF_0_PIN PINC
-#define LF_0_BIT PINC0
-
-#define LF_1_DDR DDRC
-#define LF_1_PORT PORTC
-#define LF_1_PIN PINC
-#define LF_1_BIT PINC1
-
-#define LF_2_DDR DDRC
-#define LF_2_PORT PORTC
-#define LF_2_PIN PINC
-#define LF_2_BIT PINC2
-
-/**
- * @brief setup DDR and PORT of input pins
- * @return nothing, this function can't fail
- */
-void LF_init() {
-	// set DDR as input
-  LF_0_DDR &= ~(1 << LF_0_BIT);
-  LF_1_DDR &= ~(1 << LF_1_BIT);
-  LF_2_DDR &= ~(1 << LF_2_BIT);
-
-	// set input as pull-up (so i need a HIGH to get a 1)
-  LF_0_PORT |= (1 << LF_0_BIT);
-  LF_1_PORT |= (1 << LF_1_BIT);
-  LF_2_PORT |= (1 << LF_2_BIT);
-
-  return;
-}
-
-/**
- * @brief gets the state of the line sensor of index
- * @param ui_lf_index is the index of the line sensor
- * @return the sensor state (0 or 1) on success, -1 on failure 
- * e.g. index not valid
- */
-int LF_get_state(unsigned int ui_lf_index) {
-  switch (ui_lf_index) {
-  case 0:
-    return (LF_0_PIN & (1 << LF_0_BIT)) ? 1 : 0;
-  case 1:
-    return (LF_1_PIN & (1 << LF_1_BIT)) ? 1 : 0;
-  case 2:
-    return (LF_2_PIN & (1 << LF_2_BIT)) ? 1 : 0;
-  default:
-    ERROR("Invalid line follower sensor index: %u\n", ui_lf_index);
-    break;
-  }
-
-  return -1; // return error
-}
-
-/**
- * @brief converts a bitstring of 3 bits (starting at LSB) to a LF_detection_state
- * @return the converted state
- */
-LF_detection_state LF_bitstring_to_state(unsigned int ui_lf_detection_bitstring) {
-  // sanitize input
-	unsigned int mask = 0;
-	mask |= (1 << 0);
-	mask |= (1 << 1);
-	mask |= (1 << 2);
-	unsigned int ui_cleaned_lf_detection_bitstring = ui_lf_detection_bitstring & mask;
-
-	// a lot of magic numbers representing the different bit strings 
-	// e.g. 6 = b_110 = left & middle
-	switch (ui_cleaned_lf_detection_bitstring) {
-		case 0: // no lf sees line
-			return (LF_detection_state)LF_NONE;
-		case 1: // right lf sees line
-			return (LF_detection_state)LF_R;
-		case 2: // middle lf sees line
-			return (LF_detection_state)LF_M;
-		case 3: // middle, right lf sees line
-			return (LF_detection_state)LF_MR;
-		case 4: // left lf sees line
-			return (LF_detection_state)LF_L;
-		case 5: // left, right lf sees line (not possible)
-			return (LF_detection_state)LF_LR;
-		case 6: // left, middle lf sees line
-			return (LF_detection_state)LF_LM;
-		case 7: // left, middle, right lf sees line
-			return (LF_detection_state)LF_LMR;
-	}
-
-	return (LF_detection_state)LF_UNDEFINED;
-}
-
-/**
- * @brief Reads all three line follower sensor states and stores them in output array
- * @param uiarray_output Pointer to array of 3 unsigned int elements [left, center, right]
- * @return LF_detection_state
- */
-LF_detection_state LF_get_states() {
-	// get new sensor readings
-  TRACE("Reading all line follower sensor states\n");
-  int i_lf0_state = LF_get_state(0);
-  int i_lf1_state = LF_get_state(1);
-  int i_lf2_state = LF_get_state(2);
-
-  TRACE("LF0 state: %i\n", i_lf0_state);
-  TRACE("LF1 state: %i\n", i_lf1_state);
-  TRACE("LF2 state: %i\n", i_lf2_state);
-
-  // Validate all sensor readings
-  if (i_lf0_state < 0 || i_lf1_state < 0 || i_lf2_state < 0) {
-    ERROR("Reading line sensor states failed - sensor errors detected\n");
-    return (LF_detection_state)LF_UNDEFINED;
-  }
-
-  // Store valid results in output array
-	unsigned int lf_state_bitstring = 0;
-  lf_state_bitstring |= (i_lf0_state << 0);
-  lf_state_bitstring |= (i_lf1_state << 1);
-  lf_state_bitstring |= (i_lf2_state << 2);
-
-  return LF_bitstring_to_state(lf_state_bitstring);
-}
-
-/********************
- * END LINIENFOLGER LOGIC
- ********************/
 
 /********************
  * START MOTOREN LOGIC
@@ -286,7 +127,6 @@ void ENGINE_init() {
  *       - Stop: Both direction pins low
  */
  void ENGINE_drive(ENGINE_drive_direction direction){
-	INFO("");
 	switch (direction) {
 		case ENGINE_STOP:
 			INFO("Robi is: STOP\n");
@@ -356,6 +196,9 @@ void ENGINE_init() {
 			// Right motors stop
 			ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
 			ENGINE_HB_IN4_PORT &= ~(1 << ENGINE_HB_IN4_BIT);
+			break;
+
+		case ENGINE_UNDEFINED:
 			break;
 	}
 
@@ -591,11 +434,7 @@ int main(void) {
 			if (LF_UNDEFINED != lf_state_old) { // TODO: remove this auto start logic
 				ui_robi_has_moved = 1;
 			}
-			rc = SHIFT_push_state(lf_state_current);
-			if (0 != rc) {
-				WARNING("Failed to push states to shift register\n");
-				// Non-critical - continue operation without LED updates
-			}
+			SHIFT_push_state(lf_state_current);
 		}
 		
 		// Update state tracking for next iteration

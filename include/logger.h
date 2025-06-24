@@ -1,3 +1,6 @@
+#ifndef LOGGER_H
+#define LOGGER_H
+
 #include "iesusart.h"
 #include <stdarg.h>
 #include <stdio.h>
@@ -21,7 +24,8 @@
 static char debug_buffer[256];
 
 // Helper function for formatted debug output
-static void debug_printf(const char *prefix, const char *format, ...) {
+// Use __attribute__((unused)) to suppress unused function warnings
+static void __attribute__((unused)) debug_printf(const char *prefix, const char *format, ...) {
   va_list args;
   va_start(args, format);
 
@@ -36,46 +40,46 @@ static void debug_printf(const char *prefix, const char *format, ...) {
   USART_print(debug_buffer);
 }
 
-#define LOG_PRINTF(format, ...) printf(format, ##__VA_ARGS__)
-
 // TRACE: Very detailed execution flow
 #if LOG_LEVEL <= LOG_LEVEL_TRACE
-#define TRACE(format, ...) LOG_PRINTF("[TRACE] ", format, ##__VA_ARGS__)
+#define TRACE(format, ...) debug_printf("[TRACE] ", format, ##__VA_ARGS__)
 #else
 #define TRACE(format, ...) ((void)0)
 #endif
 
 // INFO_SPAM: General information whith high apperence volume
 #if LOG_LEVEL <= LOG_LEVEL_INFO_SPAM
-#define INFO_SPAM(format, ...) LOG_PRINTF("[INFO] ", format, ##__VA_ARGS__)
+#define INFO_SPAM(format, ...) debug_printf("[INFO] ", format, ##__VA_ARGS__)
 #else
 #define INFO_SPAM(format, ...) ((void)0)
 #endif
 
 // INFO: General information
 #if LOG_LEVEL <= LOG_LEVEL_INFO
-#define INFO(format, ...) LOG_PRINTF("[INFO] ", format, ##__VA_ARGS__)
+#define INFO(format, ...) debug_printf("[INFO] ", format, ##__VA_ARGS__)
 #else
 #define INFO(format, ...) ((void)0)
 #endif
 
 // WARNING: Something unusual but not critical
 #if LOG_LEVEL <= LOG_LEVEL_WARNING
-#define WARNING(format, ...) LOG_PRINTF("[WARN] ", format, ##__VA_ARGS__)
+#define WARNING(format, ...) debug_printf("[WARN] ", format, ##__VA_ARGS__)
 #else
 #define WARNING(format, ...) ((void)0)
 #endif
 
 // ERROR: Something went wrong but program can continue
 #if LOG_LEVEL <= LOG_LEVEL_ERROR
-#define ERROR(format, ...) LOG_PRINTF("[ERROR] ", format, ##__VA_ARGS__)
+#define ERROR(format, ...) debug_printf("[ERROR] ", format, ##__VA_ARGS__)
 #else
 #define ERROR(format, ...) ((void)0)
 #endif
 
 // FATAL: Critical error, program should stop
 #if LOG_LEVEL <= LOG_LEVEL_FATAL
-#define FATAL(format, ...) LOG_PRINTF("[FATAL] ", format, ##__VA_ARGS__)
+#define FATAL(format, ...) debug_printf("[FATAL] ", format, ##__VA_ARGS__)
 #else
 #define FATAL(format, ...) ((void)0)
 #endif
+
+#endif // LOGGER_H
