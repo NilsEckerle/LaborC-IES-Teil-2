@@ -14,8 +14,6 @@
 #define LOG_LEVEL_FATAL 5
 #define LOG_LEVEL_DISABLE 100
 
-#define LOG_LEVEL LOG_LEVEL_DISABLE
-
 #ifndef LOG_LEVEL
 #define LOG_LEVEL LOG_LEVEL_ERROR
 #endif /* ifndef LOG_LEVEL */
@@ -49,7 +47,7 @@ static void __attribute__((unused)) debug_printf(const char *prefix, const char 
 
 // INFO_SPAM: General information whith high apperence volume
 #if LOG_LEVEL <= LOG_LEVEL_INFO_SPAM
-#define INFO_SPAM(format, ...) debug_printf("[INFO] ", format, ##__VA_ARGS__)
+#define INFO_SPAM(format, ...) debug_printf("[SPAM] ", format, ##__VA_ARGS__)
 #else
 #define INFO_SPAM(format, ...) ((void)0)
 #endif
