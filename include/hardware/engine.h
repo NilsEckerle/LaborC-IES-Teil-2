@@ -147,10 +147,10 @@ void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value);
  *       - LF_LMR: start/end handling with delay
  *       - LF_LR/LF_UNDEFINED: Error states, stop robot
  */
-int ENGINE_drive_logic(
+uint8_t ENGINE_drive_logic(
 		LF_detection_state new_lf_state, 
 		LF_detection_state old_lf_state, 
-		unsigned int *LMR_itterations_since_entry
+		uint16_t *LMR_itterations_since_entry
 		);
 
 

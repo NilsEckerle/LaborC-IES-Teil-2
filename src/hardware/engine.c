@@ -192,10 +192,10 @@ void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value) {
 	return;
 }
 
-int ENGINE_drive_logic(
+uint8_t ENGINE_drive_logic(
 		LF_detection_state new_lf_state, 
 		LF_detection_state old_lf_state, 
-		unsigned int *LMR_itterations_since_entry
+		uint16_t *LMR_itterations_since_entry
 		){
 	// Optimize performance: only change direction when sensor state changes
 	// Exception: LF_LMR always processes (intersection handling)

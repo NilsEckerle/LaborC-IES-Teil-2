@@ -10,6 +10,7 @@
 // #define F_CPU 16E6
 #include "iesusart.h"
 #include <avr/io.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <util/delay.h>
 #include "logger.h"
@@ -34,7 +35,7 @@
  * 
  * @note Initialization order is important - USART must be first for error reporting
  */
-static int init_robi() {
+static uint8_t init_robi() {
 	// Initialize USART communication (required first for debug output)
   USART_init(UBRR_SETTING);
 	INFO("USART init successful.\n");
@@ -77,7 +78,7 @@ static void start_robi() {
  */
 int main(void) {
 	// Initialize all robot subsystems
-	int rc = init_robi();
+	uint8_t rc = init_robi();
 	
 	// Handle initialization failure - enter safe error state
 	if (0 != rc) { 
@@ -96,9 +97,9 @@ int main(void) {
   LF_detection_state lf_state_old = (LF_detection_state)LF_UNDEFINED;
   
 	// Intersection delay counter for LMR state handling
-	unsigned int LMR_delay = 0;
+	uint16_t LMR_delay = 0;
 
-	unsigned int ui_robi_has_moved = 0;
+	uint8_t ui_robi_has_moved = 0;
 	
   // Infinite main control loop
   while (1) {

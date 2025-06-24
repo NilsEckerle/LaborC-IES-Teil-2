@@ -19,7 +19,7 @@
  * @param value either SHIFT_HIGH or SHIFT_LOW, gets set into the pin
  * @return nothing, this function can't fail
  * */
-void _SHIFT_set_data_pin(unsigned int ui_value);
+void _SHIFT_set_data_pin(uint8_t ui_value);
 
 /**
  * @brief cicles the shift register one time
@@ -33,7 +33,7 @@ void _SHIFT_cicle();
  * @param value either SHIFT_HIGH or SHIFT_LOW
  * @return nothing, this function can't fail
  * */
-void SHIFT_push(unsigned int ui_value);
+void SHIFT_push(uint8_t ui_value);
 
 /**
  * @brief Converts line follower detection state to shift register output

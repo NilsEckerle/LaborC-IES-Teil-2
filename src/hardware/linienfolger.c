@@ -1,4 +1,5 @@
 #include "logger.h"
+#include <stdint.h>
 #include "hardware/linienfolger.h"
 
 void LF_init() {
@@ -15,7 +16,7 @@ void LF_init() {
   return;
 }
 
-int LF_get_state(unsigned int ui_lf_index) {
+int8_t LF_get_state(uint8_t ui_lf_index) {
   switch (ui_lf_index) {
   case 0:
     return (LF_0_PIN & (1 << LF_0_BIT)) ? 1 : 0;
@@ -31,7 +32,7 @@ int LF_get_state(unsigned int ui_lf_index) {
   return -1; // return error
 }
 
-LF_detection_state LF_bitstring_to_state(unsigned int ui_lf_detection_bitstring) {
+LF_detection_state LF_bitstring_to_state(uint8_t ui_lf_detection_bitstring) {
 	if (ui_lf_detection_bitstring > 7) {
 		return (LF_detection_state)LF_UNDEFINED;
 	}
@@ -43,9 +44,9 @@ LF_detection_state LF_bitstring_to_state(unsigned int ui_lf_detection_bitstring)
 LF_detection_state LF_get_states() {
 	// get new sensor readings
   TRACE("Reading all line follower sensor states\n");
-  int i_lf0_state = LF_get_state(0);
-  int i_lf1_state = LF_get_state(1);
-  int i_lf2_state = LF_get_state(2);
+  int8_t i_lf0_state = LF_get_state(0);
+  int8_t i_lf1_state = LF_get_state(1);
+  int8_t i_lf2_state = LF_get_state(2);
 
   TRACE("LF0 state: %i\n", i_lf0_state);
   TRACE("LF1 state: %i\n", i_lf1_state);
@@ -58,7 +59,7 @@ LF_detection_state LF_get_states() {
   }
 
   // Store valid results in output array
-	unsigned int lf_state_bitstring = 0;
+	uint8_t lf_state_bitstring = 0;
   lf_state_bitstring |= (i_lf0_state << 0);
   lf_state_bitstring |= (i_lf1_state << 1);
   lf_state_bitstring |= (i_lf2_state << 2);

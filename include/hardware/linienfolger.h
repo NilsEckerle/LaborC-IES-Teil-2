@@ -2,6 +2,7 @@
 #define LINIENFOLGER_H
 
 #include <avr/io.h>
+#include <stdint.h>
 
 // Linienfolger 0 (left)
 #define LF_0_DDR DDRC
@@ -66,13 +67,13 @@ void LF_init();
  * @return the sensor state (0 or 1) on success, -1 on failure 
  * e.g. index not valid
  */
-int LF_get_state(unsigned int ui_lf_index);
+int8_t LF_get_state(uint8_t ui_lf_index);
 
 /**
  * @brief converts a bitstring of 3 bits (starting at LSB) to a LF_detection_state
  * @return the converted state
  */
-LF_detection_state LF_bitstring_to_state(unsigned int ui_lf_detection_bitstring);
+LF_detection_state LF_bitstring_to_state(uint8_t ui_lf_detection_bitstring);
 
 /**
  * @brief Reads all three line follower sensor states and stores them in output array

@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <util/delay.h>
 
-void _SHIFT_set_data_pin(unsigned int ui_value) {
+void _SHIFT_set_data_pin(uint8_t ui_value) {
 	_delay_us(1);
   SHIFT_DATA_PORT &= ~(1 << SHIFT_DATA_BIT); // ensure data pin is zero
 
@@ -31,8 +31,8 @@ void _SHIFT_cicle() {
   return;
 }
 
-void SHIFT_push(unsigned int ui_value) {
-  unsigned int ui_value_to_push = ui_value % 2;
+void SHIFT_push(uint8_t ui_value) {
+  uint8_t ui_value_to_push = ui_value % 2;
 
   // set data
   _SHIFT_set_data_pin(ui_value_to_push);
@@ -44,9 +44,9 @@ void SHIFT_push(unsigned int ui_value) {
 }
 
 void SHIFT_push_state(uint8_t bitstring_to_push) {
-	for (int i = 3; 0 < i; i--) { // itterate over last 3 bits
-		int mask = (1 << (i-1));
-		int masked_bitstring = bitstring_to_push & mask;
+	for (int8_t i = 3; 0 < i; i--) { // itterate over last 3 bits
+		uint8_t mask = (1 << (i-1));
+		uint8_t masked_bitstring = bitstring_to_push & mask;
 
 		if (masked_bitstring > 0) {
 			SHIFT_push(1);
