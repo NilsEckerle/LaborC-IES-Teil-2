@@ -79,5 +79,19 @@ int main() {
 		return 1;
 	}
 
+	// configure states
+	state_print_hello.add_edge(&state_print_hello, condition_hello_to_good_by, state_print_hello.unique_name);
+	state_print_hello.add_edge(&state_print_hello, condition_hello_to_error, state_print_error.unique_name);
+	state_print_hello.add_edge(&state_print_good_by, condition_good_by_to_error, state_print_error.unique_name);
+
+	// configure state machine
+	state_machine.add_error_state(&state_machine, &state_print_error);
+	state_machine.add_state(&state_machine, &state_print_hello);
+	state_machine.add_state(&state_machine, &state_print_good_by);
+
+	state_machine.set_start_state(&state_machine, state_print_hello.unique_name);
+
+	state_machine.run(&state_machine);
+
 	return 0;
 }

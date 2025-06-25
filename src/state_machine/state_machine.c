@@ -15,7 +15,7 @@ static void *find_state_by_name_callback(struct DTO_linked_list_itterate_find *d
 		return NULL;
 	}
 
-	if (strcmp(dto_found->state_name_to_find, state_to_check->unique_name)) {
+	if (0 == strcmp(dto_found->state_name_to_find, state_to_check->unique_name)) {
 		*dto_found->found_state_return_register = state_to_check;
 	}
 
@@ -25,6 +25,7 @@ static void *find_state_by_name_callback(struct DTO_linked_list_itterate_find *d
 static t_state *find_state_by_name(t_linked_list_node *head, char *state_name_to_find) {
 	struct DTO_linked_list_itterate_find *dto = {0};
 	dto->state_name_to_find = state_name_to_find;
+	dto->found_state_return_register = NULL;
 
 	linked_list_itterate_function(head, find_state_by_name_callback, dto);
 
@@ -52,6 +53,7 @@ int8_t add_state(t_state_machine *inst, t_state *new_state) {
 
 	// add the state
 	linked_list_prepend_node(&inst->tp_head_states, new_state);
+	return 0;
 }
 
 int8_t add_error_state(t_state_machine *inst, t_state *new_state) {
@@ -69,6 +71,7 @@ int8_t add_error_state(t_state_machine *inst, t_state *new_state) {
 int8_t set_start_state(t_state_machine *inst, char *start_state_name) {
 	struct DTO_linked_list_itterate_find *dto = {0};
 	dto->state_name_to_find = start_state_name;
+	dto->found_state_return_register = NULL;
 
 	t_state *state = find_state_by_name(inst->tp_head_states, start_state_name);
 	if (NULL == state) {
@@ -88,7 +91,7 @@ int8_t set_current_state(t_state_machine *inst, char *new_state_name) {
 		free(inst->cp_current_state_name);
 	}
 
-	inst->cp_current_state_name = malloc(strlen(new_state_name));
+	inst->cp_current_state_name = malloc(strlen(new_state_name)+1);
 	if (inst->cp_current_state_name == NULL) {
 		WARNING("set_current_state: malloc failed!\n");
 		return 1;
