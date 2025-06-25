@@ -46,7 +46,7 @@ int8_t add_state(t_state_machine *inst, t_state *new_state) {
 	// check duplicate
 	t_state *state = find_state_by_name(inst->tp_head_states, new_state->unique_name);
 	if (NULL != state) {
-		WARNING("add_state: state %s already exist.\n", start_state_name);
+		WARNING("add_state: state %s already exist.\n", new_state->unique_name);
 		return 2;
 	}
 

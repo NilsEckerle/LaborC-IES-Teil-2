@@ -1,5 +1,6 @@
+#include "tools/iesusart.h"
 #include <stdint.h>
-#define LOG_LEVEL LOG_LEVEL_INFO_SPAM
+#define LOG_LEVEL LOG_LEVEL_INFO_TRACE
 #include "tools/logger.h"
 #include "state_machine/state_machine.h"
 #include "state_machine/state.h"
@@ -44,6 +45,9 @@ uint8_t condition_good_by_to_error() {
 }
 
 int main() {
+	USART_init(UBRR_SETTING);
+	USART_print("USART_init");
+
 	// init state machine
 	t_state_machine state_machine;
 	int8_t rc = STATE_MACHINE_constructor(&state_machine);
@@ -74,8 +78,6 @@ int main() {
 		FATAL("Failed to construct state.\n");
 		return 1;
 	}
-
-
 
 	return 0;
 }

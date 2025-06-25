@@ -15,7 +15,7 @@
 #define LOG_LEVEL_DISABLE 100
 
 #ifndef LOG_LEVEL
-#define LOG_LEVEL LOG_LEVEL_ERROR
+#define LOG_LEVEL LOG_LEVEL_TRACE
 #endif /* ifndef LOG_LEVEL */
 
 // Buffer for formatted debug messages
