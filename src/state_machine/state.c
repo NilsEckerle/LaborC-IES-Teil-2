@@ -24,7 +24,6 @@ int8_t add_edge(t_state *inst, uint8_t (*condition)(), char *next_state_name) {
 	// create edge
 	t_edge *edge = malloc(sizeof(t_edge));
 	if (edge == NULL) { // malloc failed
-		free(edge);
 		WARNING("add_edge: edge malloc failed!\n");
 		return 2; 
 	}
@@ -35,8 +34,6 @@ int8_t add_edge(t_state *inst, uint8_t (*condition)(), char *next_state_name) {
 	// set state_name
 	edge->state_name = malloc(strlen(next_state_name)+1);
 	if (edge == NULL) { 
-
-		free(edge);
 		WARNING("add_edge: edge->state_name malloc failed!\n");
 		return 2; 
 	} // malloc failed

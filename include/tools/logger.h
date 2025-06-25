@@ -18,12 +18,10 @@
 #define LOG_LEVEL LOG_LEVEL_TRACE
 #endif /* ifndef LOG_LEVEL */
 
-// Buffer for formatted debug messages
-static char debug_buffer[256];
-
 // Helper function for formatted debug output
 // Use __attribute__((unused)) to suppress unused function warnings
 static void __attribute__((unused)) debug_printf(const char *prefix, const char *format, ...) {
+	char debug_buffer[256];
   va_list args;
   va_start(args, format);
 

@@ -58,5 +58,10 @@ add_custom_command(TARGET firmware.elf POST_BUILD
     COMMENT "Creating hex and binary files"
 )
 
+# Add this after your target definition
+add_custom_command(TARGET firmware.elf POST_BUILD
+    COMMAND ${CMAKE_SIZE} $<TARGET_FILE:firmware.elf>
+    COMMENT "Memory usage:")
+
 # Create bin directory
 file(MAKE_DIRECTORY ${BIN_DIR})

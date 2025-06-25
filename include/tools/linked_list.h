@@ -1,9 +1,6 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
-#include <stdio.h>
-#include <stdlib.h>
-
 /**
  * @struct st_linked_list_node
  * @brief Linked list node for Entry structures.
