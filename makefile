@@ -5,4 +5,7 @@ build:
 clean:
 	@rm -rf build
 
-.PHONY: build clean
+flash_simulide: clean build
+	avrdude -c arduino -p atmega328p -P /dev/tnt2 -b 115200 -U flash:w:bin/firmware.hex
+
+.PHONY: build clean flash_simulide
