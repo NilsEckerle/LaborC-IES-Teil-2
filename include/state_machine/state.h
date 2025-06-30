@@ -2,7 +2,7 @@
 #define STATE_H
 
 #include <stdint.h>
-#include "tools/linked_list.h"
+#include "tools/dynamic_array.h"
 
 typedef struct state_machine t_state_machine;
 
@@ -13,7 +13,7 @@ typedef struct edge {
 
 typedef struct state {
 	char *unique_name;
-	t_linked_list_node *head_edges;
+	t_dyn_arr *tdynarr_edges;
 
 	int8_t (*add_edge)(struct state *inst, uint8_t (*condition)(), char *next_state_name);
 	void (*on_entry)(struct state *inst);
@@ -28,7 +28,7 @@ void check_edges(t_state *inst, t_state_machine *state_machine);
 
 int8_t STATE_constructor(
 		t_state *inst,
-		char *unique_state_name,
+		const char *unique_state_name,
 		void (*on_entry)(struct state *inst), 
 		void (*on_update)(struct state *inst));
 

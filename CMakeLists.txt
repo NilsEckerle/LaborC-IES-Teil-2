@@ -19,7 +19,7 @@ set(CMAKE_OBJCOPY avr-objcopy)
 set(CMAKE_SIZE avr-size)
 
 # Compiler flags
-set(CMAKE_C_FLAGS "-mmcu=${MCU} -DF_CPU=${F_CPU} -Os -Wall -Wextra -std=c99")
+set(CMAKE_C_FLAGS "-mmcu=${MCU} -DF_CPU=${F_CPU} -Os -Wall -Wextra -std=gnu99")
 
 # Include directories (recursively include all subdirectories)
 include_directories(${INCLUDE_DIR})

@@ -15,26 +15,12 @@
 #define LOG_LEVEL_DISABLE 100
 
 #ifndef LOG_LEVEL
-#define LOG_LEVEL LOG_LEVEL_TRACE
+#define LOG_LEVEL LOG_LEVEL_FATAL
 #endif /* ifndef LOG_LEVEL */
 
 // Helper function for formatted debug output
 // Use __attribute__((unused)) to suppress unused function warnings
-static void __attribute__((unused)) debug_printf(const char *prefix, const char *format, ...) {
-	char debug_buffer[256];
-  va_list args;
-  va_start(args, format);
-
-  // Format the message
-  snprintf(debug_buffer, sizeof(debug_buffer), "%s", prefix);
-  vsnprintf(debug_buffer + strlen(debug_buffer),
-            sizeof(debug_buffer) - strlen(debug_buffer), format, args);
-
-  va_end(args);
-
-  // Send to USART
-  USART_print(debug_buffer);
-}
+void __attribute__((unused)) debug_printf(const char *prefix, const char *format, ...);
 
 // TRACE: Very detailed execution flow
 #if LOG_LEVEL <= LOG_LEVEL_TRACE

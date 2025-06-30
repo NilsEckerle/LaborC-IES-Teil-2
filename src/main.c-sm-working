@@ -1,0 +1,143 @@
+#include <stdint.h>
+#define LOG_LEVEL LOG_LEVEL_INFO_SPAM
+#include "tools/logger.h"
+#include "state_machine/state_machine.h"
+#include "state_machine/state.h"
+#include "tools/iesusart.h"
+#include <avr/io.h>
+#include "hardware/linienfolger.h"
+
+void print_hello_on_entry(t_state *inst) {
+	INFO_SPAM("hello_print state was entered.\n");
+}
+
+void print_hello_on_update(t_state *inst) {
+	INFO_SPAM("hello_print update.\n");
+}
+
+void print_good_by_on_entry(t_state *inst) {
+	INFO_SPAM("good_by_print state was entered.\n");
+}
+
+void print_good_by_on_update(t_state *inst) {
+	INFO_SPAM("good_by_print update.\n");
+}
+
+void print_error_on_entry(t_state *inst) {
+	INFO_SPAM("error_print state was entered.\n");
+}
+
+void print_error_on_update(t_state *inst) {
+	INFO_SPAM("error_print update.\n");
+}
+
+uint8_t condition_hello_to_good_by() {
+	if (LF_get_states() == (LF_detection_state)LF_NONE) {
+		return 1;
+	}
+
+	return 0;
+}
+
+uint8_t condition_hello_to_error() {
+	if (UCSR0A & (1 << RXC0)) { // Check if data available in receive buffer
+		char received_byte = USART_receiveByte();
+		if (received_byte == 'e') {
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
+uint8_t condition_good_by_to_error() {
+	if (UCSR0A & (1 << RXC0)) { // Check if data available in receive buffer
+		char received_byte = USART_receiveByte();
+		if (received_byte == 'e') {
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
+uint8_t condition_good_by_to_hello() {
+	if (LF_get_states() == (LF_detection_state)LF_LMR) {
+		return 1;
+	}
+
+	return 0;
+}
+
+int main() {
+	USART_init(UBRR_SETTING);
+	USART_print("USART_init\n");
+
+	LF_init();
+
+	//
+	// dump_sram();
+	// dump_io_registers();
+	// dump_variables_region();
+	//
+	// return 1;
+
+	// init state machine
+	t_state_machine state_machine;
+	int8_t rc = STATE_MACHINE_constructor(&state_machine);
+	if (0 != rc) {
+		FATAL("Failed to construct state_machine.\n");
+		return 1;
+	}
+
+	// init states
+	t_state state_print_hello;
+	t_state state_print_good_by;
+	t_state state_print_error;
+
+	rc = STATE_constructor(&state_print_hello, "print_hello", print_hello_on_entry, print_hello_on_update);
+	if (0 != rc) {
+		FATAL("Failed to construct state.\n");
+		return 1;
+	}
+
+	rc = STATE_constructor(&state_print_good_by, "print_good_by", print_good_by_on_entry, print_good_by_on_update);
+	if (0 != rc) {
+		FATAL("Failed to construct state.\n");
+		return 1;
+	}
+
+	rc = STATE_constructor(&state_print_error, "print_error", print_error_on_entry, print_error_on_update);
+	if (0 != rc) {
+		FATAL("Failed to construct state.\n");
+		return 1;
+	}
+	INFO("[main] all states constructed\n");
+
+	// configure states
+	state_print_hello.add_edge(&state_print_hello, condition_hello_to_good_by, state_print_good_by.unique_name);
+	state_print_hello.add_edge(&state_print_hello, condition_hello_to_error, state_print_error.unique_name);
+
+	state_print_good_by.add_edge(&state_print_good_by, condition_good_by_to_hello, state_print_hello.unique_name);
+	state_print_good_by.add_edge(&state_print_good_by, condition_good_by_to_error, state_print_error.unique_name);
+
+	INFO("[main] all edges added\n");
+
+	// configure state machine
+	state_machine.add_error_state(&state_machine, &state_print_error);
+	state_machine.add_state(&state_machine, &state_print_hello);
+	state_machine.add_state(&state_machine, &state_print_good_by);
+
+	INFO("[main] all states added\n");
+
+	rc = state_machine.set_start_state(&state_machine, state_print_hello.unique_name);
+	if (0 != rc) { // set_start_state failed
+		state_machine.set_current_state(&state_machine, state_machine.tp_error_state->unique_name);
+	}
+
+	INFO("[main] now running state machine\n");
+
+	state_machine.run(&state_machine);
+
+	return 0;
+}

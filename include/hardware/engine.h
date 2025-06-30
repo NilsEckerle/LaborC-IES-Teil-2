@@ -91,15 +91,6 @@ typedef enum {
 void ENGINE_init();
 
 /**
- * @brief Initializes motor pulse width modulation (pwm) system
- * 
- * Sets up pins for H-bridge pwm control.
- * 
- * @return nothing, this function can't fail.
- */
-void ENGINE_init_pwm();
-
-/**
  * @brief sets the dudy cicle of the pwm for the engine.
  *
  * @param ui8_side (ENGINE_PWM_LEFT/ENGINE_PWM_RIGHT) is the side which the pwm is set.

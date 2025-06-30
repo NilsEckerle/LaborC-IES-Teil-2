@@ -1,8 +1,10 @@
 #include "state_machine/state.h"
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 #include "state_machine/state_machine.h"
-#include "tools/linked_list.h"
+// #define LOG_LEVEL LOG_LEVEL_INFO
+#include "tools/dynamic_array.h"
 #include "tools/logger.h"
 
 int8_t add_edge(t_state *inst, uint8_t (*condition)(), char *next_state_name) {
@@ -19,60 +21,60 @@ int8_t add_edge(t_state *inst, uint8_t (*condition)(), char *next_state_name) {
 		WARNING("add_edge: next_state_name is NULL.\n");
 		return 1; 
 	}
-	WARNING("add_edge: parameter valid\n");
+	INFO("add_edge: parameter valid\n");
 
 	// create edge
-	t_edge *edge = malloc(sizeof(t_edge));
-	if (edge == NULL) { // malloc failed
-		WARNING("add_edge: edge malloc failed!\n");
-		return 2; 
-	}
+	// t_edge *edge = malloc(sizeof(t_edge));
+	// if (edge == NULL) { // malloc failed
+	// 	FATAL("[add_edge] edge malloc failed!\n");
+	// 	return 2; 
+	// }
+	//
+	// // bind condition
+	// edge->condition = condition;
+	//
+	// // set state_name
+	// edge->state_name = malloc(strlen(next_state_name)+1);
+	// if (edge->state_name == NULL) { 
+	// 	WARNING("add_edge: edge->state_name malloc failed!\n");
+	// 	return 2; 
+	// } // malloc failed
+	// strcpy(edge->state_name, next_state_name);
 
-	// bind condition
-	edge->condition = condition;
+	t_edge edge = {};
+	edge.condition  = condition;
+	edge.state_name = next_state_name;
 
-	// set state_name
-	edge->state_name = malloc(strlen(next_state_name)+1);
-	if (edge == NULL) { 
-		WARNING("add_edge: edge->state_name malloc failed!\n");
-		return 2; 
-	} // malloc failed
-	strcpy(edge->state_name, next_state_name);
+	// add the new edge
+	dyn_arr_add(inst->tdynarr_edges, edge);
 
-	// add the new edge to the linked list
-	int8_t rc = linked_list_prepend_node(&inst->head_edges, edge);
-	if (rc != 0) { 
-		free(edge);
-		WARNING("add_edge: linked list prepend failed!\n");
-		return 3; 
-	} // prepend failed
+	INFO("[add_edge] added edge '%s -> %s'\n", inst->unique_name, edge->state_name);
 
 	return 0;
 }
 
 void check_edges(t_state *inst, t_state_machine *state_machine) {
+	if (NULL == inst) { return; }
+	if (NULL == inst->tdynarr_edges) { return; }
+	if (0 == inst->tdynarr_edges->ui8_size) { return; }
 
-	t_linked_list_node *current = inst->head_edges;
-	while (current != NULL) {
-
-    t_edge *edge = (t_edge*)current->vp_data;
+	for (int i = 0; i < inst->tdynarr_edges->ui8_size; i++) {
+    t_edge *edge = dyn_arr_get_as_type(inst->tdynarr_edges, i, t_edge*);
 		if (edge->condition()) {
-
 			int8_t rc = state_machine->set_current_state(state_machine, edge->state_name);
 			if (rc != 0) { // state doesnt exist
 				FATAL("check_edges State %s does not exist.\n", edge->state_name);
-				state_machine->set_current_state(state_machine, state_machine->cp_error_state_name);
+				state_machine->set_current_state(state_machine, state_machine->tp_error_state->unique_name);
 				break;
 			}
 		}
-		current = current->stp_ll_next;
 	}
 	return;
 }
 
 int8_t STATE_constructor(
 		t_state *inst,
-		char *unique_state_name,
+		const char *unique_state_name,
 		void (*on_entry)(struct state *inst), 
 		void (*on_update)(struct state *inst))
 {
@@ -83,8 +85,15 @@ int8_t STATE_constructor(
 	if (on_update == NULL) { return 1; }
 
 	// set name
-	inst->unique_name = malloc(strlen(unique_state_name) +1);
+	inst->unique_name = malloc(strlen(unique_state_name) + 1);
+	if (inst->unique_name == NULL) {
+		WARNING("[STATE_constructor] malloc failed for unique_name: %s!\n", unique_state_name);
+	}
 	strcpy(inst->unique_name, unique_state_name);
+
+	inst->tdynarr_edges = malloc(sizeof(t_dyn_arr*));
+  inst->tdynarr_edges->vpp_data_array = NULL;
+  inst->tdynarr_edges->ui8_size = 0;
 
 	// bind functions
 	inst->add_edge = &add_edge;

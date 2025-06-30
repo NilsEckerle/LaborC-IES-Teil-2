@@ -3,6 +3,29 @@
 #include <avr/interrupt.h>
 #include <stdint.h>
 
+/**
+ * @brief Initializes motor pulse width modulation (pwm) system
+ * 
+ * Sets up pins for H-bridge pwm control.
+ * 
+ * @return nothing, this function can't fail.
+ *
+ * @note This function is coppied from iesmotors.c
+ */
+static void ENGINE_init_pwm() {
+  // Disable all interrupts
+  cli();
+  // Set prescaler to 64, cf. datasheet for TCCR0B
+  // (TCCR0B: Timer/Counter Control Register 0 B)
+  TCCR0B = 0;
+  TCCR0B |= (1 << CS00) | (1 << CS01);
+  // Set waveform generation mode to Fast PWM, frequency = F_CPU / (PRESCALER * 2^8)
+  TCCR0A = 0;
+  TCCR0A |= (1 << WGM00) | (1 << WGM01);
+  // Re-enable all interrupts
+  sei();
+}
+
 void ENGINE_init() {
 	// Configure all H-bridge control pins as outputs
 	ENGINE_HB_ENA_DDR |= (1 << ENGINE_HB_ENA_BIT);  // Left motor enable
@@ -23,21 +46,6 @@ void ENGINE_init() {
 	ENGINE_set_duty_cicle(ENGINE_RIGHT, ~0);	// set to full power
 
 	return;
-}
-
-// This function is coppied from iesmotors.c and then modified
-void ENGINE_init_pwm() {
-  // Disable all interrupts
-  cli();
-  // Set prescaler to 64, cf. datasheet for TCCR0B
-  // (TCCR0B: Timer/Counter Control Register 0 B)
-  TCCR0B = 0;
-  TCCR0B |= (1 << CS00) | (1 << CS01);
-  // Set waveform generation mode to Fast PWM, frequency = F_CPU / (PRESCALER * 2^8)
-  TCCR0A = 0;
-  TCCR0A |= (1 << WGM00) | (1 << WGM01);
-  // Re-enable all interrupts
-  sei();
 }
 
 //void setDutyCycle(uint8_t pin, uint8_t value)

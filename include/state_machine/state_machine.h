@@ -2,16 +2,14 @@
 #define STATE_MACHINE_H
 
 #include <stdint.h>
-#include "tools/linked_list.h"
 #include "state_machine/state.h"
+#include "tools/dynamic_array.h"
 
 typedef struct state_machine {
-	t_linked_list_node *tp_head_states;
+	t_dyn_arr **arrp_states;
+	uint8_t ui8_array_states_size;
 
-	char *cp_current_state_name;
 	t_state *tp_current_state;
-
-	char *cp_error_state_name;
 	t_state *tp_error_state;
 
 	uint8_t bool_is_new_state;
