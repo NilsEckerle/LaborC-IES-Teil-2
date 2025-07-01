@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define LOG_LEVEL LOG_LEVEL_TRACE
+#include "tools/logger.h"
+
 int8_t _DYN_ARR_add(t_dyn_arr *tdynarrp_array, void *vp_data) {
 	if (NULL == tdynarrp_array) { // invalid parameter
 		return 1;
@@ -15,6 +18,7 @@ int8_t _DYN_ARR_add(t_dyn_arr *tdynarrp_array, void *vp_data) {
 
 	tdynarrp_array->vpp_data_array = malloc(sizeof(void *) * tdynarrp_array->ui8_size);
 	if (tdynarrp_array->vpp_data_array == NULL) { // malloc failed
+		FATAL("[_DYN_ARR_add] malloc failed!\n");
 		tdynarrp_array->ui8_size = ui8_old_size;
 		tdynarrp_array->vpp_data_array = vpp_old_data_array;
 		return 2;
@@ -28,6 +32,8 @@ int8_t _DYN_ARR_add(t_dyn_arr *tdynarrp_array, void *vp_data) {
 
 	// add new data
 	tdynarrp_array->vpp_data_array[tdynarrp_array->ui8_size - 1] = vp_data;
+
+	INFO("[_DYN_ARR_add] added element '%p' to dyn_arr.\n", vp_data);
 
 	return 0;
 }

@@ -6,8 +6,7 @@
 #include "tools/dynamic_array.h"
 
 typedef struct state_machine {
-	t_dyn_arr **arrp_states;
-	uint8_t ui8_array_states_size;
+	t_dyn_arr *arrp_states;
 
 	t_state *tp_current_state;
 	t_state *tp_error_state;

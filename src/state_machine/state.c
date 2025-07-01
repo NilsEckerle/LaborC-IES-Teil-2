@@ -46,7 +46,7 @@ int8_t add_edge(t_state *inst, uint8_t (*condition)(), char *next_state_name) {
 	edge.state_name = next_state_name;
 
 	// add the new edge
-	dyn_arr_add(inst->tdynarr_edges, edge);
+	DYN_ARR_add(inst->tdynarr_edges, edge);
 
 	INFO("[add_edge] added edge '%s -> %s'\n", inst->unique_name, edge->state_name);
 
@@ -59,7 +59,7 @@ void check_edges(t_state *inst, t_state_machine *state_machine) {
 	if (0 == inst->tdynarr_edges->ui8_size) { return; }
 
 	for (int i = 0; i < inst->tdynarr_edges->ui8_size; i++) {
-    t_edge *edge = dyn_arr_get_as_type(inst->tdynarr_edges, i, t_edge*);
+    t_edge *edge = DYN_ARR_get_as_type(inst->tdynarr_edges, i, t_edge*);
 		if (edge->condition()) {
 			int8_t rc = state_machine->set_current_state(state_machine, edge->state_name);
 			if (rc != 0) { // state doesnt exist
@@ -91,9 +91,7 @@ int8_t STATE_constructor(
 	}
 	strcpy(inst->unique_name, unique_state_name);
 
-	inst->tdynarr_edges = malloc(sizeof(t_dyn_arr*));
-  inst->tdynarr_edges->vpp_data_array = NULL;
-  inst->tdynarr_edges->ui8_size = 0;
+	*inst->tdynarr_edges = DYN_ARRAY_constructor();
 
 	// bind functions
 	inst->add_edge = &add_edge;

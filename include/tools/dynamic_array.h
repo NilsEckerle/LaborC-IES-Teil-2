@@ -2,7 +2,6 @@
 #define DYNAMIC_ARRAY_H
 
 #include <stdint.h>
-#include <stdlib.h>
 #include <string.h>
 
 /**
@@ -21,15 +20,15 @@ int8_t _DYN_ARR_add(t_dyn_arr *tdynarrp_array, void *vp_data);
 void *DYN_ARR_get(t_dyn_arr *tdynarrp_array, int8_t ui8_index);
 int8_t DYN_ARR_deconstructor(t_dyn_arr *tdynarrp_array);
 
-#define dyn_arr_add(tdynarrp_array, t_data) do { \
+#define DYN_ARR_add_by_value(tdynarrp_array, t_data) do { \
 	void *vp_data = malloc(sizeof(typeof(t_data))); \
 	typeof(t_data) tmp = (t_data); \
 	memcpy(vp_data, &tmp, sizeof(typeof(t_data))); \
 	_DYN_ARR_add(tdynarrp_array, vp_data); \
 } while (0)
 
-#define dyn_arr_get_as_type(tdynarrp_array, ui8_index, type) \
-	(*(type *)dyn_arr_get(tdynarrp_array, ui8_index))
+#define DYN_ARR_get_as_type(tdynarrp_array, ui8_index, type) \
+	(*(type *)DYN_ARR_get(tdynarrp_array, ui8_index))
 
 
 static inline t_dyn_arr DYN_ARRAY_constructor() {

@@ -1,18 +1,20 @@
-#include "state_machine/state_machine.h"
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <util/delay.h>
+#include "state_machine/state_machine.h"
 #include "state_machine/state.h"
-// #define LOG_LEVEL LOG_LEVEL_TRACE
+#define LOG_LEVEL LOG_LEVEL_TRACE
 #include "tools/logger.h"
+#include "tools/dynamic_array.h"
 
 static t_state *find_state_by_name(t_state_machine *tp_state_machine, const char *cp_state_name_to_find) {
-	for (int i = 0; i < tp_state_machine->ui8_array_states_size; i++) {
-		TRACE("[find_state_by_name] comparing '%s' with '%s'\n", tp_state_machine->arrp_states[i]->unique_name, cp_state_name_to_find);
-		TRACE("%p\n", tp_state_machine->arrp_states[i]);
-		if (0 == strcmp(tp_state_machine->arrp_states[i]->unique_name, cp_state_name_to_find)) { // match found
-			return tp_state_machine->arrp_states[i];
+	for (int i = 0; i < tp_state_machine->arrp_states->ui8_size; i++) {
+		t_state *state = DYN_ARR_get_as_type(tp_state_machine->arrp_states, i, t_state *);
+		TRACE("[find_state_by_name] comparing '%s' with '%s'\n", state->unique_name, cp_state_name_to_find);
+		TRACE("%p\n", state);
+		if (0 == strcmp(state->unique_name, cp_state_name_to_find)) { // match found
+			return state;
 		}
 	}
 	return NULL; // no match found
@@ -33,22 +35,8 @@ int8_t add_state(t_state_machine *inst, t_state *new_state) {
 		return 2;
 	}
 
-	// size up array
-	t_state **arrp_old_states = inst->arrp_states;
-	uint8_t ui8_old_states_size = inst->ui8_array_states_size;
-	inst->ui8_array_states_size++;
-	inst->arrp_states = malloc(sizeof(t_edge *) * inst->ui8_array_states_size);
-
-		// keep old data
-	for (int i = 0; i < ui8_old_states_size; i++) {
-		inst->arrp_states[i] = arrp_old_states[i];
-	}
-
-		// delete old array pointer
-	free(arrp_old_states);
-
-	// add the new edge
-	inst->arrp_states[inst->ui8_array_states_size - 1] = new_state;
+	// add state
+	inst->arrp_states->fp_add(inst->arrp_states, &new_state);
 
 	INFO("[add_state] Added state '%s'\n", new_state->unique_name);
 
@@ -109,14 +97,13 @@ int8_t STATE_MACHINE_constructor(
 		return 1;
 	}
 
-	inst->arrp_states = NULL;
-	inst->ui8_array_states_size = 0;
+	*inst->arrp_states = DYN_ARRAY_constructor();
 
-	inst->add_state = &add_state;
-	inst->add_error_state = &add_error_state;
-	inst->set_start_state = &set_start_state;
-	inst->set_current_state = &set_current_state;
-	inst->run = &run;
+	inst->add_state = add_state;
+	inst->add_error_state = add_error_state;
+	inst->set_start_state = set_start_state;
+	inst->set_current_state = set_current_state;
+	inst->run = run;
 
 	return 0;
 }

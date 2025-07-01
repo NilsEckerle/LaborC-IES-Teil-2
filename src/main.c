@@ -10,7 +10,7 @@
 #include "hardware/shiftregister.h"
 #include "hardware/engine.h"
 
-void init_robi_on_entry(t_state *inst) {
+void init_robi_on_entry(t_state *inst __attribute__((unused))) {
 	INFO("init\n");
 	SHIFT_init();
 	LF_init();
@@ -18,20 +18,20 @@ void init_robi_on_entry(t_state *inst) {
 	return;
 }
 
-void init_robi_on_update(t_state *inst) {
+void init_robi_on_update(t_state*inst __attribute__((unused))) {
 	return;
 }
 
-void nothing_on_entry(t_state *inst) {
+void nothing_on_entry(t_state*inst __attribute__((unused))) {
 	INFO("nothing\n");
 	return;
 }
 
-void nothing_on_update(t_state *inst) {
+void nothing_on_update(t_state*inst __attribute__((unused))) {
 	return;
 }
 
-void forward_on_entry(t_state *inst) {
+void forward_on_entry(t_state*inst __attribute__((unused))) {
 	SHIFT_push_state((LF_detection_state)LF_M);
 	INFO("forward\n");
 
@@ -50,11 +50,11 @@ void forward_on_entry(t_state *inst) {
 	return;
 }
 
-void forward_on_update(t_state *inst) {
+void forward_on_update(t_state*inst __attribute__((unused))) {
 	return;
 }
 
-void backwards_on_entry(t_state *inst) {
+void backwards_on_entry(t_state*inst __attribute__((unused))) {
 	SHIFT_push_state((LF_detection_state)LF_M);
 	INFO("forward\n");
 
@@ -74,11 +74,11 @@ void backwards_on_entry(t_state *inst) {
 	return;
 }
 
-void backwards_on_update(t_state *inst) {
+void backwards_on_update(t_state*inst __attribute__((unused))) {
 	return;
 }
 
-void left_on_entry(t_state *inst) {
+void left_on_entry(t_state*inst __attribute__((unused))) {
 	SHIFT_push_state((LF_detection_state)LF_LM);
 	INFO("left\n");
 
@@ -94,11 +94,11 @@ void left_on_entry(t_state *inst) {
 	return;
 }
 
-void left_on_update(t_state *inst) {
+void left_on_update(t_state*inst __attribute__((unused))) {
 	return;
 }
 
-void hard_left_on_entry(t_state *inst) {
+void hard_left_on_entry(t_state*inst __attribute__((unused))) {
 	SHIFT_push_state((LF_detection_state)LF_L);
 	INFO("hard left\n");
 
@@ -114,11 +114,11 @@ void hard_left_on_entry(t_state *inst) {
 	ENGINE_HB_IN4_PORT |= (1 << ENGINE_HB_IN4_BIT);
 }
 
-void hard_left_on_update(t_state *inst) {
+void hard_left_on_update(t_state*inst __attribute__((unused))) {
 	return;
 }
 
-void right_on_entry(t_state *inst) {
+void right_on_entry(t_state*inst __attribute__((unused))) {
 	SHIFT_push_state((LF_detection_state)LF_MR);
 	INFO("right\n");
 
@@ -134,11 +134,11 @@ void right_on_entry(t_state *inst) {
 	return;
 }
 
-void right_on_update(t_state *inst) {
+void right_on_update(t_state*inst __attribute__((unused))) {
 	return;
 }
 
-void hard_right_on_entry(t_state *inst) {
+void hard_right_on_entry(t_state*inst __attribute__((unused))) {
 	SHIFT_push_state((LF_detection_state)LF_R);
 	INFO("hard right\n");
 
@@ -154,11 +154,11 @@ void hard_right_on_entry(t_state *inst) {
 	return;
 }
 
-void hard_right_on_update(t_state *inst) {
+void hard_right_on_update(t_state*inst __attribute__((unused))) {
 	return;
 }
 
-void stop_on_entry(t_state *inst) {
+void stop_on_entry(t_state*inst __attribute__((unused))) {
 	SHIFT_push_state((LF_detection_state)LF_LMR);
 	INFO("stop\n");
 
@@ -174,7 +174,17 @@ void stop_on_entry(t_state *inst) {
 	return;
 }
 
-void stop_on_update(t_state *inst) {
+void stop_on_update(t_state*inst __attribute__((unused))) {
+	return;
+}
+
+void error_on_entry(t_state*inst __attribute__((unused))) {
+	stop_on_entry(inst);
+	return;
+}
+
+void error_on_update(t_state*inst __attribute__((unused))) {
+	USART_print("ERROR STATE!\n");
 	return;
 }
 
@@ -301,6 +311,7 @@ int main() {
 	t_state t_state_right;
 	t_state t_state_hard_right;
 	t_state t_state_stop;
+	t_state t_state_error;
 
 	rc = STATE_constructor(&t_state_init_robi, "init_robi", init_robi_on_entry, init_robi_on_update);
 	if (0 != rc) {
@@ -344,7 +355,13 @@ int main() {
 		return 1;
 	}
 
-	rc = STATE_constructor(&t_state_backwards, "stop", backwards_on_entry, backwards_on_update);
+	rc = STATE_constructor(&t_state_backwards, "backwards", backwards_on_entry, backwards_on_update);
+	if (0 != rc) {
+		FATAL("Failed to construct state.\n");
+		return 1;
+	}
+
+	rc = STATE_constructor(&t_state_error, "error", stop_on_entry, error_on_update);
 	if (0 != rc) {
 		FATAL("Failed to construct state.\n");
 		return 1;
@@ -356,9 +373,7 @@ int main() {
 	t_state_init_robi.add_edge(&t_state_init_robi, condition_allways, t_state_forward.unique_name);
 
 	t_state_forward.add_edge(&t_state_forward, condition_forward_to_left, t_state_left.unique_name);
-	t_state_forward.add_edge(&t_state_forward, condition_forward_to_hard_left, t_state_hard_left.unique_name);
 	t_state_forward.add_edge(&t_state_forward, condition_forward_to_right, t_state_right.unique_name);
-	t_state_forward.add_edge(&t_state_forward, condition_forward_to_hard_right, t_state_hard_right.unique_name);
 	t_state_forward.add_edge(&t_state_forward, condition_forward_to_stop, t_state_stop.unique_name);
 	t_state_forward.add_edge(&t_state_forward, condition_forward_to_backwards, t_state_backwards.unique_name);
 
@@ -369,7 +384,6 @@ int main() {
 
 	t_state_hard_left.add_edge(&t_state_hard_left, condition_hard_left_to_left, t_state_left.unique_name);
 
-
 	t_state_right.add_edge(&t_state_right, condition_right_to_hard_right, t_state_hard_right.unique_name);
 
 	t_state_hard_right.add_edge(&t_state_hard_right, condition_hard_right_to_right, t_state_right.unique_name);
@@ -379,7 +393,7 @@ int main() {
 	INFO("[main] all edges added\n");
 
 	// configure state machine
-	state_machine.add_error_state(&state_machine, &t_state_stop);
+	state_machine.add_error_state(&state_machine, &t_state_error);
 	state_machine.add_state(&state_machine, &t_state_forward);
 	state_machine.add_state(&state_machine, &t_state_backwards);
 	state_machine.add_state(&state_machine, &t_state_left);
@@ -387,6 +401,7 @@ int main() {
 	state_machine.add_state(&state_machine, &t_state_right);
 	state_machine.add_state(&state_machine, &t_state_hard_right);
 	state_machine.add_state(&state_machine, &t_state_init_robi);
+	state_machine.add_state(&state_machine, &t_state_stop);
 
 	INFO("[main] all states added\n");
 
@@ -395,6 +410,7 @@ int main() {
 		state_machine.set_current_state(&state_machine, state_machine.tp_error_state->unique_name);
 	}
 
+	return 1;
 	INFO("[main] now running state machine\n");
 
 	state_machine.run(&state_machine);
