@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define LOG_LEVEL LOG_LEVEL_TRACE
+// #define LOG_LEVEL LOG_LEVEL_TRACE
 #include "tools/logger.h"
 
 int8_t _DYN_ARR_add(t_dyn_arr *tdynarrp_array, void *vp_data) {
 	if (NULL == tdynarrp_array) { // invalid parameter
+		WARNING("[_DYN_ARR_add] tdynarrp_array is NULL!\n");
 		return 1;
 	}
 
@@ -61,4 +62,19 @@ int8_t DYN_ARR_deconstructor(t_dyn_arr *tdynarrp_array) {
 	}
 
 	return 0;
+}
+
+t_dyn_arr *DYN_ARRAY_constructor() {
+	t_dyn_arr *tp_arr = malloc(sizeof(t_dyn_arr));
+	if (NULL == tp_arr) {
+		WARNING("[DYN_ARRAY_constructor] malloc failed!\n");
+	}
+
+	tp_arr->vpp_data_array = NULL;
+	tp_arr->ui8_size = 0;
+	tp_arr->fp_add = _DYN_ARR_add;
+	tp_arr->fp_get = DYN_ARR_get;
+	tp_arr->fp_dtor = DYN_ARR_deconstructor;
+
+	return tp_arr;
 }

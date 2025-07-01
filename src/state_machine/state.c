@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "state_machine/state_machine.h"
-// #define LOG_LEVEL LOG_LEVEL_INFO
+#define LOG_LEVEL LOG_LEVEL_TRACE
 #include "tools/dynamic_array.h"
 #include "tools/logger.h"
 
@@ -21,7 +21,7 @@ int8_t add_edge(t_state *inst, uint8_t (*condition)(), char *next_state_name) {
 		WARNING("add_edge: next_state_name is NULL.\n");
 		return 1; 
 	}
-	INFO("add_edge: parameter valid\n");
+	TRACE("add_edge: parameter valid\n");
 
 	// create edge
 	// t_edge *edge = malloc(sizeof(t_edge));
@@ -46,17 +46,27 @@ int8_t add_edge(t_state *inst, uint8_t (*condition)(), char *next_state_name) {
 	edge.state_name = next_state_name;
 
 	// add the new edge
-	DYN_ARR_add(inst->tdynarr_edges, edge);
+	DYN_ARR_add_by_value(inst->tdynarr_edges, edge);
 
-	INFO("[add_edge] added edge '%s -> %s'\n", inst->unique_name, edge->state_name);
+	INFO("[add_edge] added edge '%s -> %s'\n", inst->unique_name, edge.state_name);
 
 	return 0;
 }
 
 void check_edges(t_state *inst, t_state_machine *state_machine) {
-	if (NULL == inst) { return; }
-	if (NULL == inst->tdynarr_edges) { return; }
-	if (0 == inst->tdynarr_edges->ui8_size) { return; }
+	if (NULL == inst) { 
+		WARNING("[check_edges] inst is NULL!\n");
+		return; 
+	}
+	if (NULL == inst->tdynarr_edges) { 
+		WARNING("[check_edges] inst edge array is NULL!\n");
+		return; 
+	}
+
+	if (0 == inst->tdynarr_edges->ui8_size) { 
+		TRACE("[check_edges] State has no edges to check.\n");
+		return; 
+	}
 
 	for (int i = 0; i < inst->tdynarr_edges->ui8_size; i++) {
     t_edge *edge = DYN_ARR_get_as_type(inst->tdynarr_edges, i, t_edge*);
@@ -91,7 +101,7 @@ int8_t STATE_constructor(
 	}
 	strcpy(inst->unique_name, unique_state_name);
 
-	*inst->tdynarr_edges = DYN_ARRAY_constructor();
+	inst->tdynarr_edges = DYN_ARRAY_constructor();
 
 	// bind functions
 	inst->add_edge = &add_edge;

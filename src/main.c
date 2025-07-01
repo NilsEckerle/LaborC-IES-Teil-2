@@ -1,7 +1,7 @@
-#include <stdint.h>
-#include <util/delay.h>
 #define LOG_LEVEL LOG_LEVEL_INFO
 #include "tools/logger.h"
+#include <stdint.h>
+#include <util/delay.h>
 #include "state_machine/state_machine.h"
 #include "state_machine/state.h"
 #include "tools/iesusart.h"
@@ -19,6 +19,7 @@ void init_robi_on_entry(t_state *inst __attribute__((unused))) {
 }
 
 void init_robi_on_update(t_state*inst __attribute__((unused))) {
+	INFO("init update\n");
 	return;
 }
 
@@ -410,7 +411,6 @@ int main() {
 		state_machine.set_current_state(&state_machine, state_machine.tp_error_state->unique_name);
 	}
 
-	return 1;
 	INFO("[main] now running state machine\n");
 
 	state_machine.run(&state_machine);

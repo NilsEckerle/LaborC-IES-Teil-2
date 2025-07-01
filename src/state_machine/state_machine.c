@@ -1,16 +1,16 @@
+// #define LOG_LEVEL LOG_LEVEL_TRACE
+#include "tools/logger.h"
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <util/delay.h>
 #include "state_machine/state_machine.h"
 #include "state_machine/state.h"
-#define LOG_LEVEL LOG_LEVEL_TRACE
-#include "tools/logger.h"
 #include "tools/dynamic_array.h"
 
 static t_state *find_state_by_name(t_state_machine *tp_state_machine, const char *cp_state_name_to_find) {
 	for (int i = 0; i < tp_state_machine->arrp_states->ui8_size; i++) {
-		t_state *state = DYN_ARR_get_as_type(tp_state_machine->arrp_states, i, t_state *);
+		t_state *state = DYN_ARR_get_as_ptr(tp_state_machine->arrp_states, i, t_state *);
 		TRACE("[find_state_by_name] comparing '%s' with '%s'\n", state->unique_name, cp_state_name_to_find);
 		TRACE("%p\n", state);
 		if (0 == strcmp(state->unique_name, cp_state_name_to_find)) { // match found
@@ -36,7 +36,10 @@ int8_t add_state(t_state_machine *inst, t_state *new_state) {
 	}
 
 	// add state
-	inst->arrp_states->fp_add(inst->arrp_states, &new_state);
+	if (inst->arrp_states->fp_add(inst->arrp_states, new_state)) {
+		WARNING("[add_state] State '%s' failed to add to dyn_arr!\n", new_state->unique_name);
+		return 3;
+	}
 
 	INFO("[add_state] Added state '%s'\n", new_state->unique_name);
 
@@ -97,7 +100,7 @@ int8_t STATE_MACHINE_constructor(
 		return 1;
 	}
 
-	*inst->arrp_states = DYN_ARRAY_constructor();
+	inst->arrp_states = DYN_ARRAY_constructor();
 
 	inst->add_state = add_state;
 	inst->add_error_state = add_error_state;
