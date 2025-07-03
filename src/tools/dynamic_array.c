@@ -46,7 +46,7 @@ void *DYN_ARR_get(t_dyn_arr *tdynarrp_array, int8_t ui8_index) {
 	return tdynarrp_array->vpp_data_array[ui8_index];
 }
 
-int8_t DYN_ARR_deconstructor(t_dyn_arr *tdynarrp_array) {
+int8_t DYN_ARR_destructor(t_dyn_arr *tdynarrp_array) {
 	if (NULL != tdynarrp_array) {
 		if (NULL != tdynarrp_array->vpp_data_array) {
 			if (tdynarrp_array->ui8_size > 0) {
@@ -74,7 +74,7 @@ t_dyn_arr *DYN_ARRAY_constructor() {
 	tp_arr->ui8_size = 0;
 	tp_arr->fp_add = _DYN_ARR_add;
 	tp_arr->fp_get = DYN_ARR_get;
-	tp_arr->fp_dtor = DYN_ARR_deconstructor;
+	tp_arr->fp_destructor = DYN_ARR_destructor;
 
 	return tp_arr;
 }

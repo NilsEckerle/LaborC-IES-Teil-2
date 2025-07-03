@@ -17,7 +17,9 @@ typedef struct state_machine {
 	int8_t (*add_error_state)(struct state_machine *inst, t_state *new_state);
 	int8_t (*set_start_state)(struct state_machine *inst, char *start_state_name);
 	int8_t (*set_current_state)(struct state_machine *inst, char *new_state_name);
+	void (*update)(struct state_machine *inst);
 	void (*run)(struct state_machine *inst);
+	void (*destructor)(struct state_machine *inst);
 
 } t_state_machine;
 
@@ -29,9 +31,12 @@ int8_t set_start_state(t_state_machine *inst, char *start_state_name);
 
 int8_t set_current_state(t_state_machine *inst, char *new_state_name);
 
+void update(t_state_machine *inst);
+
 void run(t_state_machine *inst);
 
-int8_t STATE_MACHINE_constructor(
-		t_state_machine *inst);
+void STATE_MACHINE_destructor(t_state_machine *inst);
+
+t_state_machine *STATE_MACHINE_constructor();
 
 #endif // !STATE_MACHINE_H
