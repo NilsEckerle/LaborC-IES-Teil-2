@@ -22,15 +22,16 @@ int main() {
 	}
 
 	// init states
-	t_state *t_state_init_robi = STATE_constructor("init_robi", init_robi_on_entry, init_robi_on_update);
-	t_state *t_state_forward = STATE_constructor("forward", forward_on_entry, forward_on_update);
-	t_state *t_state_backwards = STATE_constructor("backwards", backwards_on_entry, backwards_on_update);	
-	t_state *t_state_left = STATE_constructor("left", left_on_entry, left_on_update);
-	t_state *t_state_hard_left = STATE_constructor("hard_left", hard_left_on_entry, hard_left_on_update);
-	t_state *t_state_right = STATE_constructor("right", right_on_entry, right_on_update);
-	t_state *t_state_hard_right = STATE_constructor("hard_right", hard_right_on_entry, hard_right_on_update);
-	t_state *t_state_stop = STATE_constructor("stop", stop_on_entry, stop_on_update);
-	t_state *t_state_error = STATE_constructor("error", stop_on_entry, error_on_update);
+	// This is Excel !!!!
+	t_state *t_state_init_robi  =	STATE_constructor("init_robi",  init_robi_on_entry, 	init_robi_on_update);
+	t_state *t_state_forward    =	STATE_constructor("forward",    forward_on_entry, 		forward_on_update);
+	t_state *t_state_backwards  =	STATE_constructor("backwards",  backwards_on_entry, 	backwards_on_update);	
+	t_state *t_state_left       =	STATE_constructor("left",       left_on_entry, 				left_on_update);
+	t_state *t_state_hard_left  =	STATE_constructor("hard_left",  hard_left_on_entry, 	hard_left_on_update);
+	t_state *t_state_right      =	STATE_constructor("right",      right_on_entry, 			right_on_update);
+	t_state *t_state_hard_right = STATE_constructor("hard_right", hard_right_on_entry, 	hard_right_on_update);
+	t_state *t_state_stop       = STATE_constructor("stop",       stop_on_entry, 				stop_on_update);
+	t_state *t_state_error      =	STATE_constructor("error",      stop_on_entry, 				error_on_update);
 
 	if (NULL == t_state_init_robi
 			|| NULL == t_state_forward
