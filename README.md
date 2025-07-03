@@ -17,3 +17,5 @@ cmake ..
 make
 ```
 
+For ease of use i have added a make file in the root, which performs this by it self.
+Just do `make` in the project root.
