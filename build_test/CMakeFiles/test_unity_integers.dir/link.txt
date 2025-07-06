@@ -1,1 +1,0 @@
-gcc -Wall -Wextra -std=gnu99 -g -DUNIT_TEST -DUNITY_INCLUDE_CONFIG_H CMakeFiles/test_unity_integers.dir/test/Unity/test/tests/test_unity_integers.c.o -o test_unity_integers  libunity.a libfirmware_lib.a 

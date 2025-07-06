@@ -1,1 +1,0 @@
-gcc -Wall -Wextra -std=gnu99 -g -DUNIT_TEST -DUNITY_INCLUDE_CONFIG_H CMakeFiles/test_bdd.dir/test/Unity/extras/bdd/test/test_bdd.c.o -o test_bdd  libunity.a libfirmware_lib.a 
