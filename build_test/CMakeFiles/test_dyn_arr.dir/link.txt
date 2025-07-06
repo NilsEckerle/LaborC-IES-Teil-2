@@ -1,0 +1,1 @@
+gcc -Wall -Wextra -std=gnu99 -g -DUNIT_TEST -DUNITY_INCLUDE_CONFIG_H CMakeFiles/test_dyn_arr.dir/test/test_dyn_arr.c.o -o test_dyn_arr  libunity.a libfirmware_lib.a 
