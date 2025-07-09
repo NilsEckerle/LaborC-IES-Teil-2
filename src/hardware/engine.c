@@ -1,6 +1,8 @@
 #include "tools/logger.h"
 #include "hardware/engine.h"
+#include "tools/bit_functions.h"
 #include <avr/interrupt.h>
+#include <avr/io.h>
 #include <stdint.h>
 
 /**
@@ -18,26 +20,28 @@ static void ENGINE_init_pwm() {
   // Set prescaler to 64, cf. datasheet for TCCR0B
   // (TCCR0B: Timer/Counter Control Register 0 B)
   TCCR0B = 0;
-  TCCR0B |= (1 << CS00) | (1 << CS01);
+  SET_BIT(TCCR0B, CS00);
+	SET_BIT(TCCR0B, CS01);
   // Set waveform generation mode to Fast PWM, frequency = F_CPU / (PRESCALER * 2^8)
   TCCR0A = 0;
-  TCCR0A |= (1 << WGM00) | (1 << WGM01);
+  SET_BIT(TCCR0A, WGM00);
+	SET_BIT(TCCR0A, WGM01);
   // Re-enable all interrupts
   sei();
 }
 
 void ENGINE_init() {
 	// Configure all H-bridge control pins as outputs
-	ENGINE_HB_ENA_DDR |= (1 << ENGINE_HB_ENA_BIT);  // Left motor enable
-	ENGINE_HB_ENB_DDR |= (1 << ENGINE_HB_ENB_BIT);  // Right motor enable
-  ENGINE_HB_IN1_DDR |= (1 << ENGINE_HB_IN1_BIT);  // Left motor direction 1
-  ENGINE_HB_IN2_DDR |= (1 << ENGINE_HB_IN2_BIT);  // Left motor direction 2
-  ENGINE_HB_IN3_DDR |= (1 << ENGINE_HB_IN3_BIT);  // Right motor direction 1
-  ENGINE_HB_IN4_DDR |= (1 << ENGINE_HB_IN4_BIT);  // Right motor direction 2
+	SET_BIT(ENGINE_HB_ENA_DDR, ENGINE_HB_ENA_BIT);  // Left motor enable
+	SET_BIT(ENGINE_HB_ENB_DDR, ENGINE_HB_ENB_BIT);  // Right motor enable
+  SET_BIT(ENGINE_HB_IN1_DDR, ENGINE_HB_IN1_BIT);  // Left motor direction 1
+  SET_BIT(ENGINE_HB_IN2_DDR, ENGINE_HB_IN2_BIT);  // Left motor direction 2
+  SET_BIT(ENGINE_HB_IN3_DDR, ENGINE_HB_IN3_BIT);  // Right motor direction 1
+  SET_BIT(ENGINE_HB_IN4_DDR, ENGINE_HB_IN4_BIT);  // Right motor direction 2
 
 	// Enable both motor pairs (set enable pins high)
-	ENGINE_HB_ENA_PORT |= (1 << ENGINE_HB_ENA_BIT); // Enable left motors
-	ENGINE_HB_ENB_PORT |= (1 << ENGINE_HB_ENB_BIT); // Enable right motors
+	SET_BIT(ENGINE_HB_ENA_PORT, ENGINE_HB_ENA_BIT); // Enable left motors
+	SET_BIT(ENGINE_HB_ENB_PORT, ENGINE_HB_ENB_BIT); // Enable right motors
 	
 	ENGINE_init_pwm();
 	INFO("ENGINE pwm init successful.\n");
@@ -66,10 +70,10 @@ void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value) {
     }                                             // timer disconnected
     else if (ui8_pwm_compare_value == 255) {
       TCCR0A &= ~(1 << COM0A1) & ~(1 << COM0A0);  // Normal port operation mode
-      PORTD |= (1 << PD6);                        // PD6 HIGH, equals 100% duty,
+      SET_BIT(PORTD, PD6);                        // PD6 HIGH, equals 100% duty,
     }                                             // timer disconnected
     else {
-      TCCR0A |= (1 << COM0A1);                    // OC0A to LOW on Compare Match,
+      SET_BIT(TCCR0A, COM0A1);                    // OC0A to LOW on Compare Match,
       TCCR0A &= ~(1 << COM0A0);                   // to HIGH at BOTTOM (non-inverting mode)
       OCR0A = ui8_pwm_compare_value;              // generates sequences of 1-0-1-0...
     }                                             // for certain periods of time
@@ -80,10 +84,10 @@ void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value) {
     }
     else if (ui8_pwm_compare_value == 255) {
       TCCR0A &= ~(1 << COM0B1) & ~(1 << COM0B0);
-      PORTD |= (1 << PD5);
+      SET_BIT(PORTD, PD5);
     }
     else {
-      TCCR0A |= (1 << COM0B1);
+      SET_BIT(TCCR0A, COM0B1);
       TCCR0A &= ~(1 << COM0B0);
       OCR0B = ui8_pwm_compare_value;
     }
@@ -114,9 +118,9 @@ void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value) {
 
 			// Left motors backwards
 			ENGINE_HB_IN1_PORT &= ~(1 << ENGINE_HB_IN1_BIT);
-			ENGINE_HB_IN2_PORT |= (1 << ENGINE_HB_IN2_BIT);
+			SET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
 			// Right motors backwards
-			ENGINE_HB_IN3_PORT |= (1 << ENGINE_HB_IN3_BIT);
+			SET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
 			ENGINE_HB_IN4_PORT &= ~(1 << ENGINE_HB_IN4_BIT);
 			break;
 			
@@ -130,11 +134,11 @@ void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value) {
 																													// 1100 0000 = 192 = ~63
 
 			// Left motors forward
-			ENGINE_HB_IN1_PORT |= (1 << ENGINE_HB_IN1_BIT);
+			SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
 			ENGINE_HB_IN2_PORT &= ~(1 << ENGINE_HB_IN2_BIT);
 			// Right motors forward
 			ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
-			ENGINE_HB_IN4_PORT |= (1 << ENGINE_HB_IN4_BIT);
+			SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
 			break;
 			
 		case ENGINE_HARD_LEFT:
@@ -145,10 +149,10 @@ void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value) {
 																													
 			// Left motors backwards
 			ENGINE_HB_IN1_PORT &= ~(1 << ENGINE_HB_IN1_BIT);
-			ENGINE_HB_IN2_PORT |= (1 << ENGINE_HB_IN2_BIT);
+			SET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
 			// Right motors forward
 			ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
-			ENGINE_HB_IN4_PORT |= (1 << ENGINE_HB_IN4_BIT);
+			SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
 			break;
 			
 		case ENGINE_LEFT:
@@ -162,7 +166,7 @@ void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value) {
 			ENGINE_HB_IN2_PORT &= ~(1 << ENGINE_HB_IN2_BIT);
 			// Right motors forward
 			ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
-			ENGINE_HB_IN4_PORT |= (1 << ENGINE_HB_IN4_BIT);
+			SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
 			break;
 			
 		case ENGINE_HARD_RIGHT:
@@ -172,10 +176,10 @@ void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value) {
 			ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, (255/8));		// set to 1/8 speed
 
 			// Left motors forward
-			ENGINE_HB_IN1_PORT |= (1 << ENGINE_HB_IN1_BIT);
+			SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
 			ENGINE_HB_IN2_PORT &= ~(1 << ENGINE_HB_IN2_BIT);
 			// Right motors backwards
-			ENGINE_HB_IN3_PORT |= (1 << ENGINE_HB_IN3_BIT);
+			SET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
 			ENGINE_HB_IN4_PORT &= ~(1 << ENGINE_HB_IN4_BIT);
 			break;
 			
@@ -186,7 +190,7 @@ void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value) {
 			ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, (255/4));		// set to 1/4 speed
 
 			// Left motors forward
-			ENGINE_HB_IN1_PORT |= (1 << ENGINE_HB_IN1_BIT);
+			SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
 			ENGINE_HB_IN2_PORT &= ~(1 << ENGINE_HB_IN2_BIT);
 			// Right motors stop
 			ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);

@@ -1,5 +1,6 @@
 #include "tools/logger.h"
 #include "hardware/shiftregister.h"
+#include "tools/bit_functions.h"
 #include <stdint.h>
 #include <util/delay.h>
 
@@ -10,7 +11,7 @@ void _SHIFT_set_data_pin(uint8_t ui_value) {
   // set data pin as needed
   if (SHIFT_HIGH == ui_value) {
 		_delay_us(1);
-    SHIFT_DATA_PORT |= (1 << SHIFT_DATA_BIT);
+    SET_BIT(SHIFT_DATA_PORT, SHIFT_DATA_BIT);
   }
   TRACE("Shift register Data set.\n");
 
@@ -23,7 +24,7 @@ void _SHIFT_cicle() {
 	_delay_us(1);
 
   // toggle clock
-  SHIFT_CLOCK_PORT |= (1 << SHIFT_CLOCK_BIT);
+  SET_BIT(SHIFT_CLOCK_PORT, SHIFT_CLOCK_BIT);
 	_delay_us(1);
   SHIFT_CLOCK_PORT &= ~(1 << SHIFT_CLOCK_BIT);
   TRACE("Shift register cicle send.\n");
@@ -60,8 +61,8 @@ void SHIFT_push_state(uint8_t bitstring_to_push) {
 
 void SHIFT_init() {
   // set as output
-  SHIFT_DATA_DDR |= (1 << SHIFT_DATA_BIT);
-  SHIFT_CLOCK_DDR |= (1 << SHIFT_CLOCK_BIT);
+  SET_BIT(SHIFT_DATA_DDR, SHIFT_DATA_BIT);
+  SET_BIT(SHIFT_CLOCK_DDR, SHIFT_CLOCK_BIT);
   TRACE("Shift register setup DDR of data and clock\n");
 
   // set default as low

@@ -1,6 +1,7 @@
 #include "tools/logger.h"
 #include <stdint.h>
 #include "hardware/linienfolger.h"
+#include "tools/bit_functions.h"
 
 void LF_init() {
 	// set DDR as input
@@ -9,9 +10,9 @@ void LF_init() {
   LF_2_DDR &= ~(1 << LF_2_BIT);
 
 	// set input as pull-up (so i need a HIGH to get a 1)
-  LF_0_PORT |= (1 << LF_0_BIT);
-  LF_1_PORT |= (1 << LF_1_BIT);
-  LF_2_PORT |= (1 << LF_2_BIT);
+  SET_BIT(LF_0_PORT, LF_0_BIT);
+  SET_BIT(LF_1_PORT, LF_1_BIT);
+  SET_BIT(LF_2_PORT, LF_2_BIT);
 
   return;
 }
@@ -60,9 +61,9 @@ LF_detection_state LF_get_states() {
 
   // Store valid results in output array
 	uint8_t lf_state_bitstring = 0;
-  lf_state_bitstring |= (i_lf0_state << 0);
-  lf_state_bitstring |= (i_lf1_state << 1);
-  lf_state_bitstring |= (i_lf2_state << 2);
+  SET_BIT(lf_state_bitstring, 0);
+  SET_BIT(lf_state_bitstring, 1);
+  SET_BIT(lf_state_bitstring, 2);
 
   return LF_bitstring_to_state(lf_state_bitstring);
 }

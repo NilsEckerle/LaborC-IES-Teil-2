@@ -1,1 +1,0 @@
-/home/ies/share/LaborC-IES-Teil-2/test/dyn_arr/../../src/tools/dynamic_array.c
