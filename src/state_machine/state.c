@@ -52,12 +52,16 @@ void check_edges(t_state *inst, t_state_machine *state_machine) {
 		WARNING("[check_edges] inst edge array is NULL!\n");
 		return; 
 	}
-
 	if (0 == inst->tdynarr_edges->ui8_size) { 
 		TRACE("[check_edges] State has no edges to check.\n");
 		return; 
 	}
+	if (NULL == state_machine) { 
+		WARNING("[check_edges] state_machine is NULL!\n");
+		return; 
+	}
 
+	// iterate over all edges
 	for (int i = 0; i < inst->tdynarr_edges->ui8_size; i++) {
     t_edge *edge = DYN_ARR_get_as_ptr(inst->tdynarr_edges, i, t_edge *);
 		TRACE("checking edge 'adress %p : to %s - adress %p'.\n", edge, edge->state_name, edge->state_name);
@@ -69,8 +73,8 @@ void check_edges(t_state *inst, t_state_machine *state_machine) {
 			if (rc != 0) { // state doesnt exist
 				FATAL("check_edges State %s does not exist.\n", edge->state_name);
 				state_machine->set_current_state(state_machine, state_machine->tp_error_state->unique_name);
-				break;
 			}
+			return;
 		}
 	}
 	return;

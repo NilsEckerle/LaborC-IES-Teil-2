@@ -5,22 +5,22 @@
 #include <stdint.h>
 
 // Linienfolger 0 (left)
-#define LF_0_DDR DDRC
-#define LF_0_PORT PORTC
-#define LF_0_PIN PINC
-#define LF_0_BIT PINC0
+#define LF_RIGHT_DDR DDRC
+#define LF_RIGHT_PORT PORTC
+#define LF_RIGHT_PIN PINC
+#define LF_RIGHT_BIT PINC0
 
 // Linienfolger 1 (middle)
-#define LF_1_DDR DDRC
-#define LF_1_PORT PORTC
-#define LF_1_PIN PINC
-#define LF_1_BIT PINC1
+#define LF_MIDDLE_DDR DDRC
+#define LF_MIDDLE_PORT PORTC
+#define LF_MIDDLE_PIN PINC
+#define LF_MIDDLE_BIT PINC1
 
 // Linienfolger 2 (right)
-#define LF_2_DDR DDRC
-#define LF_2_PORT PORTC
-#define LF_2_PIN PINC
-#define LF_2_BIT PINC2
+#define LF_LEFT_DDR DDRC
+#define LF_LEFT_PORT PORTC
+#define LF_LEFT_PIN PINC
+#define LF_LEFT_BIT PINC2
 
 /**
  * @brief Enumeration representing line detection states from a 3-sensor line follower
@@ -66,6 +66,7 @@ void LF_init();
  * @param ui_lf_index is the index of the line sensor
  * @return the sensor state (0 or 1) on success, -1 on failure 
  * e.g. index not valid
+ * @note index left middle right has index 0 1 2
  */
 int8_t LF_get_state(uint8_t ui_lf_index);
 

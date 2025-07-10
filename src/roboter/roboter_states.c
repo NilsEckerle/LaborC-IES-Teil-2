@@ -192,14 +192,14 @@ uint8_t condition_allways() {
 }
 
 uint8_t condition_forward_to_left() {
-	if (LF_get_state(0) == 0 && LF_get_state(2) == 1) {
+	if (LF_get_state(0) && !LF_get_state(2)) {
 		return 1;
 	}
 	return 0;
 }
 
 uint8_t condition_forward_to_right() {
-	if (LF_get_state(0) == 1 && LF_get_state(2) == 0) {
+	if (!LF_get_state(0) && LF_get_state(2)) {
 		return 1;
 	}
 	return 0;
