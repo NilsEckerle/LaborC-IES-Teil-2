@@ -55,7 +55,7 @@ int8_t add_error_state(t_state_machine *inst, t_state *new_state) {
     return 1;
   }
 
-  int8_t rc = inst->add_state(inst, new_state);
+  int8_t rc = add_state(inst, new_state);
   if (0 != rc) {
     WARNING("[add_error_state] adding state '%s' didn't work\n",
             new_state->unique_name);
@@ -97,7 +97,7 @@ void update(t_state_machine *inst) {
 
 void run(t_state_machine *inst) {
   while (1) {
-    inst->update(inst);
+    update(inst);
   }
 }
 
@@ -123,14 +123,6 @@ t_state_machine *STATE_MACHINE_constructor() {
     WARNING("[STATE_MACHINE_constructor] constructor failed for dyn_arr!\n");
     return NULL;
   }
-
-  inst->add_state = add_state;
-  inst->add_error_state = add_error_state;
-  inst->set_start_state = set_start_state;
-  inst->set_current_state = set_current_state;
-  inst->update = update;
-  inst->run = run;
-  inst->destructor = STATE_MACHINE_destructor;
 
   return inst;
 }

@@ -69,10 +69,10 @@ void check_edges(t_state *inst, t_state_machine *state_machine) {
 
 		if (edge->condition()) {
 			TRACE("AAAAARRRRRGGGGHHHHH!\n");
-			int8_t rc = state_machine->set_current_state(state_machine, edge->state_name);
+			int8_t rc = set_current_state(state_machine, edge->state_name);
 			if (rc != 0) { // state doesnt exist
 				FATAL("check_edges State %s does not exist.\n", edge->state_name);
-				state_machine->set_current_state(state_machine, state_machine->tp_error_state->unique_name);
+				set_current_state(state_machine, state_machine->tp_error_state->unique_name);
 			}
 			return;
 		}
