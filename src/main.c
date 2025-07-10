@@ -1,4 +1,4 @@
-#define LOG_LEVEL LOG_LEVEL_INFO
+// #define LOG_LEVEL LOG_LEVEL_INFO
 #include "tools/logger.h"
 #include "tools/iesusart.h"
 

@@ -36,7 +36,7 @@ int8_t add_state(t_state_machine *inst, t_state *new_state) {
 	}
 
 	// add state
-	if (inst->arrp_states->fp_add(inst->arrp_states, new_state)) {
+	if (DYN_ARR_add(inst->arrp_states, new_state)) {
 		WARNING("[add_state] State '%s' failed to add to dyn_arr!\n", new_state->unique_name);
 		return 3;
 	}
@@ -101,7 +101,7 @@ void run(t_state_machine *inst) {
 void STATE_MACHINE_destructor(t_state_machine *inst) {
 	if (NULL != inst) {
 		if (NULL != inst->arrp_states) {
-			inst->arrp_states->fp_destructor(inst->arrp_states); //field
+			DYN_ARR_destructor(&inst->arrp_states); //field
 		}
 
 		free(inst); // struct

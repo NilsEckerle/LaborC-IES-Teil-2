@@ -19,4 +19,7 @@ clean:
 flash_simulide: clean build
 	avrdude -c arduino -p atmega328p -P /dev/tnt2 -b 115200 -D -U flash:w:bin/firmware.hex
 
+flash_arduino: clean build
+	avrdude -c arduino -p atmega328p -P /dev/ttyACM0 -b 115200 -U flash:w:bin/firmware.hex
+
 .PHONY: build build-test test clean flash_simulide

@@ -43,27 +43,16 @@ LF_detection_state LF_bitstring_to_state(uint8_t ui_lf_detection_bitstring) {
 }
 
 LF_detection_state LF_get_states() {
-	// get new sensor readings
-  TRACE("Reading all line follower sensor states\n");
-  int8_t i_lf0_state = LF_get_state(0);
-  int8_t i_lf1_state = LF_get_state(1);
-  int8_t i_lf2_state = LF_get_state(2);
-
-  TRACE("LF0 state: %i\n", i_lf0_state);
-  TRACE("LF1 state: %i\n", i_lf1_state);
-  TRACE("LF2 state: %i\n", i_lf2_state);
-
-  // Validate all sensor readings
-  if (i_lf0_state < 0 || i_lf1_state < 0 || i_lf2_state < 0) {
-    ERROR("Reading line sensor states failed - sensor errors detected\n");
-    return (LF_detection_state)LF_UNDEFINED;
-  }
-
-  // Store valid results in output array
 	uint8_t lf_state_bitstring = 0;
-  SET_BIT(lf_state_bitstring, 0);
-  SET_BIT(lf_state_bitstring, 1);
-  SET_BIT(lf_state_bitstring, 2);
+	if (LF_get_state(0)) {
+		SET_BIT(lf_state_bitstring, 0);
+	}
+	if (LF_get_state(1)) {
+		SET_BIT(lf_state_bitstring, 1);
+	}
+	if (LF_get_state(2)) {
+		SET_BIT(lf_state_bitstring, 2);
+	}
 
   return LF_bitstring_to_state(lf_state_bitstring);
 }

@@ -33,7 +33,7 @@ int8_t add_edge(t_state *inst, uint8_t (*condition)(), char *next_state_name) {
 	strcpy(edge->state_name, next_state_name);
 
 	// add the new edge
-	if (inst->tdynarr_edges->fp_add(inst->tdynarr_edges, edge)) {
+	if (DYN_ARR_add(inst->tdynarr_edges, edge)) {
 		WARNING("[add_edge] Edge to '%s' failed to add to dyn_arr!\n", edge->state_name);
 		return 3;
 	}
@@ -83,7 +83,7 @@ void STATE_destructor(t_state *inst) {
 		}
 
 		if (NULL != inst->tdynarr_edges) {
-			inst->tdynarr_edges->fp_destructor(inst->tdynarr_edges); // field
+			DYN_ARR_destructor(&inst->tdynarr_edges); // field
 		}
 
 		free(inst); // struct
