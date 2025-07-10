@@ -17,13 +17,13 @@ void LF_init() {
   return;
 }
 
-int8_t LF_get_state(uint8_t ui_lf_index) {
-  switch (ui_lf_index) {
-  case 0:
+int8_t LF_get_state(LF_index lf_index) {
+  switch (lf_index) {
+  case LF_LEFT:
     return (LF_LEFT_PIN & (1 << LF_LEFT_BIT)) ? 1 : 0;
-  case 1:
+  case LF_MIDDLE:
     return (LF_MIDDLE_PIN & (1 << LF_MIDDLE_BIT)) ? 1 : 0;
-  case 2:
+  case LF_RIGHT:
     return (LF_RIGHT_PIN & (1 << LF_RIGHT_BIT)) ? 1 : 0;
   default:
     ERROR("Invalid line follower sensor index: %u\n", ui_lf_index);

@@ -192,14 +192,14 @@ uint8_t condition_allways() {
 }
 
 uint8_t condition_forward_to_left() {
-	if (LF_get_state(0) && !LF_get_state(2)) {
+	if (LF_get_state(LF_LEFT) && !LF_get_state(LF_RIGHT)) {
 		return 1;
 	}
 	return 0;
 }
 
 uint8_t condition_forward_to_right() {
-	if (!LF_get_state(0) && LF_get_state(2)) {
+	if (!LF_get_state(LF_LEFT) && LF_get_state(LF_RIGHT)) {
 		return 1;
 	}
 	return 0;
@@ -234,42 +234,42 @@ uint8_t condition_nothing_to_forward() {
 }
 
 uint8_t condition_left_to_forward() {
-	if (LF_get_state(0) == 0) {
+	if (!LF_get_state(LF_LEFT)) {
 		return 1;
 	}
 	return 0;
 }
 
 uint8_t condition_left_to_hard_left() {
-	if (LF_get_state(1) == 0) {
+	if (!LF_get_state(LF_MIDDLE)) {
 		return 1;
 	}
 	return 0;
 }
 
 uint8_t condition_hard_left_to_left() {
-	if (LF_get_state(1) == 1) {
+	if (LF_get_state(LF_MIDDLE) == 1) {
 		return 1;
 	}
 	return 0;
 }
 
 uint8_t condition_right_to_forward() {
-	if (LF_get_state(2) == 0) {
+	if (!LF_get_state(LF_RIGHT)) {
 		return 1;
 	}
 	return 0;
 }
 
 uint8_t condition_right_to_hard_right() {
-	if (LF_get_state(1) == 0) {
+	if (!LF_get_state(LF_MIDDLE)) {
 		return 1;
 	}
 	return 0;
 }
 
 uint8_t condition_hard_right_to_right() {
-	if (LF_get_state(1) == 1) {
+	if (LF_get_state(LF_MIDDLE)) {
 		return 1;
 	}
 	return 0;

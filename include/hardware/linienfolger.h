@@ -61,6 +61,12 @@ typedef enum {
  */
 void LF_init();
 
+typedef enum {
+	LF_LEFT = 0,
+	LF_MIDDLE,
+	LF_RIGHT
+} LF_index;
+
 /**
  * @brief gets the state of the line sensor of index
  * @param ui_lf_index is the index of the line sensor
@@ -68,7 +74,7 @@ void LF_init();
  * e.g. index not valid
  * @note index left middle right has index 0 1 2
  */
-int8_t LF_get_state(uint8_t ui_lf_index);
+int8_t LF_get_state(LF_index lf_index);
 
 /**
  * @brief converts a bitstring of 3 bits (starting at LSB) to a LF_detection_state
