@@ -39,9 +39,9 @@ void forward_on_entry(t_state*inst __attribute__((unused))) {
 																											
   // Left motors forward
 	SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
-	ENGINE_HB_IN2_PORT &= ~(1 << ENGINE_HB_IN2_BIT);
+	UNSET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
 	// Right motors forward
-	ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
+	UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
 	SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
 	return;
 }
@@ -61,11 +61,11 @@ void backwards_on_entry(t_state*inst __attribute__((unused))) {
 																											// 1100 0000 = 192 = ~63
 																											
   // Left motors forward
-	ENGINE_HB_IN1_PORT &= ~(1 << ENGINE_HB_IN1_BIT);
+	UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
 	SET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
 	// Right motors forward
 	SET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
-	ENGINE_HB_IN4_PORT &= ~(1 << ENGINE_HB_IN4_BIT);
+	UNSET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
 	return;
 }
 
@@ -81,10 +81,10 @@ void left_on_entry(t_state*inst __attribute__((unused))) {
 	ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255/8));	// set to 7/8 speed
 
 	// Left motors backwards
-	ENGINE_HB_IN1_PORT &= ~(1 << ENGINE_HB_IN1_BIT);
+	UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
 	SET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
 	// Right motors forward
-	ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
+	UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
 	SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
 	return;
 }
@@ -101,11 +101,11 @@ void hard_left_on_entry(t_state*inst __attribute__((unused))) {
 	ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, ~(255/8));	// set to 7/8 speed
 
 	// Left motors backwards
-	ENGINE_HB_IN1_PORT &= ~(1 << ENGINE_HB_IN1_BIT);
+	UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
 	SET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
 
 	// Right motors forward
-	ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
+	UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
 	SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
 }
 
@@ -122,10 +122,10 @@ void right_on_entry(t_state*inst __attribute__((unused))) {
 
 	// Left motors forward
 	SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
-	ENGINE_HB_IN2_PORT &= ~(1 << ENGINE_HB_IN2_BIT);
+	UNSET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
 	// Right motors backwards
 	SET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
-	ENGINE_HB_IN4_PORT &= ~(1 << ENGINE_HB_IN4_BIT);
+	UNSET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
 	return;
 }
 
@@ -142,9 +142,9 @@ void hard_right_on_entry(t_state*inst __attribute__((unused))) {
 
 	// Left motors forward
 	SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
-	ENGINE_HB_IN2_PORT &= ~(1 << ENGINE_HB_IN2_BIT);
+	UNSET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
 	// Right motors forward
-	ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
+	UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
 	SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
 	return;
 }
@@ -161,11 +161,11 @@ void stop_on_entry(t_state*inst __attribute__((unused))) {
 	ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, 255); // set to full speed
 
 	// Stop left motors
-	ENGINE_HB_IN1_PORT &= ~(1 << ENGINE_HB_IN1_BIT);
-	ENGINE_HB_IN2_PORT &= ~(1 << ENGINE_HB_IN2_BIT);
+	UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
+	UNSET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
 	// Stop right motors
-	ENGINE_HB_IN3_PORT &= ~(1 << ENGINE_HB_IN3_BIT);
-	ENGINE_HB_IN4_PORT &= ~(1 << ENGINE_HB_IN4_BIT);
+	UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
+	UNSET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
 	return;
 }
 

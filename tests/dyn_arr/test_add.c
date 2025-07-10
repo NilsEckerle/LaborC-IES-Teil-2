@@ -12,7 +12,7 @@ int main() {
 	// Test 1: Add single element
 	int *data1 = malloc(sizeof(int));
 	*data1 = 42;
-	int8_t result = arr->fp_add(arr, data1);
+	int8_t result = DYN_ARR_add(arr, data1);
 	assert(result == 0);
 	assert(arr->ui8_size == 1);
 	printf("✓ Single element added successfully\n");
@@ -20,7 +20,7 @@ int main() {
 	// Test 2: Add multiple elements
 	int *data2 = malloc(sizeof(int));
 	*data2 = 100;
-	result = _DYN_ARR_add(arr, data2);
+	result = DYN_ARR_add(arr, data2);
 	assert(result == 0);
 	assert(arr->ui8_size == 2);
 	printf("✓ Multiple elements can be added\n");
@@ -31,8 +31,7 @@ int main() {
 	printf("✓ Different data types can be added\n");
 
 	// Test 4: Add NULL pointer (should handle gracefully)
-	int8_t old_size = arr->ui8_size;
-	result = arr->fp_add(arr, NULL);
+	result = DYN_ARR_add(arr, NULL);
 	assert(result == 0);
 	assert(arr->ui8_size == 4);
 	printf("✓ NULL pointer handling tested\n");
@@ -41,19 +40,19 @@ int main() {
 	for (int i = 0; i < 10; i++) {
 		int *data = malloc(sizeof(int));
 		*data = i * 10;
-		result = arr->fp_add(arr, data);
+		result = DYN_ARR_add(arr, data);
 		assert(result == 0);
 	}
 	assert(arr->ui8_size == 14);
 	printf("✓ Multiple additions work (capacity expansion)\n");
 
 	// Test 6: Test with invalid array pointer
-	result = _DYN_ARR_add(NULL, data1);
+	result = DYN_ARR_add(NULL, data1);
 	assert(result > 0); // Should return error
 	printf("✓ Invalid array pointer handled\n");
 
 	// Clean up
-	arr->fp_destructor(&arr);
+	assert(DYN_ARR_destructor(&arr) == 0);
 
 	printf("All add tests passed!\n");
 	return 0;

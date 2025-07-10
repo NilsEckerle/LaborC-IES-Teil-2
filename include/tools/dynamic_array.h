@@ -11,14 +11,10 @@
 typedef struct dynamic_array {
 	void **vpp_data_array;
 	uint8_t ui8_size;
-
-	int8_t (*fp_add)(struct dynamic_array* tp_array, void *vp_data);
-	void *(*fp_get)(struct dynamic_array* tp_array, uint8_t ui8_index);
-	int8_t (*fp_destructor)(struct dynamic_array** tp_array);
 } t_dyn_arr;
 
 t_dyn_arr *DYN_ARRAY_constructor();
-int8_t _DYN_ARR_add(t_dyn_arr *tp_array, void *vp_data);
+int8_t DYN_ARR_add(t_dyn_arr *tp_array, void *vp_data);
 void *DYN_ARR_get(t_dyn_arr *tp_array, uint8_t ui8_index);
 int8_t DYN_ARR_destructor(t_dyn_arr **tpp_array);
 
@@ -26,7 +22,7 @@ int8_t DYN_ARR_destructor(t_dyn_arr **tpp_array);
 	void *vp_data = malloc(sizeof(typeof(t_data))); \
 	typeof(t_data) tmp = (t_data); \
 	memcpy(vp_data, &tmp, sizeof(typeof(t_data))); \
-	_DYN_ARR_add(tp_array, vp_data); \
+	DYN_ARR_add(tp_array, vp_data); \
 } while (0)
 
 #define DYN_ARR_get_as_type(tp_array, ui8_index, type) \

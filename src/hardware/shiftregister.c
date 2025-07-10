@@ -6,7 +6,7 @@
 
 void _SHIFT_set_data_pin(uint8_t ui_value) {
 	_delay_us(1);
-  SHIFT_DATA_PORT &= ~(1 << SHIFT_DATA_BIT); // ensure data pin is zero
+  UNSET_BIT(SHIFT_DATA_PORT, SHIFT_DATA_BIT); // ensure data pin is zero
 
   // set data pin as needed
   if (SHIFT_HIGH == ui_value) {
@@ -20,13 +20,13 @@ void _SHIFT_set_data_pin(uint8_t ui_value) {
 
 void _SHIFT_cicle() {
 	_delay_us(1);
-  SHIFT_CLOCK_PORT &= ~(1 << SHIFT_CLOCK_BIT); // ensure clock pin is zero
+  UNSET_BIT(SHIFT_CLOCK_PORT, SHIFT_CLOCK_BIT); // ensure clock pin is zero
 	_delay_us(1);
 
   // toggle clock
   SET_BIT(SHIFT_CLOCK_PORT, SHIFT_CLOCK_BIT);
 	_delay_us(1);
-  SHIFT_CLOCK_PORT &= ~(1 << SHIFT_CLOCK_BIT);
+  UNSET_BIT(SHIFT_CLOCK_PORT, SHIFT_CLOCK_BIT);
   TRACE("Shift register cicle send.\n");
 
   return;
@@ -66,8 +66,8 @@ void SHIFT_init() {
   TRACE("Shift register setup DDR of data and clock\n");
 
   // set default as low
-  SHIFT_DATA_PORT &= ~(1 << SHIFT_DATA_BIT);
-  SHIFT_CLOCK_PORT &= ~(1 << SHIFT_CLOCK_BIT);
+  UNSET_BIT(SHIFT_DATA_PORT, SHIFT_DATA_BIT);
+  UNSET_BIT(SHIFT_CLOCK_PORT, SHIFT_CLOCK_BIT);
   TRACE("Shift register initialized PORT of data and clock to low\n");
 
   SHIFT_push_state(0);

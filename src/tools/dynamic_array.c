@@ -5,7 +5,7 @@
 // #define LOG_LEVEL LOG_LEVEL_TRACE
 #include "tools/logger.h"
 
-int8_t _DYN_ARR_add(t_dyn_arr *tp_array, void *vp_data) {
+int8_t DYN_ARR_add(t_dyn_arr *tp_array, void *vp_data) {
 	if (NULL == tp_array) { // invalid parameter
 		WARNING("[_DYN_ARR_add] tp_array is NULL!\n");
 		return 1;
@@ -82,9 +82,6 @@ t_dyn_arr *DYN_ARRAY_constructor() {
 
 	tp_arr->vpp_data_array = NULL;
 	tp_arr->ui8_size = 0;
-	tp_arr->fp_add = _DYN_ARR_add;
-	tp_arr->fp_get = DYN_ARR_get;
-	tp_arr->fp_destructor = DYN_ARR_destructor;
 
 	return tp_arr;
 }

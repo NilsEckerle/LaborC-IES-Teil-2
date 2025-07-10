@@ -9,7 +9,7 @@ int main() {
     // Test 1: Destructor on empty array
     t_dyn_arr *arr1 = DYN_ARRAY_constructor();
     assert(arr1 != NULL);
-    int8_t result = arr1->fp_destructor(&arr1);
+    int8_t result = DYN_ARR_destructor(&arr1);
     assert(result == 0);
     assert(NULL == arr1);
     printf("✓ Empty array destructor works\n");
@@ -21,13 +21,13 @@ int main() {
     // Add some elements
     int *data1 = malloc(sizeof(int));
     *data1 = 42;
-    arr2->fp_add(arr2, data1);
+    DYN_ARR_add(arr2, data1);
     
     double *data2 = malloc(sizeof(double));
     *data2 = 3.14;
-    arr2->fp_add(arr2, data2);
+    DYN_ARR_add(arr2, data2);
     
-    result = arr2->fp_destructor(&arr2);
+    result = DYN_ARR_destructor(&arr2);
     assert(result == 0);
     assert(NULL ==  arr2);
     printf("✓ Array with elements destructor works\n");
@@ -39,10 +39,10 @@ int main() {
     for (int i = 0; i < 20; i++) {
         int *data = malloc(sizeof(int));
         *data = i;
-        arr3->fp_add(arr3, data);
+        DYN_ARR_add(arr3, data);
     }
     
-    result = arr3->fp_destructor(&arr3);
+    result = DYN_ARR_destructor(&arr3);
     assert(result == 0);
     assert(NULL ==  arr3);
     printf("✓ Array with many elements destructor works\n");
@@ -58,9 +58,9 @@ int main() {
     
     int *data = malloc(sizeof(int));
     *data = 100;
-    arr4->fp_add(arr4, data);
+    DYN_ARR_add(arr4, data);
     
-    result = arr4->fp_destructor(&arr4);
+    result = DYN_ARR_destructor(&arr4);
     assert(result == 0);
     
     // Note: Calling destructor twice on same pointer is undefined behavior

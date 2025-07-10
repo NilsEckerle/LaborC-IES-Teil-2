@@ -5,9 +5,9 @@
 
 void LF_init() {
 	// set DDR as input
-  LF_0_DDR &= ~(1 << LF_0_BIT);
-  LF_1_DDR &= ~(1 << LF_1_BIT);
-  LF_2_DDR &= ~(1 << LF_2_BIT);
+  UNSET_BIT(LF_0_DDR, LF_0_BIT);
+  UNSET_BIT(LF_1_DDR, LF_1_BIT);
+  UNSET_BIT(LF_2_DDR, LF_2_BIT);
 
 	// set input as pull-up (so i need a HIGH to get a 1)
   SET_BIT(LF_0_PORT, LF_0_BIT);
