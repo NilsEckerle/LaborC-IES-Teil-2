@@ -24,6 +24,10 @@ int main() {
   // init states
   t_state *t_state_init_robi =
       STATE_constructor("init_robi", init_robi_on_entry, init_robi_on_update);
+  t_state *t_state_check_for_start =
+      STATE_constructor("check_for_start", check_is_start_field_on_entry, check_is_start_field_on_update);
+  t_state *t_state_drive_throught =
+      STATE_constructor("drive_through", drive_through_start_on_entry, drive_through_start_on_entry_on_update);
   t_state *t_state_forward =
       STATE_constructor("forward", forward_on_entry, forward_on_update);
   t_state *t_state_backwards =
@@ -40,6 +44,8 @@ int main() {
       STATE_constructor("stop", stop_on_entry, stop_on_update);
   t_state *t_state_error =
       STATE_constructor("error", stop_on_entry, error_on_update);
+  t_state *t_state_drive_logic_super_state =
+      STATE_constructor("drive_logic_super_state", drive_logic_super_state_on_entry, drive_logic_super_state_on_update);
 
   if (NULL == t_state_init_robi || NULL == t_state_forward ||
       NULL == t_state_backwards || NULL == t_state_left ||
@@ -53,16 +59,24 @@ int main() {
   INFO("[main] all states constructed\n");
 
   // configure states
+	// drive_logic_super_state
+	add_edge(t_state_drive_logic_super_state, condition_LF_LMR, t_state_check_for_start->unique_name);
+
 	// init
-  add_edge(t_state_init_robi, condition_allways, t_state_forward->unique_name);
+  add_edge(t_state_init_robi, condition_allways, t_state_drive_throught->unique_name);
+
+	// drive_through_start
+	add_edge(t_state_drive_throught, condition_LF_NOT_LMR, t_state_forward->unique_name);
+
+	// check for start field
+	add_edge(t_state_check_for_start, condition_check_for_start_to_stop, t_state_stop->unique_name);
+	add_edge(t_state_check_for_start, condition_check_for_start_to_forward, t_state_forward->unique_name);
 
 	// forward
   add_edge(t_state_forward, condition_forward_to_left,
            t_state_left->unique_name);
   add_edge(t_state_forward, condition_forward_to_right,
            t_state_right->unique_name);
-  add_edge(t_state_forward, condition_forward_to_stop,
-           t_state_stop->unique_name);
   add_edge(t_state_forward, condition_forward_to_backwards,
            t_state_backwards->unique_name);
 
@@ -89,12 +103,23 @@ int main() {
            t_state_right->unique_name);
 
 	// stop
-  add_edge(t_state_stop, condition_allways, t_state_forward->unique_name);
+  // add_edge(t_state_stop, condition_allways, t_state_config->unique_name);
 
   INFO("[main] all edges added\n");
 
+	// configure state herarchy
+	STATE_set_parent(t_state_forward, t_state_drive_logic_super_state);
+	STATE_set_parent(t_state_backwards, t_state_drive_logic_super_state);
+	STATE_set_parent(t_state_left, t_state_drive_logic_super_state);
+	STATE_set_parent(t_state_hard_left, t_state_drive_logic_super_state);
+	STATE_set_parent(t_state_right, t_state_drive_logic_super_state);
+	STATE_set_parent(t_state_hard_right, t_state_drive_logic_super_state);
+
+  INFO("[main] all state herarchy set\n");
+
   // configure state machine
   add_error_state(state_machine, t_state_error);
+  add_state(state_machine, t_state_drive_throught);
   add_state(state_machine, t_state_forward);
   add_state(state_machine, t_state_backwards);
   add_state(state_machine, t_state_left);
@@ -102,6 +127,7 @@ int main() {
   add_state(state_machine, t_state_right);
   add_state(state_machine, t_state_hard_right);
   add_state(state_machine, t_state_init_robi);
+  add_state(state_machine, t_state_check_for_start);
   add_state(state_machine, t_state_stop);
 
   INFO("[main] all states added\n");

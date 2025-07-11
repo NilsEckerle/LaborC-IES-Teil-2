@@ -43,6 +43,11 @@ int8_t add_edge(t_state *inst, uint8_t (*condition)(), char *next_state_name) {
 	return 0;
 }
 
+void STATE_set_parent(t_state *inst, t_state *tp_new_parent) {
+	inst->tp_parent = tp_new_parent;
+	return;
+}
+
 void check_edges(t_state *inst, t_state_machine *state_machine) {
 	if (NULL == inst) { 
 		WARNING("[check_edges] inst is NULL!\n");
@@ -67,7 +72,8 @@ void check_edges(t_state *inst, t_state_machine *state_machine) {
 		TRACE("checking edge 'adress %p : to %s - adress %p'.\n", edge, edge->state_name, edge->state_name);
 		TRACE("checking condition '%s->%s'.\n", inst->unique_name, edge->state_name);
 
-		if (edge->condition()) {
+		// self conditions
+		if (edge->condition(inst)) {
 			TRACE("AAAAARRRRRGGGGHHHHH!\n");
 			int8_t rc = set_current_state(state_machine, edge->state_name);
 			if (rc != 0) { // state doesnt exist
@@ -76,6 +82,9 @@ void check_edges(t_state *inst, t_state_machine *state_machine) {
 			}
 			return;
 		}
+
+		// parrent conditions
+		check_edges(inst->tp_parent, state_machine);
 	}
 	return;
 }
@@ -118,7 +127,14 @@ t_state *STATE_constructor(
 	}
 	strcpy(inst->unique_name, unique_state_name);
 
+  inst->ui32p_state_entry_time_ms = malloc(sizeof(uint32_t));
+	if (inst->ui32p_state_entry_time_ms == NULL) {
+		WARNING("[STATE_constructor] malloc failed for state_entry_time!\n");
+		return NULL;
+	}
+
 	inst->tdynarr_edges = DYN_ARRAY_constructor();
+	inst->tp_parent = NULL;
 
 	// bind functions
 	inst->add_edge = add_edge;

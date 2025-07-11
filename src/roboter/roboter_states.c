@@ -1,9 +1,10 @@
 #include "roboter/roboter_states.h"
+#include "hardware/clock.h"
 #include "hardware/engine.h"
 #include "hardware/linienfolger.h"
 #include "hardware/shiftregister.h"
 #include "tools/bit_functions.h"
-// #define LOG_LEVEL LOG_LEVEL_INFO
+#define LOG_LEVEL LOG_LEVEL_INFO
 #include "tools/logger.h"
 
 void init_robi_on_entry(t_state *inst __attribute__((unused))) {
@@ -11,10 +12,20 @@ void init_robi_on_entry(t_state *inst __attribute__((unused))) {
 	SHIFT_init();
 	LF_init();
 	ENGINE_init();
+	CLOCK_init();
 	return;
 }
 
 void init_robi_on_update(t_state*inst __attribute__((unused))) {
+	return;
+}
+
+void drive_logic_super_state_on_entry(t_state*inst __attribute__((unused))) {
+	INFO("drive_logic_super_state_on_entry\n");
+	return;
+}
+
+void drive_logic_super_state_on_update(t_state*inst __attribute__((unused))) {
 	return;
 }
 
@@ -24,6 +35,29 @@ void nothing_on_entry(t_state*inst __attribute__((unused))) {
 }
 
 void nothing_on_update(t_state*inst __attribute__((unused))) {
+	return;
+}
+
+void drive_through_start_on_entry(t_state*inst __attribute__((unused))) {
+	SHIFT_push_state((LF_detection_state)LF_M);
+	INFO("drive_through_start\n");
+
+	ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255/4));		// set to 3/4 speed
+	ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, ~(255/4));	// set to 3/4 speed
+																											// 1111 1111 = 255
+																											// 0011 1111 = 63  = 255/4
+																											// 1100 0000 = 192 = ~63
+																											
+  // Left motors forward
+	SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
+	UNSET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
+	// Right motors forward
+	UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
+	SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
+	return;
+}
+
+void drive_through_start_on_entry_on_update(t_state*inst __attribute__((unused))) {
 	return;
 }
 
@@ -153,6 +187,30 @@ void hard_right_on_update(t_state*inst __attribute__((unused))) {
 	return;
 }
 
+void check_is_start_field_on_entry(t_state*inst __attribute__((unused))) {
+	INFO("check is start\n");
+	*inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
+
+	SHIFT_push_state((LF_detection_state)LF_M);
+	ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255/4));		// set to 3/4 speed
+	ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, ~(255/4));	// set to 3/4 speed
+																											// 1111 1111 = 255
+																											// 0011 1111 = 63  = 255/4
+																											// 1100 0000 = 192 = ~63
+																											
+  // Left motors forward
+	SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
+	UNSET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
+	// Right motors forward
+	UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
+	SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
+	return;
+}
+
+void check_is_start_field_on_update(t_state*inst __attribute__((unused))) {
+	return;
+}
+
 void stop_on_entry(t_state*inst __attribute__((unused))) {
 	SHIFT_push_state((LF_detection_state)LF_LMR);
 	INFO("stop\n");
@@ -187,89 +245,110 @@ void error_on_update(t_state*inst __attribute__((unused))) {
 * CONDITIONS
 ********************/
 
-uint8_t condition_allways() {
+uint8_t condition_allways(t_state *inst __attribute__((unused))) {
 	return 1;
 }
 
-uint8_t condition_forward_to_left() {
+uint8_t condition_forward_to_left(t_state *inst __attribute__((unused))) {
 	if (LF_get_state(LF_LEFT) && !LF_get_state(LF_RIGHT)) {
 		return 1;
 	}
 	return 0;
 }
 
-uint8_t condition_forward_to_right() {
+uint8_t condition_forward_to_right(t_state *inst __attribute__((unused))) {
 	if (!LF_get_state(LF_LEFT) && LF_get_state(LF_RIGHT)) {
 		return 1;
 	}
 	return 0;
 }
 
-uint8_t condition_forward_to_stop() {
+uint8_t condition_LF_LMR(t_state *inst __attribute__((unused))) {
 	if (LF_get_states() == (LF_detection_state)LF_LMR) {
 		return 1;
 	}
 	return 0;
 }
 
-uint8_t condition_forward_to_backwards() {
+uint8_t condition_LF_NOT_LMR(t_state *inst __attribute__((unused))) {
+	if (!LF_get_state(LF_LEFT) || !LF_get_state(LF_MIDDLE) || !LF_get_state(LF_RIGHT)) {
+		return 1;
+	}
+	return 0;
+}
+
+uint8_t condition_forward_to_backwards(t_state *inst __attribute__((unused))) {
 	if (LF_get_states() == (LF_detection_state)LF_NONE) {
 		return 1;
 	}
 	return 0;
 }
 
-uint8_t condition_backwards_to_forward() {
+uint8_t condition_backwards_to_forward(t_state *inst __attribute__((unused))) {
 	if (LF_get_states() != LF_NONE) {
 		return 1;
 	}
 	return 0;
 }
 
-uint8_t condition_nothing_to_forward() {
+uint8_t condition_nothing_to_forward(t_state *inst __attribute__((unused))) {
 	if (LF_get_states() == (LF_detection_state)LF_NONE) {
 		return 1;
 	}
 	return 0;
 }
 
-uint8_t condition_left_to_forward() {
+uint8_t condition_left_to_forward(t_state *inst __attribute__((unused))) {
 	if (!LF_get_state(LF_LEFT)) {
 		return 1;
 	}
 	return 0;
 }
 
-uint8_t condition_left_to_hard_left() {
+uint8_t condition_left_to_hard_left(t_state *inst __attribute__((unused))) {
 	if (!LF_get_state(LF_MIDDLE)) {
 		return 1;
 	}
 	return 0;
 }
 
-uint8_t condition_hard_left_to_left() {
+uint8_t condition_hard_left_to_left(t_state *inst __attribute__((unused))) {
 	if (LF_get_state(LF_MIDDLE) == 1) {
 		return 1;
 	}
 	return 0;
 }
 
-uint8_t condition_right_to_forward() {
+uint8_t condition_right_to_forward(t_state *inst __attribute__((unused))) {
 	if (!LF_get_state(LF_RIGHT)) {
 		return 1;
 	}
 	return 0;
 }
 
-uint8_t condition_right_to_hard_right() {
+uint8_t condition_right_to_hard_right(t_state *inst __attribute__((unused))) {
 	if (!LF_get_state(LF_MIDDLE)) {
 		return 1;
 	}
 	return 0;
 }
 
-uint8_t condition_hard_right_to_right() {
+uint8_t condition_hard_right_to_right(t_state *inst __attribute__((unused))) {
 	if (LF_get_state(LF_MIDDLE)) {
+		return 1;
+	}
+	return 0;
+}
+
+uint8_t condition_check_for_start_to_forward(t_state *inst __attribute__((unused))) {
+	if (LF_get_states() != LF_LMR) {
+		return 1;
+	}
+	return 0;
+}
+
+uint8_t condition_check_for_start_to_stop(t_state *inst __attribute__((unused))) {
+	if (CLOCK_get_milliseconds() - *inst->ui32p_state_entry_time_ms >= START_FIELD_THRESHHOLD_MS) {
 		return 1;
 	}
 	return 0;
