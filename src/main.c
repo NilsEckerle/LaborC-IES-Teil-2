@@ -16,15 +16,13 @@
 #include <stdint.h>
 #include <util/delay.h>
 
-int main() {
-  USART_init(UBRR_SETTING);
-  INFO("USART_init\n");
+t_state_machine *configure_state_machine() {
 
   // init state machine
   t_state_machine *state_machine = STATE_MACHINE_constructor();
   if (NULL == state_machine) {
     FATAL("Failed to construct state_machine.\n");
-    return 1;
+    return NULL;
   }
 
   // init states
@@ -59,7 +57,7 @@ int main() {
       NULL == t_state_hard_right || NULL == t_state_stop ||
       NULL == t_state_error) {
     FATAL("Failed to construct state!\n");
-    return 1;
+    return NULL;
   }
 
   INFO("[main] all states constructed\n");
@@ -144,8 +142,19 @@ int main() {
                       state_machine->tp_error_state->unique_name);
   }
 
-  INFO("[main] now running state machine\n");
+	return state_machine;
+}
 
+int main() {
+  USART_init(UBRR_SETTING);
+  INFO("USART_init\n");
+
+	t_state_machine *state_machine = configure_state_machine();
+	if (NULL == state_machine) {
+		return 1;
+	}
+
+  INFO("[main] now starting state machine\n");
   run(state_machine);
 
   return 0;
