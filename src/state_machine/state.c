@@ -84,7 +84,9 @@ void check_edges(t_state *inst, t_state_machine *state_machine) {
 		}
 
 		// parrent conditions
-		check_edges(inst->tp_parent, state_machine);
+		if (inst->tp_parent != 0) {
+			check_edges(inst->tp_parent, state_machine);
+		}
 	}
 	return;
 }

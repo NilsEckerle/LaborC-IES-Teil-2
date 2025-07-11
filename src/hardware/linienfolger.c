@@ -26,7 +26,7 @@ int8_t LF_get_state(LF_index lf_index) {
   case LF_RIGHT:
     return (LF_RIGHT_PIN & (1 << LF_RIGHT_BIT)) ? 1 : 0;
   default:
-    ERROR("Invalid line follower sensor index: %u\n", ui_lf_index);
+    ERROR("Invalid line follower sensor index: %u\n", lf_index);
     break;
   }
 

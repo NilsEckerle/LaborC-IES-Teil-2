@@ -4,7 +4,7 @@
 #include "hardware/linienfolger.h"
 #include "hardware/shiftregister.h"
 #include "tools/bit_functions.h"
-#define LOG_LEVEL LOG_LEVEL_INFO
+// #define LOG_LEVEL LOG_LEVEL_INFO
 #include "tools/logger.h"
 
 void init_robi_on_entry(t_state *inst __attribute__((unused))) {

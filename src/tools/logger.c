@@ -16,3 +16,19 @@ void __attribute__((unused)) debug_printf(const char *prefix, const char *format
 	// Send to USART
 	USART_print(debug_buffer);
 }
+
+void __attribute__((unused)) debug_printf_P(const char *prefix, const char *format, ...) {
+	va_list args;
+	va_start(args, format);
+
+	strcpy_P(debug_buffer, prefix);
+
+	// Format the message
+	vsnprintf_P(debug_buffer + strlen(debug_buffer),
+			sizeof(debug_buffer) - strlen(debug_buffer), format, args);
+
+	va_end(args);
+
+	// Send to USART
+	USART_print(debug_buffer);
+}

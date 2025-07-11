@@ -12,7 +12,7 @@
 
 int main() {
   USART_init(UBRR_SETTING);
-  USART_print("USART_init\n");
+  INFO("USART_init\n");
 
   // init state machine
   t_state_machine *state_machine = STATE_MACHINE_constructor();

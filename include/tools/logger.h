@@ -5,6 +5,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
+#include <avr/pgmspace.h>
 
 #define LOG_LEVEL_TRACE 0
 #define LOG_LEVEL_INFO_SPAM 1
@@ -15,19 +16,20 @@
 #define LOG_LEVEL_DISABLE 100
 
 #ifndef LOG_LEVEL
-#define LOG_LEVEL LOG_LEVEL_FATAL
+#define LOG_LEVEL LOG_LEVEL_WARNING
 #endif /* ifndef LOG_LEVEL */
 
+// Helper function for formatted debug output with PROGMEM support
+void __attribute__((unused)) debug_printf_P(const char *prefix, const char *format, ...);
+
 // Helper function for formatted debug output
-// Use __attribute__((unused)) to suppress unused function warnings
 void __attribute__((unused)) debug_printf(const char *prefix, const char *format, ...);
 
 #ifndef LOGGER_USE_PRINTF
-#define DEBUG_PRINTF(prefix, format, ...) debug_printf(prefix, format, ##__VA_ARGS__)
+#define DEBUG_PRINTF(prefix, format, ...) debug_printf_P(PSTR(prefix), PSTR(format), ##__VA_ARGS__)
 #else
 #define DEBUG_PRINTF(prefix, format, ...) printf(prefix format, ##__VA_ARGS__)
 #endif
-
 
 // TRACE: Very detailed execution flow
 #if LOG_LEVEL <= LOG_LEVEL_TRACE
@@ -70,5 +72,7 @@ void __attribute__((unused)) debug_printf(const char *prefix, const char *format
 #else
 #define FATAL(format, ...) ((void)0)
 #endif
+
+#define UI(format, ...) DEBUG_PRINTF("[UI] ", format, ##__VA_ARGS__)
 
 #endif // LOGGER_H
