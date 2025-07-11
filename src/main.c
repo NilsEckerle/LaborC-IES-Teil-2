@@ -60,7 +60,7 @@ t_state_machine *configure_state_machine() {
     return NULL;
   }
 
-  INFO("[main] all states constructed\n");
+  INFO("[configure_state_machine] all states constructed\n");
 
   // configure states
 	// drive_logic_super_state
@@ -109,7 +109,7 @@ t_state_machine *configure_state_machine() {
 	// stop
   // add_edge(t_state_stop, condition_allways, t_state_config->unique_name);
 
-  INFO("[main] all edges added\n");
+  INFO("[configure_state_machine] all edges added\n");
 
 	// configure state herarchy
 	STATE_set_parent(t_state_forward, t_state_drive_logic_super_state);
@@ -119,7 +119,7 @@ t_state_machine *configure_state_machine() {
 	STATE_set_parent(t_state_right, t_state_drive_logic_super_state);
 	STATE_set_parent(t_state_hard_right, t_state_drive_logic_super_state);
 
-  INFO("[main] all state herarchy set\n");
+  INFO("[configure_state_machine] all state herarchy set\n");
 
   // configure state machine
   add_error_state(state_machine, t_state_error);
@@ -134,7 +134,7 @@ t_state_machine *configure_state_machine() {
   add_state(state_machine, t_state_check_for_start);
   add_state(state_machine, t_state_stop);
 
-  INFO("[main] all states added\n");
+  INFO("[configure_state_machine] all states added\n");
 
   int8_t rc = set_start_state(state_machine, t_state_init_robi->unique_name);
   if (0 != rc) { // set_start_state failed
