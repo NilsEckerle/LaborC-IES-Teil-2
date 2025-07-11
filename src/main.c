@@ -1,8 +1,14 @@
 // #define LOG_LEVEL LOG_LEVEL_INFO
+#include "roboter/states_general.h"
+#include "roboter/states_config.h"
+#include "roboter/states_drive.h"
+#include "roboter/conditions_general.h"
+#include "roboter/conditions_LF.h"
+#include "roboter/conditions_clock.h"
+
 #include "tools/iesusart.h"
 #include "tools/logger.h"
 
-#include "roboter/roboter_states.h" // roboter state definitions
 #include "state_machine/state.h"
 #include "state_machine/state_machine.h"
 
@@ -43,7 +49,7 @@ int main() {
   t_state *t_state_stop =
       STATE_constructor("stop", stop_on_entry, stop_on_update);
   t_state *t_state_error =
-      STATE_constructor("error", stop_on_entry, error_on_update);
+      STATE_constructor("error", error_on_entry, error_on_update);
   t_state *t_state_drive_logic_super_state =
       STATE_constructor("drive_logic_super_state", drive_logic_super_state_on_entry, drive_logic_super_state_on_update);
 
@@ -69,7 +75,7 @@ int main() {
 	add_edge(t_state_drive_throught, condition_LF_NOT_LMR, t_state_forward->unique_name);
 
 	// check for start field
-	add_edge(t_state_check_for_start, condition_check_for_start_to_stop, t_state_stop->unique_name);
+	add_edge(t_state_check_for_start, condition_start_field_delay, t_state_stop->unique_name);
 	add_edge(t_state_check_for_start, condition_check_for_start_to_forward, t_state_forward->unique_name);
 
 	// forward

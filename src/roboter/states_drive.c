@@ -1,4 +1,4 @@
-#include "roboter/roboter_states.h"
+#include "roboter/states_drive.h"
 #include "hardware/clock.h"
 #include "hardware/engine.h"
 #include "hardware/linienfolger.h"
@@ -6,19 +6,6 @@
 #include "tools/bit_functions.h"
 // #define LOG_LEVEL LOG_LEVEL_INFO
 #include "tools/logger.h"
-
-void init_robi_on_entry(t_state *inst __attribute__((unused))) {
-	INFO("init\n");
-	SHIFT_init();
-	LF_init();
-	ENGINE_init();
-	CLOCK_init();
-	return;
-}
-
-void init_robi_on_update(t_state*inst __attribute__((unused))) {
-	return;
-}
 
 void drive_logic_super_state_on_entry(t_state*inst __attribute__((unused))) {
 	INFO("drive_logic_super_state_on_entry\n");
@@ -39,7 +26,7 @@ void nothing_on_update(t_state*inst __attribute__((unused))) {
 }
 
 void drive_through_start_on_entry(t_state*inst __attribute__((unused))) {
-	SHIFT_push_state((LF_detection_state)LF_M);
+	SHIFT_push_state((LF_detection_state)LF_LMR);
 	INFO("drive_through_start\n");
 
 	ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255/4));		// set to 3/4 speed
@@ -230,127 +217,3 @@ void stop_on_entry(t_state*inst __attribute__((unused))) {
 void stop_on_update(t_state*inst __attribute__((unused))) {
 	return;
 }
-
-void error_on_entry(t_state*inst __attribute__((unused))) {
-	stop_on_entry(inst);
-	return;
-}
-
-void error_on_update(t_state*inst __attribute__((unused))) {
-	USART_print("ERROR STATE!\n");
-	return;
-}
-
-/********************
-* CONDITIONS
-********************/
-
-uint8_t condition_allways(t_state *inst __attribute__((unused))) {
-	return 1;
-}
-
-uint8_t condition_forward_to_left(t_state *inst __attribute__((unused))) {
-	if (LF_get_state(LF_LEFT) && !LF_get_state(LF_RIGHT)) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_forward_to_right(t_state *inst __attribute__((unused))) {
-	if (!LF_get_state(LF_LEFT) && LF_get_state(LF_RIGHT)) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_LF_LMR(t_state *inst __attribute__((unused))) {
-	if (LF_get_states() == (LF_detection_state)LF_LMR) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_LF_NOT_LMR(t_state *inst __attribute__((unused))) {
-	if (!LF_get_state(LF_LEFT) || !LF_get_state(LF_MIDDLE) || !LF_get_state(LF_RIGHT)) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_forward_to_backwards(t_state *inst __attribute__((unused))) {
-	if (LF_get_states() == (LF_detection_state)LF_NONE) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_backwards_to_forward(t_state *inst __attribute__((unused))) {
-	if (LF_get_states() != LF_NONE) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_nothing_to_forward(t_state *inst __attribute__((unused))) {
-	if (LF_get_states() == (LF_detection_state)LF_NONE) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_left_to_forward(t_state *inst __attribute__((unused))) {
-	if (!LF_get_state(LF_LEFT)) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_left_to_hard_left(t_state *inst __attribute__((unused))) {
-	if (!LF_get_state(LF_MIDDLE)) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_hard_left_to_left(t_state *inst __attribute__((unused))) {
-	if (LF_get_state(LF_MIDDLE) == 1) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_right_to_forward(t_state *inst __attribute__((unused))) {
-	if (!LF_get_state(LF_RIGHT)) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_right_to_hard_right(t_state *inst __attribute__((unused))) {
-	if (!LF_get_state(LF_MIDDLE)) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_hard_right_to_right(t_state *inst __attribute__((unused))) {
-	if (LF_get_state(LF_MIDDLE)) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_check_for_start_to_forward(t_state *inst __attribute__((unused))) {
-	if (LF_get_states() != LF_LMR) {
-		return 1;
-	}
-	return 0;
-}
-
-uint8_t condition_check_for_start_to_stop(t_state *inst __attribute__((unused))) {
-	if (CLOCK_get_milliseconds() - *inst->ui32p_state_entry_time_ms >= START_FIELD_THRESHHOLD_MS) {
-		return 1;
-	}
-	return 0;
-}
-
