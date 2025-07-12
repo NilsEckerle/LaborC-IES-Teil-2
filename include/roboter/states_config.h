@@ -7,4 +7,16 @@ void init_robi_on_entry(t_state *inst __attribute__((unused)));
 
 void init_robi_on_update(t_state*inst __attribute__((unused)));
 
+void config_on_entry(t_state *inst __attribute__((unused)));
+
+void config_on_update(t_state*inst __attribute__((unused)));
+
+void config_rounds_on_entry(t_state *inst __attribute__((unused)));
+
+void config_rounds_on_update(t_state*inst __attribute__((unused)));
+
+void wait_start_on_entry(t_state *inst __attribute__((unused)));
+
+void wait_start_on_update(t_state*inst __attribute__((unused)));
+
 #endif // STATES_CONFIG_H

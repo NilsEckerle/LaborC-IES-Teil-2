@@ -71,6 +71,7 @@ int8_t set_start_state(t_state_machine *inst, char *start_state_name) {
 }
 
 int8_t set_current_state(t_state_machine *inst, char *new_state_name) {
+	TRACE("[set_current_state] to: %s\n", new_state_name);
   inst->bool_is_new_state = 1;
   inst->tp_current_state = find_state_by_name(inst, new_state_name);
   if (NULL == inst->tp_current_state) {

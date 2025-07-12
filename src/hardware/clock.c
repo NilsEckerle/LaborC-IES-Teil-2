@@ -1,5 +1,6 @@
 #include "hardware/clock.h"
 #include "tools/bit_functions.h"
+#include "tools/logger.h"
 
 // Clock variables
 volatile uint16_t milliseconds = 0;
@@ -43,6 +44,8 @@ void CLOCK_init() {
 
   // Enable global interrupts
   sei();
+
+	INFO("[CLOCK_init] Clock initialization successful\n");
 }
 
 

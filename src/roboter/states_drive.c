@@ -3,7 +3,9 @@
 #include "hardware/engine.h"
 #include "hardware/linienfolger.h"
 #include "hardware/shiftregister.h"
+#include "roboter/roboter.h"
 #include "tools/bit_functions.h"
+
 // #define LOG_LEVEL LOG_LEVEL_INFO
 #include "tools/logger.h"
 
@@ -16,16 +18,9 @@ void drive_logic_super_state_on_update(t_state*inst __attribute__((unused))) {
 	return;
 }
 
-void nothing_on_entry(t_state*inst __attribute__((unused))) {
-	INFO("nothing\n");
-	return;
-}
-
-void nothing_on_update(t_state*inst __attribute__((unused))) {
-	return;
-}
-
 void drive_through_start_on_entry(t_state*inst __attribute__((unused))) {
+	ROBOTER_get_instance()->i8_rounds--;
+	UI("Starting lap. - %d more laps comming.\n", ROBOTER_get_instance()->i8_rounds);
 	SHIFT_push_state((LF_detection_state)LF_LMR);
 	INFO("drive_through_start\n");
 

@@ -26,3 +26,7 @@ void error_on_update(t_state*inst __attribute__((unused))) {
 	FATAL("ERROR STATE!\n");
 	return;
 }
+
+void nothing_on_entry(t_state*inst __attribute__((unused))) {return;}
+
+void nothing_on_update(t_state*inst __attribute__((unused))) {return;}

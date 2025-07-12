@@ -7,4 +7,8 @@ void error_on_entry(t_state*inst __attribute__((unused)));
 
 void error_on_update(t_state*inst __attribute__((unused)));
 
+void nothing_on_entry(t_state*inst __attribute__((unused)));
+
+void nothing_on_update(t_state*inst __attribute__((unused)));
+
 #endif // STATES_GENERAL_H
