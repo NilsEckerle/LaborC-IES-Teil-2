@@ -28,7 +28,7 @@ This Repo uses a combined approach
 1. **TODO.md** - Central planning and tracking
 2. **Git branches** - Implementation workflow
 
-### The broad ideea
+### The broad idea
 - New tasks are added in the TODO.md
 - when solving a task do it in a git branch
     - naming the branch for what it is e.g. *issue/sensor-calibration*
