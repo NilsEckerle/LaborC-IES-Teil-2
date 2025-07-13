@@ -47,7 +47,7 @@ This Repo uses a combined approach
     # Work on your changes
     # ... make commits ...
 
-    # Push and create merge request
+    # Push new branch
     git push origin issue/descriptive-name
     ```
 2. add branch name to TODO.md
