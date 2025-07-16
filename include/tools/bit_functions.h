@@ -35,4 +35,18 @@
  */
 #define UNSET_BIT(reg, bit) do {reg &= ~(1 << bit);} while(0)
 
+/**
+ * @brief This is a shorthand to check if a bit is set in a register
+ *
+ * @param reg The register or variable to check
+ * @param bit The bit position to check (0-based indexing, 0 = LSB)
+ *
+ * @example
+ *       uint8_t status = 0xFF;    // 11111111
+ *       if (IS_BIT_SET(status, 3) {     // Clears bit 3: 11110111 (0xF7)
+ *         // do something
+ *       }
+ */
+#define IS_BIT_SET(reg, bit) ((reg & (1 << bit)) ? 1 : 0)
+
 #endif // !BIT_FUNCTIONS

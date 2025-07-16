@@ -3,6 +3,7 @@
 
 #include "hardware/clock.h"
 #include "hardware/engine.h"
+#include "hardware/adc.h"
 #include "hardware/linienfolger.h"
 #include "hardware/shiftregister.h"
 
@@ -14,6 +15,7 @@
 void init_robi_on_entry(t_state *inst __attribute__((unused))) {
   INFO("init\n");
   SHIFT_init();
+  ADC_init();
   LF_init();
   ENGINE_init();
   CLOCK_init();

@@ -1,7 +1,6 @@
 # Line Follower Robot - TODO
 
 ## High Priority (P1)
-- [ ] Add ADC for LF
 - [ ] Add interactive config for ADC LF
 
 ## Medium Priority (P2)
@@ -33,3 +32,4 @@
 - [ ] Write a tool that takes State Machine print and displays it graphicaly
 
 ## Completed
+- [x] Add ADC for LF `feat/adc-line-follower`
