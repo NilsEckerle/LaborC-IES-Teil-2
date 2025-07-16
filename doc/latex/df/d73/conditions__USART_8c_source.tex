@@ -1,0 +1,128 @@
+\hypertarget{conditions__USART_8c_source}{}\doxysection{conditions\+\_\+\+USART.\+c}
+\label{conditions__USART_8c_source}\index{src/roboter/conditions\_USART.c@{src/roboter/conditions\_USART.c}}
+\mbox{\hyperlink{conditions__USART_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{conditions__USART_8h}{roboter/conditions\_USART.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00002}00002 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{roboter_8h}{roboter/roboter.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{iesusart_8h}{tools/iesusart.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00004}00004 \textcolor{preprocessor}{\#include <avr/io.h>}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00005}00005 \textcolor{preprocessor}{\#include <avr/interrupt.h>}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00006}00006 \textcolor{preprocessor}{\#include <ctype.h>}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00007}00007 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00008}00008 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00009}00009 \textcolor{preprocessor}{\#include <string.h>}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00011}00011 \textcolor{comment}{// \#define LOG\_LEVEL LOG\_LEVEL\_TRACE}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00012}00012 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{logger_8h}{tools/logger.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00014}\mbox{\hyperlink{conditions__USART_8c_ab53e6ac4d24a916939ec2c3cd44b8f78}{00014}} uint8\_t \mbox{\hyperlink{conditions__USART_8c_ab53e6ac4d24a916939ec2c3cd44b8f78}{condition\_USART\_helper\_clear\_invalid\_input}}(\mbox{\hyperlink{structstate}{t\_state}} *inst \mbox{\hyperlink{logger_8c_a1c8d527a7c17301bed8fe2eb9043ef45}{\_\_attribute\_\_}}((unused))) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00015}00015   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_clear] Called -\/ clearing buffer\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00016}00016   \mbox{\hyperlink{iesusart_8c_a2569255df7c6484aba8bbd8a6d8963bc}{USART\_consume\_on\_second\_call\_string}}();}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00017}00017   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00018}00018 \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00020}\mbox{\hyperlink{conditions__USART_8c_a547716d227fb3b9888dac8db859c7e45}{00020}} uint8\_t \mbox{\hyperlink{conditions__USART_8c_a547716d227fb3b9888dac8db859c7e45}{condition\_USART\_r}}(\mbox{\hyperlink{structstate}{t\_state}} *inst \mbox{\hyperlink{logger_8c_a1c8d527a7c17301bed8fe2eb9043ef45}{\_\_attribute\_\_}}((unused))) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00021}00021   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_r] Entry -\/ checking for 'r' or 'R'\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00022}00022 }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00023}00023   \textcolor{comment}{// Only check if we actually have a complete string}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00024}00024   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{iesusart_8c_ab7d4ecf6d29aeb6aa152fb44ca166c08}{USART\_has\_string}}()) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00025}00025     \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_r] No complete string available\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00026}00026     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00027}00027   \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00028}00028 }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00029}00029   \textcolor{keyword}{const} \textcolor{keywordtype}{char} *c = \mbox{\hyperlink{iesusart_8c_a11a884f88dd7c9207bec854c935ee223}{USART\_get\_string}}();}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00030}00030   \textcolor{keywordflow}{if} (NULL != c \&\& (strcmp(c, \textcolor{stringliteral}{"{}r"{}}) == 0 || strcmp(c, \textcolor{stringliteral}{"{}R"{}}) == 0)) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00031}00031     \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_r] Match found! String='\%s' -\/ consuming\(\backslash\)n"{}}, c);}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00032}00032     \mbox{\hyperlink{iesusart_8c_af50ad7c376895818661f3aeea111e35b}{USART\_consume\_string}}();}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00033}00033     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00034}00034   \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00035}00035   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_r] No match. String='\%s'\(\backslash\)n"{}}, c ? c : \textcolor{stringliteral}{"{}NULL"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00036}00036   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00037}00037 \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00039}\mbox{\hyperlink{conditions__USART_8c_ae7e363251dc33ddd40097dbf7b101d60}{00039}} uint8\_t \mbox{\hyperlink{conditions__USART_8c_ae7e363251dc33ddd40097dbf7b101d60}{condition\_USART\_s}}(\mbox{\hyperlink{structstate}{t\_state}} *inst \mbox{\hyperlink{logger_8c_a1c8d527a7c17301bed8fe2eb9043ef45}{\_\_attribute\_\_}}((unused))) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00040}00040   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_s] Entry -\/ checking for 's' or 'S'\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00041}00041 }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00042}00042   \textcolor{comment}{// Only check if we actually have a complete string}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00043}00043   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{iesusart_8c_ab7d4ecf6d29aeb6aa152fb44ca166c08}{USART\_has\_string}}()) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00044}00044     \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_s] No complete string available\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00045}00045     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00046}00046   \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00048}00048   \textcolor{keyword}{const} \textcolor{keywordtype}{char} *c = \mbox{\hyperlink{iesusart_8c_a11a884f88dd7c9207bec854c935ee223}{USART\_get\_string}}();}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00049}00049   \textcolor{keywordflow}{if} (NULL != c \&\& (strcmp(c, \textcolor{stringliteral}{"{}s"{}}) == 0 || strcmp(c, \textcolor{stringliteral}{"{}S"{}}) == 0)) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00050}00050     \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_s] Match found! String='\%s' -\/ consuming\(\backslash\)n"{}}, c);}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00051}00051     \mbox{\hyperlink{iesusart_8c_af50ad7c376895818661f3aeea111e35b}{USART\_consume\_string}}();}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00052}00052     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00053}00053   \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00054}00054   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_s] No match. String='\%s'\(\backslash\)n"{}}, c ? c : \textcolor{stringliteral}{"{}NULL"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00055}00055   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00056}00056 \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00058}\mbox{\hyperlink{conditions__USART_8c_aaad154aa033a7e6c989e686fce142226}{00058}} uint8\_t \mbox{\hyperlink{conditions__USART_8c_aaad154aa033a7e6c989e686fce142226}{condition\_USART\_c}}(\mbox{\hyperlink{structstate}{t\_state}} *inst \mbox{\hyperlink{logger_8c_a1c8d527a7c17301bed8fe2eb9043ef45}{\_\_attribute\_\_}}((unused))) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00059}00059   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_c] Entry -\/ checking for 'c' or 'C'\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00060}00060   }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00061}00061   \textcolor{comment}{// Only check if we actually have a complete string}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00062}00062   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{iesusart_8c_ab7d4ecf6d29aeb6aa152fb44ca166c08}{USART\_has\_string}}()) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00063}00063     \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_c] No complete string available\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00064}00064     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00065}00065   \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00066}00066 }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00067}00067   \textcolor{keyword}{const} \textcolor{keywordtype}{char} *c = \mbox{\hyperlink{iesusart_8c_a11a884f88dd7c9207bec854c935ee223}{USART\_get\_string}}();}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00068}00068   \textcolor{keywordflow}{if} (NULL != c \&\& (strcmp(c, \textcolor{stringliteral}{"{}c"{}}) == 0 || strcmp(c, \textcolor{stringliteral}{"{}C"{}}) == 0)) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00069}00069     \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_c] Match found! String='\%s' -\/ consuming\(\backslash\)n"{}}, c);}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00070}00070     \mbox{\hyperlink{iesusart_8c_af50ad7c376895818661f3aeea111e35b}{USART\_consume\_string}}();}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00071}00071     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00072}00072   \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00073}00073   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_c] No match. String='\%s'\(\backslash\)n"{}}, c ? c : \textcolor{stringliteral}{"{}NULL"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00074}00074   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00075}00075 \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00076}00076 }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00077}\mbox{\hyperlink{conditions__USART_8c_abb78028f99f6dd465b7ac6aa343a116b}{00077}} uint8\_t \mbox{\hyperlink{conditions__USART_8c_abb78028f99f6dd465b7ac6aa343a116b}{condition\_USART\_isdigit}}(\mbox{\hyperlink{structstate}{t\_state}} *inst \mbox{\hyperlink{logger_8c_a1c8d527a7c17301bed8fe2eb9043ef45}{\_\_attribute\_\_}}((unused))) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00078}00078   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_c] Entry -\/ checking for isdigit\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00079}00079 }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00080}00080   \textcolor{comment}{// Only check if we actually have a complete string}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00081}00081   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{iesusart_8c_ab7d4ecf6d29aeb6aa152fb44ca166c08}{USART\_has\_string}}()) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00082}00082     \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_isdigit] No complete string available\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00083}00083     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00084}00084   \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00085}00085 }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00086}00086   \textcolor{keyword}{const} \textcolor{keywordtype}{char} *str = \mbox{\hyperlink{iesusart_8c_a11a884f88dd7c9207bec854c935ee223}{USART\_get\_string}}();}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00087}00087   \textcolor{keywordflow}{if} (str == NULL) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00088}00088     \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_isdigit] No string available\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00089}00089     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00090}00090   \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00091}00091   }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00092}00092   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_isdigit] got str: '\%s' (length: \%d)\(\backslash\)n"{}}, str, (\textcolor{keywordtype}{int})strlen(str));}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00093}00093   }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00094}00094   uint8\_t is\_digit = 1;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00095}00095   \textcolor{keywordtype}{size\_t} len = strlen(str);}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00096}00096   }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00097}00097   \textcolor{keywordflow}{if} (len == 0) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00098}00098     \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_isdigit] Empty string\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00099}00099     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00100}00100   \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00101}00101   }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00102}00102   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < len; i++) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00103}00103     \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_isdigit] Checking char[\%d]: '\%c' (ASCII \%d)\(\backslash\)n"{}}, i, str[i], (\textcolor{keywordtype}{int})str[i]);}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00104}00104     \textcolor{keywordflow}{if} (!isdigit(str[i])) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00105}00105       \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_isdigit] Non-\/digit found at position \%d\(\backslash\)n"{}}, i);}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00106}00106       is\_digit = 0;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00107}00107       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00108}00108     \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00109}00109   \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00110}00110   }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00111}00111   \textcolor{keywordflow}{if} (is\_digit) \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00112}00112     \textcolor{keywordtype}{int} value = atoi(str);}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00113}00113     \mbox{\hyperlink{logger_8h_ae74719c3e2069864c055e5c6ad302319}{UI}}(\textcolor{stringliteral}{"{}rounds set to: \%d\(\backslash\)n"{}}, value);}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00114}00114     \mbox{\hyperlink{roboter_8c_a62d3be3431c507ecee793307409b8a4b}{ROBOTER\_get\_instance}}()-\/>\mbox{\hyperlink{structroboter_ab58acc64ab53ab5dfb49c5ff79f07729}{i8\_rounds}} = value;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00115}00115     \mbox{\hyperlink{logger_8h_aafc148cee6d6c9e76b4ef417c7056f8f}{INFO}}(\textcolor{stringliteral}{"{}[condition\_USART\_isdigit] Valid number found! Consuming string.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00116}00116     \mbox{\hyperlink{iesusart_8c_af50ad7c376895818661f3aeea111e35b}{USART\_consume\_string}}();}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00117}00117   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00118}00118     \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}[condition\_USART\_isdigit] Not a valid number\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00119}00119   \}}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00120}00120   }
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00121}00121   \textcolor{keywordflow}{return} is\_digit;}
+\DoxyCodeLine{\Hypertarget{conditions__USART_8c_source_l00122}00122 \}}
+
+\end{DoxyCode}

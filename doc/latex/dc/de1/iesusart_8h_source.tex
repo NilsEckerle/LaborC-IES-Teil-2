@@ -1,0 +1,41 @@
+\hypertarget{iesusart_8h_source}{}\doxysection{iesusart.\+h}
+\label{iesusart_8h_source}\index{include/tools/iesusart.h@{include/tools/iesusart.h}}
+\mbox{\hyperlink{iesusart_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef IESUSART\_h}}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00002}00002 \textcolor{preprocessor}{\#define IESUSART\_h}}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00004}00004 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00005}00005 }
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00006}00006 \textcolor{keyword}{extern} \textcolor{keyword}{volatile} \textcolor{keywordtype}{char} \mbox{\hyperlink{iesusart_8h_afd425fbf5d2907a22aabf19e435f9472}{usart\_rx\_buffer}}[];}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00007}00007 \textcolor{keyword}{extern} \textcolor{keyword}{volatile} uint8\_t \mbox{\hyperlink{iesusart_8h_a56b5e207674ddb3eb207aa8844edf792}{usart\_str\_valid}};}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00008}00008 \textcolor{keyword}{extern} \textcolor{keyword}{volatile} uint8\_t \mbox{\hyperlink{iesusart_8h_a9ce6a05c543803935e40ebf1b3465202}{usart\_buffer\_index}};}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00009}00009 \textcolor{keyword}{extern} \textcolor{keyword}{volatile} uint8\_t \mbox{\hyperlink{iesusart_8h_a791391158c043e3601c0a4247fb2d6e0}{usart\_overflow}};}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00012}00012 \textcolor{preprocessor}{\#ifndef F\_CPU}}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00013}\mbox{\hyperlink{iesusart_8h_a43bafb28b29491ec7f871319b5a3b2f8}{00013}} \textcolor{preprocessor}{\#define F\_CPU 16E6}}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00014}00014 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00016}\mbox{\hyperlink{iesusart_8h_a62634036639f88eece6fbf226b45f84b}{00016}} \textcolor{preprocessor}{\#define BAUD 9600}}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00018}\mbox{\hyperlink{iesusart_8h_a9d1ebd7ca3cc636372bfeae486bc7ede}{00018}} \textcolor{preprocessor}{\#define UBRR\_SETTING F\_CPU/16.0/BAUD-\/1}}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00024}00024 \textcolor{keywordtype}{void} \mbox{\hyperlink{iesusart_8h_ab7983221cd707e76af1cbdc605ed8fa4}{USART\_transmitByte}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} data);}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00029}00029 \textcolor{keywordtype}{void} \mbox{\hyperlink{iesusart_8h_ad230ae1e0f1a9cb24d547b1359d49322}{USART\_print}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *c);}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00030}00030 }
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00031}00031 \textcolor{keywordtype}{char}* \mbox{\hyperlink{iesusart_8h_a11a884f88dd7c9207bec854c935ee223}{USART\_get\_string}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00032}00032 }
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00033}00033 \textcolor{keywordtype}{void} \mbox{\hyperlink{iesusart_8h_af50ad7c376895818661f3aeea111e35b}{USART\_consume\_string}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00035}00035 uint8\_t \mbox{\hyperlink{iesusart_8h_ab7d4ecf6d29aeb6aa152fb44ca166c08}{USART\_has\_string}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00036}00036 }
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00037}00037 uint8\_t \mbox{\hyperlink{iesusart_8h_a1004d34de78fdc5dc2c023e79a1fc17d}{USART\_buffer\_overflow}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00038}00038 }
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00039}00039 \textcolor{keywordtype}{void} \mbox{\hyperlink{iesusart_8h_a2569255df7c6484aba8bbd8a6d8963bc}{USART\_consume\_on\_second\_call\_string}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00041}\mbox{\hyperlink{iesusart_8h_ae976bb87de61f6df169257d5b9fb1415}{00041}} \textcolor{keywordtype}{void} \mbox{\hyperlink{iesusart_8h_ae976bb87de61f6df169257d5b9fb1415}{USART\_reset\_clear\_counter}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00047}00047 \textcolor{keywordtype}{void} \mbox{\hyperlink{iesusart_8h_ab0c0bf4a2153e3123ea575739baf8f31}{USART\_init}}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} ubrr);}
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00048}00048 }
+\DoxyCodeLine{\Hypertarget{iesusart_8h_source_l00049}00049 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

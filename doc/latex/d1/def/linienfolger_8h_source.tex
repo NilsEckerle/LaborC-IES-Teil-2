@@ -1,0 +1,58 @@
+\hypertarget{linienfolger_8h_source}{}\doxysection{linienfolger.\+h}
+\label{linienfolger_8h_source}\index{include/hardware/linienfolger.h@{include/hardware/linienfolger.h}}
+\mbox{\hyperlink{linienfolger_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef LINIENFOLGER\_H}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00002}00002 \textcolor{preprocessor}{\#define LINIENFOLGER\_H}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00004}00004 \textcolor{preprocessor}{\#include <avr/io.h>}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00007}00007 \textcolor{comment}{// Linienfolger 0 (left)}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00008}\mbox{\hyperlink{linienfolger_8h_a932f6e6ca6d1475acd95ba12ef1a5e0d}{00008}} \textcolor{preprocessor}{\#define LF\_RIGHT\_DDR DDRC}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00009}\mbox{\hyperlink{linienfolger_8h_afcbfe44c54f58706ce0a543fb61483e5}{00009}} \textcolor{preprocessor}{\#define LF\_RIGHT\_PORT PORTC}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00010}\mbox{\hyperlink{linienfolger_8h_a1bbd5523d571bb1f571536ef27017f89}{00010}} \textcolor{preprocessor}{\#define LF\_RIGHT\_PIN PINC}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00011}\mbox{\hyperlink{linienfolger_8h_a2ed871ad5b73d11719855393dc0bf219}{00011}} \textcolor{preprocessor}{\#define LF\_RIGHT\_BIT PINC0}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00012}00012 }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00013}00013 \textcolor{comment}{// Linienfolger 1 (middle)}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00014}\mbox{\hyperlink{linienfolger_8h_a3b07d73c255a050d50f286ed5e1beacb}{00014}} \textcolor{preprocessor}{\#define LF\_MIDDLE\_DDR DDRC}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00015}\mbox{\hyperlink{linienfolger_8h_ad06bc7931d2a7634795635d573ae7731}{00015}} \textcolor{preprocessor}{\#define LF\_MIDDLE\_PORT PORTC}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00016}\mbox{\hyperlink{linienfolger_8h_a03c8e79806a7cb32847fc99e675ef2f9}{00016}} \textcolor{preprocessor}{\#define LF\_MIDDLE\_PIN PINC}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00017}\mbox{\hyperlink{linienfolger_8h_a73abe8e5c7eedb53ad1bfc3b14aac044}{00017}} \textcolor{preprocessor}{\#define LF\_MIDDLE\_BIT PINC1}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00018}00018 }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00019}00019 \textcolor{comment}{// Linienfolger 2 (right)}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00020}\mbox{\hyperlink{linienfolger_8h_a0273a9a98abe3447909225f6fb5bd34c}{00020}} \textcolor{preprocessor}{\#define LF\_LEFT\_DDR DDRC}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00021}\mbox{\hyperlink{linienfolger_8h_abd62dcc7b220f2b268495fec3e8149d8}{00021}} \textcolor{preprocessor}{\#define LF\_LEFT\_PORT PORTC}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00022}\mbox{\hyperlink{linienfolger_8h_a90d2ae7de002a96a99060ccfa872d091}{00022}} \textcolor{preprocessor}{\#define LF\_LEFT\_PIN PINC}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00023}\mbox{\hyperlink{linienfolger_8h_ad979c830adefb6705a356051154943e2}{00023}} \textcolor{preprocessor}{\#define LF\_LEFT\_BIT PINC2}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00045}\mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1}{00045}} \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \{ }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00046}\mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1a2ba41d8be4f7a3010c51b901c7e48380}{00046}}   \mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1a2ba41d8be4f7a3010c51b901c7e48380}{LF\_UNDEFINED}}  = 8, }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00047}\mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1a9edcfb955d03b443376545f360ac741f}{00047}}   \mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1a9edcfb955d03b443376545f360ac741f}{LF\_NONE}}      = 0, }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00048}\mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1aad4c075ebc6234f4e628ba21e87fe3e7}{00048}}   \mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1aad4c075ebc6234f4e628ba21e87fe3e7}{LF\_LMR}}        = 7, }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00049}\mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1af8a9f6e15713bd9a0aee447a49e2abd3}{00049}}   \mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1af8a9f6e15713bd9a0aee447a49e2abd3}{LF\_LR}}        = 5, }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00050}\mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1a47274f1e17ca85abcde5b8dc37a1059e}{00050}}   \mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1a47274f1e17ca85abcde5b8dc37a1059e}{LF\_L}}          = 4, }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00051}\mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1af2e19b4cd6d070fa3a82d546ea13a1d5}{00051}}   \mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1af2e19b4cd6d070fa3a82d546ea13a1d5}{LF\_LM}}        = 6, }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00052}\mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1a509f60bd31fec766760edcb7b0e3264f}{00052}}   \mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1a509f60bd31fec766760edcb7b0e3264f}{LF\_M}}          = 2, }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00053}\mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1a1f13f1838d40135d6cc0a42696d2e283}{00053}}   \mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1a1f13f1838d40135d6cc0a42696d2e283}{LF\_MR}}        = 3, }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00054}00054   \mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1aba9f755ebb77def943a801d6d8856c50}{LF\_R}}          = 1  }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00055}\mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1aba9f755ebb77def943a801d6d8856c50}{00055}} \} \mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1}{LF\_detection\_state}};}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00056}00056 }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00057}00057 }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00062}00062 \textcolor{keywordtype}{void} \mbox{\hyperlink{linienfolger_8h_a9e750d39baee614074cbfdb3b8db6b03}{LF\_init}}();}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00063}00063 }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00064}\mbox{\hyperlink{linienfolger_8h_a1043323f5b86822f1e0059c34f5d4664}{00064}} \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \{}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00065}\mbox{\hyperlink{linienfolger_8h_a1043323f5b86822f1e0059c34f5d4664a182db05e3fc1fd9c6f2e95e5432f2a38}{00065}}   \mbox{\hyperlink{linienfolger_8h_a1043323f5b86822f1e0059c34f5d4664a182db05e3fc1fd9c6f2e95e5432f2a38}{LF\_LEFT}} = 0,}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00066}\mbox{\hyperlink{linienfolger_8h_a1043323f5b86822f1e0059c34f5d4664a483fa566fb58593b3706e35645b51615}{00066}}   \mbox{\hyperlink{linienfolger_8h_a1043323f5b86822f1e0059c34f5d4664a483fa566fb58593b3706e35645b51615}{LF\_MIDDLE}},}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00067}00067   \mbox{\hyperlink{linienfolger_8h_a1043323f5b86822f1e0059c34f5d4664aa33bb0f952d2777bfa88409eb491c190}{LF\_RIGHT}}}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00068}\mbox{\hyperlink{linienfolger_8h_a1043323f5b86822f1e0059c34f5d4664aa33bb0f952d2777bfa88409eb491c190}{00068}} \} \mbox{\hyperlink{linienfolger_8h_a1043323f5b86822f1e0059c34f5d4664}{LF\_index}};}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00077}00077 int8\_t \mbox{\hyperlink{linienfolger_8h_a4af05b8986a6c0e8187f6dd493fa37ec}{LF\_get\_state}}(\mbox{\hyperlink{linienfolger_8h_a1043323f5b86822f1e0059c34f5d4664}{LF\_index}} lf\_index);}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00083}00083 \mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1}{LF\_detection\_state}} \mbox{\hyperlink{linienfolger_8h_a58096575f9bd3d8f4cfe2a3a763e92fe}{LF\_bitstring\_to\_state}}(uint8\_t ui\_lf\_detection\_bitstring);}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00084}00084 }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00090}00090 \mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1}{LF\_detection\_state}} \mbox{\hyperlink{linienfolger_8h_adff07e77e356292bab754bb97ecb7c94}{LF\_get\_states}}();}
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00091}00091 }
+\DoxyCodeLine{\Hypertarget{linienfolger_8h_source_l00092}00092 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* ifndef LINIENFOLGER\_H */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

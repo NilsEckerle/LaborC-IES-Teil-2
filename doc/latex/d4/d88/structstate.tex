@@ -1,0 +1,142 @@
+\hypertarget{structstate}{}\doxysection{state Struct Reference}
+\label{structstate}\index{state@{state}}
+
+
+{\ttfamily \#include $<$state\+\_\+machine/state.\+h$>$}
+
+
+
+Collaboration diagram for state\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=213pt]{df/dc4/structstate__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \mbox{\hyperlink{structstate_aefe58247a5062dd6077727ba8305b9b4}{unique\+\_\+name}}
+\item 
+\mbox{\hyperlink{dynamic__array_8h_a065b33a835913719ee7b6ed3e11d32a0}{t\+\_\+dyn\+\_\+arr}} $\ast$ \mbox{\hyperlink{structstate_a03e3a88633c6b2658bfa32455a92f26e}{tdynarr\+\_\+edges}}
+\item 
+uint32\+\_\+t $\ast$ \mbox{\hyperlink{structstate_aa8c78dea4d65b596f4090181c7dbddb6}{ui32p\+\_\+state\+\_\+entry\+\_\+time\+\_\+ms}}
+\item 
+struct \mbox{\hyperlink{structstate}{state}} $\ast$ \mbox{\hyperlink{structstate_a7ae6ec6c289ecdf2f6c193a7f2f891c5}{tp\+\_\+parent}}
+\item 
+int8\+\_\+t($\ast$ \mbox{\hyperlink{structstate_a073b7a2e606fc57f6f99345eea3d7710}{add\+\_\+edge}} )(struct \mbox{\hyperlink{structstate}{state}} $\ast$inst, uint8\+\_\+t($\ast$condition)(struct \mbox{\hyperlink{structstate}{state}} $\ast$inst), char $\ast$next\+\_\+state\+\_\+name)
+\item 
+void($\ast$ \mbox{\hyperlink{structstate_a87216ca985a7dcd39d7aa56fc3694bf7}{on\+\_\+entry}} )(struct \mbox{\hyperlink{structstate}{state}} $\ast$inst)
+\item 
+void($\ast$ \mbox{\hyperlink{structstate_ada6183fe89e90ac06c8269049862b05f}{on\+\_\+update}} )(struct \mbox{\hyperlink{structstate}{state}} $\ast$inst)
+\item 
+void($\ast$ \mbox{\hyperlink{structstate_ace9fe45cc79ec59f9f4c5e13e5713617}{check\+\_\+edges}} )(struct \mbox{\hyperlink{structstate}{state}} $\ast$inst, \mbox{\hyperlink{state_8h_a6c5e52fda436d8c6def4f9842bfd0b13}{t\+\_\+state\+\_\+machine}} $\ast$\mbox{\hyperlink{structstate__machine}{state\+\_\+machine}})
+\item 
+void($\ast$ \mbox{\hyperlink{structstate_a4f8228c3ae915fd134d4de280d35b1c2}{destructor}} )(struct \mbox{\hyperlink{structstate}{state}} $\ast$inst)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{state_8h_source_l00009}{9}} of file \mbox{\hyperlink{state_8h_source}{state.\+h}}.
+
+
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{structstate_a073b7a2e606fc57f6f99345eea3d7710}\label{structstate_a073b7a2e606fc57f6f99345eea3d7710}} 
+\index{state@{state}!add\_edge@{add\_edge}}
+\index{add\_edge@{add\_edge}!state@{state}}
+\doxysubsubsection{\texorpdfstring{add\_edge}{add\_edge}}
+{\footnotesize\ttfamily int8\+\_\+t($\ast$ state\+::add\+\_\+edge) (struct \mbox{\hyperlink{structstate}{state}} $\ast$inst, uint8\+\_\+t($\ast$condition)(struct \mbox{\hyperlink{structstate}{state}} $\ast$inst), char $\ast$next\+\_\+state\+\_\+name)}
+
+
+
+Definition at line \mbox{\hyperlink{state_8h_source_l00015}{15}} of file \mbox{\hyperlink{state_8h_source}{state.\+h}}.
+
+\mbox{\Hypertarget{structstate_ace9fe45cc79ec59f9f4c5e13e5713617}\label{structstate_ace9fe45cc79ec59f9f4c5e13e5713617}} 
+\index{state@{state}!check\_edges@{check\_edges}}
+\index{check\_edges@{check\_edges}!state@{state}}
+\doxysubsubsection{\texorpdfstring{check\_edges}{check\_edges}}
+{\footnotesize\ttfamily void($\ast$ state\+::check\+\_\+edges) (struct \mbox{\hyperlink{structstate}{state}} $\ast$inst, \mbox{\hyperlink{state_8h_a6c5e52fda436d8c6def4f9842bfd0b13}{t\+\_\+state\+\_\+machine}} $\ast$\mbox{\hyperlink{structstate__machine}{state\+\_\+machine}})}
+
+
+
+Definition at line \mbox{\hyperlink{state_8h_source_l00020}{20}} of file \mbox{\hyperlink{state_8h_source}{state.\+h}}.
+
+\mbox{\Hypertarget{structstate_a4f8228c3ae915fd134d4de280d35b1c2}\label{structstate_a4f8228c3ae915fd134d4de280d35b1c2}} 
+\index{state@{state}!destructor@{destructor}}
+\index{destructor@{destructor}!state@{state}}
+\doxysubsubsection{\texorpdfstring{destructor}{destructor}}
+{\footnotesize\ttfamily void($\ast$ state\+::destructor) (struct \mbox{\hyperlink{structstate}{state}} $\ast$inst)}
+
+
+
+Definition at line \mbox{\hyperlink{state_8h_source_l00021}{21}} of file \mbox{\hyperlink{state_8h_source}{state.\+h}}.
+
+\mbox{\Hypertarget{structstate_a87216ca985a7dcd39d7aa56fc3694bf7}\label{structstate_a87216ca985a7dcd39d7aa56fc3694bf7}} 
+\index{state@{state}!on\_entry@{on\_entry}}
+\index{on\_entry@{on\_entry}!state@{state}}
+\doxysubsubsection{\texorpdfstring{on\_entry}{on\_entry}}
+{\footnotesize\ttfamily void($\ast$ state\+::on\+\_\+entry) (struct \mbox{\hyperlink{structstate}{state}} $\ast$inst)}
+
+
+
+Definition at line \mbox{\hyperlink{state_8h_source_l00018}{18}} of file \mbox{\hyperlink{state_8h_source}{state.\+h}}.
+
+\mbox{\Hypertarget{structstate_ada6183fe89e90ac06c8269049862b05f}\label{structstate_ada6183fe89e90ac06c8269049862b05f}} 
+\index{state@{state}!on\_update@{on\_update}}
+\index{on\_update@{on\_update}!state@{state}}
+\doxysubsubsection{\texorpdfstring{on\_update}{on\_update}}
+{\footnotesize\ttfamily void($\ast$ state\+::on\+\_\+update) (struct \mbox{\hyperlink{structstate}{state}} $\ast$inst)}
+
+
+
+Definition at line \mbox{\hyperlink{state_8h_source_l00019}{19}} of file \mbox{\hyperlink{state_8h_source}{state.\+h}}.
+
+\mbox{\Hypertarget{structstate_a03e3a88633c6b2658bfa32455a92f26e}\label{structstate_a03e3a88633c6b2658bfa32455a92f26e}} 
+\index{state@{state}!tdynarr\_edges@{tdynarr\_edges}}
+\index{tdynarr\_edges@{tdynarr\_edges}!state@{state}}
+\doxysubsubsection{\texorpdfstring{tdynarr\_edges}{tdynarr\_edges}}
+{\footnotesize\ttfamily \mbox{\hyperlink{dynamic__array_8h_a065b33a835913719ee7b6ed3e11d32a0}{t\+\_\+dyn\+\_\+arr}}$\ast$ state\+::tdynarr\+\_\+edges}
+
+
+
+Definition at line \mbox{\hyperlink{state_8h_source_l00011}{11}} of file \mbox{\hyperlink{state_8h_source}{state.\+h}}.
+
+\mbox{\Hypertarget{structstate_a7ae6ec6c289ecdf2f6c193a7f2f891c5}\label{structstate_a7ae6ec6c289ecdf2f6c193a7f2f891c5}} 
+\index{state@{state}!tp\_parent@{tp\_parent}}
+\index{tp\_parent@{tp\_parent}!state@{state}}
+\doxysubsubsection{\texorpdfstring{tp\_parent}{tp\_parent}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structstate}{state}}$\ast$ state\+::tp\+\_\+parent}
+
+
+
+Definition at line \mbox{\hyperlink{state_8h_source_l00013}{13}} of file \mbox{\hyperlink{state_8h_source}{state.\+h}}.
+
+\mbox{\Hypertarget{structstate_aa8c78dea4d65b596f4090181c7dbddb6}\label{structstate_aa8c78dea4d65b596f4090181c7dbddb6}} 
+\index{state@{state}!ui32p\_state\_entry\_time\_ms@{ui32p\_state\_entry\_time\_ms}}
+\index{ui32p\_state\_entry\_time\_ms@{ui32p\_state\_entry\_time\_ms}!state@{state}}
+\doxysubsubsection{\texorpdfstring{ui32p\_state\_entry\_time\_ms}{ui32p\_state\_entry\_time\_ms}}
+{\footnotesize\ttfamily uint32\+\_\+t$\ast$ state\+::ui32p\+\_\+state\+\_\+entry\+\_\+time\+\_\+ms}
+
+
+
+Definition at line \mbox{\hyperlink{state_8h_source_l00012}{12}} of file \mbox{\hyperlink{state_8h_source}{state.\+h}}.
+
+\mbox{\Hypertarget{structstate_aefe58247a5062dd6077727ba8305b9b4}\label{structstate_aefe58247a5062dd6077727ba8305b9b4}} 
+\index{state@{state}!unique\_name@{unique\_name}}
+\index{unique\_name@{unique\_name}!state@{state}}
+\doxysubsubsection{\texorpdfstring{unique\_name}{unique\_name}}
+{\footnotesize\ttfamily char$\ast$ state\+::unique\+\_\+name}
+
+
+
+Definition at line \mbox{\hyperlink{state_8h_source_l00010}{10}} of file \mbox{\hyperlink{state_8h_source}{state.\+h}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/state\+\_\+machine/\mbox{\hyperlink{state_8h}{state.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,240 @@
+\hypertarget{dynamic__array_8c}{}\doxysection{src/tools/dynamic\+\_\+array.c File Reference}
+\label{dynamic__array_8c}\index{src/tools/dynamic\_array.c@{src/tools/dynamic\_array.c}}
+{\ttfamily \#include \char`\"{}tools/dynamic\+\_\+array.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}tools/logger.\+h\char`\"{}}\newline
+Include dependency graph for dynamic\+\_\+array.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d37/dynamic__array_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int8\+\_\+t \mbox{\hyperlink{dynamic__array_8c_a57a4b6327f5059621b8386ff29f8709e}{DYN\+\_\+\+ARR\+\_\+add}} (\mbox{\hyperlink{dynamic__array_8h_a065b33a835913719ee7b6ed3e11d32a0}{t\+\_\+dyn\+\_\+arr}} $\ast$tp\+\_\+array, void $\ast$vp\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Adds a data pointer to the dynamic array. \end{DoxyCompactList}\item 
+void $\ast$ \mbox{\hyperlink{dynamic__array_8c_a2c9d3909dec3ae5538be10ef1043efde}{DYN\+\_\+\+ARR\+\_\+get}} (\mbox{\hyperlink{dynamic__array_8h_a065b33a835913719ee7b6ed3e11d32a0}{t\+\_\+dyn\+\_\+arr}} $\ast$tp\+\_\+array, uint8\+\_\+t ui8\+\_\+index)
+\begin{DoxyCompactList}\small\item\em Retrieves a data pointer from the dynamic array. \end{DoxyCompactList}\item 
+int8\+\_\+t \mbox{\hyperlink{dynamic__array_8c_a70b3f15a0f167913f561862bbc434d14}{DYN\+\_\+\+ARR\+\_\+destructor}} (\mbox{\hyperlink{dynamic__array_8h_a065b33a835913719ee7b6ed3e11d32a0}{t\+\_\+dyn\+\_\+arr}} $\ast$$\ast$tpp\+\_\+array)
+\begin{DoxyCompactList}\small\item\em Destroys the dynamic array and frees all associated memory. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{dynamic__array_8h_a065b33a835913719ee7b6ed3e11d32a0}{t\+\_\+dyn\+\_\+arr}} $\ast$ \mbox{\hyperlink{dynamic__array_8c_aa6eec33869b1734d331640471541d0ca}{DYN\+\_\+\+ARRAY\+\_\+constructor}} ()
+\begin{DoxyCompactList}\small\item\em Creates and initializes a new dynamic array. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{dynamic__array_8c_a57a4b6327f5059621b8386ff29f8709e}\label{dynamic__array_8c_a57a4b6327f5059621b8386ff29f8709e}} 
+\index{dynamic\_array.c@{dynamic\_array.c}!DYN\_ARR\_add@{DYN\_ARR\_add}}
+\index{DYN\_ARR\_add@{DYN\_ARR\_add}!dynamic\_array.c@{dynamic\_array.c}}
+\doxysubsubsection{\texorpdfstring{DYN\_ARR\_add()}{DYN\_ARR\_add()}}
+{\footnotesize\ttfamily int8\+\_\+t DYN\+\_\+\+ARR\+\_\+add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dynamic__array_8h_a065b33a835913719ee7b6ed3e11d32a0}{t\+\_\+dyn\+\_\+arr}} $\ast$}]{tp\+\_\+array,  }\item[{void $\ast$}]{vp\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Adds a data pointer to the dynamic array. 
+
+Resizes the array and adds the provided data pointer to the end of the array. The array automatically grows as needed.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tp\+\_\+array} & Pointer to the dynamic array structure \\
+\hline
+{\em vp\+\_\+data} & Pointer to the data to be added \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, positive value on error
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+This function stores the pointer itself, not a copy of the data. The caller is responsible for ensuring the pointed-\/to data remains valid for the lifetime of the array. Use the DYN\+\_\+\+ARR\+\_\+add\+\_\+by\+\_\+value macro to automatically handle copying data to the heap. 
+\end{DoxyNote}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_2home_2ies_2Documents_2LaborC-IES-Teil-2_2include_2tools_2dynamic_array_8h-example}{/home/ies/\+Documents/\+Labor\+C-\/\+IES-\/\+Teil-\/2/include/tools/dynamic\+\_\+array.\+h}}.\end{Desc}
+
+
+Definition at line \mbox{\hyperlink{dynamic__array_8c_source_l00008}{8}} of file \mbox{\hyperlink{dynamic__array_8c_source}{dynamic\+\_\+array.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00008                                                        \{}
+\DoxyCodeLine{00009   \textcolor{keywordflow}{if} (NULL == tp\_array) \{ \textcolor{comment}{// invalid parameter}}
+\DoxyCodeLine{00010     \mbox{\hyperlink{logger_8h_ad51176fec84ca79bd96163c9cb5a7c32}{WARNING}}(\textcolor{stringliteral}{"{}[\_DYN\_ARR\_add] tp\_array is NULL!\(\backslash\)n"{}});}
+\DoxyCodeLine{00011     \textcolor{keywordflow}{return} 1;}
+\DoxyCodeLine{00012   \}}
+\DoxyCodeLine{00013 }
+\DoxyCodeLine{00014   \textcolor{comment}{// size up tp\_array}}
+\DoxyCodeLine{00015   uint8\_t ui8\_old\_size = tp\_array-\/>\mbox{\hyperlink{structdynamic__array_a1501648c9eb96059da2fa36633c7c554}{ui8\_size}};}
+\DoxyCodeLine{00016   \textcolor{keywordtype}{void} **vpp\_old\_data\_array = tp\_array-\/>\mbox{\hyperlink{structdynamic__array_a37aeca454457d542e2c876cb819b174b}{vpp\_data\_array}};}
+\DoxyCodeLine{00017 }
+\DoxyCodeLine{00018   tp\_array-\/>\mbox{\hyperlink{structdynamic__array_a1501648c9eb96059da2fa36633c7c554}{ui8\_size}}++;}
+\DoxyCodeLine{00019 }
+\DoxyCodeLine{00020   tp\_array-\/>\mbox{\hyperlink{structdynamic__array_a37aeca454457d542e2c876cb819b174b}{vpp\_data\_array}} = malloc(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{void} *) * tp\_array-\/>\mbox{\hyperlink{structdynamic__array_a1501648c9eb96059da2fa36633c7c554}{ui8\_size}});}
+\DoxyCodeLine{00021   \textcolor{keywordflow}{if} (tp\_array-\/>\mbox{\hyperlink{structdynamic__array_a37aeca454457d542e2c876cb819b174b}{vpp\_data\_array}} == NULL) \{ \textcolor{comment}{// malloc failed}}
+\DoxyCodeLine{00022     \mbox{\hyperlink{logger_8h_a8704324d54ab9aee408bcaa8f54aed65}{FATAL}}(\textcolor{stringliteral}{"{}[\_DYN\_ARR\_add] malloc failed!\(\backslash\)n"{}});}
+\DoxyCodeLine{00023     tp\_array-\/>\mbox{\hyperlink{structdynamic__array_a1501648c9eb96059da2fa36633c7c554}{ui8\_size}} = ui8\_old\_size;}
+\DoxyCodeLine{00024     tp\_array-\/>\mbox{\hyperlink{structdynamic__array_a37aeca454457d542e2c876cb819b174b}{vpp\_data\_array}} = vpp\_old\_data\_array;}
+\DoxyCodeLine{00025     \textcolor{keywordflow}{return} 2;}
+\DoxyCodeLine{00026   \}}
+\DoxyCodeLine{00027 }
+\DoxyCodeLine{00028   \textcolor{comment}{// copy old data}}
+\DoxyCodeLine{00029   \textcolor{keywordflow}{if} (ui8\_old\_size > 0) \{ \textcolor{comment}{// Copy old data only if there was any}}
+\DoxyCodeLine{00030     memcpy(tp\_array-\/>\mbox{\hyperlink{structdynamic__array_a37aeca454457d542e2c876cb819b174b}{vpp\_data\_array}}, vpp\_old\_data\_array, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{void} *) * ui8\_old\_size);}
+\DoxyCodeLine{00031     free(vpp\_old\_data\_array);}
+\DoxyCodeLine{00032   \}}
+\DoxyCodeLine{00033 }
+\DoxyCodeLine{00034   \textcolor{comment}{// add new data}}
+\DoxyCodeLine{00035   tp\_array-\/>\mbox{\hyperlink{structdynamic__array_a37aeca454457d542e2c876cb819b174b}{vpp\_data\_array}}[tp\_array-\/>\mbox{\hyperlink{structdynamic__array_a1501648c9eb96059da2fa36633c7c554}{ui8\_size}} -\/ 1] = vp\_data;}
+\DoxyCodeLine{00036 }
+\DoxyCodeLine{00037   \mbox{\hyperlink{logger_8h_aafc148cee6d6c9e76b4ef417c7056f8f}{INFO}}(\textcolor{stringliteral}{"{}[\_DYN\_ARR\_add] added element '\%p' to dyn\_arr.\(\backslash\)n"{}}, vp\_data);}
+\DoxyCodeLine{00038 }
+\DoxyCodeLine{00039   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{00040 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{dynamic__array_8c_a70b3f15a0f167913f561862bbc434d14}\label{dynamic__array_8c_a70b3f15a0f167913f561862bbc434d14}} 
+\index{dynamic\_array.c@{dynamic\_array.c}!DYN\_ARR\_destructor@{DYN\_ARR\_destructor}}
+\index{DYN\_ARR\_destructor@{DYN\_ARR\_destructor}!dynamic\_array.c@{dynamic\_array.c}}
+\doxysubsubsection{\texorpdfstring{DYN\_ARR\_destructor()}{DYN\_ARR\_destructor()}}
+{\footnotesize\ttfamily int8\+\_\+t DYN\+\_\+\+ARR\+\_\+destructor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dynamic__array_8h_a065b33a835913719ee7b6ed3e11d32a0}{t\+\_\+dyn\+\_\+arr}} $\ast$$\ast$}]{tpp\+\_\+array }\end{DoxyParamCaption})}
+
+
+
+Destroys the dynamic array and frees all associated memory. 
+
+Recursively frees all stored data elements, the data array, and the dynamic array structure itself. Sets the pointer to NULL to prevent use-\/after-\/free errors.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tpp\+\_\+array} & Pointer to pointer to the dynamic array structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success (always succeeds)
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+This function assumes all stored data was allocated with malloc() and will free each element. Do not use with stack-\/allocated data or data allocated with other methods. 
+\end{DoxyNote}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_2home_2ies_2Documents_2LaborC-IES-Teil-2_2include_2tools_2dynamic_array_8h-example}{/home/ies/\+Documents/\+Labor\+C-\/\+IES-\/\+Teil-\/2/include/tools/dynamic\+\_\+array.\+h}}.\end{Desc}
+
+
+Definition at line \mbox{\hyperlink{dynamic__array_8c_source_l00052}{52}} of file \mbox{\hyperlink{dynamic__array_8c_source}{dynamic\+\_\+array.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00052                                                  \{}
+\DoxyCodeLine{00053   \textcolor{keywordflow}{if} (NULL == tpp\_array) \{}
+\DoxyCodeLine{00054     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{00055   \}}
+\DoxyCodeLine{00056 }
+\DoxyCodeLine{00057   \textcolor{keywordflow}{if} (NULL != (*tpp\_array)) \{}
+\DoxyCodeLine{00058     \textcolor{keywordflow}{if} (NULL != (*tpp\_array)-\/>vpp\_data\_array) \{}
+\DoxyCodeLine{00059       \textcolor{keywordflow}{if} ((*tpp\_array)-\/>ui8\_size > 0) \{}
+\DoxyCodeLine{00060         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < (*tpp\_array)-\/>ui8\_size; i++) \{ \textcolor{comment}{// for each element}}
+\DoxyCodeLine{00061           \textcolor{keywordflow}{if} (NULL != (*tpp\_array)-\/>vpp\_data\_array[i]) \{}
+\DoxyCodeLine{00062             free((*tpp\_array)-\/>vpp\_data\_array[i]); \textcolor{comment}{// free element}}
+\DoxyCodeLine{00063             (*tpp\_array)-\/>vpp\_data\_array[i] = NULL;}
+\DoxyCodeLine{00064           \}}
+\DoxyCodeLine{00065         \}}
+\DoxyCodeLine{00066       \}}
+\DoxyCodeLine{00067       free((*tpp\_array)-\/>vpp\_data\_array); \textcolor{comment}{// free array (void**)}}
+\DoxyCodeLine{00068       (*tpp\_array)-\/>vpp\_data\_array = NULL;}
+\DoxyCodeLine{00069     \}}
+\DoxyCodeLine{00070     free((*tpp\_array)); \textcolor{comment}{// free dyn\_arr structure}}
+\DoxyCodeLine{00071     (*tpp\_array) = NULL;}
+\DoxyCodeLine{00072   \}}
+\DoxyCodeLine{00073 }
+\DoxyCodeLine{00074   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{00075 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{dynamic__array_8c_a2c9d3909dec3ae5538be10ef1043efde}\label{dynamic__array_8c_a2c9d3909dec3ae5538be10ef1043efde}} 
+\index{dynamic\_array.c@{dynamic\_array.c}!DYN\_ARR\_get@{DYN\_ARR\_get}}
+\index{DYN\_ARR\_get@{DYN\_ARR\_get}!dynamic\_array.c@{dynamic\_array.c}}
+\doxysubsubsection{\texorpdfstring{DYN\_ARR\_get()}{DYN\_ARR\_get()}}
+{\footnotesize\ttfamily void $\ast$ DYN\+\_\+\+ARR\+\_\+get (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{dynamic__array_8h_a065b33a835913719ee7b6ed3e11d32a0}{t\+\_\+dyn\+\_\+arr}} $\ast$}]{tp\+\_\+array,  }\item[{uint8\+\_\+t}]{ui8\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+Retrieves a data pointer from the dynamic array. 
+
+Returns the void pointer stored at the specified index without removing it from the array.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tp\+\_\+array} & Pointer to the dynamic array structure \\
+\hline
+{\em ui8\+\_\+index} & Index of the element to retrieve (0-\/based) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the data at the specified index, NULL on error or invalid index
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Use the type-\/safe macros for proper type casting. 
+\end{DoxyNote}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_2home_2ies_2Documents_2LaborC-IES-Teil-2_2include_2tools_2dynamic_array_8h-example}{/home/ies/\+Documents/\+Labor\+C-\/\+IES-\/\+Teil-\/2/include/tools/dynamic\+\_\+array.\+h}}.\end{Desc}
+
+
+Definition at line \mbox{\hyperlink{dynamic__array_8c_source_l00042}{42}} of file \mbox{\hyperlink{dynamic__array_8c_source}{dynamic\+\_\+array.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00042                                                           \{}
+\DoxyCodeLine{00043   \textcolor{keywordflow}{if} (NULL == tp\_array) \{}
+\DoxyCodeLine{00044     \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{00045   \}}
+\DoxyCodeLine{00046   \textcolor{keywordflow}{if} (tp\_array-\/>\mbox{\hyperlink{structdynamic__array_a1501648c9eb96059da2fa36633c7c554}{ui8\_size}} <= ui8\_index) \{}
+\DoxyCodeLine{00047     \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{00048   \}}
+\DoxyCodeLine{00049   \textcolor{keywordflow}{return} tp\_array-\/>\mbox{\hyperlink{structdynamic__array_a37aeca454457d542e2c876cb819b174b}{vpp\_data\_array}}[ui8\_index];}
+\DoxyCodeLine{00050 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{dynamic__array_8c_aa6eec33869b1734d331640471541d0ca}\label{dynamic__array_8c_aa6eec33869b1734d331640471541d0ca}} 
+\index{dynamic\_array.c@{dynamic\_array.c}!DYN\_ARRAY\_constructor@{DYN\_ARRAY\_constructor}}
+\index{DYN\_ARRAY\_constructor@{DYN\_ARRAY\_constructor}!dynamic\_array.c@{dynamic\_array.c}}
+\doxysubsubsection{\texorpdfstring{DYN\_ARRAY\_constructor()}{DYN\_ARRAY\_constructor()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{dynamic__array_8h_a065b33a835913719ee7b6ed3e11d32a0}{t\+\_\+dyn\+\_\+arr}} $\ast$ DYN\+\_\+\+ARRAY\+\_\+constructor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Creates and initializes a new dynamic array. 
+
+Allocates memory for a new dynamic array structure and initializes it with default values (empty array).
+
+\begin{DoxyReturn}{Returns}
+Pointer to newly created dynamic array on success, NULL on failure
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+The returned array must be freed using \mbox{\hyperlink{dynamic__array_8h_a70b3f15a0f167913f561862bbc434d14}{DYN\+\_\+\+ARR\+\_\+destructor()}} to prevent memory leaks. 
+\end{DoxyNote}
+\begin{Desc}
+\item[Examples]\par
+\mbox{\hyperlink{_2home_2ies_2Documents_2LaborC-IES-Teil-2_2include_2tools_2dynamic_array_8h-example}{/home/ies/\+Documents/\+Labor\+C-\/\+IES-\/\+Teil-\/2/include/tools/dynamic\+\_\+array.\+h}}.\end{Desc}
+
+
+Definition at line \mbox{\hyperlink{dynamic__array_8c_source_l00077}{77}} of file \mbox{\hyperlink{dynamic__array_8c_source}{dynamic\+\_\+array.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00077                                    \{}
+\DoxyCodeLine{00078   \mbox{\hyperlink{structdynamic__array}{t\_dyn\_arr}} *tp\_arr = malloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structdynamic__array}{t\_dyn\_arr}}));}
+\DoxyCodeLine{00079   \textcolor{keywordflow}{if} (NULL == tp\_arr) \{}
+\DoxyCodeLine{00080     \mbox{\hyperlink{logger_8h_ad51176fec84ca79bd96163c9cb5a7c32}{WARNING}}(\textcolor{stringliteral}{"{}[DYN\_ARRAY\_constructor] malloc failed!\(\backslash\)n"{}});}
+\DoxyCodeLine{00081   \}}
+\DoxyCodeLine{00082 }
+\DoxyCodeLine{00083   tp\_arr-\/>\mbox{\hyperlink{structdynamic__array_a37aeca454457d542e2c876cb819b174b}{vpp\_data\_array}} = NULL;}
+\DoxyCodeLine{00084   tp\_arr-\/>\mbox{\hyperlink{structdynamic__array_a1501648c9eb96059da2fa36633c7c554}{ui8\_size}} = 0;}
+\DoxyCodeLine{00085 }
+\DoxyCodeLine{00086   \textcolor{keywordflow}{return} tp\_arr;}
+\DoxyCodeLine{00087 \}}
+
+\end{DoxyCode}

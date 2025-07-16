@@ -1,0 +1,83 @@
+\hypertarget{shiftregister_8c_source}{}\doxysection{shiftregister.\+c}
+\label{shiftregister_8c_source}\index{src/hardware/shiftregister.c@{src/hardware/shiftregister.c}}
+\mbox{\hyperlink{shiftregister_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{logger_8h}{tools/logger.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00002}00002 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{shiftregister_8h}{hardware/shiftregister.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{bit__functions_8h}{tools/bit\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00004}00004 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00005}00005 \textcolor{preprocessor}{\#include <util/delay.h>}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00007}\mbox{\hyperlink{shiftregister_8c_adc6c7460b8c6caf396da0d6f041f6408}{00007}} \textcolor{keywordtype}{void} \mbox{\hyperlink{shiftregister_8c_adc6c7460b8c6caf396da0d6f041f6408}{\_SHIFT\_set\_data\_pin}}(uint8\_t ui\_value) \{}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00008}00008   \_delay\_us(1);}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00009}00009   \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(\mbox{\hyperlink{shiftregister_8h_a365775e77ebe8775e6446c81160339ec}{SHIFT\_DATA\_PORT}}, \mbox{\hyperlink{shiftregister_8h_ab7a5a7896a25339feb6f75fc1a13e822}{SHIFT\_DATA\_BIT}}); \textcolor{comment}{// ensure data pin is zero}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00010}00010 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00011}00011   \textcolor{comment}{// set data pin as needed}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00012}00012   \textcolor{keywordflow}{if} (\mbox{\hyperlink{shiftregister_8h_a70837e4353594142a6363c69bc2b1e62}{SHIFT\_HIGH}} == ui\_value) \{}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00013}00013     \_delay\_us(1);}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00014}00014     \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{shiftregister_8h_a365775e77ebe8775e6446c81160339ec}{SHIFT\_DATA\_PORT}}, \mbox{\hyperlink{shiftregister_8h_ab7a5a7896a25339feb6f75fc1a13e822}{SHIFT\_DATA\_BIT}});}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00015}00015   \}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00016}00016   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}Shift register Data set.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00018}00018   \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00019}00019 \}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00020}00020 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00021}\mbox{\hyperlink{shiftregister_8c_a18b987fc5dc932e7a1cdd7f08489c948}{00021}} \textcolor{keywordtype}{void} \mbox{\hyperlink{shiftregister_8c_a18b987fc5dc932e7a1cdd7f08489c948}{\_SHIFT\_cicle}}() \{}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00022}00022   \_delay\_us(1);}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00023}00023   \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(\mbox{\hyperlink{shiftregister_8h_a0804e280b48aee3bc21e6930bee5239d}{SHIFT\_CLOCK\_PORT}}, \mbox{\hyperlink{shiftregister_8h_a8fa403f5b1a505686d061fdd944ff2dd}{SHIFT\_CLOCK\_BIT}}); \textcolor{comment}{// ensure clock pin is zero}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00024}00024   \_delay\_us(1);}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00026}00026   \textcolor{comment}{// toggle clock}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00027}00027   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{shiftregister_8h_a0804e280b48aee3bc21e6930bee5239d}{SHIFT\_CLOCK\_PORT}}, \mbox{\hyperlink{shiftregister_8h_a8fa403f5b1a505686d061fdd944ff2dd}{SHIFT\_CLOCK\_BIT}});}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00028}00028   \_delay\_us(1);}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00029}00029   \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(\mbox{\hyperlink{shiftregister_8h_a0804e280b48aee3bc21e6930bee5239d}{SHIFT\_CLOCK\_PORT}}, \mbox{\hyperlink{shiftregister_8h_a8fa403f5b1a505686d061fdd944ff2dd}{SHIFT\_CLOCK\_BIT}});}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00030}00030   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}Shift register cicle send.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00032}00032   \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00033}00033 \}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00034}00034 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00035}\mbox{\hyperlink{shiftregister_8c_a6e6791e71678eeb50aa64145dcef3a4c}{00035}} \textcolor{keywordtype}{void} \mbox{\hyperlink{shiftregister_8c_a6e6791e71678eeb50aa64145dcef3a4c}{SHIFT\_push}}(uint8\_t ui\_value) \{}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00036}00036   uint8\_t ui\_value\_to\_push = ui\_value \% 2;}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00037}00037 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00038}00038   \textcolor{comment}{// set data}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00039}00039   \mbox{\hyperlink{shiftregister_8c_adc6c7460b8c6caf396da0d6f041f6408}{\_SHIFT\_set\_data\_pin}}(ui\_value\_to\_push);}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00041}00041   \textcolor{comment}{// toggle clock}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00042}00042   \mbox{\hyperlink{shiftregister_8c_a18b987fc5dc932e7a1cdd7f08489c948}{\_SHIFT\_cicle}}();}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00043}00043 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00044}00044   \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00045}00045 \}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00047}\mbox{\hyperlink{shiftregister_8c_a97155169a5022ae7d38eafd2c33cb2bc}{00047}} \textcolor{keywordtype}{void} \mbox{\hyperlink{shiftregister_8c_a97155169a5022ae7d38eafd2c33cb2bc}{SHIFT\_push\_state}}(uint8\_t bitstring\_to\_push) \{}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00048}00048   \textcolor{keywordflow}{for} (int8\_t i = 3; 0 < i; i-\/-\/) \{ \textcolor{comment}{// itterate over last 3 bits}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00049}00049     uint8\_t mask = (1 << (i-\/1));}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00050}00050     uint8\_t masked\_bitstring = bitstring\_to\_push \& mask;}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00051}00051 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00052}00052     \textcolor{keywordflow}{if} (masked\_bitstring > 0) \{}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00053}00053       \mbox{\hyperlink{shiftregister_8c_a6e6791e71678eeb50aa64145dcef3a4c}{SHIFT\_push}}(1);}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00054}00054     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00055}00055       \mbox{\hyperlink{shiftregister_8c_a6e6791e71678eeb50aa64145dcef3a4c}{SHIFT\_push}}(0);}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00056}00056     \}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00057}00057   \}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00058}00058 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00059}00059   \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00060}00060 \}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00062}\mbox{\hyperlink{shiftregister_8c_a973b6dd49c4c8657e77cd7d5bfffcdb0}{00062}} \textcolor{keywordtype}{void} \mbox{\hyperlink{shiftregister_8c_a973b6dd49c4c8657e77cd7d5bfffcdb0}{SHIFT\_init}}() \{}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00063}00063   \textcolor{comment}{// set as output}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00064}00064   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{shiftregister_8h_a61e4e676d3841d500bacb9ce73172c02}{SHIFT\_DATA\_DDR}}, \mbox{\hyperlink{shiftregister_8h_ab7a5a7896a25339feb6f75fc1a13e822}{SHIFT\_DATA\_BIT}});}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00065}00065   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{shiftregister_8h_a16959389e67ec6ab00b1e117576f0689}{SHIFT\_CLOCK\_DDR}}, \mbox{\hyperlink{shiftregister_8h_a8fa403f5b1a505686d061fdd944ff2dd}{SHIFT\_CLOCK\_BIT}});}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00066}00066   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}Shift register setup DDR of data and clock\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00068}00068   \textcolor{comment}{// set default as low}}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00069}00069   \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(\mbox{\hyperlink{shiftregister_8h_a365775e77ebe8775e6446c81160339ec}{SHIFT\_DATA\_PORT}}, \mbox{\hyperlink{shiftregister_8h_ab7a5a7896a25339feb6f75fc1a13e822}{SHIFT\_DATA\_BIT}});}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00070}00070   \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(\mbox{\hyperlink{shiftregister_8h_a0804e280b48aee3bc21e6930bee5239d}{SHIFT\_CLOCK\_PORT}}, \mbox{\hyperlink{shiftregister_8h_a8fa403f5b1a505686d061fdd944ff2dd}{SHIFT\_CLOCK\_BIT}});}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00071}00071   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}Shift register initialized PORT of data and clock to low\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00072}00072 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00073}00073   \mbox{\hyperlink{shiftregister_8c_a97155169a5022ae7d38eafd2c33cb2bc}{SHIFT\_push\_state}}(0);}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00074}00074   \mbox{\hyperlink{logger_8h_aafc148cee6d6c9e76b4ef417c7056f8f}{INFO}}(\textcolor{stringliteral}{"{}Shift register initialized and 000 send to it.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00076}00076   \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{shiftregister_8c_source_l00077}00077 \}}
+
+\end{DoxyCode}

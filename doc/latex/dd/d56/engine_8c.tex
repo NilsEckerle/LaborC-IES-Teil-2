@@ -1,0 +1,187 @@
+\hypertarget{engine_8c}{}\doxysection{src/hardware/engine.c File Reference}
+\label{engine_8c}\index{src/hardware/engine.c@{src/hardware/engine.c}}
+{\ttfamily \#include \char`\"{}hardware/engine.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}tools/bit\+\_\+functions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}tools/logger.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\newline
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for engine.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d70/engine_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{engine_8c_a24de464834274ce39575c73dc1d33e31}{ENGINE\+\_\+init\+\_\+pwm}} ()
+\begin{DoxyCompactList}\small\item\em Initializes motor pulse width modulation (pwm) system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{engine_8c_a80df3cb20e93f5fe006a7e050562d83d}{ENGINE\+\_\+init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes motor control system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{engine_8c_aed67849afc222c8d655f4eef5f450c56}{ENGINE\+\_\+set\+\_\+duty\+\_\+cicle}} (uint8\+\_\+t ui8\+\_\+side, uint8\+\_\+t ui8\+\_\+pwm\+\_\+compare\+\_\+value)
+\begin{DoxyCompactList}\small\item\em sets the dudy cicle of the pwm for the engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{engine_8c_a80df3cb20e93f5fe006a7e050562d83d}\label{engine_8c_a80df3cb20e93f5fe006a7e050562d83d}} 
+\index{engine.c@{engine.c}!ENGINE\_init@{ENGINE\_init}}
+\index{ENGINE\_init@{ENGINE\_init}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_init()}{ENGINE\_init()}}
+{\footnotesize\ttfamily void ENGINE\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initializes motor control system. 
+
+Sets up pins for H-\/bridge motor control and enables both motor pairs. Configures all control pins as outputs and enables motor power.
+
+\begin{DoxyReturn}{Returns}
+nothing, this function can\textquotesingle{}t fail.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+After initialization, motors are enabled but stopped (direction pins not set) 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{engine_8c_source_l00034}{34}} of file \mbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034                    \{}
+\DoxyCodeLine{00035   \textcolor{comment}{// Configure all H-\/bridge control pins as outputs}}
+\DoxyCodeLine{00036   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a688c2fa83c2e51477f202d0fe6d64b79}{ENGINE\_HB\_ENA\_DDR}}, \mbox{\hyperlink{engine_8h_ae1a92e6513a69418f26bc6cbbab57717}{ENGINE\_HB\_ENA\_BIT}}); \textcolor{comment}{// Left motor enable}}
+\DoxyCodeLine{00037   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a7db8b0c899cf0e4483f6586bb1071755}{ENGINE\_HB\_ENB\_DDR}}, \mbox{\hyperlink{engine_8h_aaf837e20695d458c68c1c372c4a3cb77}{ENGINE\_HB\_ENB\_BIT}}); \textcolor{comment}{// Right motor enable}}
+\DoxyCodeLine{00038   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_aa7bc2acdcad5a03aac3e21fb4a0a3cf1}{ENGINE\_HB\_IN1\_DDR}}, \mbox{\hyperlink{engine_8h_ae3d1dabb7d21d06732a117971469dc00}{ENGINE\_HB\_IN1\_BIT}}); \textcolor{comment}{// Left motor direction 1}}
+\DoxyCodeLine{00039   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a20a0a1fbd60a05e98d4c911700f0c8b3}{ENGINE\_HB\_IN2\_DDR}}, \mbox{\hyperlink{engine_8h_a830e2d8848e1d1bd5e3e9dae66960c68}{ENGINE\_HB\_IN2\_BIT}}); \textcolor{comment}{// Left motor direction 2}}
+\DoxyCodeLine{00040   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a7cb22504d729ee64e08737ef3bddfcbf}{ENGINE\_HB\_IN3\_DDR}}, \mbox{\hyperlink{engine_8h_a3930f942c48326be25d237121a7818b5}{ENGINE\_HB\_IN3\_BIT}}); \textcolor{comment}{// Right motor direction 1}}
+\DoxyCodeLine{00041   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a87c2252233f52d22d896741fac8b9eb1}{ENGINE\_HB\_IN4\_DDR}}, \mbox{\hyperlink{engine_8h_a9d6113311f8f22409cb7a3292918c97a}{ENGINE\_HB\_IN4\_BIT}}); \textcolor{comment}{// Right motor direction 2}}
+\DoxyCodeLine{00042 }
+\DoxyCodeLine{00043   \textcolor{comment}{// Enable both motor pairs (set enable pins high)}}
+\DoxyCodeLine{00044   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_ad4e880bbd57107b4e9220009f7ddd764}{ENGINE\_HB\_ENA\_PORT}}, \mbox{\hyperlink{engine_8h_ae1a92e6513a69418f26bc6cbbab57717}{ENGINE\_HB\_ENA\_BIT}}); \textcolor{comment}{// Enable left motors}}
+\DoxyCodeLine{00045   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_aa2c56ed9fc8a4a91fb2b97fc14908ece}{ENGINE\_HB\_ENB\_PORT}}, \mbox{\hyperlink{engine_8h_aaf837e20695d458c68c1c372c4a3cb77}{ENGINE\_HB\_ENB\_BIT}}); \textcolor{comment}{// Enable right motors}}
+\DoxyCodeLine{00046 }
+\DoxyCodeLine{00047   \mbox{\hyperlink{engine_8c_a24de464834274ce39575c73dc1d33e31}{ENGINE\_init\_pwm}}();}
+\DoxyCodeLine{00048   \mbox{\hyperlink{logger_8h_aafc148cee6d6c9e76b4ef417c7056f8f}{INFO}}(\textcolor{stringliteral}{"{}ENGINE pwm init successful.\(\backslash\)n"{}});}
+\DoxyCodeLine{00049 }
+\DoxyCodeLine{00050   \mbox{\hyperlink{engine_8c_aed67849afc222c8d655f4eef5f450c56}{ENGINE\_set\_duty\_cicle}}(\mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02baafdabca9d678fe6934501d8aed74d36a}{ENGINE\_LEFT}}, \string~0);  \textcolor{comment}{// set to full power}}
+\DoxyCodeLine{00051   \mbox{\hyperlink{engine_8c_aed67849afc222c8d655f4eef5f450c56}{ENGINE\_set\_duty\_cicle}}(\mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba5a616ef5115d4cefaa09bc6b59128f47}{ENGINE\_RIGHT}}, \string~0); \textcolor{comment}{// set to full power}}
+\DoxyCodeLine{00052 }
+\DoxyCodeLine{00053   \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00054 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{engine_8c_a24de464834274ce39575c73dc1d33e31}\label{engine_8c_a24de464834274ce39575c73dc1d33e31}} 
+\index{engine.c@{engine.c}!ENGINE\_init\_pwm@{ENGINE\_init\_pwm}}
+\index{ENGINE\_init\_pwm@{ENGINE\_init\_pwm}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_init\_pwm()}{ENGINE\_init\_pwm()}}
+{\footnotesize\ttfamily static void ENGINE\+\_\+init\+\_\+pwm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Initializes motor pulse width modulation (pwm) system. 
+
+Sets up pins for H-\/bridge pwm control.
+
+\begin{DoxyReturn}{Returns}
+nothing, this function can\textquotesingle{}t fail.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+This function is coppied from iesmotors.\+c 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{engine_8c_source_l00017}{17}} of file \mbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00017                               \{}
+\DoxyCodeLine{00018   \textcolor{comment}{// Disable all interrupts}}
+\DoxyCodeLine{00019   cli();}
+\DoxyCodeLine{00020   \textcolor{comment}{// Set prescaler to 64, cf. datasheet for TCCR0B}}
+\DoxyCodeLine{00021   \textcolor{comment}{// (TCCR0B: Timer/Counter Control Register 0 B)}}
+\DoxyCodeLine{00022   TCCR0B = 0;}
+\DoxyCodeLine{00023   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0B, CS00);}
+\DoxyCodeLine{00024   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0B, CS01);}
+\DoxyCodeLine{00025   \textcolor{comment}{// Set waveform generation mode to Fast PWM, frequency = F\_CPU / (PRESCALER *}}
+\DoxyCodeLine{00026   \textcolor{comment}{// 2\string^8)}}
+\DoxyCodeLine{00027   TCCR0A = 0;}
+\DoxyCodeLine{00028   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0A, WGM00);}
+\DoxyCodeLine{00029   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0A, WGM01);}
+\DoxyCodeLine{00030   \textcolor{comment}{// Re-\/enable all interrupts}}
+\DoxyCodeLine{00031   sei();}
+\DoxyCodeLine{00032 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{engine_8c_aed67849afc222c8d655f4eef5f450c56}\label{engine_8c_aed67849afc222c8d655f4eef5f450c56}} 
+\index{engine.c@{engine.c}!ENGINE\_set\_duty\_cicle@{ENGINE\_set\_duty\_cicle}}
+\index{ENGINE\_set\_duty\_cicle@{ENGINE\_set\_duty\_cicle}!engine.c@{engine.c}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_set\_duty\_cicle()}{ENGINE\_set\_duty\_cicle()}}
+{\footnotesize\ttfamily void ENGINE\+\_\+set\+\_\+duty\+\_\+cicle (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{ui8\+\_\+side,  }\item[{uint8\+\_\+t}]{ui8\+\_\+pwm\+\_\+compare\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+sets the dudy cicle of the pwm for the engine. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ui8\+\_\+side} & (ENGINE\+\_\+\+PWM\+\_\+\+LEFT/\+ENGINE\+\_\+\+PWM\+\_\+\+RIGHT) is the side which the pwm is set. \\
+\hline
+{\em ui8\+\_\+pwm\+\_\+compare\+\_\+value} & (0 -\/ 255 = 0\% -\/ 100\%) is the compare value for the pwm clock.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing, this function can\textquotesingle{}t fail. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{engine_8c_source_l00058}{58}} of file \mbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00058                                                                             \{}
+\DoxyCodeLine{00059   \textcolor{comment}{// TODO:}}
+\DoxyCodeLine{00060   \textcolor{comment}{// Suggestion to handle PD6 -\/ note the code-\/clones wrt. PD5 below!}}
+\DoxyCodeLine{00061   \textcolor{comment}{// Code-\/clones are extraordinary f cky! Correct this (tricky though}}
+\DoxyCodeLine{00062   \textcolor{comment}{// due to the PP-\/macros, which you cannot simply pass to functions)!}}
+\DoxyCodeLine{00063   \textcolor{comment}{// (But PP-\/macros can help you here....)}}
+\DoxyCodeLine{00064 }
+\DoxyCodeLine{00065   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}set\_duty\_cicle side: \%s value \%d\(\backslash\)n"{}}, ui8\_side == 0 ? \textcolor{stringliteral}{"{}LEFT"{}} : \textcolor{stringliteral}{"{}RIGHT"{}},}
+\DoxyCodeLine{00066         ui8\_pwm\_compare\_value);}
+\DoxyCodeLine{00067 }
+\DoxyCodeLine{00068   \textcolor{keywordflow}{if} (ui8\_side == \mbox{\hyperlink{engine_8h_a3d87218acebfd0f9d3a421b94ed334fb}{ENGINE\_PWM\_LEFT}}) \{}
+\DoxyCodeLine{00069     \textcolor{keywordflow}{if} (ui8\_pwm\_compare\_value == 0) \{}
+\DoxyCodeLine{00070       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A1);}
+\DoxyCodeLine{00071       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A0); \textcolor{comment}{// Normal port operation mode}}
+\DoxyCodeLine{00072       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(PORTD, PD6);     \textcolor{comment}{// PD6 LOW, equals 0\% duty,}}
+\DoxyCodeLine{00073     \} \textcolor{comment}{// timer disconnected}}
+\DoxyCodeLine{00074     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ui8\_pwm\_compare\_value == 255) \{}
+\DoxyCodeLine{00075       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A1);}
+\DoxyCodeLine{00076       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A0); \textcolor{comment}{// Normal port operation mode}}
+\DoxyCodeLine{00077       \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(PORTD, PD6);       \textcolor{comment}{// PD6 HIGH, equals 100\% duty,}}
+\DoxyCodeLine{00078     \} \textcolor{comment}{// timer disconnected}}
+\DoxyCodeLine{00079     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00080       \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0A, COM0A1);       \textcolor{comment}{// OC0A to LOW on Compare Match,}}
+\DoxyCodeLine{00081       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A0);     \textcolor{comment}{// to HIGH at BOTTOM (non-\/inverting mode)}}
+\DoxyCodeLine{00082       OCR0A = ui8\_pwm\_compare\_value; \textcolor{comment}{// generates sequences of 1-\/0-\/1-\/0...}}
+\DoxyCodeLine{00083     \} \textcolor{comment}{// for certain periods of time}}
+\DoxyCodeLine{00084   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ui8\_side == \mbox{\hyperlink{engine_8h_a0c3bf8a9dc84331a7bf7c387a7ec839a}{ENGINE\_PWM\_RIGHT}}) \{}
+\DoxyCodeLine{00085     \textcolor{keywordflow}{if} (ui8\_pwm\_compare\_value == 0) \{}
+\DoxyCodeLine{00086       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B1);}
+\DoxyCodeLine{00087       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B0);}
+\DoxyCodeLine{00088       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(PORTD, PD5);}
+\DoxyCodeLine{00089     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ui8\_pwm\_compare\_value == 255) \{}
+\DoxyCodeLine{00090       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B1);}
+\DoxyCodeLine{00091       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B0);}
+\DoxyCodeLine{00092       \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(PORTD, PD5);}
+\DoxyCodeLine{00093     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00094       \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0A, COM0B1);}
+\DoxyCodeLine{00095       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B0);}
+\DoxyCodeLine{00096       OCR0B = ui8\_pwm\_compare\_value;}
+\DoxyCodeLine{00097     \}}
+\DoxyCodeLine{00098   \}}
+\DoxyCodeLine{00099 \}}
+
+\end{DoxyCode}

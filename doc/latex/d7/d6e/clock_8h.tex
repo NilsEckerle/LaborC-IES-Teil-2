@@ -1,0 +1,360 @@
+\hypertarget{clock_8h}{}\doxysection{include/hardware/clock.h File Reference}
+\label{clock_8h}\index{include/hardware/clock.h@{include/hardware/clock.h}}
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\newline
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for clock.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{dd/d63/clock_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d73/clock_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{clock_8h_aa88e3dbd4dd53d8ecba150412e32ee00}{CLOCK\+\_\+\+CTL\+\_\+\+A\+\_\+\+REG}}~TCCR1A
+\item 
+\#define \mbox{\hyperlink{clock_8h_a116a8136efe94ff164826283c89aad93}{CLOCK\+\_\+\+CTL\+\_\+\+B\+\_\+\+REG}}~TCCR1B
+\item 
+\#define \mbox{\hyperlink{clock_8h_a288f5871eea6fd06e01b8c628e99900c}{CLOCK\+\_\+\+WGM10\+\_\+\+BIT}}~0
+\item 
+\#define \mbox{\hyperlink{clock_8h_ab7cd6f1709486c37b4a0333bf8206d91}{CLOCK\+\_\+\+WGM11\+\_\+\+BIT}}~1
+\item 
+\#define \mbox{\hyperlink{clock_8h_ac349417309ad0f39003717b14f2bb516}{CLOCK\+\_\+\+COM1\+B0\+\_\+\+BIT}}~4
+\item 
+\#define \mbox{\hyperlink{clock_8h_a25b75b20d571ffa35784414f6df9c15f}{CLOCK\+\_\+\+COM1\+B1\+\_\+\+BIT}}~5
+\item 
+\#define \mbox{\hyperlink{clock_8h_a2d161386605ee30bbff1fb3bb68cb1aa}{CLOCK\+\_\+\+COM1\+A0\+\_\+\+BIT}}~6
+\item 
+\#define \mbox{\hyperlink{clock_8h_a02d82d4347fc50f7fca7a54b2acdee68}{CLOCK\+\_\+\+COM1\+A1\+\_\+\+BIT}}~7
+\item 
+\#define \mbox{\hyperlink{clock_8h_ace53ebdb085651bde23a2834672bee0b}{CLOCK\+\_\+\+CS10\+\_\+\+BIT}}~0
+\item 
+\#define \mbox{\hyperlink{clock_8h_a9d43c8651fd2f371348f425ed36c27ae}{CLOCK\+\_\+\+CS11\+\_\+\+BIT}}~1
+\item 
+\#define \mbox{\hyperlink{clock_8h_ac2b3edcfb6cf1bbc780c5079343b2a25}{CLOCK\+\_\+\+CS12\+\_\+\+BIT}}~2
+\item 
+\#define \mbox{\hyperlink{clock_8h_a9b9b5fcdeb85874924c294c46338ef19}{CLOCK\+\_\+\+WGM12\+\_\+\+BIT}}~3
+\item 
+\#define \mbox{\hyperlink{clock_8h_a378f569b63cc49b94beef043701601cc}{CLOCK\+\_\+\+WGM13\+\_\+\+BIT}}~4
+\item 
+\#define \mbox{\hyperlink{clock_8h_aa385ed470fce5952f5b087223c954361}{CLOCK\+\_\+\+ICES1\+\_\+\+BIT}}~6
+\item 
+\#define \mbox{\hyperlink{clock_8h_a436b98325facbb5075b72ba008e8bbbd}{CLOCK\+\_\+\+ICNC1\+\_\+\+BIT}}~7
+\item 
+\#define \mbox{\hyperlink{clock_8h_a7a12655c39bab8152312402a3492a152}{CLOCK\+\_\+\+TOIE1\+\_\+\+BIT}}~0
+\item 
+\#define \mbox{\hyperlink{clock_8h_a6cf7542ab76005e79d580d539f04ead1}{CLOCK\+\_\+\+OCIE1\+A\+\_\+\+BIT}}~1
+\item 
+\#define \mbox{\hyperlink{clock_8h_a3cdcff45e72862f723cc688defb2f618}{CLOCK\+\_\+\+OCIE1\+B\+\_\+\+BIT}}~2
+\item 
+\#define \mbox{\hyperlink{clock_8h_a339dea73996e61ba725482c2c7c1ecf3}{CLOCK\+\_\+\+ICIE1\+\_\+\+BIT}}~5
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{clock_8h_a388cdc0ff441ade1823b3289b88574db}{CLOCK\+\_\+init}} ()
+\item 
+uint32\+\_\+t \mbox{\hyperlink{clock_8h_a8f94991c819217953c5a77186f4e3e58}{CLOCK\+\_\+get\+\_\+milliseconds}} ()
+\item 
+uint32\+\_\+t \mbox{\hyperlink{clock_8h_a57bb1713737feaac781cdafc64cb7156}{CLOCK\+\_\+get\+\_\+seconds}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{clock_8h_a2d161386605ee30bbff1fb3bb68cb1aa}\label{clock_8h_a2d161386605ee30bbff1fb3bb68cb1aa}} 
+\index{clock.h@{clock.h}!CLOCK\_COM1A0\_BIT@{CLOCK\_COM1A0\_BIT}}
+\index{CLOCK\_COM1A0\_BIT@{CLOCK\_COM1A0\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_COM1A0\_BIT}{CLOCK\_COM1A0\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+COM1\+A0\+\_\+\+BIT~6}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00016}{16}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_a02d82d4347fc50f7fca7a54b2acdee68}\label{clock_8h_a02d82d4347fc50f7fca7a54b2acdee68}} 
+\index{clock.h@{clock.h}!CLOCK\_COM1A1\_BIT@{CLOCK\_COM1A1\_BIT}}
+\index{CLOCK\_COM1A1\_BIT@{CLOCK\_COM1A1\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_COM1A1\_BIT}{CLOCK\_COM1A1\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+COM1\+A1\+\_\+\+BIT~7}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00017}{17}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_ac349417309ad0f39003717b14f2bb516}\label{clock_8h_ac349417309ad0f39003717b14f2bb516}} 
+\index{clock.h@{clock.h}!CLOCK\_COM1B0\_BIT@{CLOCK\_COM1B0\_BIT}}
+\index{CLOCK\_COM1B0\_BIT@{CLOCK\_COM1B0\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_COM1B0\_BIT}{CLOCK\_COM1B0\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+COM1\+B0\+\_\+\+BIT~4}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00014}{14}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_a25b75b20d571ffa35784414f6df9c15f}\label{clock_8h_a25b75b20d571ffa35784414f6df9c15f}} 
+\index{clock.h@{clock.h}!CLOCK\_COM1B1\_BIT@{CLOCK\_COM1B1\_BIT}}
+\index{CLOCK\_COM1B1\_BIT@{CLOCK\_COM1B1\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_COM1B1\_BIT}{CLOCK\_COM1B1\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+COM1\+B1\+\_\+\+BIT~5}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00015}{15}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_ace53ebdb085651bde23a2834672bee0b}\label{clock_8h_ace53ebdb085651bde23a2834672bee0b}} 
+\index{clock.h@{clock.h}!CLOCK\_CS10\_BIT@{CLOCK\_CS10\_BIT}}
+\index{CLOCK\_CS10\_BIT@{CLOCK\_CS10\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_CS10\_BIT}{CLOCK\_CS10\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+CS10\+\_\+\+BIT~0}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00020}{20}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_a9d43c8651fd2f371348f425ed36c27ae}\label{clock_8h_a9d43c8651fd2f371348f425ed36c27ae}} 
+\index{clock.h@{clock.h}!CLOCK\_CS11\_BIT@{CLOCK\_CS11\_BIT}}
+\index{CLOCK\_CS11\_BIT@{CLOCK\_CS11\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_CS11\_BIT}{CLOCK\_CS11\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+CS11\+\_\+\+BIT~1}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00021}{21}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_ac2b3edcfb6cf1bbc780c5079343b2a25}\label{clock_8h_ac2b3edcfb6cf1bbc780c5079343b2a25}} 
+\index{clock.h@{clock.h}!CLOCK\_CS12\_BIT@{CLOCK\_CS12\_BIT}}
+\index{CLOCK\_CS12\_BIT@{CLOCK\_CS12\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_CS12\_BIT}{CLOCK\_CS12\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+CS12\+\_\+\+BIT~2}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00022}{22}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_aa88e3dbd4dd53d8ecba150412e32ee00}\label{clock_8h_aa88e3dbd4dd53d8ecba150412e32ee00}} 
+\index{clock.h@{clock.h}!CLOCK\_CTL\_A\_REG@{CLOCK\_CTL\_A\_REG}}
+\index{CLOCK\_CTL\_A\_REG@{CLOCK\_CTL\_A\_REG}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_CTL\_A\_REG}{CLOCK\_CTL\_A\_REG}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+CTL\+\_\+\+A\+\_\+\+REG~TCCR1A}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00008}{8}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_a116a8136efe94ff164826283c89aad93}\label{clock_8h_a116a8136efe94ff164826283c89aad93}} 
+\index{clock.h@{clock.h}!CLOCK\_CTL\_B\_REG@{CLOCK\_CTL\_B\_REG}}
+\index{CLOCK\_CTL\_B\_REG@{CLOCK\_CTL\_B\_REG}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_CTL\_B\_REG}{CLOCK\_CTL\_B\_REG}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+CTL\+\_\+\+B\+\_\+\+REG~TCCR1B}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00009}{9}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_aa385ed470fce5952f5b087223c954361}\label{clock_8h_aa385ed470fce5952f5b087223c954361}} 
+\index{clock.h@{clock.h}!CLOCK\_ICES1\_BIT@{CLOCK\_ICES1\_BIT}}
+\index{CLOCK\_ICES1\_BIT@{CLOCK\_ICES1\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_ICES1\_BIT}{CLOCK\_ICES1\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+ICES1\+\_\+\+BIT~6}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00025}{25}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_a339dea73996e61ba725482c2c7c1ecf3}\label{clock_8h_a339dea73996e61ba725482c2c7c1ecf3}} 
+\index{clock.h@{clock.h}!CLOCK\_ICIE1\_BIT@{CLOCK\_ICIE1\_BIT}}
+\index{CLOCK\_ICIE1\_BIT@{CLOCK\_ICIE1\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_ICIE1\_BIT}{CLOCK\_ICIE1\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+ICIE1\+\_\+\+BIT~5}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00032}{32}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_a436b98325facbb5075b72ba008e8bbbd}\label{clock_8h_a436b98325facbb5075b72ba008e8bbbd}} 
+\index{clock.h@{clock.h}!CLOCK\_ICNC1\_BIT@{CLOCK\_ICNC1\_BIT}}
+\index{CLOCK\_ICNC1\_BIT@{CLOCK\_ICNC1\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_ICNC1\_BIT}{CLOCK\_ICNC1\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+ICNC1\+\_\+\+BIT~7}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00026}{26}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_a6cf7542ab76005e79d580d539f04ead1}\label{clock_8h_a6cf7542ab76005e79d580d539f04ead1}} 
+\index{clock.h@{clock.h}!CLOCK\_OCIE1A\_BIT@{CLOCK\_OCIE1A\_BIT}}
+\index{CLOCK\_OCIE1A\_BIT@{CLOCK\_OCIE1A\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_OCIE1A\_BIT}{CLOCK\_OCIE1A\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+OCIE1\+A\+\_\+\+BIT~1}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00030}{30}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_a3cdcff45e72862f723cc688defb2f618}\label{clock_8h_a3cdcff45e72862f723cc688defb2f618}} 
+\index{clock.h@{clock.h}!CLOCK\_OCIE1B\_BIT@{CLOCK\_OCIE1B\_BIT}}
+\index{CLOCK\_OCIE1B\_BIT@{CLOCK\_OCIE1B\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_OCIE1B\_BIT}{CLOCK\_OCIE1B\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+OCIE1\+B\+\_\+\+BIT~2}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00031}{31}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_a7a12655c39bab8152312402a3492a152}\label{clock_8h_a7a12655c39bab8152312402a3492a152}} 
+\index{clock.h@{clock.h}!CLOCK\_TOIE1\_BIT@{CLOCK\_TOIE1\_BIT}}
+\index{CLOCK\_TOIE1\_BIT@{CLOCK\_TOIE1\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_TOIE1\_BIT}{CLOCK\_TOIE1\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+TOIE1\+\_\+\+BIT~0}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00029}{29}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_a288f5871eea6fd06e01b8c628e99900c}\label{clock_8h_a288f5871eea6fd06e01b8c628e99900c}} 
+\index{clock.h@{clock.h}!CLOCK\_WGM10\_BIT@{CLOCK\_WGM10\_BIT}}
+\index{CLOCK\_WGM10\_BIT@{CLOCK\_WGM10\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_WGM10\_BIT}{CLOCK\_WGM10\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+WGM10\+\_\+\+BIT~0}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00012}{12}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_ab7cd6f1709486c37b4a0333bf8206d91}\label{clock_8h_ab7cd6f1709486c37b4a0333bf8206d91}} 
+\index{clock.h@{clock.h}!CLOCK\_WGM11\_BIT@{CLOCK\_WGM11\_BIT}}
+\index{CLOCK\_WGM11\_BIT@{CLOCK\_WGM11\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_WGM11\_BIT}{CLOCK\_WGM11\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+WGM11\+\_\+\+BIT~1}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00013}{13}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_a9b9b5fcdeb85874924c294c46338ef19}\label{clock_8h_a9b9b5fcdeb85874924c294c46338ef19}} 
+\index{clock.h@{clock.h}!CLOCK\_WGM12\_BIT@{CLOCK\_WGM12\_BIT}}
+\index{CLOCK\_WGM12\_BIT@{CLOCK\_WGM12\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_WGM12\_BIT}{CLOCK\_WGM12\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+WGM12\+\_\+\+BIT~3}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00023}{23}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+\mbox{\Hypertarget{clock_8h_a378f569b63cc49b94beef043701601cc}\label{clock_8h_a378f569b63cc49b94beef043701601cc}} 
+\index{clock.h@{clock.h}!CLOCK\_WGM13\_BIT@{CLOCK\_WGM13\_BIT}}
+\index{CLOCK\_WGM13\_BIT@{CLOCK\_WGM13\_BIT}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_WGM13\_BIT}{CLOCK\_WGM13\_BIT}}
+{\footnotesize\ttfamily \#define CLOCK\+\_\+\+WGM13\+\_\+\+BIT~4}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8h_source_l00024}{24}} of file \mbox{\hyperlink{clock_8h_source}{clock.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{clock_8h_a8f94991c819217953c5a77186f4e3e58}\label{clock_8h_a8f94991c819217953c5a77186f4e3e58}} 
+\index{clock.h@{clock.h}!CLOCK\_get\_milliseconds@{CLOCK\_get\_milliseconds}}
+\index{CLOCK\_get\_milliseconds@{CLOCK\_get\_milliseconds}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_get\_milliseconds()}{CLOCK\_get\_milliseconds()}}
+{\footnotesize\ttfamily uint32\+\_\+t CLOCK\+\_\+get\+\_\+milliseconds (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8c_source_l00064}{64}} of file \mbox{\hyperlink{clock_8c_source}{clock.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00064                                   \{}
+\DoxyCodeLine{00065   uint32\_t ms;}
+\DoxyCodeLine{00066 }
+\DoxyCodeLine{00067   \textcolor{comment}{// Disable interrupts to ensure atomic read}}
+\DoxyCodeLine{00068   cli();}
+\DoxyCodeLine{00069   ms = \mbox{\hyperlink{clock_8c_a96f3c9334e454ff53bbdf1bcc08cd6c3}{milliseconds}} + \mbox{\hyperlink{clock_8c_a2feed72a43142cb83b74ce2b084ec576}{seconds}} * 1000;}
+\DoxyCodeLine{00070   sei();}
+\DoxyCodeLine{00071 }
+\DoxyCodeLine{00072   \textcolor{keywordflow}{return} ms;}
+\DoxyCodeLine{00073 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{clock_8h_a57bb1713737feaac781cdafc64cb7156}\label{clock_8h_a57bb1713737feaac781cdafc64cb7156}} 
+\index{clock.h@{clock.h}!CLOCK\_get\_seconds@{CLOCK\_get\_seconds}}
+\index{CLOCK\_get\_seconds@{CLOCK\_get\_seconds}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_get\_seconds()}{CLOCK\_get\_seconds()}}
+{\footnotesize\ttfamily uint32\+\_\+t CLOCK\+\_\+get\+\_\+seconds (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8c_source_l00052}{52}} of file \mbox{\hyperlink{clock_8c_source}{clock.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00052                                  \{ }
+\DoxyCodeLine{00053   uint32\_t s;}
+\DoxyCodeLine{00054 }
+\DoxyCodeLine{00055   \textcolor{comment}{// Disable interrupts to ensure atomic read}}
+\DoxyCodeLine{00056   cli();}
+\DoxyCodeLine{00057   s = \mbox{\hyperlink{clock_8c_a2feed72a43142cb83b74ce2b084ec576}{seconds}};}
+\DoxyCodeLine{00058   sei();}
+\DoxyCodeLine{00059 }
+\DoxyCodeLine{00060   \textcolor{keywordflow}{return} s;}
+\DoxyCodeLine{00061 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{clock_8h_a388cdc0ff441ade1823b3289b88574db}\label{clock_8h_a388cdc0ff441ade1823b3289b88574db}} 
+\index{clock.h@{clock.h}!CLOCK\_init@{CLOCK\_init}}
+\index{CLOCK\_init@{CLOCK\_init}!clock.h@{clock.h}}
+\doxysubsubsection{\texorpdfstring{CLOCK\_init()}{CLOCK\_init()}}
+{\footnotesize\ttfamily void CLOCK\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{clock_8c_source_l00019}{19}} of file \mbox{\hyperlink{clock_8c_source}{clock.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00019                   \{}
+\DoxyCodeLine{00020   \textcolor{comment}{// Disable interrupts during setup}}
+\DoxyCodeLine{00021   cli();}
+\DoxyCodeLine{00022 }
+\DoxyCodeLine{00023   \textcolor{comment}{// Reset Timer1 control registers}}
+\DoxyCodeLine{00024   TCCR1A = 0;}
+\DoxyCodeLine{00025   TCCR1B = 0;}
+\DoxyCodeLine{00026   TCNT1 = 0;}
+\DoxyCodeLine{00027 }
+\DoxyCodeLine{00028   \textcolor{comment}{// Configure Timer1 for Normal mode (WGM13:0 = 0000)}}
+\DoxyCodeLine{00029   \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR1A, \mbox{\hyperlink{clock_8h_a288f5871eea6fd06e01b8c628e99900c}{CLOCK\_WGM10\_BIT}});}
+\DoxyCodeLine{00030   \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR1A, \mbox{\hyperlink{clock_8h_ab7cd6f1709486c37b4a0333bf8206d91}{CLOCK\_WGM11\_BIT}});}
+\DoxyCodeLine{00031   \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR1B, \mbox{\hyperlink{clock_8h_a9b9b5fcdeb85874924c294c46338ef19}{CLOCK\_WGM12\_BIT}});}
+\DoxyCodeLine{00032   \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR1B, \mbox{\hyperlink{clock_8h_a378f569b63cc49b94beef043701601cc}{CLOCK\_WGM13\_BIT}});}
+\DoxyCodeLine{00033 }
+\DoxyCodeLine{00034   \textcolor{comment}{// Set prescaler to 64 (CS12:0 = 011)}}
+\DoxyCodeLine{00035   \textcolor{comment}{// This gives us: 16MHz / 8 = 2MHz timer frequency}}
+\DoxyCodeLine{00036   \textcolor{comment}{// Timer period = 1/2MHz = 5e-\/7 microseconds per tick}}
+\DoxyCodeLine{00037   \textcolor{comment}{// Overflow occurs every 65536 ticks = 65536 * 5e-\/7 = 32,768 microseconds}}
+\DoxyCodeLine{00038   \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR1B, \mbox{\hyperlink{clock_8h_ace53ebdb085651bde23a2834672bee0b}{CLOCK\_CS10\_BIT}});}
+\DoxyCodeLine{00039   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR1B, \mbox{\hyperlink{clock_8h_a9d43c8651fd2f371348f425ed36c27ae}{CLOCK\_CS11\_BIT}});}
+\DoxyCodeLine{00040   \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR1B, \mbox{\hyperlink{clock_8h_ac2b3edcfb6cf1bbc780c5079343b2a25}{CLOCK\_CS12\_BIT}});}
+\DoxyCodeLine{00041 }
+\DoxyCodeLine{00042   \textcolor{comment}{// Enable Timer1 overflow interrupt}}
+\DoxyCodeLine{00043   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TIMSK1, \mbox{\hyperlink{clock_8h_a7a12655c39bab8152312402a3492a152}{CLOCK\_TOIE1\_BIT}});}
+\DoxyCodeLine{00044 }
+\DoxyCodeLine{00045   \textcolor{comment}{// Enable global interrupts}}
+\DoxyCodeLine{00046   sei();}
+\DoxyCodeLine{00047 }
+\DoxyCodeLine{00048   \mbox{\hyperlink{logger_8h_aafc148cee6d6c9e76b4ef417c7056f8f}{INFO}}(\textcolor{stringliteral}{"{}[CLOCK\_init] Clock initialization successful\(\backslash\)n"{}});}
+\DoxyCodeLine{00049 \}}
+
+\end{DoxyCode}

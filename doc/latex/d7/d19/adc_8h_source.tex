@@ -1,0 +1,61 @@
+\hypertarget{adc_8h_source}{}\doxysection{adc.\+h}
+\label{adc_8h_source}\index{include/hardware/adc.h@{include/hardware/adc.h}}
+\mbox{\hyperlink{adc_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef ADC\_H}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00002}00002 \textcolor{preprocessor}{\#define ADC\_H}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00004}00004 \textcolor{preprocessor}{\#include <avr/io.h>}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00005}00005 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{bit__functions_8h}{tools/bit\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00006}00006 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00007}\mbox{\hyperlink{adc_8h_a5ae939fc8e2bed7ef2c9c73cd5762189}{00007}} \textcolor{preprocessor}{\#define ADC\_AVG\_WINDOW 10}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00009}\mbox{\hyperlink{adc_8h_a904d1f2d00a8e1ab4c45b2b4b11b9bf7}{00009}} \textcolor{preprocessor}{\#define ADC\_MUX\_STEUER\_REG ADMUX}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00010}\mbox{\hyperlink{adc_8h_a55efe21d802352cd3d833f3bc9a2cbf9}{00010}} \textcolor{preprocessor}{\#define ADC\_READ ADCW}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00011}00011 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00012}\mbox{\hyperlink{adc_8h_a514bc9a685c914e3f817dfd110b6d362}{00012}} \textcolor{preprocessor}{\#define ADC0\_DDR DDRC}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00013}\mbox{\hyperlink{adc_8h_a209539b6b0e7fe09559dc67b62acb94d}{00013}} \textcolor{preprocessor}{\#define ADC0\_PIN PINC}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00014}\mbox{\hyperlink{adc_8h_a7206c4bd8a6f4a826f3335983cd2f20a}{00014}} \textcolor{preprocessor}{\#define ADC0\_BIT PINC0}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00016}\mbox{\hyperlink{adc_8h_a8a62bd58c1ed8603a38766f53253ec10}{00016}} \textcolor{preprocessor}{\#define ADC1\_DDR DDRC}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00017}\mbox{\hyperlink{adc_8h_a3f7482ad6495b9f8f69d9bb916aae854}{00017}} \textcolor{preprocessor}{\#define ADC1\_PIN PINC}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00018}\mbox{\hyperlink{adc_8h_ae40ddcc3aacadf79ae2deb704f36a98e}{00018}} \textcolor{preprocessor}{\#define ADC1\_BIT PINC1}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00020}\mbox{\hyperlink{adc_8h_aa0c0fff9402fdcac4a0cd6b4eeacf20a}{00020}} \textcolor{preprocessor}{\#define ADC2\_DDR DDRC}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00021}\mbox{\hyperlink{adc_8h_afb2f4f2a136b1a0dd1f1926defbae195}{00021}} \textcolor{preprocessor}{\#define ADC2\_PIN PINC}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00022}\mbox{\hyperlink{adc_8h_a89fb449e9a1d85f77b89c966a0557fc0}{00022}} \textcolor{preprocessor}{\#define ADC2\_BIT PINC2}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00024}\mbox{\hyperlink{adc_8h_a47f6f8e541c3f05cb8fbbc2a4aad9c2b}{00024}} \textcolor{preprocessor}{\#define ADC3\_DDR DDRC}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00025}\mbox{\hyperlink{adc_8h_a505837e2819dff70f176624930702756}{00025}} \textcolor{preprocessor}{\#define ADC3\_PIN PINC}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00026}\mbox{\hyperlink{adc_8h_a402e4e450020f46ebfcacc50160229de}{00026}} \textcolor{preprocessor}{\#define ADC3\_BIT PINC3}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00028}\mbox{\hyperlink{adc_8h_abd2655bdca09918d237bb9dc56673321}{00028}} \textcolor{preprocessor}{\#define ADC4\_DDR DDRC}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00029}\mbox{\hyperlink{adc_8h_a8a984183012e82dffc496e28b7caec32}{00029}} \textcolor{preprocessor}{\#define ADC4\_PIN PINC}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00030}\mbox{\hyperlink{adc_8h_ac9da02f14e6beba592e365d8f0d11e1c}{00030}} \textcolor{preprocessor}{\#define ADC4\_BIT PINC4}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00032}\mbox{\hyperlink{adc_8h_a26b83b1af4a00cd281bc5db64277634c}{00032}} \textcolor{preprocessor}{\#define ADC5\_DDR DDRC}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00033}\mbox{\hyperlink{adc_8h_a3cf2faf05db17fc145bc68a6116a6850}{00033}} \textcolor{preprocessor}{\#define ADC5\_PIN PINC}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00034}\mbox{\hyperlink{adc_8h_a6175ae8b641ad3c1185cc11feebd46fb}{00034}} \textcolor{preprocessor}{\#define ADC5\_BIT PINC5}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00035}00035 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00039}\mbox{\hyperlink{adc_8h_afb89e30f220867d6aefbc87ebed425e4}{00039}} \textcolor{preprocessor}{\#define IS\_ADC\_MEASURING IS\_BIT\_SET(ADCSRA, ADSC)}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00047}\mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695}{00047}} \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695}{ADC\_pin}} \{}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00048}\mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695ae88c21fc4d1c47f05cb7ba55d2f13994}{00048}}   \mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695ae88c21fc4d1c47f05cb7ba55d2f13994}{ADC\_LF\_RIGHT}} = \mbox{\hyperlink{adc_8h_a7206c4bd8a6f4a826f3335983cd2f20a}{ADC0\_BIT}},}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00049}\mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695a4e46e6a7562643749b237d31e8a0b261}{00049}}   \mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695a4e46e6a7562643749b237d31e8a0b261}{ADC\_LF\_MIDDLE}} = \mbox{\hyperlink{adc_8h_ae40ddcc3aacadf79ae2deb704f36a98e}{ADC1\_BIT}},}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00050}\mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695aac1d2da1e464c6af058ee3154b03de97}{00050}}   \mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695aac1d2da1e464c6af058ee3154b03de97}{ADC\_LF\_LEFT}} = \mbox{\hyperlink{adc_8h_a89fb449e9a1d85f77b89c966a0557fc0}{ADC2\_BIT}},}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00051}\mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695afc3949216a11842a9d9960dab5536d06}{00051}}   \mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695afc3949216a11842a9d9960dab5536d06}{A3\_Voltage\_Divider\_LiPo}} = \mbox{\hyperlink{adc_8h_a402e4e450020f46ebfcacc50160229de}{ADC3\_BIT}},}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00052}\mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695a24727389909cb6406ed9483df7810c78}{00052}}   \mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695a24727389909cb6406ed9483df7810c78}{C4}} = \mbox{\hyperlink{adc_8h_ac9da02f14e6beba592e365d8f0d11e1c}{ADC4\_BIT}},}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00053}00053   \mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695a26c0a10a3dc0a69747539541f4a82172}{C5}} = \mbox{\hyperlink{adc_8h_a6175ae8b641ad3c1185cc11feebd46fb}{ADC5\_BIT}}}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00054}\mbox{\hyperlink{adc_8h_a612f0828a4d21fe9f53186ab612fe695a26c0a10a3dc0a69747539541f4a82172}{00054}} \} \mbox{\hyperlink{adc_8h_ab93ae0fbef54efd4187e7a699ab33c74}{t\_adc\_pin}};}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00068}00068 \textcolor{keywordtype}{void} \mbox{\hyperlink{adc_8h_a69f491a768a81c2cf99ee2653ad3002d}{ADC\_init}}();}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00069}00069 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00077}00077 \textcolor{keywordtype}{void} \mbox{\hyperlink{adc_8h_a38d94a978f5883b54f050906bc4cc6cd}{ADC\_init\_pin}}(\mbox{\hyperlink{adc_8h_ab93ae0fbef54efd4187e7a699ab33c74}{t\_adc\_pin}} pin);}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00078}00078 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00089}00089 uint16\_t \mbox{\hyperlink{adc_8h_a03ec2becf5c3f68a8e9bbefe9bd7fec0}{ADC\_get}}(\mbox{\hyperlink{adc_8h_ab93ae0fbef54efd4187e7a699ab33c74}{t\_adc\_pin}} pin);}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00090}00090 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00102}00102 uint16\_t \mbox{\hyperlink{adc_8h_a1c7462696b17bd7b77d10dacfcabf272}{ADC\_get\_avg}}(\mbox{\hyperlink{adc_8h_ab93ae0fbef54efd4187e7a699ab33c74}{t\_adc\_pin}} pin, uint8\_t nsamples);}
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00103}00103 }
+\DoxyCodeLine{\Hypertarget{adc_8h_source_l00104}00104 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !ADC\_H}}
+
+\end{DoxyCode}

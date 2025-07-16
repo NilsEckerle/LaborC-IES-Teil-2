@@ -1,0 +1,30 @@
+\hypertarget{_2home_2ies_2Documents_2LaborC-IES-Teil-2_2include_2tools_2bit_functions_8h-example}{}\doxysection{/home/ies/\+Documents/\+Labor\+C-\/\+IES-\/\+Teil-\/2/include/tools/bit\+\_\+functions.\+h}
+Sets a specific bit in a register to 1.
+
+Sets a specific bit in a register to 1
+\begin{DoxyParams}{Parameters}
+{\em reg} & The register or variable to modify \\
+\hline
+{\em bit} & The bit position to set (0-\/based indexing, 0 = LSB)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+This is implemented as a do-\/while(0) macro to ensure proper statement behavior when used in conditional statements. The macro is safe to use in all contexts where a single statement is expected.
+\end{DoxyNote}
+uint8\+\_\+t status = 0x00; // 00000000 \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\+\_\+\+BIT(status, 3)}}; // Sets bit 3\+: 00001000 (0x08)
+
+
+\begin{DoxyCodeInclude}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#ifndef BIT\_FUNCTIONS}}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define BIT\_FUNCTIONS}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define SET\_BIT(reg, bit) do \{reg |= (1 << bit);\} while(0)}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define UNSET\_BIT(reg, bit) do \{reg \&= \string~(1 << bit);\} while(0)}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#define IS\_BIT\_SET(reg, bit) ((reg \& (1 << bit)) ? 1 : 0)}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{preprocessor}{\#endif }\textcolor{comment}{// !BIT\_FUNCTIONS}}
+
+\end{DoxyCodeInclude}
+ 

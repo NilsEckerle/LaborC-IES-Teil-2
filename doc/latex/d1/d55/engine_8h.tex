@@ -1,0 +1,639 @@
+\hypertarget{engine_8h}{}\doxysection{include/hardware/engine.h File Reference}
+\label{engine_8h}\index{include/hardware/engine.h@{include/hardware/engine.h}}
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}hardware/linienfolger.\+h\char`\"{}}\newline
+Include dependency graph for engine.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{d7/d6a/engine_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d24/engine_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{engine_8h_ab94fb7ada482f1d6e9abb3ab26fe4ccf}{LMR\+\_\+\+FORWARD\+\_\+\+DELAY\+\_\+\+IN\+\_\+\+ITTERATIONS}}~1
+\item 
+\#define \mbox{\hyperlink{engine_8h_a688c2fa83c2e51477f202d0fe6d64b79}{ENGINE\+\_\+\+HB\+\_\+\+ENA\+\_\+\+DDR}}~DDRD
+\item 
+\#define \mbox{\hyperlink{engine_8h_ad4e880bbd57107b4e9220009f7ddd764}{ENGINE\+\_\+\+HB\+\_\+\+ENA\+\_\+\+PORT}}~PORTD
+\item 
+\#define \mbox{\hyperlink{engine_8h_a4bfbc1867ecbbe4f8adf71f09dfc69ec}{ENGINE\+\_\+\+HB\+\_\+\+ENA\+\_\+\+PIN}}~PIND
+\item 
+\#define \mbox{\hyperlink{engine_8h_ae1a92e6513a69418f26bc6cbbab57717}{ENGINE\+\_\+\+HB\+\_\+\+ENA\+\_\+\+BIT}}~5
+\item 
+\#define \mbox{\hyperlink{engine_8h_a7db8b0c899cf0e4483f6586bb1071755}{ENGINE\+\_\+\+HB\+\_\+\+ENB\+\_\+\+DDR}}~DDRD
+\item 
+\#define \mbox{\hyperlink{engine_8h_aa2c56ed9fc8a4a91fb2b97fc14908ece}{ENGINE\+\_\+\+HB\+\_\+\+ENB\+\_\+\+PORT}}~PORTD
+\item 
+\#define \mbox{\hyperlink{engine_8h_a891b2b3ddc3b0179b1dfe9c25535e52c}{ENGINE\+\_\+\+HB\+\_\+\+ENB\+\_\+\+PIN}}~PIND
+\item 
+\#define \mbox{\hyperlink{engine_8h_aaf837e20695d458c68c1c372c4a3cb77}{ENGINE\+\_\+\+HB\+\_\+\+ENB\+\_\+\+BIT}}~6
+\item 
+\#define \mbox{\hyperlink{engine_8h_aa7bc2acdcad5a03aac3e21fb4a0a3cf1}{ENGINE\+\_\+\+HB\+\_\+\+IN1\+\_\+\+DDR}}~DDRD
+\item 
+\#define \mbox{\hyperlink{engine_8h_ac9d1c831079626f189df8f236ed0215b}{ENGINE\+\_\+\+HB\+\_\+\+IN1\+\_\+\+PORT}}~PORTD
+\item 
+\#define \mbox{\hyperlink{engine_8h_aa6a7cde712376248a5279cae776a845f}{ENGINE\+\_\+\+HB\+\_\+\+IN1\+\_\+\+PIN}}~PIND
+\item 
+\#define \mbox{\hyperlink{engine_8h_ae3d1dabb7d21d06732a117971469dc00}{ENGINE\+\_\+\+HB\+\_\+\+IN1\+\_\+\+BIT}}~7
+\item 
+\#define \mbox{\hyperlink{engine_8h_a20a0a1fbd60a05e98d4c911700f0c8b3}{ENGINE\+\_\+\+HB\+\_\+\+IN2\+\_\+\+DDR}}~DDRB
+\item 
+\#define \mbox{\hyperlink{engine_8h_a98d8430145664d746261fc9d1381685f}{ENGINE\+\_\+\+HB\+\_\+\+IN2\+\_\+\+PORT}}~PORTB
+\item 
+\#define \mbox{\hyperlink{engine_8h_ab81f63280df2e09e80eec846201eba3b}{ENGINE\+\_\+\+HB\+\_\+\+IN2\+\_\+\+PIN}}~PINB
+\item 
+\#define \mbox{\hyperlink{engine_8h_a830e2d8848e1d1bd5e3e9dae66960c68}{ENGINE\+\_\+\+HB\+\_\+\+IN2\+\_\+\+BIT}}~0
+\item 
+\#define \mbox{\hyperlink{engine_8h_a7cb22504d729ee64e08737ef3bddfcbf}{ENGINE\+\_\+\+HB\+\_\+\+IN3\+\_\+\+DDR}}~DDRB
+\item 
+\#define \mbox{\hyperlink{engine_8h_ab1b6e8c98ab6568bf53979d450d22996}{ENGINE\+\_\+\+HB\+\_\+\+IN3\+\_\+\+PORT}}~PORTB
+\item 
+\#define \mbox{\hyperlink{engine_8h_aa4c9c30bd5585152109dc12107afb02d}{ENGINE\+\_\+\+HB\+\_\+\+IN3\+\_\+\+PIN}}~PINB
+\item 
+\#define \mbox{\hyperlink{engine_8h_a3930f942c48326be25d237121a7818b5}{ENGINE\+\_\+\+HB\+\_\+\+IN3\+\_\+\+BIT}}~1
+\item 
+\#define \mbox{\hyperlink{engine_8h_a87c2252233f52d22d896741fac8b9eb1}{ENGINE\+\_\+\+HB\+\_\+\+IN4\+\_\+\+DDR}}~DDRB
+\item 
+\#define \mbox{\hyperlink{engine_8h_a6dbef838a08ec146e7268dd100cae971}{ENGINE\+\_\+\+HB\+\_\+\+IN4\+\_\+\+PORT}}~PORTB
+\item 
+\#define \mbox{\hyperlink{engine_8h_a3aa1f160b31b51f3de25534c4895487b}{ENGINE\+\_\+\+HB\+\_\+\+IN4\+\_\+\+PIN}}~PINB
+\item 
+\#define \mbox{\hyperlink{engine_8h_a9d6113311f8f22409cb7a3292918c97a}{ENGINE\+\_\+\+HB\+\_\+\+IN4\+\_\+\+BIT}}~3
+\item 
+\#define \mbox{\hyperlink{engine_8h_a3d87218acebfd0f9d3a421b94ed334fb}{ENGINE\+\_\+\+PWM\+\_\+\+LEFT}}~0
+\item 
+\#define \mbox{\hyperlink{engine_8h_a0c3bf8a9dc84331a7bf7c387a7ec839a}{ENGINE\+\_\+\+PWM\+\_\+\+RIGHT}}~1
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02b}{ENGINE\+\_\+drive\+\_\+direction}} \{ \newline
+\mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba9f46754f1d057afc2eeb9b11a3099488}{ENGINE\+\_\+\+UNDEFINED}}
+, \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba29c6a169a5be8bd129ed79fb9978c4ed}{ENGINE\+\_\+\+STOP}}
+, \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02bab84b251c2ccd1b3557e3357a6583bce9}{ENGINE\+\_\+\+BACKWARDS}}
+, \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba5a3e653b93969ac9a8c84645a287e65f}{ENGINE\+\_\+\+FORWARD}}
+, \newline
+\mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba1d93f0cee35869ae0814560d23d8967b}{ENGINE\+\_\+\+HARD\+\_\+\+LEFT}}
+, \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02baafdabca9d678fe6934501d8aed74d36a}{ENGINE\+\_\+\+LEFT}}
+, \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba1a3961fdbd8df54985d41512602bae35}{ENGINE\+\_\+\+HARD\+\_\+\+RIGHT}}
+, \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba5a616ef5115d4cefaa09bc6b59128f47}{ENGINE\+\_\+\+RIGHT}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enumeration representing robot movement directions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{engine_8h_a80df3cb20e93f5fe006a7e050562d83d}{ENGINE\+\_\+init}} ()
+\begin{DoxyCompactList}\small\item\em Initializes motor control system. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{engine_8h_aed67849afc222c8d655f4eef5f450c56}{ENGINE\+\_\+set\+\_\+duty\+\_\+cicle}} (uint8\+\_\+t ui8\+\_\+side, uint8\+\_\+t ui8\+\_\+pwm\+\_\+compare\+\_\+value)
+\begin{DoxyCompactList}\small\item\em sets the dudy cicle of the pwm for the engine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{engine_8h_ac77089c3441b4ff74962352a24a3a155}{ENGINE\+\_\+drive}} (\mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02b}{ENGINE\+\_\+drive\+\_\+direction}} direction)
+\begin{DoxyCompactList}\small\item\em Controls robot movement direction. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{engine_8h_ac70858233896a645eca2dae9acd7a6a6}{ENGINE\+\_\+drive\+\_\+logic}} (\mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1}{LF\+\_\+detection\+\_\+state}} new\+\_\+lf\+\_\+state, \mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1}{LF\+\_\+detection\+\_\+state}} old\+\_\+lf\+\_\+state, uint16\+\_\+t $\ast$LMR\+\_\+itterations\+\_\+since\+\_\+entry)
+\begin{DoxyCompactList}\small\item\em Line follower logic for autonomous robot movement. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{engine_8h_ae1a92e6513a69418f26bc6cbbab57717}\label{engine_8h_ae1a92e6513a69418f26bc6cbbab57717}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_ENA\_BIT@{ENGINE\_HB\_ENA\_BIT}}
+\index{ENGINE\_HB\_ENA\_BIT@{ENGINE\_HB\_ENA\_BIT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_ENA\_BIT}{ENGINE\_HB\_ENA\_BIT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+ENA\+\_\+\+BIT~5}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00020}{20}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a688c2fa83c2e51477f202d0fe6d64b79}\label{engine_8h_a688c2fa83c2e51477f202d0fe6d64b79}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_ENA\_DDR@{ENGINE\_HB\_ENA\_DDR}}
+\index{ENGINE\_HB\_ENA\_DDR@{ENGINE\_HB\_ENA\_DDR}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_ENA\_DDR}{ENGINE\_HB\_ENA\_DDR}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+ENA\+\_\+\+DDR~DDRD}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00017}{17}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a4bfbc1867ecbbe4f8adf71f09dfc69ec}\label{engine_8h_a4bfbc1867ecbbe4f8adf71f09dfc69ec}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_ENA\_PIN@{ENGINE\_HB\_ENA\_PIN}}
+\index{ENGINE\_HB\_ENA\_PIN@{ENGINE\_HB\_ENA\_PIN}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_ENA\_PIN}{ENGINE\_HB\_ENA\_PIN}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+ENA\+\_\+\+PIN~PIND}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00019}{19}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_ad4e880bbd57107b4e9220009f7ddd764}\label{engine_8h_ad4e880bbd57107b4e9220009f7ddd764}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_ENA\_PORT@{ENGINE\_HB\_ENA\_PORT}}
+\index{ENGINE\_HB\_ENA\_PORT@{ENGINE\_HB\_ENA\_PORT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_ENA\_PORT}{ENGINE\_HB\_ENA\_PORT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+ENA\+\_\+\+PORT~PORTD}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00018}{18}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_aaf837e20695d458c68c1c372c4a3cb77}\label{engine_8h_aaf837e20695d458c68c1c372c4a3cb77}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_ENB\_BIT@{ENGINE\_HB\_ENB\_BIT}}
+\index{ENGINE\_HB\_ENB\_BIT@{ENGINE\_HB\_ENB\_BIT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_ENB\_BIT}{ENGINE\_HB\_ENB\_BIT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+ENB\+\_\+\+BIT~6}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00026}{26}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a7db8b0c899cf0e4483f6586bb1071755}\label{engine_8h_a7db8b0c899cf0e4483f6586bb1071755}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_ENB\_DDR@{ENGINE\_HB\_ENB\_DDR}}
+\index{ENGINE\_HB\_ENB\_DDR@{ENGINE\_HB\_ENB\_DDR}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_ENB\_DDR}{ENGINE\_HB\_ENB\_DDR}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+ENB\+\_\+\+DDR~DDRD}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00023}{23}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a891b2b3ddc3b0179b1dfe9c25535e52c}\label{engine_8h_a891b2b3ddc3b0179b1dfe9c25535e52c}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_ENB\_PIN@{ENGINE\_HB\_ENB\_PIN}}
+\index{ENGINE\_HB\_ENB\_PIN@{ENGINE\_HB\_ENB\_PIN}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_ENB\_PIN}{ENGINE\_HB\_ENB\_PIN}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+ENB\+\_\+\+PIN~PIND}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00025}{25}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_aa2c56ed9fc8a4a91fb2b97fc14908ece}\label{engine_8h_aa2c56ed9fc8a4a91fb2b97fc14908ece}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_ENB\_PORT@{ENGINE\_HB\_ENB\_PORT}}
+\index{ENGINE\_HB\_ENB\_PORT@{ENGINE\_HB\_ENB\_PORT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_ENB\_PORT}{ENGINE\_HB\_ENB\_PORT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+ENB\+\_\+\+PORT~PORTD}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00024}{24}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_ae3d1dabb7d21d06732a117971469dc00}\label{engine_8h_ae3d1dabb7d21d06732a117971469dc00}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN1\_BIT@{ENGINE\_HB\_IN1\_BIT}}
+\index{ENGINE\_HB\_IN1\_BIT@{ENGINE\_HB\_IN1\_BIT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN1\_BIT}{ENGINE\_HB\_IN1\_BIT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN1\+\_\+\+BIT~7}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00033}{33}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_aa7bc2acdcad5a03aac3e21fb4a0a3cf1}\label{engine_8h_aa7bc2acdcad5a03aac3e21fb4a0a3cf1}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN1\_DDR@{ENGINE\_HB\_IN1\_DDR}}
+\index{ENGINE\_HB\_IN1\_DDR@{ENGINE\_HB\_IN1\_DDR}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN1\_DDR}{ENGINE\_HB\_IN1\_DDR}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN1\+\_\+\+DDR~DDRD}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00030}{30}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_aa6a7cde712376248a5279cae776a845f}\label{engine_8h_aa6a7cde712376248a5279cae776a845f}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN1\_PIN@{ENGINE\_HB\_IN1\_PIN}}
+\index{ENGINE\_HB\_IN1\_PIN@{ENGINE\_HB\_IN1\_PIN}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN1\_PIN}{ENGINE\_HB\_IN1\_PIN}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN1\+\_\+\+PIN~PIND}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00032}{32}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_ac9d1c831079626f189df8f236ed0215b}\label{engine_8h_ac9d1c831079626f189df8f236ed0215b}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN1\_PORT@{ENGINE\_HB\_IN1\_PORT}}
+\index{ENGINE\_HB\_IN1\_PORT@{ENGINE\_HB\_IN1\_PORT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN1\_PORT}{ENGINE\_HB\_IN1\_PORT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN1\+\_\+\+PORT~PORTD}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00031}{31}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a830e2d8848e1d1bd5e3e9dae66960c68}\label{engine_8h_a830e2d8848e1d1bd5e3e9dae66960c68}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN2\_BIT@{ENGINE\_HB\_IN2\_BIT}}
+\index{ENGINE\_HB\_IN2\_BIT@{ENGINE\_HB\_IN2\_BIT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN2\_BIT}{ENGINE\_HB\_IN2\_BIT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN2\+\_\+\+BIT~0}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00038}{38}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a20a0a1fbd60a05e98d4c911700f0c8b3}\label{engine_8h_a20a0a1fbd60a05e98d4c911700f0c8b3}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN2\_DDR@{ENGINE\_HB\_IN2\_DDR}}
+\index{ENGINE\_HB\_IN2\_DDR@{ENGINE\_HB\_IN2\_DDR}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN2\_DDR}{ENGINE\_HB\_IN2\_DDR}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN2\+\_\+\+DDR~DDRB}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00035}{35}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_ab81f63280df2e09e80eec846201eba3b}\label{engine_8h_ab81f63280df2e09e80eec846201eba3b}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN2\_PIN@{ENGINE\_HB\_IN2\_PIN}}
+\index{ENGINE\_HB\_IN2\_PIN@{ENGINE\_HB\_IN2\_PIN}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN2\_PIN}{ENGINE\_HB\_IN2\_PIN}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN2\+\_\+\+PIN~PINB}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00037}{37}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a98d8430145664d746261fc9d1381685f}\label{engine_8h_a98d8430145664d746261fc9d1381685f}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN2\_PORT@{ENGINE\_HB\_IN2\_PORT}}
+\index{ENGINE\_HB\_IN2\_PORT@{ENGINE\_HB\_IN2\_PORT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN2\_PORT}{ENGINE\_HB\_IN2\_PORT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN2\+\_\+\+PORT~PORTB}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00036}{36}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a3930f942c48326be25d237121a7818b5}\label{engine_8h_a3930f942c48326be25d237121a7818b5}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN3\_BIT@{ENGINE\_HB\_IN3\_BIT}}
+\index{ENGINE\_HB\_IN3\_BIT@{ENGINE\_HB\_IN3\_BIT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN3\_BIT}{ENGINE\_HB\_IN3\_BIT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN3\+\_\+\+BIT~1}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00044}{44}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a7cb22504d729ee64e08737ef3bddfcbf}\label{engine_8h_a7cb22504d729ee64e08737ef3bddfcbf}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN3\_DDR@{ENGINE\_HB\_IN3\_DDR}}
+\index{ENGINE\_HB\_IN3\_DDR@{ENGINE\_HB\_IN3\_DDR}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN3\_DDR}{ENGINE\_HB\_IN3\_DDR}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN3\+\_\+\+DDR~DDRB}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00041}{41}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_aa4c9c30bd5585152109dc12107afb02d}\label{engine_8h_aa4c9c30bd5585152109dc12107afb02d}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN3\_PIN@{ENGINE\_HB\_IN3\_PIN}}
+\index{ENGINE\_HB\_IN3\_PIN@{ENGINE\_HB\_IN3\_PIN}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN3\_PIN}{ENGINE\_HB\_IN3\_PIN}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN3\+\_\+\+PIN~PINB}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00043}{43}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_ab1b6e8c98ab6568bf53979d450d22996}\label{engine_8h_ab1b6e8c98ab6568bf53979d450d22996}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN3\_PORT@{ENGINE\_HB\_IN3\_PORT}}
+\index{ENGINE\_HB\_IN3\_PORT@{ENGINE\_HB\_IN3\_PORT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN3\_PORT}{ENGINE\_HB\_IN3\_PORT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN3\+\_\+\+PORT~PORTB}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00042}{42}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a9d6113311f8f22409cb7a3292918c97a}\label{engine_8h_a9d6113311f8f22409cb7a3292918c97a}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN4\_BIT@{ENGINE\_HB\_IN4\_BIT}}
+\index{ENGINE\_HB\_IN4\_BIT@{ENGINE\_HB\_IN4\_BIT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN4\_BIT}{ENGINE\_HB\_IN4\_BIT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN4\+\_\+\+BIT~3}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00049}{49}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a87c2252233f52d22d896741fac8b9eb1}\label{engine_8h_a87c2252233f52d22d896741fac8b9eb1}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN4\_DDR@{ENGINE\_HB\_IN4\_DDR}}
+\index{ENGINE\_HB\_IN4\_DDR@{ENGINE\_HB\_IN4\_DDR}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN4\_DDR}{ENGINE\_HB\_IN4\_DDR}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN4\+\_\+\+DDR~DDRB}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00046}{46}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a3aa1f160b31b51f3de25534c4895487b}\label{engine_8h_a3aa1f160b31b51f3de25534c4895487b}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN4\_PIN@{ENGINE\_HB\_IN4\_PIN}}
+\index{ENGINE\_HB\_IN4\_PIN@{ENGINE\_HB\_IN4\_PIN}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN4\_PIN}{ENGINE\_HB\_IN4\_PIN}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN4\+\_\+\+PIN~PINB}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00048}{48}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a6dbef838a08ec146e7268dd100cae971}\label{engine_8h_a6dbef838a08ec146e7268dd100cae971}} 
+\index{engine.h@{engine.h}!ENGINE\_HB\_IN4\_PORT@{ENGINE\_HB\_IN4\_PORT}}
+\index{ENGINE\_HB\_IN4\_PORT@{ENGINE\_HB\_IN4\_PORT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_HB\_IN4\_PORT}{ENGINE\_HB\_IN4\_PORT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+HB\+\_\+\+IN4\+\_\+\+PORT~PORTB}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00047}{47}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a3d87218acebfd0f9d3a421b94ed334fb}\label{engine_8h_a3d87218acebfd0f9d3a421b94ed334fb}} 
+\index{engine.h@{engine.h}!ENGINE\_PWM\_LEFT@{ENGINE\_PWM\_LEFT}}
+\index{ENGINE\_PWM\_LEFT@{ENGINE\_PWM\_LEFT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_PWM\_LEFT}{ENGINE\_PWM\_LEFT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+PWM\+\_\+\+LEFT~0}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00052}{52}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_a0c3bf8a9dc84331a7bf7c387a7ec839a}\label{engine_8h_a0c3bf8a9dc84331a7bf7c387a7ec839a}} 
+\index{engine.h@{engine.h}!ENGINE\_PWM\_RIGHT@{ENGINE\_PWM\_RIGHT}}
+\index{ENGINE\_PWM\_RIGHT@{ENGINE\_PWM\_RIGHT}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_PWM\_RIGHT}{ENGINE\_PWM\_RIGHT}}
+{\footnotesize\ttfamily \#define ENGINE\+\_\+\+PWM\+\_\+\+RIGHT~1}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00053}{53}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+\mbox{\Hypertarget{engine_8h_ab94fb7ada482f1d6e9abb3ab26fe4ccf}\label{engine_8h_ab94fb7ada482f1d6e9abb3ab26fe4ccf}} 
+\index{engine.h@{engine.h}!LMR\_FORWARD\_DELAY\_IN\_ITTERATIONS@{LMR\_FORWARD\_DELAY\_IN\_ITTERATIONS}}
+\index{LMR\_FORWARD\_DELAY\_IN\_ITTERATIONS@{LMR\_FORWARD\_DELAY\_IN\_ITTERATIONS}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{LMR\_FORWARD\_DELAY\_IN\_ITTERATIONS}{LMR\_FORWARD\_DELAY\_IN\_ITTERATIONS}}
+{\footnotesize\ttfamily \#define LMR\+\_\+\+FORWARD\+\_\+\+DELAY\+\_\+\+IN\+\_\+\+ITTERATIONS~1}
+
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00010}{10}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02b}\label{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02b}} 
+\index{engine.h@{engine.h}!ENGINE\_drive\_direction@{ENGINE\_drive\_direction}}
+\index{ENGINE\_drive\_direction@{ENGINE\_drive\_direction}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_drive\_direction}{ENGINE\_drive\_direction}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02b}{ENGINE\+\_\+drive\+\_\+direction}}}
+
+
+
+Enumeration representing robot movement directions. 
+
+This enum defines the possible movement states with left and right motor pairs controlled via H-\/bridge circuits.
+
+Motor control mapping\+:
+\begin{DoxyItemize}
+\item Left motors\+: controlled by ENA, IN1, IN2
+\item Right motors\+: controlled by ENB, IN3, IN4
+\end{DoxyItemize}
+
+Movement behaviors\+:
+\begin{DoxyItemize}
+\item FORWARD/\+BACKWARD\+: Both motor pairs move in same direction
+\item LEFT/\+RIGHT\+: One motor pair stops, other continues (gentle turn)
+\item HARD\+\_\+\+LEFT/\+HARD\+\_\+\+RIGHT\+: Motor pairs move in opposite directions (sharp turn) 
+\end{DoxyItemize}\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENGINE\_UNDEFINED@{ENGINE\_UNDEFINED}!engine.h@{engine.h}}\index{engine.h@{engine.h}!ENGINE\_UNDEFINED@{ENGINE\_UNDEFINED}}}\mbox{\Hypertarget{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba9f46754f1d057afc2eeb9b11a3099488}\label{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba9f46754f1d057afc2eeb9b11a3099488}} 
+ENGINE\+\_\+\+UNDEFINED&Invalid/uninitialized state \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENGINE\_STOP@{ENGINE\_STOP}!engine.h@{engine.h}}\index{engine.h@{engine.h}!ENGINE\_STOP@{ENGINE\_STOP}}}\mbox{\Hypertarget{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba29c6a169a5be8bd129ed79fb9978c4ed}\label{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba29c6a169a5be8bd129ed79fb9978c4ed}} 
+ENGINE\+\_\+\+STOP&Both motor pairs stopped \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENGINE\_BACKWARDS@{ENGINE\_BACKWARDS}!engine.h@{engine.h}}\index{engine.h@{engine.h}!ENGINE\_BACKWARDS@{ENGINE\_BACKWARDS}}}\mbox{\Hypertarget{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02bab84b251c2ccd1b3557e3357a6583bce9}\label{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02bab84b251c2ccd1b3557e3357a6583bce9}} 
+ENGINE\+\_\+\+BACKWARDS&Both motor pairs reverse direction \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENGINE\_FORWARD@{ENGINE\_FORWARD}!engine.h@{engine.h}}\index{engine.h@{engine.h}!ENGINE\_FORWARD@{ENGINE\_FORWARD}}}\mbox{\Hypertarget{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba5a3e653b93969ac9a8c84645a287e65f}\label{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba5a3e653b93969ac9a8c84645a287e65f}} 
+ENGINE\+\_\+\+FORWARD&Both motor pairs forward direction \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENGINE\_HARD\_LEFT@{ENGINE\_HARD\_LEFT}!engine.h@{engine.h}}\index{engine.h@{engine.h}!ENGINE\_HARD\_LEFT@{ENGINE\_HARD\_LEFT}}}\mbox{\Hypertarget{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba1d93f0cee35869ae0814560d23d8967b}\label{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba1d93f0cee35869ae0814560d23d8967b}} 
+ENGINE\+\_\+\+HARD\+\_\+\+LEFT&Left motors reverse, right motors forward (sharp left) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENGINE\_LEFT@{ENGINE\_LEFT}!engine.h@{engine.h}}\index{engine.h@{engine.h}!ENGINE\_LEFT@{ENGINE\_LEFT}}}\mbox{\Hypertarget{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02baafdabca9d678fe6934501d8aed74d36a}\label{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02baafdabca9d678fe6934501d8aed74d36a}} 
+ENGINE\+\_\+\+LEFT&Left motors stop, right motors forward (gentle left) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENGINE\_HARD\_RIGHT@{ENGINE\_HARD\_RIGHT}!engine.h@{engine.h}}\index{engine.h@{engine.h}!ENGINE\_HARD\_RIGHT@{ENGINE\_HARD\_RIGHT}}}\mbox{\Hypertarget{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba1a3961fdbd8df54985d41512602bae35}\label{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba1a3961fdbd8df54985d41512602bae35}} 
+ENGINE\+\_\+\+HARD\+\_\+\+RIGHT&Left motors forward, right motors reverse (sharp right) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENGINE\_RIGHT@{ENGINE\_RIGHT}!engine.h@{engine.h}}\index{engine.h@{engine.h}!ENGINE\_RIGHT@{ENGINE\_RIGHT}}}\mbox{\Hypertarget{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba5a616ef5115d4cefaa09bc6b59128f47}\label{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba5a616ef5115d4cefaa09bc6b59128f47}} 
+ENGINE\+\_\+\+RIGHT&Left motors forward, right motors stop (gentle right) \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{engine_8h_source_l00070}{70}} of file \mbox{\hyperlink{engine_8h_source}{engine.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00070              \{ }
+\DoxyCodeLine{00071   \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba9f46754f1d057afc2eeb9b11a3099488}{ENGINE\_UNDEFINED}},   }
+\DoxyCodeLine{00072   \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba29c6a169a5be8bd129ed79fb9978c4ed}{ENGINE\_STOP}},        }
+\DoxyCodeLine{00073   \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02bab84b251c2ccd1b3557e3357a6583bce9}{ENGINE\_BACKWARDS}},   }
+\DoxyCodeLine{00074   \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba5a3e653b93969ac9a8c84645a287e65f}{ENGINE\_FORWARD}},     }
+\DoxyCodeLine{00075   \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba1d93f0cee35869ae0814560d23d8967b}{ENGINE\_HARD\_LEFT}},   }
+\DoxyCodeLine{00076   \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02baafdabca9d678fe6934501d8aed74d36a}{ENGINE\_LEFT}},        }
+\DoxyCodeLine{00077   \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba1a3961fdbd8df54985d41512602bae35}{ENGINE\_HARD\_RIGHT}},  }
+\DoxyCodeLine{00078   \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba5a616ef5115d4cefaa09bc6b59128f47}{ENGINE\_RIGHT}}        }
+\DoxyCodeLine{00079 \} \mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02b}{ENGINE\_drive\_direction}};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{engine_8h_ac77089c3441b4ff74962352a24a3a155}\label{engine_8h_ac77089c3441b4ff74962352a24a3a155}} 
+\index{engine.h@{engine.h}!ENGINE\_drive@{ENGINE\_drive}}
+\index{ENGINE\_drive@{ENGINE\_drive}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_drive()}{ENGINE\_drive()}}
+{\footnotesize\ttfamily void ENGINE\+\_\+drive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02b}{ENGINE\+\_\+drive\+\_\+direction}}}]{direction }\end{DoxyParamCaption})}
+
+
+
+Controls robot movement direction. 
+
+Sets H-\/bridge control pins to achieve the specified movement direction. Uses differential drive logic where left and right motor pairs can be controlled independently for steering.
+
+
+\begin{DoxyParams}{Parameters}
+{\em direction} & The desired movement direction from ENGINE\+\_\+drive\+\_\+direction enum \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing, this function can\textquotesingle{}t fail.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+H-\/bridge control logic\+:
+\begin{DoxyItemize}
+\item Forward\+: IN1=1, IN2=0 (left), IN3=0, IN4=1 (right)
+\item Reverse\+: IN1=0, IN2=1 (left), IN3=1, IN4=0 (right)
+\item Stop\+: Both direction pins low 
+\end{DoxyItemize}
+\end{DoxyNote}
+\mbox{\Hypertarget{engine_8h_ac70858233896a645eca2dae9acd7a6a6}\label{engine_8h_ac70858233896a645eca2dae9acd7a6a6}} 
+\index{engine.h@{engine.h}!ENGINE\_drive\_logic@{ENGINE\_drive\_logic}}
+\index{ENGINE\_drive\_logic@{ENGINE\_drive\_logic}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_drive\_logic()}{ENGINE\_drive\_logic()}}
+{\footnotesize\ttfamily uint8\+\_\+t ENGINE\+\_\+drive\+\_\+logic (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1}{LF\+\_\+detection\+\_\+state}}}]{new\+\_\+lf\+\_\+state,  }\item[{\mbox{\hyperlink{linienfolger_8h_ade9bd2cc3334befb22b84b640a3492e1}{LF\+\_\+detection\+\_\+state}}}]{old\+\_\+lf\+\_\+state,  }\item[{uint16\+\_\+t $\ast$}]{LMR\+\_\+itterations\+\_\+since\+\_\+entry }\end{DoxyParamCaption})}
+
+
+
+Line follower logic for autonomous robot movement. 
+
+Implements line following behavior by converting line sensor states into appropriate motor commands. Includes special handling for start/end and error conditions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+\_\+lf\+\_\+state} & Current line follower sensor state \\
+\hline
+{\em old\+\_\+lf\+\_\+state} & Previous line follower sensor state ~\newline
+ \\
+\hline
+{\em LMR\+\_\+itterations\+\_\+since\+\_\+entry} & Pointer to counter for LMR state duration \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, -\/1 on fatal error conditions
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Movement logic\+:
+\begin{DoxyItemize}
+\item LF\+\_\+\+NONE\+: Back up to find line
+\item LF\+\_\+M\+: Go straight (centered on line)
+\item LF\+\_\+\+L/\+LF\+\_\+R\+: Sharp turns to correct course
+\item LF\+\_\+\+LM/\+LF\+\_\+\+MR\+: Gentle turns to correct course
+\item LF\+\_\+\+LMR\+: start/end handling with delay
+\item LF\+\_\+\+LR/\+LF\+\_\+\+UNDEFINED\+: Error states, stop robot 
+\end{DoxyItemize}
+\end{DoxyNote}
+\mbox{\Hypertarget{engine_8h_a80df3cb20e93f5fe006a7e050562d83d}\label{engine_8h_a80df3cb20e93f5fe006a7e050562d83d}} 
+\index{engine.h@{engine.h}!ENGINE\_init@{ENGINE\_init}}
+\index{ENGINE\_init@{ENGINE\_init}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_init()}{ENGINE\_init()}}
+{\footnotesize\ttfamily void ENGINE\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initializes motor control system. 
+
+Sets up pins for H-\/bridge motor control and enables both motor pairs. Configures all control pins as outputs and enables motor power.
+
+\begin{DoxyReturn}{Returns}
+nothing, this function can\textquotesingle{}t fail.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+After initialization, motors are enabled but stopped (direction pins not set) 
+\end{DoxyNote}
+
+
+Definition at line \mbox{\hyperlink{engine_8c_source_l00034}{34}} of file \mbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034                    \{}
+\DoxyCodeLine{00035   \textcolor{comment}{// Configure all H-\/bridge control pins as outputs}}
+\DoxyCodeLine{00036   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a688c2fa83c2e51477f202d0fe6d64b79}{ENGINE\_HB\_ENA\_DDR}}, \mbox{\hyperlink{engine_8h_ae1a92e6513a69418f26bc6cbbab57717}{ENGINE\_HB\_ENA\_BIT}}); \textcolor{comment}{// Left motor enable}}
+\DoxyCodeLine{00037   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a7db8b0c899cf0e4483f6586bb1071755}{ENGINE\_HB\_ENB\_DDR}}, \mbox{\hyperlink{engine_8h_aaf837e20695d458c68c1c372c4a3cb77}{ENGINE\_HB\_ENB\_BIT}}); \textcolor{comment}{// Right motor enable}}
+\DoxyCodeLine{00038   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_aa7bc2acdcad5a03aac3e21fb4a0a3cf1}{ENGINE\_HB\_IN1\_DDR}}, \mbox{\hyperlink{engine_8h_ae3d1dabb7d21d06732a117971469dc00}{ENGINE\_HB\_IN1\_BIT}}); \textcolor{comment}{// Left motor direction 1}}
+\DoxyCodeLine{00039   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a20a0a1fbd60a05e98d4c911700f0c8b3}{ENGINE\_HB\_IN2\_DDR}}, \mbox{\hyperlink{engine_8h_a830e2d8848e1d1bd5e3e9dae66960c68}{ENGINE\_HB\_IN2\_BIT}}); \textcolor{comment}{// Left motor direction 2}}
+\DoxyCodeLine{00040   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a7cb22504d729ee64e08737ef3bddfcbf}{ENGINE\_HB\_IN3\_DDR}}, \mbox{\hyperlink{engine_8h_a3930f942c48326be25d237121a7818b5}{ENGINE\_HB\_IN3\_BIT}}); \textcolor{comment}{// Right motor direction 1}}
+\DoxyCodeLine{00041   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a87c2252233f52d22d896741fac8b9eb1}{ENGINE\_HB\_IN4\_DDR}}, \mbox{\hyperlink{engine_8h_a9d6113311f8f22409cb7a3292918c97a}{ENGINE\_HB\_IN4\_BIT}}); \textcolor{comment}{// Right motor direction 2}}
+\DoxyCodeLine{00042 }
+\DoxyCodeLine{00043   \textcolor{comment}{// Enable both motor pairs (set enable pins high)}}
+\DoxyCodeLine{00044   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_ad4e880bbd57107b4e9220009f7ddd764}{ENGINE\_HB\_ENA\_PORT}}, \mbox{\hyperlink{engine_8h_ae1a92e6513a69418f26bc6cbbab57717}{ENGINE\_HB\_ENA\_BIT}}); \textcolor{comment}{// Enable left motors}}
+\DoxyCodeLine{00045   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_aa2c56ed9fc8a4a91fb2b97fc14908ece}{ENGINE\_HB\_ENB\_PORT}}, \mbox{\hyperlink{engine_8h_aaf837e20695d458c68c1c372c4a3cb77}{ENGINE\_HB\_ENB\_BIT}}); \textcolor{comment}{// Enable right motors}}
+\DoxyCodeLine{00046 }
+\DoxyCodeLine{00047   \mbox{\hyperlink{engine_8c_a24de464834274ce39575c73dc1d33e31}{ENGINE\_init\_pwm}}();}
+\DoxyCodeLine{00048   \mbox{\hyperlink{logger_8h_aafc148cee6d6c9e76b4ef417c7056f8f}{INFO}}(\textcolor{stringliteral}{"{}ENGINE pwm init successful.\(\backslash\)n"{}});}
+\DoxyCodeLine{00049 }
+\DoxyCodeLine{00050   \mbox{\hyperlink{engine_8c_aed67849afc222c8d655f4eef5f450c56}{ENGINE\_set\_duty\_cicle}}(\mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02baafdabca9d678fe6934501d8aed74d36a}{ENGINE\_LEFT}}, \string~0);  \textcolor{comment}{// set to full power}}
+\DoxyCodeLine{00051   \mbox{\hyperlink{engine_8c_aed67849afc222c8d655f4eef5f450c56}{ENGINE\_set\_duty\_cicle}}(\mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba5a616ef5115d4cefaa09bc6b59128f47}{ENGINE\_RIGHT}}, \string~0); \textcolor{comment}{// set to full power}}
+\DoxyCodeLine{00052 }
+\DoxyCodeLine{00053   \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00054 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{engine_8h_aed67849afc222c8d655f4eef5f450c56}\label{engine_8h_aed67849afc222c8d655f4eef5f450c56}} 
+\index{engine.h@{engine.h}!ENGINE\_set\_duty\_cicle@{ENGINE\_set\_duty\_cicle}}
+\index{ENGINE\_set\_duty\_cicle@{ENGINE\_set\_duty\_cicle}!engine.h@{engine.h}}
+\doxysubsubsection{\texorpdfstring{ENGINE\_set\_duty\_cicle()}{ENGINE\_set\_duty\_cicle()}}
+{\footnotesize\ttfamily void ENGINE\+\_\+set\+\_\+duty\+\_\+cicle (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{ui8\+\_\+side,  }\item[{uint8\+\_\+t}]{ui8\+\_\+pwm\+\_\+compare\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+sets the dudy cicle of the pwm for the engine. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ui8\+\_\+side} & (ENGINE\+\_\+\+PWM\+\_\+\+LEFT/\+ENGINE\+\_\+\+PWM\+\_\+\+RIGHT) is the side which the pwm is set. \\
+\hline
+{\em ui8\+\_\+pwm\+\_\+compare\+\_\+value} & (0 -\/ 255 = 0\% -\/ 100\%) is the compare value for the pwm clock.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing, this function can\textquotesingle{}t fail. 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{engine_8c_source_l00058}{58}} of file \mbox{\hyperlink{engine_8c_source}{engine.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00058                                                                             \{}
+\DoxyCodeLine{00059   \textcolor{comment}{// TODO:}}
+\DoxyCodeLine{00060   \textcolor{comment}{// Suggestion to handle PD6 -\/ note the code-\/clones wrt. PD5 below!}}
+\DoxyCodeLine{00061   \textcolor{comment}{// Code-\/clones are extraordinary f cky! Correct this (tricky though}}
+\DoxyCodeLine{00062   \textcolor{comment}{// due to the PP-\/macros, which you cannot simply pass to functions)!}}
+\DoxyCodeLine{00063   \textcolor{comment}{// (But PP-\/macros can help you here....)}}
+\DoxyCodeLine{00064 }
+\DoxyCodeLine{00065   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}set\_duty\_cicle side: \%s value \%d\(\backslash\)n"{}}, ui8\_side == 0 ? \textcolor{stringliteral}{"{}LEFT"{}} : \textcolor{stringliteral}{"{}RIGHT"{}},}
+\DoxyCodeLine{00066         ui8\_pwm\_compare\_value);}
+\DoxyCodeLine{00067 }
+\DoxyCodeLine{00068   \textcolor{keywordflow}{if} (ui8\_side == \mbox{\hyperlink{engine_8h_a3d87218acebfd0f9d3a421b94ed334fb}{ENGINE\_PWM\_LEFT}}) \{}
+\DoxyCodeLine{00069     \textcolor{keywordflow}{if} (ui8\_pwm\_compare\_value == 0) \{}
+\DoxyCodeLine{00070       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A1);}
+\DoxyCodeLine{00071       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A0); \textcolor{comment}{// Normal port operation mode}}
+\DoxyCodeLine{00072       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(PORTD, PD6);     \textcolor{comment}{// PD6 LOW, equals 0\% duty,}}
+\DoxyCodeLine{00073     \} \textcolor{comment}{// timer disconnected}}
+\DoxyCodeLine{00074     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ui8\_pwm\_compare\_value == 255) \{}
+\DoxyCodeLine{00075       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A1);}
+\DoxyCodeLine{00076       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A0); \textcolor{comment}{// Normal port operation mode}}
+\DoxyCodeLine{00077       \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(PORTD, PD6);       \textcolor{comment}{// PD6 HIGH, equals 100\% duty,}}
+\DoxyCodeLine{00078     \} \textcolor{comment}{// timer disconnected}}
+\DoxyCodeLine{00079     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00080       \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0A, COM0A1);       \textcolor{comment}{// OC0A to LOW on Compare Match,}}
+\DoxyCodeLine{00081       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A0);     \textcolor{comment}{// to HIGH at BOTTOM (non-\/inverting mode)}}
+\DoxyCodeLine{00082       OCR0A = ui8\_pwm\_compare\_value; \textcolor{comment}{// generates sequences of 1-\/0-\/1-\/0...}}
+\DoxyCodeLine{00083     \} \textcolor{comment}{// for certain periods of time}}
+\DoxyCodeLine{00084   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ui8\_side == \mbox{\hyperlink{engine_8h_a0c3bf8a9dc84331a7bf7c387a7ec839a}{ENGINE\_PWM\_RIGHT}}) \{}
+\DoxyCodeLine{00085     \textcolor{keywordflow}{if} (ui8\_pwm\_compare\_value == 0) \{}
+\DoxyCodeLine{00086       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B1);}
+\DoxyCodeLine{00087       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B0);}
+\DoxyCodeLine{00088       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(PORTD, PD5);}
+\DoxyCodeLine{00089     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ui8\_pwm\_compare\_value == 255) \{}
+\DoxyCodeLine{00090       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B1);}
+\DoxyCodeLine{00091       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B0);}
+\DoxyCodeLine{00092       \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(PORTD, PD5);}
+\DoxyCodeLine{00093     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00094       \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0A, COM0B1);}
+\DoxyCodeLine{00095       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B0);}
+\DoxyCodeLine{00096       OCR0B = ui8\_pwm\_compare\_value;}
+\DoxyCodeLine{00097     \}}
+\DoxyCodeLine{00098   \}}
+\DoxyCodeLine{00099 \}}
+
+\end{DoxyCode}

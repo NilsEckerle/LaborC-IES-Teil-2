@@ -1,0 +1,84 @@
+\hypertarget{logger_8h_source}{}\doxysection{logger.\+h}
+\label{logger_8h_source}\index{include/tools/logger.h@{include/tools/logger.h}}
+\mbox{\hyperlink{logger_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00001}00001 \textcolor{preprocessor}{\#ifndef LOGGER\_H}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00002}00002 \textcolor{preprocessor}{\#define LOGGER\_H}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00003}00003 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00004}00004 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{iesusart_8h}{tools/iesusart.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00005}00005 \textcolor{preprocessor}{\#include <stdarg.h>}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00006}00006 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00007}00007 \textcolor{preprocessor}{\#include <string.h>}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00008}00008 \textcolor{preprocessor}{\#include <avr/pgmspace.h>}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00009}00009 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00010}\mbox{\hyperlink{logger_8h_a15856724811f59e6f351153e89380f5d}{00010}} \textcolor{preprocessor}{\#define LOG\_LEVEL\_TRACE 0}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00011}\mbox{\hyperlink{logger_8h_a89aa02e007513999619b54e9c97cacf8}{00011}} \textcolor{preprocessor}{\#define LOG\_LEVEL\_INFO\_SPAM 1}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00012}\mbox{\hyperlink{logger_8h_a2e25fe130cf710da4ad800747fdd51f3}{00012}} \textcolor{preprocessor}{\#define LOG\_LEVEL\_INFO 2}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00013}\mbox{\hyperlink{logger_8h_af539a66abed2a7a15e3443d70a3cf1e1}{00013}} \textcolor{preprocessor}{\#define LOG\_LEVEL\_WARNING 3}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00014}\mbox{\hyperlink{logger_8h_a742fc70e331d7e568bd893c514756a29}{00014}} \textcolor{preprocessor}{\#define LOG\_LEVEL\_ERROR 4}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00015}\mbox{\hyperlink{logger_8h_ac6b8217f1800f3adc3cf1eee30915b78}{00015}} \textcolor{preprocessor}{\#define LOG\_LEVEL\_FATAL 5}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00016}\mbox{\hyperlink{logger_8h_ac9af99280cbca814af6aa7855e5e88c4}{00016}} \textcolor{preprocessor}{\#define LOG\_LEVEL\_DISABLE 100}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00017}00017 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00018}00018 \textcolor{preprocessor}{\#ifndef LOG\_LEVEL}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00019}\mbox{\hyperlink{logger_8h_a0b87e0d3bf5853bcbb0b66a7c48fdc05}{00019}} \textcolor{preprocessor}{\#define LOG\_LEVEL LOG\_LEVEL\_WARNING}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00020}00020 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* ifndef LOG\_LEVEL */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00021}00021 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00022}00022 \textcolor{comment}{// Helper function for formatted debug output with PROGMEM support}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00023}\mbox{\hyperlink{logger_8h_a63cf7bbcf40e45f120a211066cc95e50}{00023}} \textcolor{keywordtype}{void} \mbox{\hyperlink{logger_8h_a63cf7bbcf40e45f120a211066cc95e50}{\_\_attribute\_\_}}((unused)) debug\_printf\_P(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *prefix, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, ...);}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00024}00024 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00025}00025 \textcolor{comment}{// Helper function for formatted debug output}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00026}00026 \textcolor{keywordtype}{void} \mbox{\hyperlink{logger_8h_a63cf7bbcf40e45f120a211066cc95e50}{\_\_attribute\_\_}}((unused)) debug\_printf(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *prefix, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, ...);}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00027}00027 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00028}00028 \textcolor{preprocessor}{\#ifndef LOGGER\_USE\_PRINTF}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00029}\mbox{\hyperlink{logger_8h_ac3ffe948a90758a816294a4f529097d5}{00029}} \textcolor{preprocessor}{\#define DEBUG\_PRINTF(prefix, format, ...) debug\_printf\_P(PSTR(prefix), PSTR(format), \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00030}00030 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00031}00031 \textcolor{preprocessor}{\#define DEBUG\_PRINTF(prefix, format, ...) printf(prefix format, \#\#\_\_VA\_ARGS\_\_)}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00032}00032 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00034}00034 \textcolor{comment}{// TRACE: Very detailed execution flow}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00035}00035 \textcolor{preprocessor}{\#if LOG\_LEVEL <= LOG\_LEVEL\_TRACE}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00036}00036 \textcolor{preprocessor}{\#define TRACE(format, ...) DEBUG\_PRINTF("{}[TRACE] "{}}, format, \#\#\_\_VA\_ARGS\_\_)}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00037}00037 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00038}\mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{00038}} \textcolor{preprocessor}{\#define TRACE(format, ...) ((void)0)}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00039}00039 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00040}00040 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00041}00041 \textcolor{comment}{// INFO\_SPAM: General information whith high apperence volume}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00042}00042 \textcolor{preprocessor}{\#if LOG\_LEVEL <= LOG\_LEVEL\_INFO\_SPAM}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00043}00043 \textcolor{preprocessor}{\#define INFO\_SPAM(format, ...) DEBUG\_PRINTF("{}[SPAM] "{}}, format, \#\#\_\_VA\_ARGS\_\_)}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00044}00044 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00045}\mbox{\hyperlink{logger_8h_a9a54bbd4a1870388d5d6ec763d32cfc1}{00045}} \textcolor{preprocessor}{\#define INFO\_SPAM(format, ...) ((void)0)}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00046}00046 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00047}00047 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00048}00048 \textcolor{comment}{// INFO: General information}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00049}00049 \textcolor{preprocessor}{\#if LOG\_LEVEL <= LOG\_LEVEL\_INFO}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00050}00050 \textcolor{preprocessor}{\#define INFO(format, ...) DEBUG\_PRINTF("{}[INFO] "{}}, format, \#\#\_\_VA\_ARGS\_\_)}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00051}00051 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00052}\mbox{\hyperlink{logger_8h_aafc148cee6d6c9e76b4ef417c7056f8f}{00052}} \textcolor{preprocessor}{\#define INFO(format, ...) ((void)0)}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00053}00053 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00054}00054 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00055}00055 \textcolor{comment}{// WARNING: Something unusual but not critical}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00056}00056 \textcolor{preprocessor}{\#if LOG\_LEVEL <= LOG\_LEVEL\_WARNING}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00057}\mbox{\hyperlink{logger_8h_ad51176fec84ca79bd96163c9cb5a7c32}{00057}} \textcolor{preprocessor}{\#define WARNING(format, ...) DEBUG\_PRINTF("{}[WARN] "{}}, format, \#\#\_\_VA\_ARGS\_\_)}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00058}00058 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00059}00059 \textcolor{preprocessor}{\#define WARNING(format, ...) ((void)0)}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00060}00060 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00061}00061 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00062}00062 \textcolor{comment}{// ERROR: Something went wrong but program can continue}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00063}00063 \textcolor{preprocessor}{\#if LOG\_LEVEL <= LOG\_LEVEL\_ERROR}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00064}\mbox{\hyperlink{logger_8h_a78e40dfd87f516e322340d249027aea1}{00064}} \textcolor{preprocessor}{\#define ERROR(format, ...) DEBUG\_PRINTF("{}[ERROR] "{}}, format, \#\#\_\_VA\_ARGS\_\_)}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00065}00065 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00066}00066 \textcolor{preprocessor}{\#define ERROR(format, ...) ((void)0)}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00067}00067 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00068}00068 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00069}00069 \textcolor{comment}{// FATAL: Critical error, program should stop}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00070}00070 \textcolor{preprocessor}{\#if LOG\_LEVEL <= LOG\_LEVEL\_FATAL}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00071}\mbox{\hyperlink{logger_8h_a8704324d54ab9aee408bcaa8f54aed65}{00071}} \textcolor{preprocessor}{\#define FATAL(format, ...) DEBUG\_PRINTF("{}[FATAL] "{}}, format, \#\#\_\_VA\_ARGS\_\_)}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00072}00072 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00073}00073 \textcolor{preprocessor}{\#define FATAL(format, ...) ((void)0)}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00074}00074 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00075}00075 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00076}\mbox{\hyperlink{logger_8h_ae74719c3e2069864c055e5c6ad302319}{00076}} \textcolor{preprocessor}{\#define UI(format, ...) DEBUG\_PRINTF("{}[UI] "{}}, format, \#\#\_\_VA\_ARGS\_\_)}
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00077}00077 }
+\DoxyCodeLine{\Hypertarget{logger_8h_source_l00078}00078 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// LOGGER\_H}}
+
+\end{DoxyCode}

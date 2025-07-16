@@ -1,0 +1,97 @@
+\hypertarget{engine_8c_source}{}\doxysection{engine.\+c}
+\label{engine_8c_source}\index{src/hardware/engine.c@{src/hardware/engine.c}}
+\mbox{\hyperlink{engine_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{engine_8h}{hardware/engine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00002}00002 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{bit__functions_8h}{tools/bit\_functions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00003}00003 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{logger_8h}{tools/logger.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00004}00004 \textcolor{preprocessor}{\#include <avr/interrupt.h>}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00005}00005 \textcolor{preprocessor}{\#include <avr/io.h>}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00006}00006 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00007}00007 }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00017}\mbox{\hyperlink{engine_8c_a24de464834274ce39575c73dc1d33e31}{00017}} \textcolor{keyword}{static} \textcolor{keywordtype}{void} \mbox{\hyperlink{engine_8c_a24de464834274ce39575c73dc1d33e31}{ENGINE\_init\_pwm}}() \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00018}00018   \textcolor{comment}{// Disable all interrupts}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00019}00019   cli();}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00020}00020   \textcolor{comment}{// Set prescaler to 64, cf. datasheet for TCCR0B}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00021}00021   \textcolor{comment}{// (TCCR0B: Timer/Counter Control Register 0 B)}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00022}00022   TCCR0B = 0;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00023}00023   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0B, CS00);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00024}00024   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0B, CS01);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00025}00025   \textcolor{comment}{// Set waveform generation mode to Fast PWM, frequency = F\_CPU / (PRESCALER *}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00026}00026   \textcolor{comment}{// 2\string^8)}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00027}00027   TCCR0A = 0;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00028}00028   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0A, WGM00);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00029}00029   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0A, WGM01);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00030}00030   \textcolor{comment}{// Re-\/enable all interrupts}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00031}00031   sei();}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00032}00032 \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00033}00033 }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00034}\mbox{\hyperlink{engine_8c_a80df3cb20e93f5fe006a7e050562d83d}{00034}} \textcolor{keywordtype}{void} \mbox{\hyperlink{engine_8c_a80df3cb20e93f5fe006a7e050562d83d}{ENGINE\_init}}() \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00035}00035   \textcolor{comment}{// Configure all H-\/bridge control pins as outputs}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00036}00036   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a688c2fa83c2e51477f202d0fe6d64b79}{ENGINE\_HB\_ENA\_DDR}}, \mbox{\hyperlink{engine_8h_ae1a92e6513a69418f26bc6cbbab57717}{ENGINE\_HB\_ENA\_BIT}}); \textcolor{comment}{// Left motor enable}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00037}00037   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a7db8b0c899cf0e4483f6586bb1071755}{ENGINE\_HB\_ENB\_DDR}}, \mbox{\hyperlink{engine_8h_aaf837e20695d458c68c1c372c4a3cb77}{ENGINE\_HB\_ENB\_BIT}}); \textcolor{comment}{// Right motor enable}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00038}00038   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_aa7bc2acdcad5a03aac3e21fb4a0a3cf1}{ENGINE\_HB\_IN1\_DDR}}, \mbox{\hyperlink{engine_8h_ae3d1dabb7d21d06732a117971469dc00}{ENGINE\_HB\_IN1\_BIT}}); \textcolor{comment}{// Left motor direction 1}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00039}00039   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a20a0a1fbd60a05e98d4c911700f0c8b3}{ENGINE\_HB\_IN2\_DDR}}, \mbox{\hyperlink{engine_8h_a830e2d8848e1d1bd5e3e9dae66960c68}{ENGINE\_HB\_IN2\_BIT}}); \textcolor{comment}{// Left motor direction 2}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00040}00040   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a7cb22504d729ee64e08737ef3bddfcbf}{ENGINE\_HB\_IN3\_DDR}}, \mbox{\hyperlink{engine_8h_a3930f942c48326be25d237121a7818b5}{ENGINE\_HB\_IN3\_BIT}}); \textcolor{comment}{// Right motor direction 1}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00041}00041   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_a87c2252233f52d22d896741fac8b9eb1}{ENGINE\_HB\_IN4\_DDR}}, \mbox{\hyperlink{engine_8h_a9d6113311f8f22409cb7a3292918c97a}{ENGINE\_HB\_IN4\_BIT}}); \textcolor{comment}{// Right motor direction 2}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00042}00042 }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00043}00043   \textcolor{comment}{// Enable both motor pairs (set enable pins high)}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00044}00044   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_ad4e880bbd57107b4e9220009f7ddd764}{ENGINE\_HB\_ENA\_PORT}}, \mbox{\hyperlink{engine_8h_ae1a92e6513a69418f26bc6cbbab57717}{ENGINE\_HB\_ENA\_BIT}}); \textcolor{comment}{// Enable left motors}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00045}00045   \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(\mbox{\hyperlink{engine_8h_aa2c56ed9fc8a4a91fb2b97fc14908ece}{ENGINE\_HB\_ENB\_PORT}}, \mbox{\hyperlink{engine_8h_aaf837e20695d458c68c1c372c4a3cb77}{ENGINE\_HB\_ENB\_BIT}}); \textcolor{comment}{// Enable right motors}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00046}00046 }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00047}00047   \mbox{\hyperlink{engine_8c_a24de464834274ce39575c73dc1d33e31}{ENGINE\_init\_pwm}}();}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00048}00048   \mbox{\hyperlink{logger_8h_aafc148cee6d6c9e76b4ef417c7056f8f}{INFO}}(\textcolor{stringliteral}{"{}ENGINE pwm init successful.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00049}00049 }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00050}00050   \mbox{\hyperlink{engine_8c_aed67849afc222c8d655f4eef5f450c56}{ENGINE\_set\_duty\_cicle}}(\mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02baafdabca9d678fe6934501d8aed74d36a}{ENGINE\_LEFT}}, \string~0);  \textcolor{comment}{// set to full power}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00051}00051   \mbox{\hyperlink{engine_8c_aed67849afc222c8d655f4eef5f450c56}{ENGINE\_set\_duty\_cicle}}(\mbox{\hyperlink{engine_8h_a3e0f72b2dbb953675ea2aafcfbcad02ba5a616ef5115d4cefaa09bc6b59128f47}{ENGINE\_RIGHT}}, \string~0); \textcolor{comment}{// set to full power}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00052}00052 }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00053}00053   \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00054}00054 \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00055}00055 }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00056}00056 \textcolor{comment}{// void setDutyCycle(uint8\_t pin, uint8\_t value)}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00057}00057 \textcolor{comment}{//  This function is coppied from iesmotors.c and then modified}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00058}\mbox{\hyperlink{engine_8c_aed67849afc222c8d655f4eef5f450c56}{00058}} \textcolor{keywordtype}{void} \mbox{\hyperlink{engine_8c_aed67849afc222c8d655f4eef5f450c56}{ENGINE\_set\_duty\_cicle}}(uint8\_t ui8\_side, uint8\_t ui8\_pwm\_compare\_value) \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00059}00059   \textcolor{comment}{// TODO:}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00060}00060   \textcolor{comment}{// Suggestion to handle PD6 -\/ note the code-\/clones wrt. PD5 below!}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00061}00061   \textcolor{comment}{// Code-\/clones are extraordinary f cky! Correct this (tricky though}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00062}00062   \textcolor{comment}{// due to the PP-\/macros, which you cannot simply pass to functions)!}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00063}00063   \textcolor{comment}{// (But PP-\/macros can help you here....)}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00064}00064 }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00065}00065   \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\textcolor{stringliteral}{"{}set\_duty\_cicle side: \%s value \%d\(\backslash\)n"{}}, ui8\_side == 0 ? \textcolor{stringliteral}{"{}LEFT"{}} : \textcolor{stringliteral}{"{}RIGHT"{}},}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00066}00066         ui8\_pwm\_compare\_value);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00067}00067 }
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00068}00068   \textcolor{keywordflow}{if} (ui8\_side == \mbox{\hyperlink{engine_8h_a3d87218acebfd0f9d3a421b94ed334fb}{ENGINE\_PWM\_LEFT}}) \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00069}00069     \textcolor{keywordflow}{if} (ui8\_pwm\_compare\_value == 0) \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00070}00070       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A1);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00071}00071       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A0); \textcolor{comment}{// Normal port operation mode}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00072}00072       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(PORTD, PD6);     \textcolor{comment}{// PD6 LOW, equals 0\% duty,}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00073}00073     \} \textcolor{comment}{// timer disconnected}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00074}00074     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ui8\_pwm\_compare\_value == 255) \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00075}00075       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A1);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00076}00076       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A0); \textcolor{comment}{// Normal port operation mode}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00077}00077       \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(PORTD, PD6);       \textcolor{comment}{// PD6 HIGH, equals 100\% duty,}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00078}00078     \} \textcolor{comment}{// timer disconnected}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00079}00079     \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00080}00080       \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0A, COM0A1);       \textcolor{comment}{// OC0A to LOW on Compare Match,}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00081}00081       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0A0);     \textcolor{comment}{// to HIGH at BOTTOM (non-\/inverting mode)}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00082}00082       OCR0A = ui8\_pwm\_compare\_value; \textcolor{comment}{// generates sequences of 1-\/0-\/1-\/0...}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00083}00083     \} \textcolor{comment}{// for certain periods of time}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00084}00084   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ui8\_side == \mbox{\hyperlink{engine_8h_a0c3bf8a9dc84331a7bf7c387a7ec839a}{ENGINE\_PWM\_RIGHT}}) \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00085}00085     \textcolor{keywordflow}{if} (ui8\_pwm\_compare\_value == 0) \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00086}00086       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B1);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00087}00087       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B0);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00088}00088       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(PORTD, PD5);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00089}00089     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ui8\_pwm\_compare\_value == 255) \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00090}00090       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B1);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00091}00091       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B0);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00092}00092       \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(PORTD, PD5);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00093}00093     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00094}00094       \mbox{\hyperlink{bit__functions_8h_a62af7cb8bfabd5a9f6ea45582e08843b}{SET\_BIT}}(TCCR0A, COM0B1);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00095}00095       \mbox{\hyperlink{bit__functions_8h_afda0b1cfd003edf08de8e02989576625}{UNSET\_BIT}}(TCCR0A, COM0B0);}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00096}00096       OCR0B = ui8\_pwm\_compare\_value;}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00097}00097     \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00098}00098   \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00099}00099 \}}
+\DoxyCodeLine{\Hypertarget{engine_8c_source_l00100}00100 }
+
+\end{DoxyCode}

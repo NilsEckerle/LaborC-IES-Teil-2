@@ -1,0 +1,40 @@
+\hypertarget{logger_8c_source}{}\doxysection{logger.\+c}
+\label{logger_8c_source}\index{src/tools/logger.c@{src/tools/logger.c}}
+\mbox{\hyperlink{logger_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00001}00001 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{logger_8h}{tools/logger.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00002}00002 }
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00003}\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{00003}} \textcolor{keyword}{static} \textcolor{keywordtype}{char} \mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}}[128];}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00004}00004 }
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00005}\mbox{\hyperlink{logger_8c_a1c8d527a7c17301bed8fe2eb9043ef45}{00005}} \textcolor{keywordtype}{void} \mbox{\hyperlink{logger_8c_a1c8d527a7c17301bed8fe2eb9043ef45}{\_\_attribute\_\_}}((unused)) debug\_printf(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *prefix, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, ...) \{}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00006}00006   va\_list args;}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00007}00007   va\_start(args, \mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}});}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00008}00008 }
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00009}00009   \textcolor{comment}{// Format the message}}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00010}00010   snprintf(\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}}, \textcolor{keyword}{sizeof}(\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}}), \textcolor{stringliteral}{"{}\%s"{}}, prefix);}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00011}00011   vsnprintf(\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}} + strlen(\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}}),}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00012}00012       \textcolor{keyword}{sizeof}(\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}}) -\/ strlen(\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}}), \mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, args);}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00013}00013 }
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00014}00014   va\_end(args);}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00015}00015 }
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00016}00016   \textcolor{comment}{// Send to USART}}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00017}00017   \mbox{\hyperlink{iesusart_8c_ad230ae1e0f1a9cb24d547b1359d49322}{USART\_print}}(\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}});}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00018}00018 \}}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00019}00019 }
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00020}00020 \textcolor{keywordtype}{void} \mbox{\hyperlink{logger_8c_a1c8d527a7c17301bed8fe2eb9043ef45}{\_\_attribute\_\_}}((unused)) debug\_printf\_P(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *prefix, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, ...) \{}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00021}00021   va\_list args;}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00022}00022   va\_start(args, \mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}});}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00023}00023 }
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00024}00024   strcpy\_P(\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}}, prefix);}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00025}00025 }
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00026}00026   \textcolor{comment}{// Format the message}}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00027}00027   vsnprintf\_P(\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}} + strlen(\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}}),}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00028}00028       \textcolor{keyword}{sizeof}(\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}}) -\/ strlen(\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}}), \mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, args);}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00029}00029 }
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00030}00030   va\_end(args);}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00031}00031 }
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00032}00032   \textcolor{comment}{// Send to USART}}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00033}00033   \mbox{\hyperlink{iesusart_8c_ad230ae1e0f1a9cb24d547b1359d49322}{USART\_print}}(\mbox{\hyperlink{logger_8c_a3c26e41aa5abff3f0b571c9cb0518fbb}{debug\_buffer}});}
+\DoxyCodeLine{\Hypertarget{logger_8c_source_l00034}00034 \}}
+
+\end{DoxyCode}

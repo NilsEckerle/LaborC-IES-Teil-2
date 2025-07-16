@@ -1,0 +1,253 @@
+\hypertarget{logger_8h}{}\doxysection{include/tools/logger.h File Reference}
+\label{logger_8h}\index{include/tools/logger.h@{include/tools/logger.h}}
+{\ttfamily \#include \char`\"{}tools/iesusart.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+Include dependency graph for logger.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/db3/logger_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/dcf/logger_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{logger_8h_a15856724811f59e6f351153e89380f5d}{LOG\+\_\+\+LEVEL\+\_\+\+TRACE}}~0
+\item 
+\#define \mbox{\hyperlink{logger_8h_a89aa02e007513999619b54e9c97cacf8}{LOG\+\_\+\+LEVEL\+\_\+\+INFO\+\_\+\+SPAM}}~1
+\item 
+\#define \mbox{\hyperlink{logger_8h_a2e25fe130cf710da4ad800747fdd51f3}{LOG\+\_\+\+LEVEL\+\_\+\+INFO}}~2
+\item 
+\#define \mbox{\hyperlink{logger_8h_af539a66abed2a7a15e3443d70a3cf1e1}{LOG\+\_\+\+LEVEL\+\_\+\+WARNING}}~3
+\item 
+\#define \mbox{\hyperlink{logger_8h_a742fc70e331d7e568bd893c514756a29}{LOG\+\_\+\+LEVEL\+\_\+\+ERROR}}~4
+\item 
+\#define \mbox{\hyperlink{logger_8h_ac6b8217f1800f3adc3cf1eee30915b78}{LOG\+\_\+\+LEVEL\+\_\+\+FATAL}}~5
+\item 
+\#define \mbox{\hyperlink{logger_8h_ac9af99280cbca814af6aa7855e5e88c4}{LOG\+\_\+\+LEVEL\+\_\+\+DISABLE}}~100
+\item 
+\#define \mbox{\hyperlink{logger_8h_a0b87e0d3bf5853bcbb0b66a7c48fdc05}{LOG\+\_\+\+LEVEL}}~\mbox{\hyperlink{logger_8h_af539a66abed2a7a15e3443d70a3cf1e1}{LOG\+\_\+\+LEVEL\+\_\+\+WARNING}}
+\item 
+\#define \mbox{\hyperlink{logger_8h_ac3ffe948a90758a816294a4f529097d5}{DEBUG\+\_\+\+PRINTF}}(prefix,  \mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, ...)~debug\+\_\+printf\+\_\+P(PSTR(prefix), PSTR(\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}), \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{logger_8h_ab5003eda329d00f9fd2505098f7c873a}{TRACE}}(\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, ...)~((void)0)
+\item 
+\#define \mbox{\hyperlink{logger_8h_a9a54bbd4a1870388d5d6ec763d32cfc1}{INFO\+\_\+\+SPAM}}(\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, ...)~((void)0)
+\item 
+\#define \mbox{\hyperlink{logger_8h_aafc148cee6d6c9e76b4ef417c7056f8f}{INFO}}(\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, ...)~((void)0)
+\item 
+\#define \mbox{\hyperlink{logger_8h_ad51176fec84ca79bd96163c9cb5a7c32}{WARNING}}(\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, ...)~\mbox{\hyperlink{logger_8h_ac3ffe948a90758a816294a4f529097d5}{DEBUG\+\_\+\+PRINTF}}(\char`\"{}\mbox{[}WARN\mbox{]} \char`\"{}, format, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{logger_8h_a78e40dfd87f516e322340d249027aea1}{ERROR}}(\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, ...)~\mbox{\hyperlink{logger_8h_ac3ffe948a90758a816294a4f529097d5}{DEBUG\+\_\+\+PRINTF}}(\char`\"{}\mbox{[}ERROR\mbox{]} \char`\"{}, format, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{logger_8h_a8704324d54ab9aee408bcaa8f54aed65}{FATAL}}(\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, ...)~\mbox{\hyperlink{logger_8h_ac3ffe948a90758a816294a4f529097d5}{DEBUG\+\_\+\+PRINTF}}(\char`\"{}\mbox{[}FATAL\mbox{]} \char`\"{}, format, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\item 
+\#define \mbox{\hyperlink{logger_8h_ae74719c3e2069864c055e5c6ad302319}{UI}}(\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}, ...)~\mbox{\hyperlink{logger_8h_ac3ffe948a90758a816294a4f529097d5}{DEBUG\+\_\+\+PRINTF}}(\char`\"{}\mbox{[}UI\mbox{]} \char`\"{}, format, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{logger_8h_a63cf7bbcf40e45f120a211066cc95e50}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((unused)) debug\+\_\+printf\+\_\+P(const char $\ast$prefix
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+void const char $\ast$ \mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{logger_8h_ac3ffe948a90758a816294a4f529097d5}\label{logger_8h_ac3ffe948a90758a816294a4f529097d5}} 
+\index{logger.h@{logger.h}!DEBUG\_PRINTF@{DEBUG\_PRINTF}}
+\index{DEBUG\_PRINTF@{DEBUG\_PRINTF}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_PRINTF}{DEBUG\_PRINTF}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+PRINTF(\begin{DoxyParamCaption}\item[{}]{prefix,  }\item[{}]{\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}},  }\item[{}]{... }\end{DoxyParamCaption})~debug\+\_\+printf\+\_\+P(PSTR(prefix), PSTR(\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}}), \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00029}{29}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_a78e40dfd87f516e322340d249027aea1}\label{logger_8h_a78e40dfd87f516e322340d249027aea1}} 
+\index{logger.h@{logger.h}!ERROR@{ERROR}}
+\index{ERROR@{ERROR}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{ERROR}{ERROR}}
+{\footnotesize\ttfamily \#define ERROR(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}},  }\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{logger_8h_ac3ffe948a90758a816294a4f529097d5}{DEBUG\+\_\+\+PRINTF}}(\char`\"{}\mbox{[}ERROR\mbox{]} \char`\"{}, format, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00064}{64}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_a8704324d54ab9aee408bcaa8f54aed65}\label{logger_8h_a8704324d54ab9aee408bcaa8f54aed65}} 
+\index{logger.h@{logger.h}!FATAL@{FATAL}}
+\index{FATAL@{FATAL}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{FATAL}{FATAL}}
+{\footnotesize\ttfamily \#define FATAL(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}},  }\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{logger_8h_ac3ffe948a90758a816294a4f529097d5}{DEBUG\+\_\+\+PRINTF}}(\char`\"{}\mbox{[}FATAL\mbox{]} \char`\"{}, format, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00071}{71}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_aafc148cee6d6c9e76b4ef417c7056f8f}\label{logger_8h_aafc148cee6d6c9e76b4ef417c7056f8f}} 
+\index{logger.h@{logger.h}!INFO@{INFO}}
+\index{INFO@{INFO}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{INFO}{INFO}}
+{\footnotesize\ttfamily \#define INFO(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}},  }\item[{}]{... }\end{DoxyParamCaption})~((void)0)}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00052}{52}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_a9a54bbd4a1870388d5d6ec763d32cfc1}\label{logger_8h_a9a54bbd4a1870388d5d6ec763d32cfc1}} 
+\index{logger.h@{logger.h}!INFO\_SPAM@{INFO\_SPAM}}
+\index{INFO\_SPAM@{INFO\_SPAM}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{INFO\_SPAM}{INFO\_SPAM}}
+{\footnotesize\ttfamily \#define INFO\+\_\+\+SPAM(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}},  }\item[{}]{... }\end{DoxyParamCaption})~((void)0)}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00045}{45}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_a0b87e0d3bf5853bcbb0b66a7c48fdc05}\label{logger_8h_a0b87e0d3bf5853bcbb0b66a7c48fdc05}} 
+\index{logger.h@{logger.h}!LOG\_LEVEL@{LOG\_LEVEL}}
+\index{LOG\_LEVEL@{LOG\_LEVEL}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{LOG\_LEVEL}{LOG\_LEVEL}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+LEVEL~\mbox{\hyperlink{logger_8h_af539a66abed2a7a15e3443d70a3cf1e1}{LOG\+\_\+\+LEVEL\+\_\+\+WARNING}}}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00019}{19}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_ac9af99280cbca814af6aa7855e5e88c4}\label{logger_8h_ac9af99280cbca814af6aa7855e5e88c4}} 
+\index{logger.h@{logger.h}!LOG\_LEVEL\_DISABLE@{LOG\_LEVEL\_DISABLE}}
+\index{LOG\_LEVEL\_DISABLE@{LOG\_LEVEL\_DISABLE}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{LOG\_LEVEL\_DISABLE}{LOG\_LEVEL\_DISABLE}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+LEVEL\+\_\+\+DISABLE~100}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00016}{16}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_a742fc70e331d7e568bd893c514756a29}\label{logger_8h_a742fc70e331d7e568bd893c514756a29}} 
+\index{logger.h@{logger.h}!LOG\_LEVEL\_ERROR@{LOG\_LEVEL\_ERROR}}
+\index{LOG\_LEVEL\_ERROR@{LOG\_LEVEL\_ERROR}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{LOG\_LEVEL\_ERROR}{LOG\_LEVEL\_ERROR}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+LEVEL\+\_\+\+ERROR~4}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00014}{14}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_ac6b8217f1800f3adc3cf1eee30915b78}\label{logger_8h_ac6b8217f1800f3adc3cf1eee30915b78}} 
+\index{logger.h@{logger.h}!LOG\_LEVEL\_FATAL@{LOG\_LEVEL\_FATAL}}
+\index{LOG\_LEVEL\_FATAL@{LOG\_LEVEL\_FATAL}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{LOG\_LEVEL\_FATAL}{LOG\_LEVEL\_FATAL}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+LEVEL\+\_\+\+FATAL~5}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00015}{15}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_a2e25fe130cf710da4ad800747fdd51f3}\label{logger_8h_a2e25fe130cf710da4ad800747fdd51f3}} 
+\index{logger.h@{logger.h}!LOG\_LEVEL\_INFO@{LOG\_LEVEL\_INFO}}
+\index{LOG\_LEVEL\_INFO@{LOG\_LEVEL\_INFO}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{LOG\_LEVEL\_INFO}{LOG\_LEVEL\_INFO}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+LEVEL\+\_\+\+INFO~2}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00012}{12}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_a89aa02e007513999619b54e9c97cacf8}\label{logger_8h_a89aa02e007513999619b54e9c97cacf8}} 
+\index{logger.h@{logger.h}!LOG\_LEVEL\_INFO\_SPAM@{LOG\_LEVEL\_INFO\_SPAM}}
+\index{LOG\_LEVEL\_INFO\_SPAM@{LOG\_LEVEL\_INFO\_SPAM}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{LOG\_LEVEL\_INFO\_SPAM}{LOG\_LEVEL\_INFO\_SPAM}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+LEVEL\+\_\+\+INFO\+\_\+\+SPAM~1}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00011}{11}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_a15856724811f59e6f351153e89380f5d}\label{logger_8h_a15856724811f59e6f351153e89380f5d}} 
+\index{logger.h@{logger.h}!LOG\_LEVEL\_TRACE@{LOG\_LEVEL\_TRACE}}
+\index{LOG\_LEVEL\_TRACE@{LOG\_LEVEL\_TRACE}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{LOG\_LEVEL\_TRACE}{LOG\_LEVEL\_TRACE}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+LEVEL\+\_\+\+TRACE~0}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00010}{10}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_af539a66abed2a7a15e3443d70a3cf1e1}\label{logger_8h_af539a66abed2a7a15e3443d70a3cf1e1}} 
+\index{logger.h@{logger.h}!LOG\_LEVEL\_WARNING@{LOG\_LEVEL\_WARNING}}
+\index{LOG\_LEVEL\_WARNING@{LOG\_LEVEL\_WARNING}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{LOG\_LEVEL\_WARNING}{LOG\_LEVEL\_WARNING}}
+{\footnotesize\ttfamily \#define LOG\+\_\+\+LEVEL\+\_\+\+WARNING~3}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00013}{13}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_ab5003eda329d00f9fd2505098f7c873a}\label{logger_8h_ab5003eda329d00f9fd2505098f7c873a}} 
+\index{logger.h@{logger.h}!TRACE@{TRACE}}
+\index{TRACE@{TRACE}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{TRACE}{TRACE}}
+{\footnotesize\ttfamily \#define TRACE(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}},  }\item[{}]{... }\end{DoxyParamCaption})~((void)0)}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00038}{38}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_ae74719c3e2069864c055e5c6ad302319}\label{logger_8h_ae74719c3e2069864c055e5c6ad302319}} 
+\index{logger.h@{logger.h}!UI@{UI}}
+\index{UI@{UI}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{UI}{UI}}
+{\footnotesize\ttfamily \#define UI(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}},  }\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{logger_8h_ac3ffe948a90758a816294a4f529097d5}{DEBUG\+\_\+\+PRINTF}}(\char`\"{}\mbox{[}UI\mbox{]} \char`\"{}, format, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00076}{76}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+\mbox{\Hypertarget{logger_8h_ad51176fec84ca79bd96163c9cb5a7c32}\label{logger_8h_ad51176fec84ca79bd96163c9cb5a7c32}} 
+\index{logger.h@{logger.h}!WARNING@{WARNING}}
+\index{WARNING@{WARNING}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{WARNING}{WARNING}}
+{\footnotesize\ttfamily \#define WARNING(\begin{DoxyParamCaption}\item[{}]{\mbox{\hyperlink{logger_8h_ad425e0e1ab491096db72a604d6525c3c}{format}},  }\item[{}]{... }\end{DoxyParamCaption})~\mbox{\hyperlink{logger_8h_ac3ffe948a90758a816294a4f529097d5}{DEBUG\+\_\+\+PRINTF}}(\char`\"{}\mbox{[}WARN\mbox{]} \char`\"{}, format, \#\#\+\_\+\+\_\+\+VA\+\_\+\+ARGS\+\_\+\+\_\+)}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00057}{57}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{logger_8h_a63cf7bbcf40e45f120a211066cc95e50}\label{logger_8h_a63cf7bbcf40e45f120a211066cc95e50}} 
+\index{logger.h@{logger.h}!\_\_attribute\_\_@{\_\_attribute\_\_}}
+\index{\_\_attribute\_\_@{\_\_attribute\_\_}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{\_\_attribute\_\_()}{\_\_attribute\_\_()}}
+{\footnotesize\ttfamily void \+\_\+\+\_\+attribute\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{(unused)}]{ }\end{DoxyParamCaption}) const}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{logger_8h_ad425e0e1ab491096db72a604d6525c3c}\label{logger_8h_ad425e0e1ab491096db72a604d6525c3c}} 
+\index{logger.h@{logger.h}!format@{format}}
+\index{format@{format}!logger.h@{logger.h}}
+\doxysubsubsection{\texorpdfstring{format}{format}}
+{\footnotesize\ttfamily void const char void const char $\ast$ format}
+
+
+
+Definition at line \mbox{\hyperlink{logger_8h_source_l00023}{23}} of file \mbox{\hyperlink{logger_8h_source}{logger.\+h}}.
+

@@ -1,0 +1,344 @@
+\hypertarget{iesusart_8h}{}\doxysection{include/tools/iesusart.h File Reference}
+\label{iesusart_8h}\index{include/tools/iesusart.h@{include/tools/iesusart.h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for iesusart.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{d8/dc7/iesusart_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d9b/iesusart_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{iesusart_8h_a43bafb28b29491ec7f871319b5a3b2f8}{F\+\_\+\+CPU}}~16E6
+\begin{DoxyCompactList}\small\item\em CPU clock speed. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{iesusart_8h_a62634036639f88eece6fbf226b45f84b}{BAUD}}~9600
+\begin{DoxyCompactList}\small\item\em Desired baudrate. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{iesusart_8h_a9d1ebd7ca3cc636372bfeae486bc7ede}{UBRR\+\_\+\+SETTING}}~\mbox{\hyperlink{iesusart_8h_a43bafb28b29491ec7f871319b5a3b2f8}{F\+\_\+\+CPU}}/16.\+0/\mbox{\hyperlink{iesusart_8h_a62634036639f88eece6fbf226b45f84b}{BAUD}}-\/1
+\begin{DoxyCompactList}\small\item\em What to write into the UBRR register. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{iesusart_8h_ab7983221cd707e76af1cbdc605ed8fa4}{USART\+\_\+transmit\+Byte}} (unsigned char data)
+\begin{DoxyCompactList}\small\item\em Writes a single byte to the USART transmit buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{iesusart_8h_ad230ae1e0f1a9cb24d547b1359d49322}{USART\+\_\+print}} (const char $\ast$c)
+\begin{DoxyCompactList}\small\item\em Transmittes a string (char by char) until \textquotesingle{}\textbackslash{}0’ is reached. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{iesusart_8h_a11a884f88dd7c9207bec854c935ee223}{USART\+\_\+get\+\_\+string}} (void)
+\item 
+void \mbox{\hyperlink{iesusart_8h_af50ad7c376895818661f3aeea111e35b}{USART\+\_\+consume\+\_\+string}} (void)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{iesusart_8h_ab7d4ecf6d29aeb6aa152fb44ca166c08}{USART\+\_\+has\+\_\+string}} (void)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{iesusart_8h_a1004d34de78fdc5dc2c023e79a1fc17d}{USART\+\_\+buffer\+\_\+overflow}} (void)
+\item 
+void \mbox{\hyperlink{iesusart_8h_a2569255df7c6484aba8bbd8a6d8963bc}{USART\+\_\+consume\+\_\+on\+\_\+second\+\_\+call\+\_\+string}} (void)
+\item 
+void \mbox{\hyperlink{iesusart_8h_ae976bb87de61f6df169257d5b9fb1415}{USART\+\_\+reset\+\_\+clear\+\_\+counter}} (void)
+\item 
+void \mbox{\hyperlink{iesusart_8h_ab0c0bf4a2153e3123ea575739baf8f31}{USART\+\_\+init}} (unsigned long ubrr)
+\begin{DoxyCompactList}\small\item\em Sets up the USART port (The USART baudrate register) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile char \mbox{\hyperlink{iesusart_8h_afd425fbf5d2907a22aabf19e435f9472}{usart\+\_\+rx\+\_\+buffer}} \mbox{[}$\,$\mbox{]}
+\item 
+volatile uint8\+\_\+t \mbox{\hyperlink{iesusart_8h_a56b5e207674ddb3eb207aa8844edf792}{usart\+\_\+str\+\_\+valid}}
+\item 
+volatile uint8\+\_\+t \mbox{\hyperlink{iesusart_8h_a9ce6a05c543803935e40ebf1b3465202}{usart\+\_\+buffer\+\_\+index}}
+\item 
+volatile uint8\+\_\+t \mbox{\hyperlink{iesusart_8h_a791391158c043e3601c0a4247fb2d6e0}{usart\+\_\+overflow}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{iesusart_8h_a62634036639f88eece6fbf226b45f84b}\label{iesusart_8h_a62634036639f88eece6fbf226b45f84b}} 
+\index{iesusart.h@{iesusart.h}!BAUD@{BAUD}}
+\index{BAUD@{BAUD}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{BAUD}{BAUD}}
+{\footnotesize\ttfamily \#define BAUD~9600}
+
+
+
+Desired baudrate. 
+
+
+
+Definition at line \mbox{\hyperlink{iesusart_8h_source_l00016}{16}} of file \mbox{\hyperlink{iesusart_8h_source}{iesusart.\+h}}.
+
+\mbox{\Hypertarget{iesusart_8h_a43bafb28b29491ec7f871319b5a3b2f8}\label{iesusart_8h_a43bafb28b29491ec7f871319b5a3b2f8}} 
+\index{iesusart.h@{iesusart.h}!F\_CPU@{F\_CPU}}
+\index{F\_CPU@{F\_CPU}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{F\_CPU}{F\_CPU}}
+{\footnotesize\ttfamily \#define F\+\_\+\+CPU~16E6}
+
+
+
+CPU clock speed. 
+
+
+
+Definition at line \mbox{\hyperlink{iesusart_8h_source_l00013}{13}} of file \mbox{\hyperlink{iesusart_8h_source}{iesusart.\+h}}.
+
+\mbox{\Hypertarget{iesusart_8h_a9d1ebd7ca3cc636372bfeae486bc7ede}\label{iesusart_8h_a9d1ebd7ca3cc636372bfeae486bc7ede}} 
+\index{iesusart.h@{iesusart.h}!UBRR\_SETTING@{UBRR\_SETTING}}
+\index{UBRR\_SETTING@{UBRR\_SETTING}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{UBRR\_SETTING}{UBRR\_SETTING}}
+{\footnotesize\ttfamily \#define UBRR\+\_\+\+SETTING~\mbox{\hyperlink{iesusart_8h_a43bafb28b29491ec7f871319b5a3b2f8}{F\+\_\+\+CPU}}/16.\+0/\mbox{\hyperlink{iesusart_8h_a62634036639f88eece6fbf226b45f84b}{BAUD}}-\/1}
+
+
+
+What to write into the UBRR register. 
+
+
+
+Definition at line \mbox{\hyperlink{iesusart_8h_source_l00018}{18}} of file \mbox{\hyperlink{iesusart_8h_source}{iesusart.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{iesusart_8h_a1004d34de78fdc5dc2c023e79a1fc17d}\label{iesusart_8h_a1004d34de78fdc5dc2c023e79a1fc17d}} 
+\index{iesusart.h@{iesusart.h}!USART\_buffer\_overflow@{USART\_buffer\_overflow}}
+\index{USART\_buffer\_overflow@{USART\_buffer\_overflow}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{USART\_buffer\_overflow()}{USART\_buffer\_overflow()}}
+{\footnotesize\ttfamily uint8\+\_\+t USART\+\_\+buffer\+\_\+overflow (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{iesusart_8c_source_l00109}{109}} of file \mbox{\hyperlink{iesusart_8c_source}{iesusart.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00109 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{iesusart_8c_a791391158c043e3601c0a4247fb2d6e0}{usart\_overflow}}; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{iesusart_8h_a2569255df7c6484aba8bbd8a6d8963bc}\label{iesusart_8h_a2569255df7c6484aba8bbd8a6d8963bc}} 
+\index{iesusart.h@{iesusart.h}!USART\_consume\_on\_second\_call\_string@{USART\_consume\_on\_second\_call\_string}}
+\index{USART\_consume\_on\_second\_call\_string@{USART\_consume\_on\_second\_call\_string}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{USART\_consume\_on\_second\_call\_string()}{USART\_consume\_on\_second\_call\_string()}}
+{\footnotesize\ttfamily void USART\+\_\+consume\+\_\+on\+\_\+second\+\_\+call\+\_\+string (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{iesusart_8c_source_l00114}{114}} of file \mbox{\hyperlink{iesusart_8c_source}{iesusart.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00114                                                \{}
+\DoxyCodeLine{00115   \mbox{\hyperlink{iesusart_8c_aa21f857dc248c55178395f8897a1bf7c}{clear\_counter}}++;}
+\DoxyCodeLine{00116 }
+\DoxyCodeLine{00117   \textcolor{keywordflow}{if} (\mbox{\hyperlink{iesusart_8c_aa21f857dc248c55178395f8897a1bf7c}{clear\_counter}} >= \mbox{\hyperlink{iesusart_8c_a163789d7867b15d928d5d1291c83750d}{CLEAR\_THRESHOLD}}) \{}
+\DoxyCodeLine{00118     \mbox{\hyperlink{iesusart_8c_af50ad7c376895818661f3aeea111e35b}{USART\_consume\_string}}();}
+\DoxyCodeLine{00119     \mbox{\hyperlink{iesusart_8c_aa21f857dc248c55178395f8897a1bf7c}{clear\_counter}} = 0;}
+\DoxyCodeLine{00120   \}}
+\DoxyCodeLine{00121 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{iesusart_8h_af50ad7c376895818661f3aeea111e35b}\label{iesusart_8h_af50ad7c376895818661f3aeea111e35b}} 
+\index{iesusart.h@{iesusart.h}!USART\_consume\_string@{USART\_consume\_string}}
+\index{USART\_consume\_string@{USART\_consume\_string}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{USART\_consume\_string()}{USART\_consume\_string()}}
+{\footnotesize\ttfamily void USART\+\_\+consume\+\_\+string (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{iesusart_8c_source_l00097}{97}} of file \mbox{\hyperlink{iesusart_8c_source}{iesusart.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00097                                 \{}
+\DoxyCodeLine{00098   \textcolor{comment}{// Disable interrupts while modifying shared data}}
+\DoxyCodeLine{00099   cli();}
+\DoxyCodeLine{00100   \mbox{\hyperlink{iesusart_8c_a56b5e207674ddb3eb207aa8844edf792}{usart\_str\_valid}} = 0;}
+\DoxyCodeLine{00101   \mbox{\hyperlink{iesusart_8c_a9ce6a05c543803935e40ebf1b3465202}{usart\_buffer\_index}} = 0;}
+\DoxyCodeLine{00102   \mbox{\hyperlink{iesusart_8c_a791391158c043e3601c0a4247fb2d6e0}{usart\_overflow}} = 0;}
+\DoxyCodeLine{00103   \mbox{\hyperlink{iesusart_8c_a77c4d4e340865f464f3457a57edd965b}{usart\_rx\_buffer}}[0] = \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00104   sei();}
+\DoxyCodeLine{00105 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{iesusart_8h_a11a884f88dd7c9207bec854c935ee223}\label{iesusart_8h_a11a884f88dd7c9207bec854c935ee223}} 
+\index{iesusart.h@{iesusart.h}!USART\_get\_string@{USART\_get\_string}}
+\index{USART\_get\_string@{USART\_get\_string}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{USART\_get\_string()}{USART\_get\_string()}}
+{\footnotesize\ttfamily char $\ast$ USART\+\_\+get\+\_\+string (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{iesusart_8c_source_l00090}{90}} of file \mbox{\hyperlink{iesusart_8c_source}{iesusart.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00090                              \{}
+\DoxyCodeLine{00091   \textcolor{keywordflow}{if} (\mbox{\hyperlink{iesusart_8c_a56b5e207674ddb3eb207aa8844edf792}{usart\_str\_valid}}) \{}
+\DoxyCodeLine{00092     \textcolor{keywordflow}{return} (\textcolor{keywordtype}{char} *)\mbox{\hyperlink{iesusart_8c_a77c4d4e340865f464f3457a57edd965b}{usart\_rx\_buffer}};}
+\DoxyCodeLine{00093   \}}
+\DoxyCodeLine{00094   \textcolor{keywordflow}{return} NULL;}
+\DoxyCodeLine{00095 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{iesusart_8h_ab7d4ecf6d29aeb6aa152fb44ca166c08}\label{iesusart_8h_ab7d4ecf6d29aeb6aa152fb44ca166c08}} 
+\index{iesusart.h@{iesusart.h}!USART\_has\_string@{USART\_has\_string}}
+\index{USART\_has\_string@{USART\_has\_string}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{USART\_has\_string()}{USART\_has\_string()}}
+{\footnotesize\ttfamily uint8\+\_\+t USART\+\_\+has\+\_\+string (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{iesusart_8c_source_l00107}{107}} of file \mbox{\hyperlink{iesusart_8c_source}{iesusart.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00107 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{iesusart_8c_a56b5e207674ddb3eb207aa8844edf792}{usart\_str\_valid}}; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{iesusart_8h_ab0c0bf4a2153e3123ea575739baf8f31}\label{iesusart_8h_ab0c0bf4a2153e3123ea575739baf8f31}} 
+\index{iesusart.h@{iesusart.h}!USART\_init@{USART\_init}}
+\index{USART\_init@{USART\_init}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{USART\_init()}{USART\_init()}}
+{\footnotesize\ttfamily void USART\+\_\+init (\begin{DoxyParamCaption}\item[{unsigned long}]{ubrr }\end{DoxyParamCaption})}
+
+
+
+Sets up the USART port (The USART baudrate register) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ubrr} & Content to write into the UBRR register \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{iesusart_8c_source_l00018}{18}} of file \mbox{\hyperlink{iesusart_8c_source}{iesusart.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00018                                     \{}
+\DoxyCodeLine{00019   \textcolor{comment}{// Set baud rate}}
+\DoxyCodeLine{00020   UBRR0H = (\textcolor{keywordtype}{unsigned} char)(ubrr >> 8);}
+\DoxyCodeLine{00021   UBRR0L = (\textcolor{keywordtype}{unsigned} char)ubrr;}
+\DoxyCodeLine{00022 }
+\DoxyCodeLine{00023   \textcolor{comment}{// Enable receiver, transmitter, and RX Complete interrupt}}
+\DoxyCodeLine{00024   UCSR0B = (1 << RXEN0) | (1 << TXEN0) | (1 << RXCIE0);}
+\DoxyCodeLine{00025 }
+\DoxyCodeLine{00026   \textcolor{comment}{// Frame format: 8 data bits, 1 stop bit, no parity}}
+\DoxyCodeLine{00027   UCSR0C = (3 << UCSZ00);}
+\DoxyCodeLine{00028 }
+\DoxyCodeLine{00029   \textcolor{comment}{// Enable global interrupts}}
+\DoxyCodeLine{00030   sei();}
+\DoxyCodeLine{00031 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{iesusart_8h_ad230ae1e0f1a9cb24d547b1359d49322}\label{iesusart_8h_ad230ae1e0f1a9cb24d547b1359d49322}} 
+\index{iesusart.h@{iesusart.h}!USART\_print@{USART\_print}}
+\index{USART\_print@{USART\_print}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{USART\_print()}{USART\_print()}}
+{\footnotesize\ttfamily void USART\+\_\+print (\begin{DoxyParamCaption}\item[{const char $\ast$}]{c }\end{DoxyParamCaption})}
+
+
+
+Transmittes a string (char by char) until \textquotesingle{}\textbackslash{}0’ is reached. 
+
+
+
+Definition at line \mbox{\hyperlink{iesusart_8c_source_l00049}{49}} of file \mbox{\hyperlink{iesusart_8c_source}{iesusart.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00049                                 \{}
+\DoxyCodeLine{00050   \textcolor{keywordflow}{while} (*c != \textcolor{charliteral}{'\(\backslash\)0'}) \{}
+\DoxyCodeLine{00051     \mbox{\hyperlink{iesusart_8c_ab7983221cd707e76af1cbdc605ed8fa4}{USART\_transmitByte}}(*c);}
+\DoxyCodeLine{00052     c++;}
+\DoxyCodeLine{00053   \}}
+\DoxyCodeLine{00054 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{iesusart_8h_ae976bb87de61f6df169257d5b9fb1415}\label{iesusart_8h_ae976bb87de61f6df169257d5b9fb1415}} 
+\index{iesusart.h@{iesusart.h}!USART\_reset\_clear\_counter@{USART\_reset\_clear\_counter}}
+\index{USART\_reset\_clear\_counter@{USART\_reset\_clear\_counter}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{USART\_reset\_clear\_counter()}{USART\_reset\_clear\_counter()}}
+{\footnotesize\ttfamily void USART\+\_\+reset\+\_\+clear\+\_\+counter (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{iesusart_8h_ab7983221cd707e76af1cbdc605ed8fa4}\label{iesusart_8h_ab7983221cd707e76af1cbdc605ed8fa4}} 
+\index{iesusart.h@{iesusart.h}!USART\_transmitByte@{USART\_transmitByte}}
+\index{USART\_transmitByte@{USART\_transmitByte}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{USART\_transmitByte()}{USART\_transmitByte()}}
+{\footnotesize\ttfamily void USART\+\_\+transmit\+Byte (\begin{DoxyParamCaption}\item[{unsigned char}]{data }\end{DoxyParamCaption})}
+
+
+
+Writes a single byte to the USART transmit buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Byte that shall be transmitted \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{iesusart_8c_source_l00037}{37}} of file \mbox{\hyperlink{iesusart_8c_source}{iesusart.\+c}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00037                                             \{}
+\DoxyCodeLine{00038   \textcolor{comment}{// Wait for empty transmit buffer}}
+\DoxyCodeLine{00039   \textcolor{keywordflow}{while} (!(UCSR0A \& (1 << UDRE0))) \{}
+\DoxyCodeLine{00040     \textcolor{comment}{// Busy waiting! zzzZZZzzzZZZzzz}}
+\DoxyCodeLine{00041   \}}
+\DoxyCodeLine{00042   \textcolor{comment}{// Put data into buffer, send the data}}
+\DoxyCodeLine{00043   UDR0 = data;}
+\DoxyCodeLine{00044 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{iesusart_8h_a9ce6a05c543803935e40ebf1b3465202}\label{iesusart_8h_a9ce6a05c543803935e40ebf1b3465202}} 
+\index{iesusart.h@{iesusart.h}!usart\_buffer\_index@{usart\_buffer\_index}}
+\index{usart\_buffer\_index@{usart\_buffer\_index}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{usart\_buffer\_index}{usart\_buffer\_index}}
+{\footnotesize\ttfamily volatile uint8\+\_\+t usart\+\_\+buffer\+\_\+index\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{iesusart_8c_source_l00011}{11}} of file \mbox{\hyperlink{iesusart_8c_source}{iesusart.\+c}}.
+
+\mbox{\Hypertarget{iesusart_8h_a791391158c043e3601c0a4247fb2d6e0}\label{iesusart_8h_a791391158c043e3601c0a4247fb2d6e0}} 
+\index{iesusart.h@{iesusart.h}!usart\_overflow@{usart\_overflow}}
+\index{usart\_overflow@{usart\_overflow}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{usart\_overflow}{usart\_overflow}}
+{\footnotesize\ttfamily volatile uint8\+\_\+t usart\+\_\+overflow\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{iesusart_8c_source_l00012}{12}} of file \mbox{\hyperlink{iesusart_8c_source}{iesusart.\+c}}.
+
+\mbox{\Hypertarget{iesusart_8h_afd425fbf5d2907a22aabf19e435f9472}\label{iesusart_8h_afd425fbf5d2907a22aabf19e435f9472}} 
+\index{iesusart.h@{iesusart.h}!usart\_rx\_buffer@{usart\_rx\_buffer}}
+\index{usart\_rx\_buffer@{usart\_rx\_buffer}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{usart\_rx\_buffer}{usart\_rx\_buffer}}
+{\footnotesize\ttfamily volatile char usart\+\_\+rx\+\_\+buffer\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{iesusart_8c_source_l00009}{9}} of file \mbox{\hyperlink{iesusart_8c_source}{iesusart.\+c}}.
+
+\mbox{\Hypertarget{iesusart_8h_a56b5e207674ddb3eb207aa8844edf792}\label{iesusart_8h_a56b5e207674ddb3eb207aa8844edf792}} 
+\index{iesusart.h@{iesusart.h}!usart\_str\_valid@{usart\_str\_valid}}
+\index{usart\_str\_valid@{usart\_str\_valid}!iesusart.h@{iesusart.h}}
+\doxysubsubsection{\texorpdfstring{usart\_str\_valid}{usart\_str\_valid}}
+{\footnotesize\ttfamily volatile uint8\+\_\+t usart\+\_\+str\+\_\+valid\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{iesusart_8c_source_l00010}{10}} of file \mbox{\hyperlink{iesusart_8c_source}{iesusart.\+c}}.
+
