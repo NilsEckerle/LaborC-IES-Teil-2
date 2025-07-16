@@ -1,7 +1,7 @@
 # Line Follower Robot - TODO
 
 ## High Priority (P1)
-- [ ] Add ADC for LF
+- [ ] Add ADC for LF `feat/adc-line-follower`
 - [ ] Add interactive config for ADC LF
 
 ## Medium Priority (P2)
