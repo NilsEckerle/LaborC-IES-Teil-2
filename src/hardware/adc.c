@@ -3,6 +3,19 @@
 #include <avr/io.h>
 #include <stdint.h>
 
+
+/**
+ * @brief Initialize a specific ADC pin for input
+ * 
+ * Configures the specified pin as an input for ADC operations by clearing
+ * the corresponding bit in the data direction register.
+ * 
+ * @param pin The ADC pin to initialize (from t_adc_pin enumeration)
+ * 
+ * @note This is a macro that expands to UNSET_BIT(adc_reg, adc_pin_bit)
+ */
+#define _ADC_init_pin(adc_reg, adc_pin_bit) UNSET_BIT(adc_reg, adc_pin_bit)
+
 void ADC_init() {
 	ADC_MUX_STEUER_REG = 0;
 	SET_BIT(ADC_MUX_STEUER_REG, REFS0); // set AVcc as ADC voltage source
@@ -44,12 +57,12 @@ void ADC_init_pin(t_adc_pin pin) {
 	}
 }
 
-uint16_t ADC_get(t_adc_pin channel) {
+uint16_t ADC_get(t_adc_pin pin) {
 	UNSET_BIT(ADC_MUX_STEUER_REG, 0);
 	UNSET_BIT(ADC_MUX_STEUER_REG, 1);
 	UNSET_BIT(ADC_MUX_STEUER_REG, 2);
 	UNSET_BIT(ADC_MUX_STEUER_REG, 3);
-	ADC_MUX_STEUER_REG |= channel; // sets more than just one bit
+	ADC_MUX_STEUER_REG |= pin; // sets more than just one bit
 
 	SET_BIT(ADCSRA, ADSC); // Start read
 	while (IS_BIT_SET(ADCSRA, ADSC)) {
@@ -59,6 +72,10 @@ uint16_t ADC_get(t_adc_pin channel) {
 }
 
 uint16_t ADC_get_avg(t_adc_pin pin, uint8_t nsamples) {
+	if (nsamples == 0) { // prevent division by zero
+		return 0;
+	}
+
 	uint32_t sum = 0;
 	for (uint8_t i = 0; i < nsamples; i++) {
 		sum += ADC_get(pin);
