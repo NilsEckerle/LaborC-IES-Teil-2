@@ -4,6 +4,8 @@
 #include <avr/io.h>
 #include "tools/bit_functions.h"
 
+#define ADC_AVG_WINDOW 10
+
 #define ADC_MUX_STEUER_REG ADMUX
 #define ADC_READ ADCW
 

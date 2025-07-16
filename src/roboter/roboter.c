@@ -10,13 +10,11 @@ void ROBOTER_init(t_roboter *robi) {
 		return;
 	}
 
-	robi->ui8_LF_left_threshold = 255/2;
-	robi->ui8_LF_middle_threshold = 255/2;
-	robi->ui8_LF_right_threshold = 255/2;
+	robi->ui8_LF_left_threshold = 1023/2;
+	robi->ui8_LF_middle_threshold = 1023/2;
+	robi->ui8_LF_right_threshold = 1023/2;
 
 	robi->i8_rounds = 1;
-
-	robi->uc_usart_input = 0;
 
 	TRACE("[ROBOTER_init] roboter initialized.\n");
 

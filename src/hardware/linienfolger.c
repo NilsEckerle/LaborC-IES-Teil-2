@@ -1,3 +1,5 @@
+#include "hardware/adc.h"
+#include "roboter/roboter.h"
 #include "tools/logger.h"
 #include <stdint.h>
 #include "hardware/linienfolger.h"
@@ -18,19 +20,24 @@ void LF_init() {
 }
 
 int8_t LF_get_state(LF_index lf_index) {
+	t_roboter *robi = ROBOTER_get_instance();
+	uint16_t value = 0;
   switch (lf_index) {
   case LF_LEFT:
-    return (LF_LEFT_PIN & (1 << LF_LEFT_BIT)) ? 1 : 0;
+    value = ADC_get_avg(ADC_LF_LEFT, ADC_AVG_WINDOW);
+		break;
   case LF_MIDDLE:
-    return (LF_MIDDLE_PIN & (1 << LF_MIDDLE_BIT)) ? 1 : 0;
+    value = ADC_get_avg(ADC_LF_MIDDLE, ADC_AVG_WINDOW);
+		break;
   case LF_RIGHT:
-    return (LF_RIGHT_PIN & (1 << LF_RIGHT_BIT)) ? 1 : 0;
+    value = ADC_get_avg(ADC_LF_RIGHT, ADC_AVG_WINDOW);
+		break;
   default:
     ERROR("Invalid line follower sensor index: %u\n", lf_index);
-    break;
+		return -1;
   }
 
-  return -1; // return error
+	return (uint8_t)((value >= robi->ui8_LF_left_threshold) ? 1 : 0);
 }
 
 LF_detection_state LF_bitstring_to_state(uint8_t ui_lf_detection_bitstring) {
