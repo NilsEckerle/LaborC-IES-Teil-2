@@ -2,9 +2,10 @@
 #define ADC_H
 
 #include <avr/io.h>
+#include "tools/bit_functions.h"
 
-#define ADC_MUX_DDR
-#define ADC_MUX_STEUER
+#define ADC_MUX_STEUER_REG ADMUX
+#define ADC_READ ADCW
 
 #define ADC0_DDR DDRC
 #define ADC0_PIN PINC
@@ -30,6 +31,7 @@
 #define ADC5_PIN PINC
 #define ADC5_BIT PINC5
 
+#define IS_ADC_MEASURING IS_BIT_SET(ADCSRA, ADSC)
 
 typedef enum ADC_pin {
 	ADC_LF_RIGHT = ADC0_BIT,
@@ -46,8 +48,8 @@ void ADC_init();
 
 void ADC_init_pin(t_adc_pin pin);
 
-uint16_t ADC_get(t_adc_pin channel);
+uint16_t ADC_get(t_adc_pin pin);
 
-uint16_t ADC_get_avg(t_adc_pin channel, uint8_t nsamples);
+uint16_t ADC_get_avg(t_adc_pin pin, uint8_t nsamples);
 
 #endif // !ADC_H
