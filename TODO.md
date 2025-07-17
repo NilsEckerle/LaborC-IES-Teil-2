@@ -25,6 +25,7 @@
         lf.right = LOW;
     }
     ```
+- [ ] drive backwartd onto start after finishing all rounds
 
 ## Low Priority (P3)
 - [ ] State Machine print config - print over USART the state machine config.
