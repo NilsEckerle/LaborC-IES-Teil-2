@@ -22,22 +22,20 @@ void LF_init() {
 int8_t LF_get_state(LF_index lf_index) {
 	t_roboter *robi = ROBOTER_get_instance();
 	uint16_t value = 0;
-  switch (lf_index) {
-  case LF_LEFT:
-    value = ADC_get_avg(ADC_LF_LEFT, ADC_AVG_WINDOW);
-		break;
-  case LF_MIDDLE:
-    value = ADC_get_avg(ADC_LF_MIDDLE, ADC_AVG_WINDOW);
-		break;
-  case LF_RIGHT:
-    value = ADC_get_avg(ADC_LF_RIGHT, ADC_AVG_WINDOW);
-		break;
-  default:
-    ERROR("Invalid line follower sensor index: %u\n", lf_index);
-		return -1;
-  }
-
-	return (uint8_t)((value >= robi->ui8_LF_left_threshold) ? 1 : 0);
+	switch (lf_index) {
+		case LF_LEFT:
+			value = ADC_get_avg(ADC_LF_LEFT, ADC_AVG_WINDOW);
+			return (uint8_t)((value >= robi->ui16_LF_left_threshold) ? 1 : 0);
+		case LF_MIDDLE:
+			value = ADC_get_avg(ADC_LF_MIDDLE, ADC_AVG_WINDOW);
+			return (uint8_t)((value >= robi->ui16_LF_middle_threshold) ? 1 : 0);
+		case LF_RIGHT:
+			value = ADC_get_avg(ADC_LF_RIGHT, ADC_AVG_WINDOW);
+			return (uint8_t)((value >= robi->ui16_LF_right_threshold) ? 1 : 0);
+		default:
+			ERROR("Invalid line follower sensor index: %u\n", lf_index);
+			return -1;
+	}
 }
 
 LF_detection_state LF_bitstring_to_state(uint8_t ui_lf_detection_bitstring) {
