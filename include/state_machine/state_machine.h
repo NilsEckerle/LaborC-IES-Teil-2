@@ -14,19 +14,19 @@ typedef struct state_machine {
 	uint8_t bool_is_new_state;
 } t_state_machine;
 
-int8_t add_state(t_state_machine *inst, t_state *new_state);
+int8_t STATE_MACHINE_add_state(t_state_machine *tp_state_machine, t_state *new_state);
 
-int8_t add_error_state(t_state_machine *inst, t_state *new_state);
+int8_t STATE_MACHINE_add_error_state(t_state_machine *tp_state_machine, t_state *new_state);
 
-int8_t set_start_state(t_state_machine *inst, char *start_state_name);
+int8_t STATE_MACHINE_set_start_state(t_state_machine *tp_state_machine, t_state *start_state);
 
-int8_t set_current_state(t_state_machine *inst, char *new_state_name);
+int8_t STATE_MACHINE_set_current_state(t_state_machine *tp_state_machine, t_state *new_state);
 
-void update(t_state_machine *inst);
+void STATE_MACHINE_update(t_state_machine *tp_state_machine);
 
-void run(t_state_machine *inst);
+void STATE_MACHINE_run(t_state_machine *tp_state_machine);
 
-void STATE_MACHINE_destructor(t_state_machine *inst);
+void STATE_MACHINE_destructor(t_state_machine *tp_state_machine);
 
 t_state_machine *STATE_MACHINE_constructor();
 

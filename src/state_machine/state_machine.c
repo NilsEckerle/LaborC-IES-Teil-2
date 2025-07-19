@@ -8,22 +8,7 @@
 #include <string.h>
 #include <util/delay.h>
 
-static t_state *find_state_by_name(t_state_machine *tp_state_machine,
-                                   const char *cp_state_name_to_find) {
-  for (int i = 0; i < tp_state_machine->arrp_states->ui8_size; i++) {
-    t_state *state =
-        DYN_ARR_get_as_ptr(tp_state_machine->arrp_states, i, t_state *);
-    TRACE("[find_state_by_name] comparing '%s' with '%s'\n", state->unique_name,
-          cp_state_name_to_find);
-    TRACE("%p\n", state);
-    if (0 == strcmp(state->unique_name, cp_state_name_to_find)) { // match found
-      return state;
-    }
-  }
-  return NULL; // no match found
-}
-
-int8_t add_state(t_state_machine *inst, t_state *new_state) {
+int8_t STATE_MACHINE_add_state(t_state_machine *inst, t_state *new_state) {
   // guards
   if (NULL == inst || NULL == new_state) {
     WARNING("[add_state] invalid parameter inst or new_state\n");
@@ -31,34 +16,32 @@ int8_t add_state(t_state_machine *inst, t_state *new_state) {
   }
 
   // check duplicate
-  t_state *state = find_state_by_name(inst, new_state->unique_name);
-  if (NULL != state) {
-    WARNING("[add_state] State '%s' already exist.\n", new_state->unique_name);
-    return 2;
-  }
+	for (int i = 0; i < inst->arrp_states->ui8_size; i++) {
+		if (inst->arrp_states->vpp_data_array[i] == new_state) { // is duplicate
+			WARNING("[add_state] state adress %p is already added", new_state);
+		}
+	}
 
   // add state
   if (DYN_ARR_add(inst->arrp_states, new_state)) {
-    WARNING("[add_state] State '%s' failed to add to dyn_arr!\n",
-            new_state->unique_name);
+    WARNING("[add_state] State adress: '%p' failed to add to dyn_arr!\n", new_state);
     return 3;
   }
 
-  INFO("[add_state] Added state '%s'\n", new_state->unique_name);
+  INFO("[add_state] Added state adress: '%p'\n", new_state);
 
   return 0;
 }
 
-int8_t add_error_state(t_state_machine *inst, t_state *new_state) {
+int8_t STATE_MACHINE_add_error_state(t_state_machine *inst, t_state *new_state) {
   if (NULL == inst || NULL == new_state) {
     WARNING("[add_error_state] invalid parameter inst of new_state\n");
     return 1;
   }
 
-  int8_t rc = add_state(inst, new_state);
+  int8_t rc = STATE_MACHINE_add_state(inst, new_state);
   if (0 != rc) {
-    WARNING("[add_error_state] adding state '%s' didn't work\n",
-            new_state->unique_name);
+    WARNING("[add_error_state] adding state adress: '%p' didn't work\n", new_state);
     return 2;
   }
 
@@ -66,39 +49,38 @@ int8_t add_error_state(t_state_machine *inst, t_state *new_state) {
   return 0;
 }
 
-int8_t set_start_state(t_state_machine *inst, char *start_state_name) {
-  return set_current_state(inst, start_state_name);
+int8_t STATE_MACHINE_set_start_state(t_state_machine *inst, t_state *start_state) {
+  return STATE_MACHINE_set_current_state(inst, start_state);
 }
 
-int8_t set_current_state(t_state_machine *inst, char *new_state_name) {
-	TRACE("[set_current_state] to: %s\n", new_state_name);
+int8_t STATE_MACHINE_set_current_state(t_state_machine *inst, t_state *tp_new_state) {
+	if (inst == NULL || tp_new_state == NULL) {
+		return 1;
+	}
   inst->bool_is_new_state = 1;
-  inst->tp_current_state = find_state_by_name(inst, new_state_name);
-  if (NULL == inst->tp_current_state) {
-    inst->tp_current_state = inst->tp_error_state;
-    FATAL("[set_current_state] State '%s' not found.\n", new_state_name);
-    return 1;
-  }
+  inst->tp_current_state = tp_new_state;
+
+	TRACE("[set_current_state] to adress: %p\n", tp_new_state);
 
   return 0;
 }
 
-void update(t_state_machine *inst) {
-  t_state *tp_state = inst->tp_current_state;
+void STATE_MACHINE_update(t_state_machine *tp_state_machine) {
+  t_state *tp_state = tp_state_machine->tp_current_state;
 
-  INFO_SPAM("[run] running state %p, %s\n", tp_state, tp_state->unique_name);
+  INFO_SPAM("[run] running state adress: %p\n", tp_state);
 
-  if (inst->bool_is_new_state) {
-    inst->bool_is_new_state = 0;
-    inst->tp_current_state->on_entry(inst->tp_current_state);
+  if (tp_state_machine->bool_is_new_state) {
+    tp_state_machine->bool_is_new_state = 0;
+    tp_state_machine->tp_current_state->on_entry(tp_state_machine->tp_current_state);
   }
   tp_state->on_update(tp_state);
-  tp_state->check_edges(tp_state, inst);
+  STATE_check_edges(tp_state, tp_state_machine);
 }
 
-void run(t_state_machine *inst) {
+void STATE_MACHINE_run(t_state_machine *inst) {
   while (1) {
-    update(inst);
+    STATE_MACHINE_update(inst);
   }
 }
 
