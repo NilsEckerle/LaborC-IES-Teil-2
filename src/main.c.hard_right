@@ -1,0 +1,24 @@
+// #define LOG_LEVEL LOG_LEVEL_TRACE
+
+#include "hardware/engine.h"
+#include "hardware/shiftregister.h"
+#include "roboter/states_drive.h"
+
+
+#include "tools/iesusart.h"
+#include "tools/logger.h"
+
+#include <avr/io.h>
+#include <stdint.h>
+
+int main() {
+	USART_init(UBRR_SETTING);
+	INFO("USART_init\n");
+
+	SHIFT_init();
+	ENGINE_init();
+
+	hard_right_on_entry(NULL);
+
+	return 0;
+}

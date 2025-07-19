@@ -153,15 +153,16 @@ void hard_right_on_entry(t_state*inst __attribute__((unused))) {
 	SHIFT_push_state((LF_detection_state)LF_R);
 	INFO("hard right\n");
 
-	ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255/4));		// set to 3/4 speed
-	ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, ~(255/8));		// set to 7/8 speed
+	ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255/8));	// set to 7/8 speed
+	ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, ~(255/4));		// set to 3/4 speed
 
 	// Left motors forward
 	SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
 	UNSET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
-	// Right motors forward
-	UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
-	SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
+
+	// Right motors backwards
+	SET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
+	UNSET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
 	return;
 }
 

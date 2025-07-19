@@ -3,6 +3,6 @@
 
 #include "state_machine/state.h"
 
-uint8_t condition_allways(t_state *inst __attribute__((unused)));
+uint8_t condition_allways(t_state *inst __attribute__((unused)), void *vp_dto);
 
 #endif // CONDITIONS_GENERAL_H
