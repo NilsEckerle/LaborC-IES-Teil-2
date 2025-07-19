@@ -10,9 +10,16 @@ void ROBOTER_init(t_roboter *robi) {
 		return;
 	}
 
-	robi->ui8_LF_left_threshold = 1023/2;
-	robi->ui8_LF_middle_threshold = 1023/2;
-	robi->ui8_LF_right_threshold = 1023/2;
+	robi->ui16_LF_left_threshold = 1023/2;
+	robi->ui16_LF_middle_threshold = 1023/2;
+	robi->ui16_LF_right_threshold = 1023/2;
+
+	// TODO: testing - delete this!
+	robi->ui16_LF_left_threshold = 200;
+	robi->ui16_LF_middle_threshold = 200;
+	robi->ui16_LF_right_threshold = 200;
+
+	robi->ui8_LF_ADC_avg_samples = 10;
 
 	robi->i8_rounds = 1;
 
