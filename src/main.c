@@ -1,14 +1,18 @@
-// #define LOG_LEVEL LOG_LEVEL_INFO
+// #define LOG_LEVEL LOG_LEVEL_TRACE
 #include "state_machine/state.h"
 #include "state_machine/state_machine.h"
+
 #include "roboter/states_general.h"
 #include "roboter/states_config.h"
 #include "roboter/states_drive.h"
+
 #include "roboter/conditions_general.h"
 #include "roboter/conditions_LF.h"
 #include "roboter/conditions_clock.h"
 #include "roboter/conditions_roboter.h"
 #include "roboter/conditions_USART.h"
+
+#include "roboter/execute_config.h"
 
 #include "tools/iesusart.h"
 #include "tools/logger.h"
@@ -35,6 +39,10 @@ t_state_machine *configure_state_machine() {
 			"config_rounds", 
 			config_rounds_on_entry, 
 			config_rounds_on_update);
+	t_state *t_state_config_lf_static = STATE_constructor(
+			"config_lf_static", 
+			config_lf_static_on_entry,
+			config_lf_static_on_update);
 	t_state *t_state_wait_start = STATE_constructor(
 			"wait_start", 
 			wait_start_on_entry, 
@@ -108,11 +116,18 @@ t_state_machine *configure_state_machine() {
 	// config
 	STATE_add_edge(t_state_config, condition_USART_r, t_state_config_rounds->unique_name);
 	STATE_add_edge(t_state_config, condition_USART_s, t_state_wait_start->unique_name);
+	STATE_add_edge(t_state_config, condition_USART_lfconfigstatic, t_state_config_lf_static->unique_name);
 	STATE_add_edge(t_state_config, condition_USART_helper_clear_invalid_input, t_state_error->unique_name);
 	// config rounds
 	STATE_add_edge(t_state_config_rounds, condition_USART_c, t_state_config->unique_name);
 	STATE_add_edge(t_state_config_rounds, condition_USART_isdigit, t_state_config_rounds->unique_name);
 	STATE_add_edge(t_state_config_rounds, condition_USART_helper_clear_invalid_input, t_state_error->unique_name);
+	// config lf static
+	STATE_add_edge(t_state_config_lf_static, condition_USART_c, t_state_config->unique_name);
+	STATE_add_edge_with_execute(t_state_config_lf_static, condition_USART_lnum, execute_set_robi_lf_l_threshold, t_state_config_rounds->unique_name);
+	STATE_add_edge_with_execute(t_state_config_lf_static, condition_USART_mnum, execute_set_robi_lf_m_threshold, t_state_config_rounds->unique_name);
+	STATE_add_edge_with_execute(t_state_config_lf_static, condition_USART_rnum, execute_set_robi_lf_r_threshold, t_state_config_rounds->unique_name);
+	STATE_add_edge(t_state_wait_start, condition_USART_helper_clear_invalid_input, t_state_error->unique_name);
 	// wait start
 	STATE_add_edge(t_state_wait_start, condition_USART_s, t_state_drive_throught->unique_name);
 	STATE_add_edge(t_state_wait_start, condition_USART_c, t_state_config->unique_name);
@@ -169,6 +184,7 @@ t_state_machine *configure_state_machine() {
 
 	add_state(state_machine, t_state_config);
 	add_state(state_machine, t_state_config_rounds);
+	add_state(state_machine, t_state_config_lf_static);
 	add_state(state_machine, t_state_wait_start);
 
 	add_state(state_machine, t_state_drive_throught);
