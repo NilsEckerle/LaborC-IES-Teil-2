@@ -31,6 +31,10 @@ t_state_machine *configure_state_machine() {
 
 	// init states
 	// config
+	t_state *t_state_init_robi = STATE_constructor(
+			init_robi_on_entry, 
+			init_robi_on_update);
+
 	t_state *t_state_config = STATE_constructor(
 			config_on_entry, 
 			config_on_update);
@@ -40,14 +44,20 @@ t_state_machine *configure_state_machine() {
 	t_state *t_state_config_lf_static = STATE_constructor(
 			config_lf_static_on_entry,
 			config_lf_static_on_update);
+	t_state *t_state_config_lf_static_left = STATE_constructor(
+			nothing_on_entry,
+			nothing_on_entry);
+	t_state *t_state_config_lf_static_middle = STATE_constructor(
+			nothing_on_entry,
+			nothing_on_entry);
+	t_state *t_state_config_lf_static_right = STATE_constructor(
+			nothing_on_entry,
+			nothing_on_entry);
 	t_state *t_state_wait_start = STATE_constructor(
 			wait_start_on_entry, 
 			wait_start_on_update);
 
 	// driving
-	t_state *t_state_init_robi = STATE_constructor(
-			init_robi_on_entry, 
-			init_robi_on_update);
 	t_state *t_state_check_for_start = STATE_constructor(
 			check_is_start_field_on_entry, 
 			check_is_start_field_on_update);
@@ -95,7 +105,7 @@ t_state_machine *configure_state_machine() {
 
 	// configure states
 	// init
-	STATE_add_edge( t_state_init_robi, condition_allways, t_state_config);
+	STATE_add_edge( t_state_init_robi, condition_allways, t_state_wait_start);
 
 	// config
 	STATE_add_edge(t_state_config, condition_USART_r, t_state_config_rounds);
@@ -108,10 +118,22 @@ t_state_machine *configure_state_machine() {
 	STATE_add_edge(t_state_config_rounds, condition_USART_helper_clear_invalid_input, t_state_error);
 	// config lf static
 	STATE_add_edge(t_state_config_lf_static, condition_USART_c, t_state_config);
-	STATE_add_edge_with_execute(t_state_config_lf_static, condition_USART_lnum, execute_set_robi_lf_l_threshold, t_state_config_rounds);
-	STATE_add_edge_with_execute(t_state_config_lf_static, condition_USART_mnum, execute_set_robi_lf_m_threshold, t_state_config_rounds);
-	STATE_add_edge_with_execute(t_state_config_lf_static, condition_USART_rnum, execute_set_robi_lf_r_threshold, t_state_config_rounds);
+	STATE_add_edge(t_state_config_lf_static, condition_USART_l, t_state_config_lf_static_left);
+	STATE_add_edge(t_state_config_lf_static, condition_USART_m, t_state_config_lf_static_middle);
+	STATE_add_edge(t_state_config_lf_static, condition_USART_r, t_state_config_lf_static_right);
 	STATE_add_edge(t_state_wait_start, condition_USART_helper_clear_invalid_input, t_state_error);
+	// config lf static left
+	STATE_add_edge(t_state_config_lf_static_left, condition_USART_c, t_state_config_lf_static);
+	STATE_add_edge_with_execute(t_state_config_lf_static_left, condition_USART_isdigit, execute_set_robi_lf_l_threshold, t_state_config_lf_static);
+	STATE_add_edge(t_state_config_lf_static_left, condition_USART_helper_clear_invalid_input, t_state_config_lf_static_left);
+	// config lf static middle
+	STATE_add_edge(t_state_config_lf_static_middle, condition_USART_c, t_state_config_lf_static);
+	STATE_add_edge_with_execute(t_state_config_lf_static_middle, condition_USART_isdigit, execute_set_robi_lf_m_threshold, t_state_config_lf_static);
+	STATE_add_edge(t_state_config_lf_static_middle,condition_USART_helper_clear_invalid_input, t_state_config_lf_static_middle);
+	// config lf static right
+	STATE_add_edge(t_state_config_lf_static_right, condition_USART_c, t_state_config_lf_static);
+	STATE_add_edge_with_execute(t_state_config_lf_static_right, condition_USART_isdigit, execute_set_robi_lf_r_threshold, t_state_config_lf_static);
+	STATE_add_edge(t_state_config_lf_static_right, condition_USART_helper_clear_invalid_input, t_state_config_lf_static_right);
 	// wait start
 	STATE_add_edge(t_state_wait_start, condition_USART_s, t_state_drive_throught);
 	STATE_add_edge(t_state_wait_start, condition_USART_c, t_state_config);
@@ -149,7 +171,7 @@ t_state_machine *configure_state_machine() {
 
 	// stop
 	STATE_add_edge(t_state_stop, condition_has_rounds, t_state_drive_throught);
-	STATE_add_edge(t_state_stop, condition_has_no_rounds, t_state_config);
+	STATE_add_edge(t_state_stop, condition_has_no_rounds, t_state_wait_start);
 
 	INFO("[configure_state_machine] all edges added\n");
 
@@ -169,6 +191,9 @@ t_state_machine *configure_state_machine() {
 	STATE_MACHINE_add_state(state_machine, t_state_config);
 	STATE_MACHINE_add_state(state_machine, t_state_config_rounds);
 	STATE_MACHINE_add_state(state_machine, t_state_config_lf_static);
+	STATE_MACHINE_add_state(state_machine, t_state_config_lf_static_left);
+	STATE_MACHINE_add_state(state_machine, t_state_config_lf_static_middle);
+	STATE_MACHINE_add_state(state_machine, t_state_config_lf_static_right);
 	STATE_MACHINE_add_state(state_machine, t_state_wait_start);
 
 	STATE_MACHINE_add_state(state_machine, t_state_drive_throught);

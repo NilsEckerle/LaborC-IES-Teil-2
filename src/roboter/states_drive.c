@@ -174,19 +174,19 @@ void check_is_start_field_on_entry(t_state*inst __attribute__((unused))) {
 	INFO("check is start\n");
 	*inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
 
-	SHIFT_push_state((LF_detection_state)LF_M);
-	ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255/4));		// set to 3/4 speed
-	ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, ~(255/4));	// set to 3/4 speed
-																											// 1111 1111 = 255
-																											// 0011 1111 = 63  = 255/4
-																											// 1100 0000 = 192 = ~63
+// 	SHIFT_push_state((LF_detection_state)LF_M);
+// 	ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255/4));		// set to 3/4 speed
+// 	ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, ~(255/4));	// set to 3/4 speed
+// 																											// 1111 1111 = 255
+// 																											// 0011 1111 = 63  = 255/4
+// 																											// 1100 0000 = 192 = ~63
 																											
-  // Left motors forward
-	SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
-	UNSET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
-	// Right motors forward
-	UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
-	SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
+//   // Left motors forward
+// 	SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
+// 	UNSET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
+// 	// Right motors forward
+// 	UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
+// 	SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
 	return;
 }
 

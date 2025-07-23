@@ -36,6 +36,45 @@ uint8_t condition_USART_r(t_state *inst __attribute__((unused)), void *vp_dto __
   return 0;
 }
 
+uint8_t condition_USART_m(t_state *inst __attribute__((unused)), void *vp_dto __attribute__((unused))) {
+  TRACE("[condition_USART_m] Entry - checking for 'm' or 'M'\n");
+
+  // Only check if we actually have a complete string
+  if (!USART_has_string()) {
+    TRACE("[condition_USART_m] No complete string available\n");
+    return 0;
+  }
+
+  const char *c = USART_get_string();
+  if (NULL != c && (strcmp(c, "m") == 0 || strcmp(c, "M") == 0)) {
+    TRACE("[condition_USART_m] Match found! String='%s' - consuming\n", c);
+    USART_consume_string();
+    return 1;
+  }
+  TRACE("[condition_USART_m] No match. String='%s'\n", c ? c : "NULL");
+  return 0;
+}
+
+uint8_t condition_USART_l(t_state *inst __attribute__((unused)), void *vp_dto __attribute__((unused))) {
+  TRACE("[condition_USART_l] Entry - checking for 'l' or 'L'\n");
+
+  // Only check if we actually have a complete string
+  if (!USART_has_string()) {
+    TRACE("[condition_USART_l] No complete string available\n");
+    return 0;
+  }
+
+  const char *c = USART_get_string();
+  if (NULL != c && (strcmp(c, "l") == 0 || strcmp(c, "L") == 0)) {
+    TRACE("[condition_USART_l] Match found! String='%s' - consuming\n", c);
+    USART_consume_string();
+    return 1;
+  }
+  TRACE("[condition_USART_l] No match. String='%s'\n", c ? c : "NULL");
+  return 0;
+}
+
+
 uint8_t condition_USART_lfconfigstatic(t_state *inst __attribute__((unused)), void *vp_dto __attribute__((unused))) {
   TRACE("[condition_USART_lf-config-static] Entry - checking for 'lfs'\n");
 
@@ -183,16 +222,10 @@ uint8_t condition_USART_isdigit(t_state *inst __attribute__((unused)), void *vp_
       break;
     }
   }
+
+  ROBOTER_set_dto(atoi(str));
+
   
-  if (is_digit) {
-    int value = atoi(str);
-    UI("rounds set to: %d\n", value);
-    ROBOTER_get_instance()->i8_rounds = value;
-    INFO("[condition_USART_isdigit] Valid number found! Consuming string.\n");
-    USART_consume_string();
-  } else {
-    TRACE("[condition_USART_isdigit] Not a valid number\n");
-  }
   
   return is_digit;
 }

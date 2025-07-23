@@ -1,4 +1,5 @@
 #include "state_machine/state.h"
+#include "roboter/roboter.h"
 #include "state_machine/state_machine.h"
 #include <stdint.h>
 #include <stdlib.h>
@@ -96,7 +97,7 @@ void STATE_check_edges(t_state *tp_state, t_state_machine *state_machine) {
       if (rc != 0) { // state doesnt exist
         FATAL("check_edges State %s does not exist.\n", edge->state);
         STATE_MACHINE_set_current_state(state_machine, state_machine->tp_error_state);
-        edge->fp_execute_on_transition(tp_state, edge->vp_dto);
+        edge->fp_execute_on_transition(tp_state, ROBOTER_get_instance()->vp_dto);
       }
       return;
     }

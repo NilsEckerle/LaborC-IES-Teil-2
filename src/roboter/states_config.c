@@ -47,21 +47,28 @@ void config_rounds_on_update(t_state *inst __attribute__((unused))) {
 }
 
 void config_lf_static_on_entry(t_state *inst __attribute__((unused))) {
-  INFO("config_lf_static_rounds");
-  UI("l {num} - set threshold of left lf\n \
-			m {num} - set threshold of middle lf\n \
-			r {num} - set threshold of right lf\n");
+  *inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
   return;
 }
 
 void config_lf_static_on_update(t_state *inst __attribute__((unused))) {
 	// show LF state in shift register to see what you configure
 	SHIFT_push_state(LF_get_states());
-	UI("Left  : '%d' - Middle: '%d' - Right : '%d'\n", 
-			ADC_get_avg(ADC_LF_LEFT, 10),
-			ADC_get_avg(ADC_LF_MIDDLE, 10),
-			ADC_get_avg(ADC_LF_RIGHT, 10)
-			);
+  
+  uint32_t delay = 1000;
+  if (CLOCK_get_milliseconds() - *inst->ui32p_state_entry_time_ms > delay) {
+    INFO("config_lf_static_rounds");
+    UI("COMMANDS:\n");
+    UI("\tl {num} - set threshold of left lf\n");
+    UI("\tm {num} - set threshold of middle lf\n");
+    UI("\tr {num} - set threshold of right lf\n\n");
+    UI("Left  : '%d' - Middle: '%d' - Right : '%d'\n\n", 
+        ADC_get_avg(ADC_LF_LEFT, 10),
+        ADC_get_avg(ADC_LF_MIDDLE, 10),
+        ADC_get_avg(ADC_LF_RIGHT, 10)
+        );
+    *inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
+      }
 	return;
 }
 
