@@ -222,16 +222,10 @@ uint8_t condition_USART_isdigit(t_state *inst __attribute__((unused)), void *vp_
       break;
     }
   }
+
+  ROBOTER_set_dto(atoi(str));
+
   
-  if (is_digit) {
-    int value = atoi(str);
-    UI("rounds set to: %d\n", value);
-    ROBOTER_get_instance()->i8_rounds = value;
-    INFO("[condition_USART_isdigit] Valid number found! Consuming string.\n");
-    USART_consume_string();
-  } else {
-    TRACE("[condition_USART_isdigit] Not a valid number\n");
-  }
   
   return is_digit;
 }
