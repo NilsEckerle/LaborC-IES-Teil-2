@@ -1,10 +1,11 @@
 # Line Follower Robot - TODO
 
 ## High Priority (P1)
-- [ ] Add interactive config for ADC LF
+- [ ] read Arbeitsblatt and correct Lastenhaeft
+- [ ] make plan in which order i do the Lastenhaeft
+- [ ] Change UI() - make it better
 
 ## Medium Priority (P2)
-- [ ] Change UI() - make it better
 - [ ] clean main.c file - helper functions for state machine config
 - [ ] Add documentation where it is missing
 - [ ] document how state machine works in doxygen (not code)
@@ -34,3 +35,4 @@
 
 ## Completed
 - [x] Add ADC for LF `feat/adc-line-follower`
+- [x] Add interactive config for ADC LF `feat/running-robot-lf-config`
