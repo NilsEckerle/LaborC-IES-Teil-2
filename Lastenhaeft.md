@@ -38,6 +38,7 @@ abhaengig von position nachrichten ausgeben.
       wenn entering
 
 **PAUSE:**
+- [ ] Lauflicht 10 Hz
 - [ ] Print: `I am in state PAUSING .... zzzZZZzzzZZZzzz .... wake me up with P
   again.` with 1 Hz
 
@@ -49,4 +50,44 @@ abhaengig von position nachrichten ausgeben.
 ## Print ausgaben
 - [ ] Alle Prints mit doppelten Zeilenumbruch
 - [ ] Carriage Return muss das letzte zeichen sein.
+
+## Softwarequalitaet
+
+### Coding conventions
+- [ ] Space indenting, no tabs (Nope, wont do)
+- [ ] only english
+- [ ] Sinnvol modularisieren
+- [ ] no magic numbers in .c files!!!
+
+### Files
+- [ ] files and functions kurz halten
+- [ ] eine datei `robot_settings.h` for convenient configuration
+- [ ] eine datei `serial_messages.h` for all print messages
+
+### INP/OUTP/PROC
+Input / Output / Proccess ist gewuensch, da ich eine State machine baue werde
+ich diese Struktur nicht umsetzen.
+
+## Dokumentation
+auf english
+- [ ] Start page for a rough complete project overview
+- [ ] on Start page explain the build proccess
+- [ ] Bereitgestellten Sourcecode selbstaendig dokumentieren und auf Conventions
+      anpassen
+- [ ] doxygen HTML!
+- [ ] docu build per makefile
+- [ ] Start page image of Robi
+- [ ] keinen doku ordner mit abgeben, der wird generiert.
+- [ ] doxyfile und Bilder in ordner `res`
+- [ ] auf startseite zusatzfunktionen anpreisen!
+
+## Build system
+Makefile und nichts anderes!!!
+- [ ] `make` ohne zusatz muss builden und flashen
+- [ ] relative pfade
+
+
+
+
+
 

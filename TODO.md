@@ -1,12 +1,17 @@
 # Line Follower Robot - TODO
 
 ## High Priority (P1)
-- [ ] read Arbeitsblatt and correct Lastenhaeft
-- [ ] make plan in which order i do the Lastenhaeft
+- [ ] create `roboter_settings.h` and create `serial_messages.h` and use them
+- [ ] set round default to 3 rounds
+- [ ] set start steuer command to `S`
+- [ ] set help steuer command to `h`
+- [ ] clean main.c file - helper functions for state machine config
+- [ ] setup `P` steuer command
 - [ ] Change UI() - make it better
+- [ ] check Lastenhaeft for new tasks and mark completed
+
 
 ## Medium Priority (P2)
-- [ ] clean main.c file - helper functions for state machine config
 - [ ] Add documentation where it is missing
 - [ ] document how state machine works in doxygen (not code)
 - [ ] chek if LF can be implemented with bit fields.
@@ -36,3 +41,5 @@
 ## Completed
 - [x] Add ADC for LF `feat/adc-line-follower`
 - [x] Add interactive config for ADC LF `feat/running-robot-lf-config`
+- [x] read Arbeitsblatt and correct Lastenhaeft
+- [x] make plan in which order i do the Lastenhaeft
