@@ -3,8 +3,6 @@
 
 #include "state_machine/state.h"
 
-#define START_FIELD_DELAY_MS 150
-
 void drive_logic_super_state_on_entry(t_state*inst __attribute__((unused)));
 
 void drive_logic_super_state_on_update(t_state*inst __attribute__((unused)));
