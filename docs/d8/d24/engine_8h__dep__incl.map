@@ -1,7 +1,0 @@
-<map id="include/hardware/engine.h" name="include/hardware/engine.h">
-<area shape="rect" id="node1" title=" " alt="" coords="245,5,440,32"/>
-<area shape="rect" id="node2" href="$dd/d56/engine_8c.html" title=" " alt="" coords="5,87,171,114"/>
-<area shape="rect" id="node3" href="$d5/dd0/states__config_8c.html" title=" " alt="" coords="195,80,331,121"/>
-<area shape="rect" id="node4" href="$d8/dfa/states__drive_8c.html" title=" " alt="" coords="355,80,491,121"/>
-<area shape="rect" id="node5" href="$dc/d94/states__general_8c.html" title=" " alt="" coords="515,80,651,121"/>
-</map>

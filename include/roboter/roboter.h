@@ -2,6 +2,7 @@
 #define ROBOTER_H
 
 #include <stdint.h>
+#include "tools/logger.h"
 
 typedef struct roboter {
 	uint16_t ui16_LF_left_threshold;
@@ -15,16 +16,15 @@ typedef struct roboter {
 
 void ROBOTER_init(t_roboter *robi);
 t_roboter *ROBOTER_get_instance();
+
 #define ROBOTER_set_dto(t_data) do { \
 	t_roboter *tp_robi = ROBOTER_get_instance(); \
 	if (tp_robi->vp_dto != NULL) { \
 		free(tp_robi->vp_dto); \
 		tp_robi->vp_dto = NULL; \
 	} \
-	void *vp_data = malloc(sizeof(typeof(t_data))); \
-	typeof(t_data) t_data_copy = (t_data); \
-	memcpy(vp_data, &t_data_copy, sizeof(typeof(t_data_copy))); \
-	tp_robi = vp_data; \
+	tp_robi->vp_dto = malloc(sizeof(t_data)); \
+	*(uint8_t *)tp_robi->vp_dto = t_data; \
 } while (0)
 
 #endif // !ROBOTER_H

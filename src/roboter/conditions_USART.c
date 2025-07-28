@@ -223,9 +223,10 @@ uint8_t condition_USART_isdigit(t_state *inst __attribute__((unused)), void *vp_
     }
   }
 
-  ROBOTER_set_dto(atoi(str));
+	TRACE("[condition_USART_isdigit] str: %s", str);
 
-  
-  
+  ROBOTER_set_dto(atoi(str));
+	USART_consume_string();
+
   return is_digit;
 }
