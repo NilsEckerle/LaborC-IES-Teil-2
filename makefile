@@ -57,7 +57,7 @@ clean:
 	@rm -rf $(BUILD_DIR)
 
 flash_simulide: build
-	avrdude -c arduino -p atmega328p -P $(SIMULIDE_DEVICE_FILE) -U flash:w:bin/firmware.hex
+	avrdude -D -c arduino -p atmega328p -P $(SIMULIDE_DEVICE_FILE) -U flash:w:bin/firmware.hex
 
 flash_arduino: build
 	avrdude -c arduino -p atmega328p -P $(ARDUINO_DEVICE_FILE) -b 115200 -U flash:w:bin/firmware.hex
