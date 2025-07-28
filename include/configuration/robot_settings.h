@@ -10,31 +10,32 @@
 
 // Roboter
 
-/** default rounds */
+/** @brief default rounds */
 #define SETTING_DEFAULT_ROUNDS 3
 
 // Line Follower
 
-/** Count of samples taken to calculate LF average */
+/** @brief Count of samples taken to calculate LF average */
 #define SETTING_LF_AVG_SAMPLES 10
 
-/** Default threshold for the left line follower
+/** @brief Default threshold for the left line follower
  * @note range 0-1024
  */
 #define SETTING_LF_LEFT_DEFAULT_THRESHOLD 512
 
-/** Default threshold for the middle line follower
+/** @brief Default threshold for the middle line follower
  * @note range 0-1024
  */
 #define SETTING_LF_MIDDLE_DEFAULT_THRESHOLD 512
 
-/** Default threshold for the right line follower
+/** @brief Default threshold for the right line follower
  * @note range 0-1024
  */
 #define SETTING_LF_RIGHT_DEFAULT_THRESHOLD 512
 
 // Driving
 
+/** @brief Delay before start field is detected to prevent detection in corners */
 #define SETTING_START_FIELD_DELAY_MS 170
 
 #endif // !ROBOT_SETTINGS_H
