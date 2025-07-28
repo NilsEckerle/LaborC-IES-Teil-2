@@ -1,5 +1,6 @@
 #include "roboter/roboter.h"
 
+#include "configuration/robot_settings.h"
 #include "tools/logger.h"
 
 static t_roboter g_t_roboter_instance;
@@ -10,18 +11,13 @@ void ROBOTER_init(t_roboter *robi) {
 		return;
 	}
 
-	robi->ui16_LF_left_threshold = 1023/2;
-	robi->ui16_LF_middle_threshold = 1023/2;
-	robi->ui16_LF_right_threshold = 1023/2;
+	robi->ui16_LF_left_threshold = SETTING_LF_LEFT_DEFAULT_THRESHOLD;
+	robi->ui16_LF_middle_threshold = SETTING_LF_MIDDLE_DEFAULT_THRESHOLD;
+	robi->ui16_LF_right_threshold = SETTING_LF_MIDDLE_DEFAULT_THRESHOLD;
 
-	// TODO: testing - delete this!
-	robi->ui16_LF_left_threshold = 300;
-	robi->ui16_LF_middle_threshold = 300;
-	robi->ui16_LF_right_threshold = 400;
+	robi->ui8_LF_ADC_avg_samples = SETTING_LF_AVG_SAMPLES;
 
-	robi->ui8_LF_ADC_avg_samples = 10;
-
-	robi->i8_rounds = 1;
+	robi->i8_rounds = SETTING_DEFAULT_ROUNDS;
 
 	robi->vp_dto = NULL;
 
