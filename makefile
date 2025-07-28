@@ -68,6 +68,9 @@ clean_documentation:
 documentation:
 	@mkdir -p $(DOCS_DIR)
 	cd res && doxygen Doxyfile
+
+show_documentation: documentation
+	cd docs && firefox index.html
 	
 clean_all: clean clean_documentation
 
