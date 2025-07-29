@@ -60,9 +60,9 @@ abhaengig von position nachrichten ausgeben.
 - [ ] no magic numbers in .c files!!!
 
 ### Files
-- [ ] files and functions kurz halten
-- [ ] eine datei `robot_settings.h` for convenient configuration
-- [ ] eine datei `serial_messages.h` for all print messages
+- files and functions kurz halten
+- [x] eine datei `robot_settings.h` for convenient configuration
+- [x] eine datei `serial_messages.h` for all print messages
 
 ### INP/OUTP/PROC
 Input / Output / Proccess ist gewuensch, da ich eine State machine baue werde
