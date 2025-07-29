@@ -70,15 +70,6 @@ t_state_machine *configure_state_machine() {
   t_state *t_state_drive_logic_super_state = STATE_constructor(
       drive_logic_super_state_on_entry, drive_logic_super_state_on_update);
 
-  if (NULL == t_state_init_robi || NULL == t_state_forward ||
-      NULL == t_state_backwards || NULL == t_state_left ||
-      NULL == t_state_hard_left || NULL == t_state_right ||
-      NULL == t_state_hard_right || NULL == t_state_stop ||
-      NULL == t_state_error) {
-    FATAL("Failed to construct state!\n");
-    return NULL;
-  }
-
   INFO("[configure_state_machine] all states constructed\n");
 
   // configure states
@@ -136,7 +127,7 @@ t_state_machine *configure_state_machine() {
                  condition_USART_helper_clear_invalid_input,
                  t_state_config_lf_static_right);
   // waiting
-  STATE_add_edge(t_state_waiting, condition_USART_S, t_state_drive_throught);
+  STATE_add_edge_with_execute(t_state_waiting, condition_USART_S, execute_print_fresh_start, t_state_drive_throught);
   STATE_add_edge_with_execute(t_state_waiting, condition_USART_questionmark,
                               execute_print_waiting_help, t_state_waiting);
   STATE_add_edge(t_state_waiting, condition_USART_C, t_state_config);

@@ -30,6 +30,7 @@ void drive_through_start_on_entry(t_state *inst __attribute__((unused))) {
 
   INFO("drive_through_start\n");
 
+
   ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255 / 4)); // set to 3/4 speed
   ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT,
                         ~(255 / 4)); // set to 3/4 speed
@@ -172,6 +173,7 @@ void check_is_start_field_on_entry(t_state *inst __attribute__((unused))) {
   INFO("check is start\n");
   *inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
 
+
   // 	SHIFT_push_state((LF_detection_state)LF_M);
   // 	ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255/4));		// set
   // to 3/4 speed 	ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, ~(255/4));	// set
@@ -209,6 +211,21 @@ void stop_on_entry(t_state *inst __attribute__((unused))) {
   // Stop right motors
   UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
   UNSET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
+
+	// print special round ending
+	t_roboter *tp_robi = ROBOTER_get_instance();
+	switch (tp_robi->i8_current_round) { // when round finished
+		case 1:
+			UI(MSG_ROUND_1_COMPLETE);
+			break;
+		case 2:
+			UI(MSG_ROUND_2_COMPLETE);
+			break;
+		case 3:
+			UI(MSG_ROUND_3_COMPLETE);
+			break;
+	}
+
   return;
 }
 
