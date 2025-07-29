@@ -35,7 +35,27 @@
 
 // Driving
 
-/** @brief Delay before start field is detected to prevent detection in corners */
+/** @brief Delay before start field is detected to prevent detection in corners
+ */
 #define SETTING_START_FIELD_DELAY_MS 170
+
+// Engine
+
+#define SETTING_ENGINE_PWM_POWER_MAX (255)
+
+#define SETTING_ENGINE_PWM_POWER_FORWARD                                       \
+  ((uint8_t)(SETTING_ENGINE_PWM_POWER_MAX * 7 / 8))
+
+#define SETTING_ENGINE_PWM_POWER_BACKWARD                                      \
+  ((uint8_t)(SETTING_ENGINE_PWM_POWER_MAX * 7 / 8))
+
+#define SETTING_ENGINE_PWM_POWER_TURN_FORWARD                                  \
+  ((uint8_t)(SETTING_ENGINE_PWM_POWER_MAX * 7 / 8))
+
+#define SETTING_ENGINE_PWM_POWER_TURN_FORWARD_LOW                              \
+  ((uint8_t)(SETTING_ENGINE_PWM_POWER_MAX * 1 / 16))
+
+#define SETTING_ENGINE_PWM_POWER_TURN_BACKWARD                                 \
+  ((uint8_t)(SETTING_ENGINE_PWM_POWER_MAX * 3 / 4))
 
 #endif // !ROBOT_SETTINGS_H

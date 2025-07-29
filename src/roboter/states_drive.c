@@ -6,6 +6,7 @@
 #include "roboter/roboter.h"
 #include "tools/bit_functions.h"
 
+#include "configuration/robot_settings.h"
 #include "configuration/serial_messages.h"
 
 // #define LOG_LEVEL LOG_LEVEL_INFO
@@ -30,13 +31,8 @@ void drive_through_start_on_entry(t_state *inst __attribute__((unused))) {
 
   INFO("drive_through_start\n");
 
-
-  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255 / 4)); // set to 3/4 speed
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT,
-                        ~(255 / 4)); // set to 3/4 speed
-                                     // 1111 1111 = 255
-                                     // 0011 1111 = 63  = 255/4
-                                     // 1100 0000 = 192 = ~63
+  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_FORWARD);
+  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_FORWARD);
 
   // Left motors forward
   SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -56,12 +52,8 @@ void forward_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_M);
   INFO("forward\n");
 
-  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255 / 4)); // set to 3/4 speed
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT,
-                        ~(255 / 4)); // set to 3/4 speed
-                                     // 1111 1111 = 255
-                                     // 0011 1111 = 63  = 255/4
-                                     // 1100 0000 = 192 = ~63
+  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_FORWARD);
+  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_FORWARD);
 
   // Left motors forward
   SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -78,12 +70,8 @@ void backwards_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_M);
   INFO("backwards\n");
 
-  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255 / 4)); // set to 3/4 speed
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT,
-                        ~(255 / 4)); // set to 3/4 speed
-                                     // 1111 1111 = 255
-                                     // 0011 1111 = 63  = 255/4
-                                     // 1100 0000 = 192 = ~63
+  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_BACKWARD); // set to 3/4 speed
+  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_BACKWARD);
 
   // Left motors forward
   UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -100,8 +88,8 @@ void left_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_LM);
   INFO("left\n");
 
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, (255 / 16)); // set to 1/16 speed
-  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255 / 8));  // set to 7/8 speed
+  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_TURN_FORWARD_LOW);
+  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_TURN_FORWARD); // set to 7/8 speed
 
   // Left motors backwards
   UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -118,8 +106,8 @@ void hard_left_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_L);
   INFO("hard left\n");
 
-  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255 / 4));  // set to 3/4 speed
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, ~(255 / 8)); // set to 7/8 speed
+  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_TURN_BACKWARD);
+  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_TURN_FORWARD);
 
   // Left motors backwards
   UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -136,8 +124,8 @@ void right_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_MR);
   INFO("right\n");
 
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, ~(255 / 8)); // set to 7/8 speed
-  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, (255 / 16));  // set to 1/16 speed
+  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_TURN_FORWARD);
+  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_TURN_FORWARD_LOW);
 
   // Left motors forward
   SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -154,8 +142,8 @@ void hard_right_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_R);
   INFO("hard right\n");
 
-  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255 / 8));  // set to 7/8 speed
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, ~(255 / 4)); // set to 3/4 speed
+  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_TURN_FORWARD);
+  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_TURN_BACKWARD);
 
   // Left motors forward
   SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -173,24 +161,17 @@ void check_is_start_field_on_entry(t_state *inst __attribute__((unused))) {
   INFO("check is start\n");
   *inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
 
+  	SHIFT_push_state((LF_detection_state)LF_M);
 
-  // 	SHIFT_push_state((LF_detection_state)LF_M);
-  // 	ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, ~(255/4));		// set
-  // to 3/4 speed 	ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, ~(255/4));	// set
-  // to 3/4 speed
-  // 																											//
-  // 1111 1111 = 255
-  // 																											//
-  // 0011 1111 = 63  = 255/4
-  // 																											//
-  // 1100 0000 = 192 = ~63
+  	ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_FORWARD);
+  	ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_FORWARD);
 
-  //   // Left motors forward
-  // 	SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
-  // 	UNSET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
-  // 	// Right motors forward
-  // 	UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
-  // 	SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
+    // Left motors forward
+  	SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
+  	UNSET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
+  	// Right motors forward
+  	UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
+  	SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
   return;
 }
 
@@ -202,8 +183,8 @@ void stop_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_LMR);
   INFO("stop\n");
 
-  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, 255);  // set to full speed
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, 255); // set to full speed
+  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_MAX);  // set to full speed
+  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_MAX); // set to full speed
 
   // Stop left motors
   UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -212,19 +193,19 @@ void stop_on_entry(t_state *inst __attribute__((unused))) {
   UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
   UNSET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
 
-	// print special round ending
-	t_roboter *tp_robi = ROBOTER_get_instance();
-	switch (tp_robi->i8_current_round) { // when round finished
-		case 1:
-			UI(MSG_ROUND_1_COMPLETE);
-			break;
-		case 2:
-			UI(MSG_ROUND_2_COMPLETE);
-			break;
-		case 3:
-			UI(MSG_ROUND_3_COMPLETE);
-			break;
-	}
+  // print special round ending
+  t_roboter *tp_robi = ROBOTER_get_instance();
+  switch (tp_robi->i8_current_round) { // when round finished
+  case 1:
+    UI(MSG_ROUND_1_COMPLETE);
+    break;
+  case 2:
+    UI(MSG_ROUND_2_COMPLETE);
+    break;
+  case 3:
+    UI(MSG_ROUND_3_COMPLETE);
+    break;
+  }
 
   return;
 }
