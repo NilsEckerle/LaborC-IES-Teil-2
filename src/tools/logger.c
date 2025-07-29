@@ -1,6 +1,6 @@
 #include "tools/logger.h"
 
-static char debug_buffer[128];
+static char debug_buffer[512];
 
 void __attribute__((unused)) debug_printf(const char *prefix, const char *format, ...) {
 	va_list args;

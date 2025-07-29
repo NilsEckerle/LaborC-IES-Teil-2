@@ -17,7 +17,8 @@ void ROBOTER_init(t_roboter *robi) {
 
 	robi->ui8_LF_ADC_avg_samples = SETTING_LF_AVG_SAMPLES;
 
-	robi->i8_rounds = SETTING_DEFAULT_ROUNDS;
+	robi->i8_current_round = 0;
+	robi->i8_max_rounds = SETTING_DEFAULT_ROUNDS;
 
 	robi->vp_dto = NULL;
 

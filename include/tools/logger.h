@@ -74,5 +74,6 @@ void __attribute__((unused)) debug_printf(const char *prefix, const char *format
 #endif
 
 #define UI(format, ...) DEBUG_PRINTF("[UI] ", format, ##__VA_ARGS__)
+#define BLANK(format, ...) DEBUG_PRINTF("", format, ##__VA_ARGS__)
 
 #endif // LOGGER_H

@@ -1,9 +1,10 @@
 #include "roboter/states_config.h"
+#include "configuration/serial_messages.h"
 #include "roboter/roboter.h"
 
+#include "hardware/adc.h"
 #include "hardware/clock.h"
 #include "hardware/engine.h"
-#include "hardware/adc.h"
 #include "hardware/linienfolger.h"
 #include "hardware/shiftregister.h"
 
@@ -29,8 +30,9 @@ void init_robi_on_update(t_state *inst __attribute__((unused))) {
 
 void config_on_entry(t_state *inst __attribute__((unused))) {
   INFO("config\n");
-  ROBOTER_get_instance();
-  UI("Send char to select: [s]tart, set [r]ounds\n");
+  BLANK("Send char to select: \n"
+        "'W'       - go to waiting state\n"
+        "'R'       - got to set rounds state\n\n");
   return;
 }
 
@@ -42,9 +44,7 @@ void config_rounds_on_entry(t_state *inst __attribute__((unused))) {
   return;
 }
 
-void config_rounds_on_update(t_state *inst __attribute__((unused))) {
-  return;
-}
+void config_rounds_on_update(t_state *inst __attribute__((unused))) { return; }
 
 void config_lf_static_on_entry(t_state *inst __attribute__((unused))) {
   *inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
@@ -52,9 +52,9 @@ void config_lf_static_on_entry(t_state *inst __attribute__((unused))) {
 }
 
 void config_lf_static_on_update(t_state *inst __attribute__((unused))) {
-	// show LF state in shift register to see what you configure
-	SHIFT_push_state(LF_get_states());
-  
+  // show LF state in shift register to see what you configure
+  SHIFT_push_state(LF_get_states());
+
   uint32_t delay = 1000;
   if (CLOCK_get_milliseconds() - *inst->ui32p_state_entry_time_ms > delay) {
     INFO("config_lf_static_rounds");
@@ -62,20 +62,21 @@ void config_lf_static_on_update(t_state *inst __attribute__((unused))) {
     UI("\tl {num} - set threshold of left lf\n");
     UI("\tm {num} - set threshold of middle lf\n");
     UI("\tr {num} - set threshold of right lf\n\n");
-    UI("Left  : '%d' - Middle: '%d' - Right : '%d'\n\n", 
-        ADC_get_avg(ADC_LF_LEFT, 10),
-        ADC_get_avg(ADC_LF_MIDDLE, 10),
-        ADC_get_avg(ADC_LF_RIGHT, 10)
-        );
+    UI("Left  : '%d' - Middle: '%d' - Right : '%d'\n\n",
+       ADC_get_avg(ADC_LF_LEFT, 10), ADC_get_avg(ADC_LF_MIDDLE, 10),
+       ADC_get_avg(ADC_LF_RIGHT, 10));
     *inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
-      }
-	return;
-}
-
-void wait_start_on_entry(t_state *inst __attribute__((unused))) {
-  INFO("wait_start");
-  UI("Send char to select: [s]tart, [c]onfig\n");
+  }
   return;
 }
 
-void wait_start_on_update(t_state *inst __attribute__((unused))) { return; }
+void waiting_on_entry(t_state *inst __attribute__((unused))) {
+  INFO("[waiting_on_entry]'\n");
+  UI(MSG_WAITING_UI);
+
+  t_roboter *tp_robi = ROBOTER_get_instance();
+  tp_robi->i8_current_round = 0;
+  return;
+}
+
+void waiting_on_update(t_state *inst __attribute__((unused))) { return; }
