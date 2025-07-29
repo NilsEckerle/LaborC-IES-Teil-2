@@ -37,6 +37,10 @@
 - [ ] State Machine print config - print over USART the state machine config.
   Which states, what edges, super state hierarchy
 - [ ] Write a tool that takes State Machine print and displays it graphicaly
+- [ ] build state machine diagram system:
+      write 2nd `state.c` and `state_machine.c` which doesnt add or configures the
+      machine, but prints out everything so i can parse the output with another
+      tool.
 
 ## Completed
 - [x] Add ADC for LF `feat/adc-line-follower`
