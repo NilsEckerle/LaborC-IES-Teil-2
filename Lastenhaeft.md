@@ -2,7 +2,7 @@
 
 ## Roboterfunktionalitaet
 
-- [ ] kann 3 runden fahren
+- [x] kann 3 runden fahren
 
 NACH EINSCHALTEN:
 abhaengig von position nachrichten ausgeben.
@@ -12,7 +12,7 @@ abhaengig von position nachrichten ausgeben.
 
 **AUF START/WAITING:**
 - [ ] 5 Hz blinking wenn bereit zu starten. - blink in *waiting start* state
-- [ ] zusaetslich folgendes ausgeben in 1 Hz: `Hey you. I am in state WAITING. Send me
+- [-] zusaetslich folgendes ausgeben in 1 Hz: `Hey you. I am in state WAITING. Send me
       an ’S’ so that I can start or send me a ’?’ so that I can give you help.`
 
 
@@ -22,13 +22,13 @@ abhaengig von position nachrichten ausgeben.
 - [ ] LF state anzeigen.
 
 **DRIVING:**
-- [ ] Print: `Round and round I go during state DRIVING, currently round
+- [-] Print: `Round and round I go during state DRIVING, currently round
       #$ROUND` in 1 Hz. Runden zaehlen ab 1
-- [ ] Print: `A fresh clean start! :-)` when starting to drive (only once after `S`)
-- [ ] Print: `YEAH, still in state DRIVING, done round 1, going for round 2/3`
+- [x] Print: `A fresh clean start! :-)` when starting to drive (only once after `S`)
+- [x] Print: `YEAH, still in state DRIVING, done round 1, going for round 2/3`
       after finishing round 1
-- [ ] Print: `YEAH YEAH, still in state DRIVING, done round 2, going for round 3/3` after finishing round 2
-- [ ] Print: `Done. Thank you! I am going into state RESTING now and I will
+- [x] Print: `YEAH YEAH, still in state DRIVING, done round 2, going for round 3/3` after finishing round 2
+- [x] Print: `Done. Thank you! I am going into state RESTING now and I will
       reset myself in 5 seconds. Take care of you and me!` after round 3
 - [ ] 5 Sekunden reseten, dann von vorne
 - [ ] LF - Leuchtdioden state anzeigen. immer
@@ -43,20 +43,20 @@ abhaengig von position nachrichten ausgeben.
   again.` with 1 Hz
 
 ### Steueranweisungen
-- [ ] `S` to start driving - 3 labs default
-- [ ] `?` to get help
+- [x] `S` to start driving - 3 labs default
+- [x] `?` to get help
 - [ ] `P` toggle Pause while driving. only in DRIVING
 
 ## Print ausgaben
-- [ ] Alle Prints mit doppelten Zeilenumbruch
-- [ ] Carriage Return muss das letzte zeichen sein.
+- [-] Alle Prints mit doppelten Zeilenumbruch
+- [x] Carriage Return muss das letzte zeichen sein.
 
 ## Softwarequalitaet
 
 ### Coding conventions
 - [ ] Space indenting, no tabs (Nope, wont do)
-- [ ] only english
-- [ ] Sinnvol modularisieren
+- [x] only english
+- [x] Sinnvol modularisieren
 - [ ] no magic numbers in .c files!!!
 
 ### Files
@@ -83,8 +83,8 @@ auf english
 
 ## Build system
 Makefile und nichts anderes!!!
-- [ ] `make` ohne zusatz muss builden und flashen
-- [ ] relative pfade
+- [x] `make` ohne zusatz muss builden und flashen
+- [x] relative pfade
 
 
 
