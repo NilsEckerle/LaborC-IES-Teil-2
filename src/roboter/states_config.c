@@ -2,9 +2,9 @@
 #include "configuration/serial_messages.h"
 #include "roboter/roboter.h"
 
+#include "hardware/adc.h"
 #include "hardware/clock.h"
 #include "hardware/engine.h"
-#include "hardware/adc.h"
 #include "hardware/linienfolger.h"
 #include "hardware/shiftregister.h"
 
@@ -30,7 +30,9 @@ void init_robi_on_update(t_state *inst __attribute__((unused))) {
 
 void config_on_entry(t_state *inst __attribute__((unused))) {
   INFO("config\n");
-  UI("Send char to select: [s]tart, set [r]ounds\n");
+  BLANK("Send char to select: \n"
+        "'W'       - go to waiting state\n"
+        "'R'       - got to set rounds state\n\n");
   return;
 }
 
@@ -42,9 +44,7 @@ void config_rounds_on_entry(t_state *inst __attribute__((unused))) {
   return;
 }
 
-void config_rounds_on_update(t_state *inst __attribute__((unused))) {
-  return;
-}
+void config_rounds_on_update(t_state *inst __attribute__((unused))) { return; }
 
 void config_lf_static_on_entry(t_state *inst __attribute__((unused))) {
   *inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
@@ -52,9 +52,9 @@ void config_lf_static_on_entry(t_state *inst __attribute__((unused))) {
 }
 
 void config_lf_static_on_update(t_state *inst __attribute__((unused))) {
-	// show LF state in shift register to see what you configure
-	SHIFT_push_state(LF_get_states());
-  
+  // show LF state in shift register to see what you configure
+  SHIFT_push_state(LF_get_states());
+
   uint32_t delay = 1000;
   if (CLOCK_get_milliseconds() - *inst->ui32p_state_entry_time_ms > delay) {
     INFO("config_lf_static_rounds");
