@@ -170,6 +170,25 @@ uint8_t condition_USART_s(t_state *inst __attribute__((unused)), void *vp_dto __
   return 0;
 }
 
+uint8_t condition_USART_questionmark(t_state *inst __attribute__((unused)), void *vp_dto __attribute__((unused))) {
+  TRACE("[condition_USART_s] Entry - checking for '?' or 'help'\n");
+
+  // Only check if we actually have a complete string
+  if (!USART_has_string()) {
+    TRACE("[condition_USART_s] No complete string available\n");
+    return 0;
+  }
+
+  const char *c = USART_get_string();
+  if (NULL != c && (strcmp(c, "?") == 0 || strcmp(c, "help") == 0)) {
+    TRACE("[condition_USART_s] Match found! String='%s' - consuming\n", c);
+    USART_consume_string();
+    return 1;
+  }
+  TRACE("[condition_USART_s] No match. String='%s'\n", c ? c : "NULL");
+  return 0;
+}
+
 uint8_t condition_USART_c(t_state *inst __attribute__((unused)), void *vp_dto __attribute__((unused))) {
   TRACE("[condition_USART_c] Entry - checking for 'c' or 'C'\n");
 	

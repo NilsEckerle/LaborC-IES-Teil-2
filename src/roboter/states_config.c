@@ -1,4 +1,5 @@
 #include "roboter/states_config.h"
+#include "configuration/serial_messages.h"
 #include "roboter/roboter.h"
 
 #include "hardware/clock.h"
@@ -29,7 +30,6 @@ void init_robi_on_update(t_state *inst __attribute__((unused))) {
 
 void config_on_entry(t_state *inst __attribute__((unused))) {
   INFO("config\n");
-  ROBOTER_get_instance();
   UI("Send char to select: [s]tart, set [r]ounds\n");
   return;
 }
@@ -72,10 +72,10 @@ void config_lf_static_on_update(t_state *inst __attribute__((unused))) {
 	return;
 }
 
-void wait_start_on_entry(t_state *inst __attribute__((unused))) {
-  INFO("wait_start");
-  UI("Send char to select: [s]tart, [c]onfig\n");
+void waiting_on_entry(t_state *inst __attribute__((unused))) {
+  INFO("[waiting_on_entry]'\n");
+  UI(MSG_WAITING_UI);
   return;
 }
 
-void wait_start_on_update(t_state *inst __attribute__((unused))) { return; }
+void waiting_on_update(t_state *inst __attribute__((unused))) { return; }

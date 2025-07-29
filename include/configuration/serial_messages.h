@@ -18,8 +18,8 @@
  */
 #define MSG_WAITING_UI                                                         \
   "Hey you. I am in state WAITING. "                                           \
-  "Send me an ’S’ so that I can start or "                                     \
-  "send me a ’?’ so that I can give you help.\n\n"
+  "Send me an 'S' so that I can start or "                                     \
+  "send me a '?' so that I can give you help.\n\n"
 
 /**
  * @brief String literal to place the robi on the start field
@@ -110,5 +110,20 @@
 #define MSG_PAUSING                                                            \
   "I am in state PAUSING .... zzzZZZzzzZZZzzz .... wake me up with P "         \
   "again.\n\n"
+
+#define MSG_WAITING_HELP                                                       \
+  "========== ROBOTER HELP ==========\n"                                       \
+  "FROM HERE:\n"                                                               \
+  "'S'       - to start driving\n"                                             \
+  "'?'       - to get this help\n"                                             \
+  "'C'       - to get into config\n"                                           \
+  "CONFIG:\n"                                                                  \
+  "'S'       - to get back to waiting\n"                                       \
+  "'R'       - to configure rounds to drive\n"                                 \
+  "'L'       - to configure line follower sensor tresholds\n"                  \
+  "'P'       - to configure engine power scaling (only slows engine down)\n"   \
+  "DRIVING\n"                                                                  \
+  "'P'       - toggle driving pause\n"                                         \
+  "==================================\n\n"
 
 #endif // !SERIAL_MESSAGES_H
