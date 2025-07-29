@@ -62,19 +62,20 @@ void config_lf_static_on_update(t_state *inst __attribute__((unused))) {
     UI("\tl {num} - set threshold of left lf\n");
     UI("\tm {num} - set threshold of middle lf\n");
     UI("\tr {num} - set threshold of right lf\n\n");
-    UI("Left  : '%d' - Middle: '%d' - Right : '%d'\n\n", 
-        ADC_get_avg(ADC_LF_LEFT, 10),
-        ADC_get_avg(ADC_LF_MIDDLE, 10),
-        ADC_get_avg(ADC_LF_RIGHT, 10)
-        );
+    UI("Left  : '%d' - Middle: '%d' - Right : '%d'\n\n",
+       ADC_get_avg(ADC_LF_LEFT, 10), ADC_get_avg(ADC_LF_MIDDLE, 10),
+       ADC_get_avg(ADC_LF_RIGHT, 10));
     *inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
-      }
-	return;
+  }
+  return;
 }
 
 void waiting_on_entry(t_state *inst __attribute__((unused))) {
   INFO("[waiting_on_entry]'\n");
   UI(MSG_WAITING_UI);
+
+  t_roboter *tp_robi = ROBOTER_get_instance();
+  tp_robi->i8_current_round = 0;
   return;
 }
 

@@ -42,7 +42,7 @@ void execute_set_robi_rounds(t_state *tp_current_state __attribute__((unused)), 
 	}
 	uint8_t *value = (uint8_t *)vp_dto;
 	UI("rounds set to: %d\n", *value);
-	ROBOTER_get_instance()->i8_rounds = *value;
+	ROBOTER_get_instance()->i8_max_rounds = *value;
 }
 
 
