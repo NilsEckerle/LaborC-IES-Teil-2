@@ -13,3 +13,11 @@ uint8_t condition_start_field_delay(t_state *inst __attribute__((unused)), void 
 	return 0;
 }
 
+
+uint8_t condition_5_seconds_after_entry(t_state *inst __attribute__((unused)), void *vp_dto __attribute__((unused))) {
+	TRACE("[condition_5_seconds_after_entry] called");
+	if (CLOCK_get_milliseconds() - *inst->ui32p_state_entry_time_ms > 5000) {
+		return 1;
+	}
+	return 0;
+}
