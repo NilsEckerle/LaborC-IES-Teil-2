@@ -8,6 +8,8 @@
 #ifndef ROBOT_SETTINGS_H
 #define ROBOT_SETTINGS_H
 
+#include "tools/math_helper_functions.h"
+
 // Roboter
 
 /** @brief default rounds */
@@ -61,5 +63,8 @@
 // WAITING
 
 #define WAITING_BLINK_PERIOD_MS CALCULATE_PERIOD_MS(5)
+
+// PAUSE
+#define PAUSE_SHIFT_PERIOD_MS CALCULATE_PERIOD_MS(10)
 
 #endif // !ROBOT_SETTINGS_H

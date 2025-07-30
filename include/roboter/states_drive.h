@@ -43,4 +43,8 @@ void stop_on_entry(t_state*inst __attribute__((unused)));
 
 void stop_on_update(t_state*inst __attribute__((unused)));
 
+void pause_on_entry(t_state *inst __attribute__((unused)));
+
+void pause_on_update(t_state *inst __attribute__((unused)));
+
 #endif // STATES_DRIVE_H

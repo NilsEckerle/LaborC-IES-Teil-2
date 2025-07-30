@@ -72,6 +72,8 @@ t_state_machine *configure_state_machine() {
   t_state *t_state_drive_logic_super_state = STATE_constructor(
       drive_logic_super_state_on_entry, drive_logic_super_state_on_update);
 
+  t_state *t_state_pause = STATE_constructor(pause_on_entry, pause_on_update);
+
   INFO("[configure_state_machine] all states constructed\n");
 
   // configure states
@@ -130,7 +132,9 @@ t_state_machine *configure_state_machine() {
                  t_state_config_lf_static_right);
   // waiting
   STATE_add_edge(t_state_waiting, condition_LF_NOT_LMR, t_state_searching);
-  STATE_add_edge_with_execute(t_state_waiting, condition_USART_S, execute_print_fresh_start, t_state_drive_throught);
+  STATE_add_edge_with_execute(t_state_waiting, condition_USART_S,
+                              execute_print_fresh_start,
+                              t_state_drive_throught);
   STATE_add_edge_with_execute(t_state_waiting, condition_USART_questionmark,
                               execute_print_waiting_help, t_state_waiting);
   STATE_add_edge(t_state_waiting, condition_USART_C, t_state_config);
@@ -142,6 +146,16 @@ t_state_machine *configure_state_machine() {
   // drive_logic_super_state
   STATE_add_edge(t_state_drive_logic_super_state, condition_LF_LMR,
                  t_state_check_for_start);
+  STATE_add_edge(t_state_drive_logic_super_state, condition_USART_P,
+                 t_state_pause);
+  STATE_add_edge(t_state_drive_logic_super_state, condition_USART_helper_clear_invalid_input,
+                 t_state_drive_logic_super_state);
+
+
+  // pause
+  STATE_add_edge(t_state_pause, condition_USART_P, t_state_forward);
+  STATE_add_edge(t_state_pause, condition_USART_helper_clear_invalid_input,
+                 t_state_pause);
 
   // drive_through_start
   STATE_add_edge(t_state_drive_throught, condition_LF_NOT_LMR, t_state_forward);
@@ -214,6 +228,9 @@ t_state_machine *configure_state_machine() {
   STATE_MACHINE_add_state(state_machine, t_state_init_robi);
   STATE_MACHINE_add_state(state_machine, t_state_check_for_start);
   STATE_MACHINE_add_state(state_machine, t_state_stop);
+
+  STATE_MACHINE_add_state(state_machine, t_state_drive_logic_super_state);
+  STATE_MACHINE_add_state(state_machine, t_state_pause);
 
   INFO("[configure_state_machine] all states added\n");
 

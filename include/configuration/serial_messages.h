@@ -53,6 +53,8 @@
 #define MSG_FMT_DRIVING_ROUND                                                  \
   "Round and round I go during state DRIVING, currently round %u\n\n"
 
+#define DRIVING_MSG_PERIOD_MS CALCULATE_PERIOD_MS(1)
+
 /**
  * @brief String literal for fresh start message
  * @note This message is a requirement by the product owner
@@ -116,6 +118,8 @@
 #define MSG_PAUSING                                                            \
   "I am in state PAUSING .... zzzZZZzzzZZZzzz .... wake me up with P "         \
   "again.\n\n"
+
+#define PAUSE_MSG_PERIOD_MS CALCULATE_PERIOD_MS(1)
 
 #define MSG_WAITING_HELP                                                       \
   "========== ROBOTER HELP ==========\n"                                       \
