@@ -30,11 +30,11 @@ abhaengig von position nachrichten ausgeben.
 - [x] Print: `YEAH YEAH, still in state DRIVING, done round 2, going for round 3/3` after finishing round 2
 - [x] Print: `Done. Thank you! I am going into state RESTING now and I will
       reset myself in 5 seconds. Take care of you and me!` after round 3
-- [ ] 5 Sekunden reseten, dann von vorne
-- [ ] LF - Leuchtdioden state anzeigen. immer
+- [x] LF - Leuchtdioden state anzeigen. immer
 
 **RESETTING:**
-- [ ] Print: `I will be in state RESTING from now on! zzzZZZzzzZZZzzz` einmalig
+- [x] 5 Sekunden reseten, dann von vorne
+- [x] Print: `I will be in state RESTING from now on! zzzZZZzzzZZZzzz` einmalig
       wenn entering
 
 **PAUSE:**
