@@ -22,7 +22,7 @@ abhaengig von position nachrichten ausgeben.
 - [x] LF state anzeigen.
 
 **DRIVING:**
-- [-] Print: `Round and round I go during state DRIVING, currently round
+- [x] Print: `Round and round I go during state DRIVING, currently round
       #$ROUND` in 1 Hz. Runden zaehlen ab 1
 - [x] Print: `A fresh clean start! :-)` when starting to drive (only once after `S`)
 - [x] Print: `YEAH, still in state DRIVING, done round 1, going for round 2/3`
@@ -38,14 +38,14 @@ abhaengig von position nachrichten ausgeben.
       wenn entering
 
 **PAUSE:**
-- [ ] Lauflicht 10 Hz
-- [ ] Print: `I am in state PAUSING .... zzzZZZzzzZZZzzz .... wake me up with P
+- [x] Lauflicht 10 Hz
+- [x] Print: `I am in state PAUSING .... zzzZZZzzzZZZzzz .... wake me up with P
   again.` with 1 Hz
 
 ### Steueranweisungen
 - [x] `S` to start driving - 3 labs default
 - [x] `?` to get help
-- [ ] `P` toggle Pause while driving. only in DRIVING
+- [x] `P` toggle Pause while driving. only in DRIVING
 
 ## Print ausgaben
 - [-] Alle Prints mit doppelten Zeilenumbruch
