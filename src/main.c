@@ -51,6 +51,9 @@ t_state_machine *configure_state_machine() {
       STATE_constructor(waiting_on_entry, waiting_on_update);
   t_state *t_state_searching =
       STATE_constructor(searching_on_entry, searching_on_update);
+  t_state *t_state_resetting =
+      STATE_constructor(reset_on_entry, reset_on_update);
+
 
   // driving
   t_state *t_state_check_for_start = STATE_constructor(
@@ -192,7 +195,10 @@ t_state_machine *configure_state_machine() {
 
   // stop
   STATE_add_edge(t_state_stop, condition_has_rounds, t_state_drive_throught);
-  STATE_add_edge(t_state_stop, condition_has_no_rounds, t_state_waiting);
+  STATE_add_edge(t_state_stop, condition_has_no_rounds, t_state_resetting);
+
+  // resetting
+  STATE_add_edge(t_state_resetting, condition_5_seconds_after_entry, t_state_waiting);
 
   INFO("[configure_state_machine] all edges added\n");
 
@@ -217,6 +223,7 @@ t_state_machine *configure_state_machine() {
   STATE_MACHINE_add_state(state_machine, t_state_config_lf_static_right);
   STATE_MACHINE_add_state(state_machine, t_state_waiting);
   STATE_MACHINE_add_state(state_machine, t_state_searching);
+  STATE_MACHINE_add_state(state_machine, t_state_resetting);
 
   STATE_MACHINE_add_state(state_machine, t_state_drive_throught);
   STATE_MACHINE_add_state(state_machine, t_state_forward);
