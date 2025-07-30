@@ -49,6 +49,8 @@ t_state_machine *configure_state_machine() {
       STATE_constructor(nothing_on_entry, nothing_on_entry);
   t_state *t_state_waiting =
       STATE_constructor(waiting_on_entry, waiting_on_update);
+  t_state *t_state_searching =
+      STATE_constructor(searching_on_entry, searching_on_update);
 
   // driving
   t_state *t_state_check_for_start = STATE_constructor(
@@ -127,12 +129,15 @@ t_state_machine *configure_state_machine() {
                  condition_USART_helper_clear_invalid_input,
                  t_state_config_lf_static_right);
   // waiting
+  STATE_add_edge(t_state_waiting, condition_LF_NOT_LMR, t_state_searching);
   STATE_add_edge_with_execute(t_state_waiting, condition_USART_S, execute_print_fresh_start, t_state_drive_throught);
   STATE_add_edge_with_execute(t_state_waiting, condition_USART_questionmark,
                               execute_print_waiting_help, t_state_waiting);
   STATE_add_edge(t_state_waiting, condition_USART_C, t_state_config);
   STATE_add_edge(t_state_waiting, condition_USART_helper_clear_invalid_input,
                  t_state_error);
+  // searching
+  STATE_add_edge(t_state_searching, condition_LF_LMR, t_state_waiting);
 
   // drive_logic_super_state
   STATE_add_edge(t_state_drive_logic_super_state, condition_LF_LMR,
@@ -197,6 +202,7 @@ t_state_machine *configure_state_machine() {
   STATE_MACHINE_add_state(state_machine, t_state_config_lf_static_middle);
   STATE_MACHINE_add_state(state_machine, t_state_config_lf_static_right);
   STATE_MACHINE_add_state(state_machine, t_state_waiting);
+  STATE_MACHINE_add_state(state_machine, t_state_searching);
 
   STATE_MACHINE_add_state(state_machine, t_state_drive_throught);
   STATE_MACHINE_add_state(state_machine, t_state_forward);

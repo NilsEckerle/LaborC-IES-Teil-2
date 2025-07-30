@@ -12,6 +12,7 @@
 // #define LOG_LEVEL LOG_LEVEL_INFO_SPAM
 #include "tools/logger.h"
 #include <ctype.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <util/delay.h>
 
@@ -117,3 +118,31 @@ void waiting_on_update(t_state *inst __attribute__((unused))) {
 }
 
 // END WAITING state
+
+// SEARCHING state
+
+static uint32_t ui32_SEARCHING_MSG_last_update_time_ms = 0;
+static LF_detection_state t_LF_old_state = ~0;
+
+void searching_on_entry(t_state *inst __attribute__((unused))) {
+  UI(MSG_SEARCHING);
+  ui32_SEARCHING_MSG_last_update_time_ms = CLOCK_get_milliseconds();
+}
+
+void searching_on_update(t_state*inst __attribute__((unused))) {
+  // prints
+  if ((CLOCK_get_milliseconds() - ui32_SEARCHING_MSG_last_update_time_ms) >
+      SEARCHING_MSG_PERIOD_MS) {
+    UI(MSG_SEARCHING);
+    ui32_SEARCHING_MSG_last_update_time_ms = CLOCK_get_milliseconds();
+  }
+
+  // update LF
+  LF_detection_state t_LF_new_state = LF_get_states();
+  if (t_LF_old_state != t_LF_new_state) {
+    SHIFT_push_state(t_LF_new_state);
+    t_LF_old_state = t_LF_new_state;
+  }
+}
+
+// END SEARCHING state
