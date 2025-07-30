@@ -37,6 +37,8 @@
   "Not on the starting field, I am in state SEARCHING. "                       \
   "Place me there please...\n\n"
 
+#define SEARCHING_MSG_PERIOD_MS CALCULATE_PERIOD_MS(1)
+
 /**
  * @brief String format literal for driving state with round counter
  * @note Use this as the format in printf like functions.

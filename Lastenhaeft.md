@@ -17,9 +17,9 @@ abhaengig von position nachrichten ausgeben.
 
 
 **NICHT AUF START/SEARCHING:**
-- [ ] 1 Hz print: `Not on the starting field, I am in state SEARCHING. Place me
+- [x] 1 Hz print: `Not on the starting field, I am in state SEARCHING. Place me
       there please...`
-- [ ] LF state anzeigen.
+- [x] LF state anzeigen.
 
 **DRIVING:**
 - [-] Print: `Round and round I go during state DRIVING, currently round

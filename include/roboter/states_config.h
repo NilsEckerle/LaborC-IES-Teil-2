@@ -23,4 +23,8 @@ void waiting_on_entry(t_state *inst __attribute__((unused)));
 
 void waiting_on_update(t_state*inst __attribute__((unused)));
 
+void searching_on_entry(t_state *inst __attribute__((unused)));
+
+void searching_on_update(t_state*inst __attribute__((unused)));
+
 #endif // STATES_CONFIG_H
