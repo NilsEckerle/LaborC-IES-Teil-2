@@ -74,6 +74,9 @@ void STATE_MACHINE_update(t_state_machine *tp_state_machine) {
     tp_state_machine->bool_is_new_state = 0;
     tp_state_machine->tp_current_state->on_entry(tp_state_machine->tp_current_state);
   }
+  if (tp_state->tp_parent != NULL) {
+    tp_state->tp_parent->on_update(tp_state->tp_parent);
+  }
   tp_state->on_update(tp_state);
   STATE_check_edges(tp_state, tp_state_machine);
 }
