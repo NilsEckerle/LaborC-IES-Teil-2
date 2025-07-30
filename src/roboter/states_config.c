@@ -146,3 +146,15 @@ void searching_on_update(t_state*inst __attribute__((unused))) {
 }
 
 // END SEARCHING state
+
+// RESETT state
+
+void reset_on_entry(t_state *inst __attribute__((unused))) {
+  *inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
+  UI(MSG_RESTING);
+  return;
+}
+
+void reset_on_update(t_state *inst __attribute__((unused))) { return; }
+
+// end RESETT state
