@@ -8,6 +8,8 @@
 #ifndef SERIAL_MESSAGES_H
 #define SERIAL_MESSAGES_H
 
+#include "tools/math_helper_functions.h"
+
 /**
  * @brief String literal with Start and help ui
  * @note This Message is a requirement by the product owner
@@ -20,6 +22,8 @@
   "Hey you. I am in state WAITING. "                                           \
   "Send me an 'S' so that I can start or "                                     \
   "send me a '?' so that I can give you help.\n\n"
+
+#define WAITING_MSG_PERIOD_MS CALCULATE_PERIOD_MS(1)
 
 /**
  * @brief String literal to place the robi on the start field

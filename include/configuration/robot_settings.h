@@ -58,4 +58,8 @@
 #define SETTING_ENGINE_PWM_POWER_TURN_BACKWARD                                 \
   ((uint8_t)(SETTING_ENGINE_PWM_POWER_MAX * 3 / 4))
 
+// WAITING
+
+#define WAITING_BLINK_PERIOD_MS CALCULATE_PERIOD_MS(5)
+
 #endif // !ROBOT_SETTINGS_H

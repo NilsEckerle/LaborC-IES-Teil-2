@@ -11,8 +11,8 @@ abhaengig von position nachrichten ausgeben.
 ### States
 
 **AUF START/WAITING:**
-- [ ] 5 Hz blinking wenn bereit zu starten. - blink in *waiting start* state
-- [-] zusaetslich folgendes ausgeben in 1 Hz: `Hey you. I am in state WAITING. Send me
+- [x] 5 Hz blinking wenn bereit zu starten. - blink in *waiting start* state
+- [x] zusaetslich folgendes ausgeben in 1 Hz: `Hey you. I am in state WAITING. Send me
       an ’S’ so that I can start or send me a ’?’ so that I can give you help.`
 
 

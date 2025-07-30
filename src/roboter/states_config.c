@@ -1,4 +1,5 @@
 #include "roboter/states_config.h"
+#include "configuration/robot_settings.h"
 #include "configuration/serial_messages.h"
 #include "roboter/roboter.h"
 
@@ -12,6 +13,7 @@
 #include "tools/logger.h"
 #include <ctype.h>
 #include <stdlib.h>
+#include <util/delay.h>
 
 void init_robi_on_entry(t_state *inst __attribute__((unused))) {
   INFO("init\n");
@@ -70,13 +72,48 @@ void config_lf_static_on_update(t_state *inst __attribute__((unused))) {
   return;
 }
 
+// WAITING state
+
+static uint32_t ui32_WAITING_LIGHTS_last_update_time_ms = 0;
+static uint8_t b_WAITING_lights_on_toggle = 0;
+
+static uint32_t ui32_WAITING_MSG_last_update_time_ms = 0;
+
 void waiting_on_entry(t_state *inst __attribute__((unused))) {
   INFO("[waiting_on_entry]'\n");
   UI(MSG_WAITING_UI);
 
   t_roboter *tp_robi = ROBOTER_get_instance();
   tp_robi->i8_current_round = 0;
+
+  ui32_WAITING_LIGHTS_last_update_time_ms = CLOCK_get_milliseconds();
+  ui32_WAITING_MSG_last_update_time_ms = CLOCK_get_milliseconds();
+  b_WAITING_lights_on_toggle = 0;
   return;
 }
 
-void waiting_on_update(t_state *inst __attribute__((unused))) { return; }
+void waiting_on_update(t_state *inst __attribute__((unused))) {
+  INFO_SPAM("[waiting_on_update]'\n");
+	// print UI
+  if ((CLOCK_get_milliseconds() - ui32_WAITING_MSG_last_update_time_ms) >
+      WAITING_MSG_PERIOD_MS) {
+		ui32_WAITING_MSG_last_update_time_ms = CLOCK_get_milliseconds();
+		UI(MSG_WAITING_UI);
+	}
+
+	// Blink lights
+  if ((CLOCK_get_milliseconds() - ui32_WAITING_LIGHTS_last_update_time_ms) >
+      WAITING_BLINK_PERIOD_MS) {
+    ui32_WAITING_LIGHTS_last_update_time_ms = CLOCK_get_milliseconds();
+    b_WAITING_lights_on_toggle = !b_WAITING_lights_on_toggle;
+
+		// push new state
+    for (uint8_t i = 3; i > 0; i--) {
+      SHIFT_push(b_WAITING_lights_on_toggle);
+      _delay_us(1);
+    }
+  }
+  return;
+}
+
+// END WAITING state
