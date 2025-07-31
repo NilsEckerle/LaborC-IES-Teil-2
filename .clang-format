@@ -1,11 +1,25 @@
 BasedOnStyle: LLVM
-Language: C
+IndentWidth: 2
+ColumnLimit: 100  # Reasonable compromise
 
-# Keep comments on same line - most important settings
+# Fix macro backslash alignment
+AlignEscapedNewlines: Left
+
+# Strong penalties against breaking declarations
+PenaltyExcessCharacter: 1000000
+PenaltyBreakComment: 300
+PenaltyBreakString: 1000
+PenaltyBreakAssignment: 150
+PenaltyBreakBeforeFirstCallParameter: 1000
+
+# Keep declarations together
+BinPackParameters: true
+BinPackArguments: true
+AlwaysBreakAfterReturnType: None
+AlwaysBreakAfterDefinitionReturnType: None
+PointerAlignment: Right
+
+# Comment settings
 ReflowComments: false
 AlignTrailingComments: true
-SpacesBeforeTrailingComments: 1
-
-# Basic formatting
-IndentWidth: 2
-ColumnLimit: 100
+SpacesBeforeTrailingComments: 2  # Try 2 or more spaces
