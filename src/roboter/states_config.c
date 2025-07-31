@@ -1,3 +1,6 @@
+// #define LOG_LEVEL LOG_LEVEL_INFO_TRACE
+#include "tools/logger.h"
+
 #include "roboter/states_config.h"
 #include "configuration/robot_settings.h"
 #include "configuration/serial_messages.h"
@@ -9,8 +12,6 @@
 #include "hardware/linienfolger.h"
 #include "hardware/shiftregister.h"
 
-// #define LOG_LEVEL LOG_LEVEL_INFO_SPAM
-#include "tools/logger.h"
 #include <ctype.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -41,13 +42,14 @@ void config_on_update(t_state *inst __attribute__((unused))) { return; }
 
 void config_rounds_on_entry(t_state *inst __attribute__((unused))) {
   INFO("config_rounds");
-  UI("Send number to set rounds to it. Then [c]onfirm you input.\n");
+  UI(MSG_ROUNDS_ASK_NUMBER);
   return;
 }
 
 void config_rounds_on_update(t_state *inst __attribute__((unused))) { return; }
 
 void config_lf_static_on_entry(t_state *inst __attribute__((unused))) {
+  INFO("config_lf_static_on_entry");
   *inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
   return;
 }
@@ -149,5 +151,10 @@ void reset_on_entry(t_state *inst __attribute__((unused))) {
 }
 
 void reset_on_update(t_state *inst __attribute__((unused))) { return; }
+
+
+void lf_set_treshold_prompt_on_entry(t_state *inst __attribute__((unused))) {
+	UI(MSG_ENTER_VALUE_LF_TRESHOLD);
+}
 
 // end RESETT state

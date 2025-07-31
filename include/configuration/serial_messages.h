@@ -8,6 +8,7 @@
 #ifndef SERIAL_MESSAGES_H
 #define SERIAL_MESSAGES_H
 
+#include "tools/logger.h"
 #include "tools/math_helper_functions.h"
 
 /**
@@ -118,38 +119,49 @@
 
 #define PAUSE_MSG_PERIOD_MS CALCULATE_PERIOD_MS(1)
 
-#define PRINT_WAITING_HELP()                                                  \
-  do {                                                                        \
-    BLANK("========== ROBOTER HELP ==========\n");                            \
-    BLANK("FROM HERE:\n");                                                    \
-    BLANK("'S'       - to start driving\n");                                  \
-    BLANK("'?'       - to get this help\n");                                  \
-    BLANK("'C'       - to get into config\n");                                \
-    BLANK("CONFIG:\n");                                                       \
-    BLANK("'W'       - to get back to waiting\n");                            \
-    BLANK("'R'       - to configure rounds to drive\n");                      \
-    BLANK("'L'       - to configure line follower sensor tresholds\n");       \
-    BLANK("'P'       - to configure engine power scaling (only slows engine " \
-          "down)\n");                                                         \
-    BLANK("DRIVING\n");                                                       \
-    BLANK("'P'       - toggle driving pause\n");                              \
-    BLANK("==================================\n\n");                          \
+#define PRINT_WAITING_HELP()                                                   \
+  do {                                                                         \
+    UI("========== ROBOTER HELP ==========\n");                                \
+    UI("FROM HERE:\n");                                                        \
+    UI("'S'       - to start driving\n");                                      \
+    UI("'?'       - to get this help\n");                                      \
+    UI("'C'       - to get into config\n");                                    \
+    UI("CONFIG:\n");                                                           \
+    UI("'W'       - to get back to waiting\n");                                \
+    UI("'R'       - to configure rounds to drive\n");                          \
+    UI("'L'       - to configure line follower sensor tresholds\n");           \
+    UI("'P'       - to configure engine power scaling (only slows engine "     \
+       "down)\n");                                                             \
+    UI("DRIVING\n");                                                           \
+    UI("'P'       - toggle driving pause\n");                                  \
+    UI("==================================\n\n");                              \
   } while (0)
 
-#define PRINT_CONFIG_HELP()                                  \
-  do {                                                       \
-    BLANK("Send char to select:\n");                         \
-    BLANK("'W' - got back to waiting state\n");              \
-    BLANK("'R' - got to round config\n");                    \
-    BLANK("'L' - go to line follower threshold config\n\n"); \
+#define PRINT_CONFIG_HELP()                                                    \
+  do {                                                                         \
+    UI("Send char to select:\n");                                              \
+    UI("'W' - got back to waiting state\n");                                   \
+    UI("'R' - got to round config\n");                                         \
+    UI("'L' - go to line follower threshold config\n\n");                      \
   } while (0)
 
-#define PRINT_CONFIG_LINE_FOLLOWER_THRESHOLDS()    \
-  do {                                             \
-    UI("COMMANDS:\n");                             \
-    UI("'L' - set threshold of left sensor\n");    \
-    UI("'M' - set threshold of middle sensor\n");  \
-    UI("'R' - set threshold of right sensor\n\n"); \
+#define PRINT_CONFIG_LINE_FOLLOWER_THRESHOLDS()                                \
+  do {                                                                         \
+    UI("COMMANDS:\n");                                                         \
+    UI("'C' - confirm and go back to config\n");                                \
+    UI("'L' - set threshold of left sensor\n");                                \
+    UI("'M' - set threshold of middle sensor\n");                              \
+    UI("'R' - set threshold of right sensor\n\n");                             \
   } while (0)
 
-#endif  // !SERIAL_MESSAGES_H
+#define MSG_FMT_ROUNDS_SET_TO "Rounds set to %u laps.\n\n"
+
+#define MSG_ROUNDS_ASK_NUMBER "How many rounds to drive? (Enter a number.)\n\n"
+
+#define MSG_ENTER_VALUE_LF_TRESHOLD                                            \
+  "Enter number as line sensor treshold. (0-1023)\n\n"
+
+#define MSG_FMT_LF_TRESHOLD_SET_TO                                             \
+  "Line sensor treshold set to %u of max 1023.\n\n"
+
+#endif // !SERIAL_MESSAGES_H
