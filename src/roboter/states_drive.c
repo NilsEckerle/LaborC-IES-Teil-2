@@ -78,20 +78,28 @@ void backwards_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_M);
   INFO("backwards\n");
 
-  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT,
-                        SETTING_ENGINE_PWM_POWER_BACKWARD); // set to 3/4 speed
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_BACKWARD);
-
-  // Left motors forward
-  UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
-  SET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
-  // Right motors forward
-  SET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
-  UNSET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
+  *inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
   return;
 }
 
-void backwards_on_update(t_state *inst __attribute__((unused))) { return; }
+void backwards_on_update(t_state *inst __attribute__((unused))) {
+  if (CLOCK_get_milliseconds() - *inst->ui32p_state_entry_time_ms >
+      BACKWAD_DELAY_TRESHOLD) {
+
+    ENGINE_set_duty_cicle(
+        ENGINE_PWM_LEFT,
+        SETTING_ENGINE_PWM_POWER_BACKWARD); // set to 3/4 speed
+    ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_BACKWARD);
+
+    // Left motors forward
+    UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
+    SET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
+    // Right motors forward
+    SET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
+    UNSET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
+  }
+  return;
+}
 
 void left_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_LM);
@@ -236,7 +244,7 @@ static uint8_t ui8_PAUSE_SHIFT_state = 0;
 
 static uint32_t ui32_PAUSE_MSG_time_last_ms = 0;
 
-void pause_on_entry(t_state *inst __attribute__((unused))) { 
+void pause_on_entry(t_state *inst __attribute__((unused))) {
   ENGINE_set_duty_cicle(ENGINE_PWM_LEFT,
                         SETTING_ENGINE_PWM_POWER_MAX); // set to full speed
   ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT,
@@ -254,7 +262,8 @@ void pause_on_entry(t_state *inst __attribute__((unused))) {
 
 void pause_on_update(t_state *inst __attribute__((unused))) {
 
-  if (CLOCK_get_milliseconds()- ui32_PAUSE_MSG_time_last_ms > PAUSE_MSG_PERIOD_MS) {
+  if (CLOCK_get_milliseconds() - ui32_PAUSE_MSG_time_last_ms >
+      PAUSE_MSG_PERIOD_MS) {
     UI(MSG_PAUSING);
     ui32_PAUSE_MSG_time_last_ms = CLOCK_get_milliseconds();
   }
@@ -270,5 +279,4 @@ void pause_on_update(t_state *inst __attribute__((unused))) {
     }
     ui32_PAUSE_SHIFT_time_last_ms = CLOCK_get_milliseconds();
   }
-
 }

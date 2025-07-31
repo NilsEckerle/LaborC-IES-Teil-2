@@ -41,6 +41,10 @@
  */
 #define SETTING_START_FIELD_DELAY_MS 170
 
+/** @brief Delay before backward is detected to prevent deadlock in corners
+ */
+#define BACKWAD_DELAY_TRESHOLD 100
+
 // Engine
 
 #define SETTING_ENGINE_PWM_POWER_MAX (255)

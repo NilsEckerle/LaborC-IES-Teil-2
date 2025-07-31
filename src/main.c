@@ -172,8 +172,8 @@ t_state_machine *configure_state_machine() {
   // forward
   STATE_add_edge(t_state_forward, condition_forward_to_left, t_state_left);
   STATE_add_edge(t_state_forward, condition_forward_to_right, t_state_right);
-  // STATE_add_edge(t_state_forward, condition_forward_to_backwards,
-  //                t_state_backwards);
+  STATE_add_edge(t_state_forward, condition_forward_to_backwards,
+                 t_state_backwards);
 
   // backward
   STATE_add_edge(t_state_backwards, condition_backwards_to_forward,

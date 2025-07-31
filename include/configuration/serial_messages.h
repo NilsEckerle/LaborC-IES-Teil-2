@@ -147,4 +147,13 @@
     BLANK("'L' - go to line follower threshold config\n\n");                   \
   } while (0)
 
+
+#define PRINT_CONFIG_LINE_FOLLOWER_THRESHOLDS()                                                    \
+  do {                                                                         \
+    UI("COMMANDS:\n");\
+    UI("'L' - set threshold of left sensor\n");\
+    UI("'M' - set threshold of middle sensor\n");\
+    UI("'R' - set threshold of right sensor\n\n");\
+  } while (0)
+
 #endif // !SERIAL_MESSAGES_H
