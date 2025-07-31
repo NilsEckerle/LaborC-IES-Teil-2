@@ -1,8 +1,15 @@
+/**
+ * @file 
+ * @brief 
+ * @author Nils Eckerle
+ * @date 2025-07-31
+ */
+
 #ifndef ADC_H
 #define ADC_H
 
-#include <avr/io.h>
 #include "tools/bit_functions.h"
+#include <avr/io.h>
 
 #define ADC_AVG_WINDOW 10
 
@@ -45,12 +52,12 @@
  * Each pin corresponds to a specific ADC channel and application.
  */
 typedef enum ADC_pin {
-	ADC_LF_RIGHT = ADC0_BIT,
-	ADC_LF_MIDDLE = ADC1_BIT,
-	ADC_LF_LEFT = ADC2_BIT,
-	A3_Voltage_Divider_LiPo = ADC3_BIT,
-	C4 = ADC4_BIT,
-	C5 = ADC5_BIT
+  ADC_LF_RIGHT = ADC0_BIT,
+  ADC_LF_MIDDLE = ADC1_BIT,
+  ADC_LF_LEFT = ADC2_BIT,
+  A3_Voltage_Divider_LiPo = ADC3_BIT,
+  C4 = ADC4_BIT,
+  C5 = ADC5_BIT
 } t_adc_pin;
 
 /**
@@ -101,4 +108,4 @@ uint16_t ADC_get(t_adc_pin pin);
  */
 uint16_t ADC_get_avg(t_adc_pin pin, uint8_t nsamples);
 
-#endif // !ADC_H
+#endif  // !ADC_H

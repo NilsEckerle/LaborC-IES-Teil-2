@@ -1,5 +1,12 @@
-#include <stdint.h>
+/**
+ * @file 
+ * @brief 
+ * @author Nils Eckerle
+ * @date 2025-07-31
+ */
+
 #include <avr/io.h>
+#include <stdint.h>
 
 #define SHIFT_DATA_DDR DDRB
 #define SHIFT_DATA_PORT PORTB

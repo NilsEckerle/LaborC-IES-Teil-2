@@ -1,9 +1,16 @@
+/**
+ * @file 
+ * @brief 
+ * @author Nils Eckerle
+ * @date 2025-07-31
+ */
+
 #ifndef ENGINE_H
 #define ENGINE_H
 
+#include "hardware/linienfolger.h"
 #include <avr/io.h>
 #include <stdint.h>
-#include "hardware/linienfolger.h"
 
 // Drive Forward delay configuration
 #if LOG_LEVEL <= DEBUG_LEVEL_INFO
@@ -67,15 +74,15 @@
  * - LEFT/RIGHT: One motor pair stops, other continues (gentle turn)
  * - HARD_LEFT/HARD_RIGHT: Motor pairs move in opposite directions (sharp turn)
  */
-typedef enum { 
-	ENGINE_UNDEFINED,   /**< Invalid/uninitialized state */
-	ENGINE_STOP,        /**< Both motor pairs stopped */
-	ENGINE_BACKWARDS,   /**< Both motor pairs reverse direction */
-	ENGINE_FORWARD,     /**< Both motor pairs forward direction */
-	ENGINE_HARD_LEFT,   /**< Left motors reverse, right motors forward (sharp left) */
-	ENGINE_LEFT,        /**< Left motors stop, right motors forward (gentle left) */
-	ENGINE_HARD_RIGHT,  /**< Left motors forward, right motors reverse (sharp right) */
-	ENGINE_RIGHT        /**< Left motors forward, right motors stop (gentle right) */
+typedef enum {
+  ENGINE_UNDEFINED,  /**< Invalid/uninitialized state */
+  ENGINE_STOP,       /**< Both motor pairs stopped */
+  ENGINE_BACKWARDS,  /**< Both motor pairs reverse direction */
+  ENGINE_FORWARD,    /**< Both motor pairs forward direction */
+  ENGINE_HARD_LEFT,  /**< Left motors reverse, right motors forward (sharp left) */
+  ENGINE_LEFT,       /**< Left motors stop, right motors forward (gentle left) */
+  ENGINE_HARD_RIGHT, /**< Left motors forward, right motors reverse (sharp right) */
+  ENGINE_RIGHT       /**< Left motors forward, right motors stop (gentle right) */
 } ENGINE_drive_direction;
 
 /**
@@ -100,7 +107,6 @@ void ENGINE_init();
  */
 void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value);
 
-
 /**
  * @brief Controls robot movement direction
  * 
@@ -116,7 +122,7 @@ void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value);
  *       - Reverse: IN1=0, IN2=1 (left), IN3=1, IN4=0 (right)
  *       - Stop: Both direction pins low
  */
- void ENGINE_drive(ENGINE_drive_direction direction);
+void ENGINE_drive(ENGINE_drive_direction direction);
 
 /**
  * @brief Line follower logic for autonomous robot movement
@@ -138,11 +144,7 @@ void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value);
  *       - LF_LMR: start/end handling with delay
  *       - LF_LR/LF_UNDEFINED: Error states, stop robot
  */
-uint8_t ENGINE_drive_logic(
-		LF_detection_state new_lf_state, 
-		LF_detection_state old_lf_state, 
-		uint16_t *LMR_itterations_since_entry
-		);
+uint8_t ENGINE_drive_logic(LF_detection_state new_lf_state, LF_detection_state old_lf_state,
+                           uint16_t *LMR_itterations_since_entry);
 
-
-#endif // !ENGINE_H
+#endif  // !ENGINE_H

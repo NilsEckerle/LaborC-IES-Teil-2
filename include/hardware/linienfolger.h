@@ -1,3 +1,10 @@
+/**
+ * @file 
+ * @brief 
+ * @author Nils Eckerle
+ * @date 2025-07-31
+ */
+
 #ifndef LINIENFOLGER_H
 #define LINIENFOLGER_H
 
@@ -42,18 +49,17 @@
  *       - Enum member values got chosen for its bit representation to work with 
  *       the shift register (last 3 bit representing Left Middle Right in this order).
  */
-typedef enum { 
-	LF_UNDEFINED 	= 8, /**< Invalid/uninitialized state or sensor read error */
-	LF_NONE 			= 0, /**< No sensors detect a line (000) */
-	LF_LMR 				= 7, /**< All sensors detect a line (111) - wide line or intersection */
-	LF_LR 				= 5, /**< Left and right sensors detect a line (101) - edge case */
-	LF_L 					= 4, /**< Only left sensor detects a line (100) */
-	LF_LM 				= 6, /**< Left and middle sensors detect a line (110) */
-	LF_M 					= 2, /**< Only middle sensor detects a line (010) - centered on line */
-	LF_MR 				= 3, /**< Middle and right sensors detect a line (011) */
-	LF_R 					= 1  /**< Only right sensor detects a line (001) */
+typedef enum {
+  LF_UNDEFINED = 8, /**< Invalid/uninitialized state or sensor read error */
+  LF_NONE = 0,      /**< No sensors detect a line (000) */
+  LF_LMR = 7,       /**< All sensors detect a line (111) - wide line or intersection */
+  LF_LR = 5,        /**< Left and right sensors detect a line (101) - edge case */
+  LF_L = 4,         /**< Only left sensor detects a line (100) */
+  LF_LM = 6,        /**< Left and middle sensors detect a line (110) */
+  LF_M = 2,         /**< Only middle sensor detects a line (010) - centered on line */
+  LF_MR = 3,        /**< Middle and right sensors detect a line (011) */
+  LF_R = 1          /**< Only right sensor detects a line (001) */
 } LF_detection_state;
-
 
 /**
  * @brief setup DDR and PORT of input pins
@@ -61,11 +67,7 @@ typedef enum {
  */
 void LF_init();
 
-typedef enum {
-	LF_LEFT = 0,
-	LF_MIDDLE,
-	LF_RIGHT
-} LF_index;
+typedef enum { LF_LEFT = 0, LF_MIDDLE, LF_RIGHT } LF_index;
 
 /**
  * @brief gets the state of the line sensor of index

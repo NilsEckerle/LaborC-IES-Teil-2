@@ -10,10 +10,10 @@ volatile uint32_t seconds = 0;
 ISR(TIMER1_OVF_vect) {
   milliseconds += 32;
 
-	if (milliseconds >= 1000) {
-		milliseconds -= 1000;
-		seconds++;
-	}
+  if (milliseconds >= 1000) {
+    milliseconds -= 1000;
+    seconds++;
+  }
 }
 
 void CLOCK_init() {
@@ -45,11 +45,10 @@ void CLOCK_init() {
   // Enable global interrupts
   sei();
 
-	INFO("[CLOCK_init] Clock initialization successful\n");
+  INFO("[CLOCK_init] Clock initialization successful\n");
 }
 
-
-uint32_t CLOCK_get_seconds(void) { 
+uint32_t CLOCK_get_seconds(void) {
   uint32_t s;
 
   // Disable interrupts to ensure atomic read
