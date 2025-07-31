@@ -219,7 +219,7 @@ int main() {
     return 1;
   }
 
-  INFO("[main] now starting state machine\n")
+  INFO("[main] now starting state machine\n");
   STATE_MACHINE_run(state_machine);
 
   return 0;
