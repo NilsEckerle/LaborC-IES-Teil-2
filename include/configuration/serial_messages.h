@@ -121,19 +121,22 @@
 
 #define PAUSE_MSG_PERIOD_MS CALCULATE_PERIOD_MS(1)
 
-#define MSG_WAITING_HELP                                                       \
-  "========== ROBOTER HELP ==========\n"                                       \
-  "FROM HERE:\n"                                                               \
-  "'S'       - to start driving\n"                                             \
-  "'?'       - to get this help\n"                                             \
-  "'C'       - to get into config\n"                                           \
-  "CONFIG:\n"                                                                  \
-  "'S'       - to get back to waiting\n"                                       \
-  "'R'       - to configure rounds to drive\n"                                 \
-  "'L'       - to configure line follower sensor tresholds\n"                  \
-  "'P'       - to configure engine power scaling (only slows engine down)\n"   \
-  "DRIVING\n"                                                                  \
-  "'P'       - toggle driving pause\n"                                         \
-  "==================================\n\n"
+#define PRINT_WAITING_HELP()                                                   \
+  do {                                                                         \
+    BLANK("========== ROBOTER HELP ==========\n");                             \
+    BLANK("FROM HERE:\n");                                                     \
+    BLANK("'S'       - to start driving\n");                                   \
+    BLANK("'?'       - to get this help\n");                                   \
+    BLANK("'C'       - to get into config\n");                                 \
+    BLANK("CONFIG:\n");                                                        \
+    BLANK("'S'       - to get back to waiting\n");                             \
+    BLANK("'R'       - to configure rounds to drive\n");                       \
+    BLANK("'L'       - to configure line follower sensor tresholds\n");        \
+    BLANK("'P'       - to configure engine power scaling (only slows engine "  \
+          "down)\n");                                                          \
+    BLANK("DRIVING\n");                                                        \
+    BLANK("'P'       - toggle driving pause\n");                               \
+    BLANK("==================================\n\n");                           \
+  } while (0)
 
 #endif // !SERIAL_MESSAGES_H
