@@ -24,8 +24,8 @@ t_roboter *ROBOTER_get_instance();
 		free(tp_robi->vp_dto); \
 		tp_robi->vp_dto = NULL; \
 	} \
-	tp_robi->vp_dto = malloc(sizeof(t_data)); \
-	*(uint8_t *)tp_robi->vp_dto = t_data; \
+	tp_robi->vp_dto = malloc(sizeof(typeof(t_data))); \
+	*(typeof(t_data) *)tp_robi->vp_dto = t_data; \
 } while (0)
 
 #endif // !ROBOTER_H

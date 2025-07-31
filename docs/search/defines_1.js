@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['adc0_5fbit_0',['ADC0_BIT',['../d7/d19/adc_8h.html#a7206c4bd8a6f4a826f3335983cd2f20a',1,'adc.h']]],
+  ['adc0_5fddr_1',['ADC0_DDR',['../d7/d19/adc_8h.html#a514bc9a685c914e3f817dfd110b6d362',1,'adc.h']]],
+  ['adc0_5fpin_2',['ADC0_PIN',['../d7/d19/adc_8h.html#a209539b6b0e7fe09559dc67b62acb94d',1,'adc.h']]],
+  ['adc1_5fbit_3',['ADC1_BIT',['../d7/d19/adc_8h.html#ae40ddcc3aacadf79ae2deb704f36a98e',1,'adc.h']]],
+  ['adc1_5fddr_4',['ADC1_DDR',['../d7/d19/adc_8h.html#a8a62bd58c1ed8603a38766f53253ec10',1,'adc.h']]],
+  ['adc1_5fpin_5',['ADC1_PIN',['../d7/d19/adc_8h.html#a3f7482ad6495b9f8f69d9bb916aae854',1,'adc.h']]],
+  ['adc2_5fbit_6',['ADC2_BIT',['../d7/d19/adc_8h.html#a89fb449e9a1d85f77b89c966a0557fc0',1,'adc.h']]],
+  ['adc2_5fddr_7',['ADC2_DDR',['../d7/d19/adc_8h.html#aa0c0fff9402fdcac4a0cd6b4eeacf20a',1,'adc.h']]],
+  ['adc2_5fpin_8',['ADC2_PIN',['../d7/d19/adc_8h.html#afb2f4f2a136b1a0dd1f1926defbae195',1,'adc.h']]],
+  ['adc3_5fbit_9',['ADC3_BIT',['../d7/d19/adc_8h.html#a402e4e450020f46ebfcacc50160229de',1,'adc.h']]],
+  ['adc3_5fddr_10',['ADC3_DDR',['../d7/d19/adc_8h.html#a47f6f8e541c3f05cb8fbbc2a4aad9c2b',1,'adc.h']]],
+  ['adc3_5fpin_11',['ADC3_PIN',['../d7/d19/adc_8h.html#a505837e2819dff70f176624930702756',1,'adc.h']]],
+  ['adc4_5fbit_12',['ADC4_BIT',['../d7/d19/adc_8h.html#ac9da02f14e6beba592e365d8f0d11e1c',1,'adc.h']]],
+  ['adc4_5fddr_13',['ADC4_DDR',['../d7/d19/adc_8h.html#abd2655bdca09918d237bb9dc56673321',1,'adc.h']]],
+  ['adc4_5fpin_14',['ADC4_PIN',['../d7/d19/adc_8h.html#a8a984183012e82dffc496e28b7caec32',1,'adc.h']]],
+  ['adc5_5fbit_15',['ADC5_BIT',['../d7/d19/adc_8h.html#a6175ae8b641ad3c1185cc11feebd46fb',1,'adc.h']]],
+  ['adc5_5fddr_16',['ADC5_DDR',['../d7/d19/adc_8h.html#a26b83b1af4a00cd281bc5db64277634c',1,'adc.h']]],
+  ['adc5_5fpin_17',['ADC5_PIN',['../d7/d19/adc_8h.html#a3cf2faf05db17fc145bc68a6116a6850',1,'adc.h']]],
+  ['adc_5favg_5fwindow_18',['ADC_AVG_WINDOW',['../d7/d19/adc_8h.html#a5ae939fc8e2bed7ef2c9c73cd5762189',1,'adc.h']]],
+  ['adc_5fmux_5fsteuer_5freg_19',['ADC_MUX_STEUER_REG',['../d7/d19/adc_8h.html#a904d1f2d00a8e1ab4c45b2b4b11b9bf7',1,'adc.h']]],
+  ['adc_5fread_20',['ADC_READ',['../d7/d19/adc_8h.html#a55efe21d802352cd3d833f3bc9a2cbf9',1,'adc.h']]]
+];

@@ -23,17 +23,17 @@
 /** @brief Default threshold for the left line follower
  * @note range 0-1024
  */
-#define SETTING_LF_LEFT_DEFAULT_THRESHOLD 512
+#define SETTING_LF_LEFT_DEFAULT_THRESHOLD 150
 
 /** @brief Default threshold for the middle line follower
  * @note range 0-1024
  */
-#define SETTING_LF_MIDDLE_DEFAULT_THRESHOLD 512
+#define SETTING_LF_MIDDLE_DEFAULT_THRESHOLD 500
 
 /** @brief Default threshold for the right line follower
  * @note range 0-1024
  */
-#define SETTING_LF_RIGHT_DEFAULT_THRESHOLD 512
+#define SETTING_LF_RIGHT_DEFAULT_THRESHOLD 150
 
 // Driving
 
@@ -43,26 +43,26 @@
 
 /** @brief Delay before backward is detected to prevent deadlock in corners
  */
-#define BACKWAD_DELAY_TRESHOLD 100
+#define BACKWAD_DELAY_TRESHOLD 20
 
 // Engine
 
 #define SETTING_ENGINE_PWM_POWER_MAX (255)
 
 #define SETTING_ENGINE_PWM_POWER_FORWARD                                       \
-  ((uint8_t)(SETTING_ENGINE_PWM_POWER_MAX * 7 / 8))
+	CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 90)
 
 #define SETTING_ENGINE_PWM_POWER_BACKWARD                                      \
-  ((uint8_t)(SETTING_ENGINE_PWM_POWER_MAX * 7 / 8))
+	CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 60)
 
 #define SETTING_ENGINE_PWM_POWER_TURN_FORWARD                                  \
-  ((uint8_t)(SETTING_ENGINE_PWM_POWER_MAX * 7 / 8))
+	CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 90)
 
 #define SETTING_ENGINE_PWM_POWER_TURN_FORWARD_LOW                              \
-  ((uint8_t)(SETTING_ENGINE_PWM_POWER_MAX * 1 / 16))
+	CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 30)
 
 #define SETTING_ENGINE_PWM_POWER_TURN_BACKWARD                                 \
-  ((uint8_t)(SETTING_ENGINE_PWM_POWER_MAX * 3 / 4))
+	CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 70)
 
 // WAITING
 

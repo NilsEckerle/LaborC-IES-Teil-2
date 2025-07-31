@@ -11,6 +11,7 @@
 
 // #define LOG_LEVEL LOG_LEVEL_INFO
 #include "tools/logger.h"
+#include "tools/math_helper_functions.h"
 #include <stdint.h>
 
 static uint32_t ui32_DRIVE_MSG_time_last_ms = 0;
@@ -86,9 +87,7 @@ void backwards_on_update(t_state *inst __attribute__((unused))) {
   if (CLOCK_get_milliseconds() - *inst->ui32p_state_entry_time_ms >
       BACKWAD_DELAY_TRESHOLD) {
 
-    ENGINE_set_duty_cicle(
-        ENGINE_PWM_LEFT,
-        SETTING_ENGINE_PWM_POWER_BACKWARD); // set to 3/4 speed
+    ENGINE_set_duty_cicle( ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_BACKWARD);
     ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_BACKWARD);
 
     // Left motors forward

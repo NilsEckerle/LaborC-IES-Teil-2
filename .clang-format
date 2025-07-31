@@ -1,0 +1,11 @@
+BasedOnStyle: LLVM
+Language: C
+
+# Keep comments on same line - most important settings
+ReflowComments: false
+AlignTrailingComments: true
+SpacesBeforeTrailingComments: 1
+
+# Basic formatting
+IndentWidth: 2
+ColumnLimit: 100

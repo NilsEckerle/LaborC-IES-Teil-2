@@ -11,6 +11,8 @@ uint8_t condition_LF_LMR(t_state *inst __attribute__((unused)), void *vp_dto __a
 
 uint8_t condition_LF_NOT_LMR(t_state *inst __attribute__((unused)), void *vp_dto __attribute__((unused)));
 
+uint8_t condition_LF_NONE(t_state *inst __attribute__((unused)), void *vp_dto __attribute__((unused)));
+
 uint8_t condition_forward_to_backwards(t_state *inst __attribute__((unused)), void *vp_dto __attribute__((unused)));
 
 uint8_t condition_backwards_to_forward(t_state *inst __attribute__((unused)), void *vp_dto __attribute__((unused)));

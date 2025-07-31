@@ -1,0 +1,7 @@
+<map id="/home/nils/vm&#45;share/LaborC&#45;IES&#45;Teil&#45;2/include/configuration/robot_settings.h" name="/home/nils/vm&#45;share/LaborC&#45;IES&#45;Teil&#45;2/include/configuration/robot_settings.h">
+<area shape="rect" id="node1" title="Central point for changing robot settings." alt="" coords="289,5,509,61"/>
+<area shape="rect" id="node2" href="$d6/d76/conditions__clock_8c.html" title=" " alt="" coords="5,109,201,165"/>
+<area shape="rect" id="node3" href="$d3/dbc/roboter_8c.html" title=" " alt="" coords="225,109,384,165"/>
+<area shape="rect" id="node4" href="$d5/dd0/states__config_8c.html" title=" " alt="" coords="408,109,583,165"/>
+<area shape="rect" id="node5" href="$d8/dfa/states__drive_8c.html" title=" " alt="" coords="607,109,775,165"/>
+</map>
