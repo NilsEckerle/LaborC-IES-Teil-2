@@ -33,9 +33,7 @@ void init_robi_on_update(t_state *inst __attribute__((unused))) {
 
 void config_on_entry(t_state *inst __attribute__((unused))) {
   INFO("config\n");
-  BLANK("Send char to select: \n"
-        "'W'       - go to waiting state\n"
-        "'R'       - got to set rounds state\n\n");
+  PRINT_CONFIG_HELP();
   return;
 }
 

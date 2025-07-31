@@ -68,29 +68,6 @@ uint8_t condition_USART_questionmark(t_state *inst __attribute__((unused)),
   return 0;
 }
 
-uint8_t condition_USART_lfconfigstatic(t_state *inst __attribute__((unused)),
-                                       void *vp_dto __attribute__((unused))) {
-  TRACE("[condition_USART_lf-config-static] Entry - checking for 'lfs'\n");
-
-  // Only check if we actually have a complete string
-  if (!USART_has_string()) {
-    TRACE("[condition_USART_lf-config-static] No complete string available\n");
-    return 0;
-  }
-
-  const char *c = USART_get_string();
-  if (NULL != c && (strcmp(c, "lfs") == 0)) {
-    TRACE("[condition_USART_lf-config-static] Match found! String='%s' - "
-          "consuming\n",
-          c);
-    USART_consume_string();
-    return 1;
-  }
-  TRACE("[condition_USART_lf-config-static] No match. String='%s'\n",
-        c ? c : "NULL");
-  return 0;
-}
-
 uint8_t condition_USART_isdigit(t_state *inst __attribute__((unused)),
                                 void *vp_dto __attribute__((unused))) {
   TRACE("[condition_USART_c] Entry - checking for isdigit\n");

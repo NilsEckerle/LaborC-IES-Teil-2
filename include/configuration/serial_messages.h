@@ -129,7 +129,7 @@
     BLANK("'?'       - to get this help\n");                                   \
     BLANK("'C'       - to get into config\n");                                 \
     BLANK("CONFIG:\n");                                                        \
-    BLANK("'S'       - to get back to waiting\n");                             \
+    BLANK("'W'       - to get back to waiting\n");                             \
     BLANK("'R'       - to configure rounds to drive\n");                       \
     BLANK("'L'       - to configure line follower sensor tresholds\n");        \
     BLANK("'P'       - to configure engine power scaling (only slows engine "  \
@@ -137,6 +137,14 @@
     BLANK("DRIVING\n");                                                        \
     BLANK("'P'       - toggle driving pause\n");                               \
     BLANK("==================================\n\n");                           \
+  } while (0)
+
+#define PRINT_CONFIG_HELP()                                                    \
+  do {                                                                         \
+    BLANK("Send char to select:\n");                                           \
+    BLANK("'W' - got back to waiting state\n");                                \
+    BLANK("'R' - got to round config\n");                                      \
+    BLANK("'L' - go to line follower threshold config\n\n");                   \
   } while (0)
 
 #endif // !SERIAL_MESSAGES_H
