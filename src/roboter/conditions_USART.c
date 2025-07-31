@@ -1,3 +1,6 @@
+// #define LOG_LEVEL LOG_LEVEL_TRACE
+#include "tools/logger.h"
+
 #include "roboter/conditions_USART.h"
 #include "roboter/roboter.h"
 #include "tools/iesusart.h"
@@ -8,8 +11,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-// #define LOG_LEVEL LOG_LEVEL_TRACE
-#include "tools/logger.h"
 
 #define BUILD_FUNCTION_condition_USART_chr(chr)                         \
   uint8_t condition_USART_##chr(t_state *inst __attribute__((unused)),  \
@@ -19,6 +20,7 @@
     }                                                                   \
     const char *c = USART_get_string();                                 \
     if (NULL != c && (strcmp(c, #chr) == 0)) {                          \
+      TRACE("[condition_USART_" #chr "] true\n");                       \
       USART_consume_string();                                           \
       return 1;                                                         \
     }                                                                   \
@@ -41,7 +43,7 @@ BUILD_FUNCTION_condition_USART_chr(P);
 
 uint8_t condition_USART_helper_clear_invalid_input(t_state *inst __attribute__((unused)),
                                                    void *vp_dto __attribute__((unused))) {
-  TRACE("[condition_USART_clear] Called - clearing buffer\n");
+  TRACE("[condition_USART_helper_clear_invalid_input] Called - clearing buffer\n");
   USART_consume_on_second_call_string();
   return 0;
 }
