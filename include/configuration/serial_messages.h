@@ -18,9 +18,9 @@
  * - in waiting for start command state
  * - Print in 1 Hz frequency
  */
-#define MSG_WAITING_UI                                                         \
-  "Hey you. I am in state WAITING. "                                           \
-  "Send me an 'S' so that I can start or "                                     \
+#define MSG_WAITING_UI                     \
+  "Hey you. I am in state WAITING. "       \
+  "Send me an 'S' so that I can start or " \
   "send me a '?' so that I can give you help.\n\n"
 
 #define WAITING_MSG_PERIOD_MS CALCULATE_PERIOD_MS(1)
@@ -33,8 +33,8 @@
  * - in searching for start field state
  * - Print in 1 Hz frequency
  */
-#define MSG_SEARCHING                                                          \
-  "Not on the starting field, I am in state SEARCHING. "                       \
+#define MSG_SEARCHING                                    \
+  "Not on the starting field, I am in state SEARCHING. " \
   "Place me there please...\n\n"
 
 #define SEARCHING_MSG_PERIOD_MS CALCULATE_PERIOD_MS(1)
@@ -50,8 +50,7 @@
  * - Round counting starts from 1
  * - %u placeholder should be replaced with current round number
  */
-#define MSG_FMT_DRIVING_ROUND                                                  \
-  "Round and round I go during state DRIVING, currently round %u\n\n"
+#define MSG_FMT_DRIVING_ROUND "Round and round I go during state DRIVING, currently round %u\n\n"
 
 #define DRIVING_MSG_PERIOD_MS CALCULATE_PERIOD_MS(1)
 
@@ -72,8 +71,7 @@
  * - Displayed after finishing round 1
  * - Printed once
  */
-#define MSG_ROUND_1_COMPLETE                                                   \
-  "YEAH, still in state DRIVING, done round 1, going for round 2/3\n\n"
+#define MSG_ROUND_1_COMPLETE "YEAH, still in state DRIVING, done round 1, going for round 2/3\n\n"
 
 /**
  * @brief String literal after completing round 2
@@ -83,7 +81,7 @@
  * - Displayed after finishing round 2
  * - Printed once
  */
-#define MSG_ROUND_2_COMPLETE                                                   \
+#define MSG_ROUND_2_COMPLETE \
   "YEAH YEAH, still in state DRIVING, done round 2, going for round 3/3\n\n"
 
 /**
@@ -93,8 +91,8 @@
  * Usage requirement:
  * - Displayed after finishing round 3
  */
-#define MSG_ROUND_3_COMPLETE                                                   \
-  "Done. Thank you! I am going into state RESTING now and I will "             \
+#define MSG_ROUND_3_COMPLETE                                       \
+  "Done. Thank you! I am going into state RESTING now and I will " \
   "reset myself in 5 seconds. Take care of you and me!\n\n"
 
 /**
@@ -104,8 +102,7 @@
  * Usage requirement:
  * - Displayed once when entering resting state
  */
-#define MSG_RESTING                                                            \
-  "I will be in state RESTING from now on! zzzZZZzzzZZZzzz\n\n"
+#define MSG_RESTING "I will be in state RESTING from now on! zzzZZZzzzZZZzzz\n\n"
 
 /**
  * @brief String literal for pausing state
@@ -115,45 +112,44 @@
  * - Displayed in pausing state
  * - Printed at 1 Hz frequency
  */
-#define MSG_PAUSING                                                            \
-  "I am in state PAUSING .... zzzZZZzzzZZZzzz .... wake me up with P "         \
+#define MSG_PAUSING                                                    \
+  "I am in state PAUSING .... zzzZZZzzzZZZzzz .... wake me up with P " \
   "again.\n\n"
 
 #define PAUSE_MSG_PERIOD_MS CALCULATE_PERIOD_MS(1)
 
-#define PRINT_WAITING_HELP()                                                   \
-  do {                                                                         \
-    BLANK("========== ROBOTER HELP ==========\n");                             \
-    BLANK("FROM HERE:\n");                                                     \
-    BLANK("'S'       - to start driving\n");                                   \
-    BLANK("'?'       - to get this help\n");                                   \
-    BLANK("'C'       - to get into config\n");                                 \
-    BLANK("CONFIG:\n");                                                        \
-    BLANK("'W'       - to get back to waiting\n");                             \
-    BLANK("'R'       - to configure rounds to drive\n");                       \
-    BLANK("'L'       - to configure line follower sensor tresholds\n");        \
-    BLANK("'P'       - to configure engine power scaling (only slows engine "  \
-          "down)\n");                                                          \
-    BLANK("DRIVING\n");                                                        \
-    BLANK("'P'       - toggle driving pause\n");                               \
-    BLANK("==================================\n\n");                           \
+#define PRINT_WAITING_HELP()                                                  \
+  do {                                                                        \
+    BLANK("========== ROBOTER HELP ==========\n");                            \
+    BLANK("FROM HERE:\n");                                                    \
+    BLANK("'S'       - to start driving\n");                                  \
+    BLANK("'?'       - to get this help\n");                                  \
+    BLANK("'C'       - to get into config\n");                                \
+    BLANK("CONFIG:\n");                                                       \
+    BLANK("'W'       - to get back to waiting\n");                            \
+    BLANK("'R'       - to configure rounds to drive\n");                      \
+    BLANK("'L'       - to configure line follower sensor tresholds\n");       \
+    BLANK("'P'       - to configure engine power scaling (only slows engine " \
+          "down)\n");                                                         \
+    BLANK("DRIVING\n");                                                       \
+    BLANK("'P'       - toggle driving pause\n");                              \
+    BLANK("==================================\n\n");                          \
   } while (0)
 
-#define PRINT_CONFIG_HELP()                                                    \
-  do {                                                                         \
-    BLANK("Send char to select:\n");                                           \
-    BLANK("'W' - got back to waiting state\n");                                \
-    BLANK("'R' - got to round config\n");                                      \
-    BLANK("'L' - go to line follower threshold config\n\n");                   \
+#define PRINT_CONFIG_HELP()                                  \
+  do {                                                       \
+    BLANK("Send char to select:\n");                         \
+    BLANK("'W' - got back to waiting state\n");              \
+    BLANK("'R' - got to round config\n");                    \
+    BLANK("'L' - go to line follower threshold config\n\n"); \
   } while (0)
 
-
-#define PRINT_CONFIG_LINE_FOLLOWER_THRESHOLDS()                                                    \
-  do {                                                                         \
-    UI("COMMANDS:\n");\
-    UI("'L' - set threshold of left sensor\n");\
-    UI("'M' - set threshold of middle sensor\n");\
-    UI("'R' - set threshold of right sensor\n\n");\
+#define PRINT_CONFIG_LINE_FOLLOWER_THRESHOLDS()    \
+  do {                                             \
+    UI("COMMANDS:\n");                             \
+    UI("'L' - set threshold of left sensor\n");    \
+    UI("'M' - set threshold of middle sensor\n");  \
+    UI("'R' - set threshold of right sensor\n\n"); \
   } while (0)
 
-#endif // !SERIAL_MESSAGES_H
+#endif  // !SERIAL_MESSAGES_H
