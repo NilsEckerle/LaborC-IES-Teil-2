@@ -1,3 +1,10 @@
+/**
+ * @file 
+ * @brief 
+ * @author Nils Eckerle
+ * @date 2025-07-30
+ */
+
 #ifndef IESUSART_h
 #define IESUSART_h
 
@@ -15,7 +22,7 @@ extern volatile uint8_t usart_overflow;
 /// Desired baudrate
 #define BAUD 9600
 /// What to write into the UBRR register
-#define UBRR_SETTING F_CPU/16.0/BAUD-1
+#define UBRR_SETTING F_CPU / 16.0 / BAUD - 1
 
 /**
  * @brief Writes a single byte to the USART transmit buffer
@@ -28,7 +35,7 @@ void USART_transmitByte(unsigned char data);
  */
 void USART_print(const char *c);
 
-char* USART_get_string(void);
+char *USART_get_string(void);
 
 void USART_consume_string(void);
 

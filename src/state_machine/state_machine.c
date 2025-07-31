@@ -16,11 +16,11 @@ int8_t STATE_MACHINE_add_state(t_state_machine *inst, t_state *new_state) {
   }
 
   // check duplicate
-	for (int i = 0; i < inst->arrp_states->ui8_size; i++) {
-		if (inst->arrp_states->vpp_data_array[i] == new_state) { // is duplicate
-			WARNING("[add_state] state adress %p is already added", new_state);
-		}
-	}
+  for (int i = 0; i < inst->arrp_states->ui8_size; i++) {
+    if (inst->arrp_states->vpp_data_array[i] == new_state) {  // is duplicate
+      WARNING("[add_state] state adress %p is already added", new_state);
+    }
+  }
 
   // add state
   if (DYN_ARR_add(inst->arrp_states, new_state)) {
@@ -54,13 +54,13 @@ int8_t STATE_MACHINE_set_start_state(t_state_machine *inst, t_state *start_state
 }
 
 int8_t STATE_MACHINE_set_current_state(t_state_machine *inst, t_state *tp_new_state) {
-	if (inst == NULL || tp_new_state == NULL) {
-		return 1;
-	}
+  if (inst == NULL || tp_new_state == NULL) {
+    return 1;
+  }
   inst->bool_is_new_state = 1;
   inst->tp_current_state = tp_new_state;
 
-	TRACE("[set_current_state] to adress: %p\n", tp_new_state);
+  TRACE("[set_current_state] to adress: %p\n", tp_new_state);
 
   return 0;
 }
@@ -90,10 +90,10 @@ void STATE_MACHINE_run(t_state_machine *inst) {
 void STATE_MACHINE_destructor(t_state_machine *inst) {
   if (NULL != inst) {
     if (NULL != inst->arrp_states) {
-      DYN_ARR_destructor(&inst->arrp_states); // field
+      DYN_ARR_destructor(&inst->arrp_states);  // field
     }
 
-    free(inst); // struct
+    free(inst);  // struct
   }
 }
 

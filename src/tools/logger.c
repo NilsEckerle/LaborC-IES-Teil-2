@@ -3,32 +3,32 @@
 static char debug_buffer[128];
 
 void __attribute__((unused)) debug_printf(const char *prefix, const char *format, ...) {
-	va_list args;
-	va_start(args, format);
+  va_list args;
+  va_start(args, format);
 
-	// Format the message
-	snprintf(debug_buffer, sizeof(debug_buffer), "%s", prefix);
-	vsnprintf(debug_buffer + strlen(debug_buffer),
-			sizeof(debug_buffer) - strlen(debug_buffer), format, args);
+  // Format the message
+  snprintf(debug_buffer, sizeof(debug_buffer), "%s", prefix);
+  vsnprintf(debug_buffer + strlen(debug_buffer), sizeof(debug_buffer) - strlen(debug_buffer),
+            format, args);
 
-	va_end(args);
+  va_end(args);
 
-	// Send to USART
-	USART_print(debug_buffer);
+  // Send to USART
+  USART_print(debug_buffer);
 }
 
 void __attribute__((unused)) debug_printf_P(const char *prefix, const char *format, ...) {
-	va_list args;
-	va_start(args, format);
+  va_list args;
+  va_start(args, format);
 
-	strcpy_P(debug_buffer, prefix);
+  strcpy_P(debug_buffer, prefix);
 
-	// Format the message
-	vsnprintf_P(debug_buffer + strlen(debug_buffer),
-			sizeof(debug_buffer) - strlen(debug_buffer), format, args);
+  // Format the message
+  vsnprintf_P(debug_buffer + strlen(debug_buffer), sizeof(debug_buffer) - strlen(debug_buffer),
+              format, args);
 
-	va_end(args);
+  va_end(args);
 
-	// Send to USART
-	USART_print(debug_buffer);
+  // Send to USART
+  USART_print(debug_buffer);
 }

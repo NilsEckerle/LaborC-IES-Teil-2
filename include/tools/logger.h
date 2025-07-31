@@ -1,11 +1,18 @@
+/**
+ * @file 
+ * @brief 
+ * @author Nils Eckerle
+ * @date 2025-07-30
+ */
+
 #ifndef LOGGER_H
 #define LOGGER_H
 
 #include "tools/iesusart.h"
+#include <avr/pgmspace.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
-#include <avr/pgmspace.h>
 
 #define LOG_LEVEL_TRACE 0
 #define LOG_LEVEL_INFO_SPAM 1
@@ -76,4 +83,4 @@ void __attribute__((unused)) debug_printf(const char *prefix, const char *format
 #define UI(format, ...) DEBUG_PRINTF("[UI] ", format, ##__VA_ARGS__)
 #define BLANK(format, ...) DEBUG_PRINTF("", format, ##__VA_ARGS__)
 
-#endif // LOGGER_H
+#endif  // LOGGER_H

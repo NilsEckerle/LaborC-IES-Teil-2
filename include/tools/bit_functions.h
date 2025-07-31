@@ -1,3 +1,10 @@
+/**
+ * @file 
+ * @brief 
+ * @author Nils Eckerle
+ * @date 2025-07-30
+ */
+
 #ifndef BIT_FUNCTIONS
 #define BIT_FUNCTIONS
 
@@ -16,7 +23,10 @@
  *       uint8_t status = 0x00;  // 00000000
  *       SET_BIT(status, 3);     // Sets bit 3: 00001000 (0x08)
  */
-#define SET_BIT(reg, bit) do {reg |= (1 << bit);} while(0)
+#define SET_BIT(reg, bit) \
+  do {                    \
+    reg |= (1 << bit);    \
+  } while (0)
 
 /**
  * @brief Clears a specific bit in a register to 0
@@ -33,7 +43,10 @@
  *       uint8_t status = 0xFF;    // 11111111
  *       UNSET_BIT(status, 3);     // Clears bit 3: 11110111 (0xF7)
  */
-#define UNSET_BIT(reg, bit) do {reg &= ~(1 << bit);} while(0)
+#define UNSET_BIT(reg, bit) \
+  do {                      \
+    reg &= ~(1 << bit);     \
+  } while (0)
 
 /**
  * @brief This is a shorthand to check if a bit is set in a register
@@ -49,4 +62,4 @@
  */
 #define IS_BIT_SET(reg, bit) ((reg & (1 << bit)) ? 1 : 0)
 
-#endif // !BIT_FUNCTIONS
+#endif  // !BIT_FUNCTIONS

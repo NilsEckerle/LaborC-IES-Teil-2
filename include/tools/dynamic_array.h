@@ -1,3 +1,10 @@
+/**
+ * @file 
+ * @brief 
+ * @author Nils Eckerle
+ * @date 2025-07-30
+ */
+
 #ifndef DYNAMIC_ARRAY_H
 #define DYNAMIC_ARRAY_H
 
@@ -17,8 +24,8 @@
  *       Size is limited to 255 elements due to uint8_t size field.
  */
 typedef struct dynamic_array {
-	void **vpp_data_array; /**< Array of void pointers to stored data */
-	uint8_t ui8_size;      /**< Current number of elements in array */
+  void **vpp_data_array; /**< Array of void pointers to stored data */
+  uint8_t ui8_size;      /**< Current number of elements in array */
 } t_dyn_arr;
 
 /**
@@ -99,12 +106,13 @@ int8_t DYN_ARR_destructor(t_dyn_arr **tpp_array);
  *       int value = 42;
  *       DYN_ARR_add_by_value(array, value);  // Copies value to heap
  */
-#define DYN_ARR_add_by_value(tp_array, t_data) do { \
-	void *vp_data = malloc(sizeof(typeof(t_data))); \
-	typeof(t_data) tmp = (t_data); \
-	memcpy(vp_data, &tmp, sizeof(typeof(t_data))); \
-	DYN_ARR_add(tp_array, vp_data); \
-} while (0)
+#define DYN_ARR_add_by_value(tp_array, t_data)      \
+  do {                                              \
+    void *vp_data = malloc(sizeof(typeof(t_data))); \
+    typeof(t_data) tmp = (t_data);                  \
+    memcpy(vp_data, &tmp, sizeof(typeof(t_data)));  \
+    DYN_ARR_add(tp_array, vp_data);                 \
+  } while (0)
 
 /**
  * @brief Retrieves data from array and casts to specified type
@@ -124,8 +132,7 @@ int8_t DYN_ARR_destructor(t_dyn_arr **tpp_array);
  * @example
  *       int value = DYN_ARR_get_as_type(array, 0, int);
  */
-#define DYN_ARR_get_as_type(tp_array, ui8_index, type) \
-	(*(type *)DYN_ARR_get(tp_array, ui8_index))
+#define DYN_ARR_get_as_type(tp_array, ui8_index, type) (*(type *)DYN_ARR_get(tp_array, ui8_index))
 
 /**
  * @brief Retrieves data from array and casts to specified type pointer
@@ -145,7 +152,6 @@ int8_t DYN_ARR_destructor(t_dyn_arr **tpp_array);
  * @example
  *       char *str = DYN_ARR_get_as_ptr(array, 0, char*);
  */
-#define DYN_ARR_get_as_ptr(tp_array, ui8_index, type) \
-	((type)DYN_ARR_get(tp_array, ui8_index))
+#define DYN_ARR_get_as_ptr(tp_array, ui8_index, type) ((type)DYN_ARR_get(tp_array, ui8_index))
 
 #endif

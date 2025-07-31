@@ -12,10 +12,8 @@
  * @brief calculates the period in milli seconds
  * @param HZ - in HZ how often it should appear
  */
-#define CALCULATE_PERIOD_MS(HZ) \
-	(1000/HZ)
+#define CALCULATE_PERIOD_MS(HZ) (1000 / HZ)
 
-#define CALCULATE_PERCENT(MAX, PERCENT) \
-	(typeof(MAX))(MAX * PERCENT / 100)
+#define CALCULATE_PERCENT(MAX, PERCENT) (typeof(MAX))(MAX * PERCENT / 100)
 
-#endif // !MATH_HELPER_FUNCTIONS_H
+#endif  // !MATH_HELPER_FUNCTIONS_H

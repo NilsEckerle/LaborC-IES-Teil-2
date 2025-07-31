@@ -10,21 +10,21 @@
 static void do_nothing(t_state *tp_state __attribute__((unused)),
                        void *dto __attribute__((unused))) {}
 
-int8_t STATE_add_edge_with_execute(
-    t_state *tp_state,
-    uint8_t (*condition)(t_state *tp_current_state, void *vp_dto),
-    void (*fp_execute_on_transition)(t_state *tp_current_state, void *vp_dto),
-    t_state *next_state) {
+int8_t STATE_add_edge_with_execute(t_state *tp_state,
+                                   uint8_t (*condition)(t_state *tp_current_state, void *vp_dto),
+                                   void (*fp_execute_on_transition)(t_state *tp_current_state,
+                                                                    void *vp_dto),
+                                   t_state *next_state) {
   // guards
-  if (tp_state == NULL) { // invalid parameter
+  if (tp_state == NULL) {  // invalid parameter
     WARNING("add_edge: tp_state is NULL.\n");
     return 1;
   }
-  if (condition == NULL) { // invalid parameter
+  if (condition == NULL) {  // invalid parameter
     WARNING("add_edge: condition is NULL.\n");
     return 1;
   }
-  if (next_state == NULL) { // invalid parameter
+  if (next_state == NULL) {  // invalid parameter
     WARNING("add_edge: next_state is NULL.\n");
     return 1;
   }
@@ -51,11 +51,9 @@ int8_t STATE_add_edge_with_execute(
   return 0;
 }
 
-int8_t STATE_add_edge(t_state *tp_state,
-                      uint8_t (*condition)(t_state *tp_state, void *vp_dto),
+int8_t STATE_add_edge(t_state *tp_state, uint8_t (*condition)(t_state *tp_state, void *vp_dto),
                       t_state *next_state) {
-  return STATE_add_edge_with_execute(tp_state, condition, do_nothing,
-                                     next_state);
+  return STATE_add_edge_with_execute(tp_state, condition, do_nothing, next_state);
 }
 
 void STATE_set_parent(t_state *tp_state, t_state *tp_new_parent) {
@@ -97,10 +95,9 @@ void STATE_check_edges(t_state *tp_state, t_state_machine *state_machine) {
       TRACE("conditon is true!\n");
 
       int8_t rc = STATE_MACHINE_set_current_state(state_machine, edge->state);
-      if (rc != 0) { // state doesnt exist
+      if (rc != 0) {  // state doesnt exist
         FATAL("check_edges State %s does not exist.\n", edge->state);
-        STATE_MACHINE_set_current_state(state_machine,
-                                        state_machine->tp_error_state);
+        STATE_MACHINE_set_current_state(state_machine, state_machine->tp_error_state);
       }
       return;
     }
@@ -111,10 +108,10 @@ void STATE_check_edges(t_state *tp_state, t_state_machine *state_machine) {
 void STATE_destructor(t_state *tp_state) {
   if (NULL != tp_state) {
     if (NULL != tp_state->tdynarr_edges) {
-      DYN_ARR_destructor(&tp_state->tdynarr_edges); // field
+      DYN_ARR_destructor(&tp_state->tdynarr_edges);  // field
     }
 
-    free(tp_state); // struct
+    free(tp_state);  // struct
   }
 }
 

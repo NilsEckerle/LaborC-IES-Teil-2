@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 #define MAX_USART_BUFFER 64
-#define CLEAR_THRESHOLD (((int)(F_CPU/BAUD)) + 1)
+#define CLEAR_THRESHOLD (((int)(F_CPU / BAUD)) + 1)
 
 volatile char usart_rx_buffer[MAX_USART_BUFFER];
 volatile uint8_t usart_str_valid = 0;
@@ -55,7 +55,7 @@ void USART_print(const char *c) {
 
 // USART Receive Complete Interrupt Service Routine
 ISR(USART_RX_vect) {
-  char received_char = UDR0; // Read character immediately
+  char received_char = UDR0;  // Read character immediately
 
   // Check for buffer overflow FIRST
   if (usart_buffer_index >= (MAX_USART_BUFFER - 1)) {
@@ -63,14 +63,14 @@ ISR(USART_RX_vect) {
     usart_rx_buffer[MAX_USART_BUFFER - 1] = '\0';
     usart_str_valid = 1;
     usart_overflow = 1;
-    return; // Don't process this character
+    return;  // Don't process this character
   }
 
   // Handle termination characters
   if (received_char == '\n' || received_char == '\r') {
     // Null terminate the string
     usart_rx_buffer[usart_buffer_index] = '\0';
-    usart_str_valid = 1; // Mark string as complete
+    usart_str_valid = 1;  // Mark string as complete
     // Don't reset buffer_index here - let main code do it
     return;
   }
