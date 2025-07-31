@@ -1,3 +1,10 @@
+/**
+ * @file 
+ * @brief 
+ * @author Nils Eckerle
+ * @date 2025-07-30
+ */
+
 #ifndef CONDITIONS_USART_H
 #define CONDITIONS_USART_H
 
@@ -36,4 +43,4 @@ uint8_t condition_USART_lfconfigstatic(t_state *inst __attribute__((unused)),
 uint8_t condition_USART_isdigit(t_state *inst __attribute__((unused)),
                                 void *vp_dto __attribute__((unused)));
 
-#endif // CONDITIONS_USART_H
+#endif  // CONDITIONS_USART_H

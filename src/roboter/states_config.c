@@ -60,9 +60,8 @@ void config_lf_static_on_update(t_state *inst __attribute__((unused))) {
   if (CLOCK_get_milliseconds() - *inst->ui32p_state_entry_time_ms > delay) {
     INFO("config_lf_static_rounds");
     PRINT_CONFIG_LINE_FOLLOWER_THRESHOLDS();
-    UI("Left  : '%d' - Middle: '%d' - Right : '%d'\n\n",
-       ADC_get_avg(ADC_LF_LEFT, 10), ADC_get_avg(ADC_LF_MIDDLE, 10),
-       ADC_get_avg(ADC_LF_RIGHT, 10));
+    UI("Left  : '%d' - Middle: '%d' - Right : '%d'\n\n", ADC_get_avg(ADC_LF_LEFT, 10),
+       ADC_get_avg(ADC_LF_MIDDLE, 10), ADC_get_avg(ADC_LF_RIGHT, 10));
     *inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
   }
   return;
@@ -90,20 +89,19 @@ void waiting_on_entry(t_state *inst __attribute__((unused))) {
 
 void waiting_on_update(t_state *inst __attribute__((unused))) {
   INFO_SPAM("[waiting_on_update]'\n");
-	// print UI
-  if ((CLOCK_get_milliseconds() - ui32_WAITING_MSG_last_update_time_ms) >
-      WAITING_MSG_PERIOD_MS) {
-		ui32_WAITING_MSG_last_update_time_ms = CLOCK_get_milliseconds();
-		UI(MSG_WAITING_UI);
-	}
+  // print UI
+  if ((CLOCK_get_milliseconds() - ui32_WAITING_MSG_last_update_time_ms) > WAITING_MSG_PERIOD_MS) {
+    ui32_WAITING_MSG_last_update_time_ms = CLOCK_get_milliseconds();
+    UI(MSG_WAITING_UI);
+  }
 
-	// Blink lights
+  // Blink lights
   if ((CLOCK_get_milliseconds() - ui32_WAITING_LIGHTS_last_update_time_ms) >
       WAITING_BLINK_PERIOD_MS) {
     ui32_WAITING_LIGHTS_last_update_time_ms = CLOCK_get_milliseconds();
     b_WAITING_lights_on_toggle = !b_WAITING_lights_on_toggle;
 
-		// push new state
+    // push new state
     for (uint8_t i = 3; i > 0; i--) {
       SHIFT_push(b_WAITING_lights_on_toggle);
       _delay_us(1);
@@ -124,7 +122,7 @@ void searching_on_entry(t_state *inst __attribute__((unused))) {
   ui32_SEARCHING_MSG_last_update_time_ms = CLOCK_get_milliseconds();
 }
 
-void searching_on_update(t_state*inst __attribute__((unused))) {
+void searching_on_update(t_state *inst __attribute__((unused))) {
   // prints
   if ((CLOCK_get_milliseconds() - ui32_SEARCHING_MSG_last_update_time_ms) >
       SEARCHING_MSG_PERIOD_MS) {

@@ -22,8 +22,7 @@ void drive_logic_super_state_on_entry(t_state *inst __attribute__((unused))) {
 }
 
 void drive_logic_super_state_on_update(t_state *inst __attribute__((unused))) {
-  if (CLOCK_get_milliseconds() - ui32_DRIVE_MSG_time_last_ms >
-      DRIVING_MSG_PERIOD_MS) {
+  if (CLOCK_get_milliseconds() - ui32_DRIVE_MSG_time_last_ms > DRIVING_MSG_PERIOD_MS) {
     UI(MSG_FMT_DRIVING_ROUND, ROBOTER_get_instance()->i8_current_round);
     ui32_DRIVE_MSG_time_last_ms = CLOCK_get_milliseconds();
   }
@@ -33,8 +32,7 @@ void drive_logic_super_state_on_update(t_state *inst __attribute__((unused))) {
 void drive_through_start_on_entry(t_state *inst __attribute__((unused))) {
   t_roboter *tp_robi = ROBOTER_get_instance();
   tp_robi->i8_current_round++;
-  UI("Starting round %u/%u\n\n", tp_robi->i8_current_round,
-     tp_robi->i8_max_rounds);
+  UI("Starting round %u/%u\n\n", tp_robi->i8_current_round, tp_robi->i8_max_rounds);
 
   SHIFT_push_state((LF_detection_state)LF_LMR);
 
@@ -52,10 +50,7 @@ void drive_through_start_on_entry(t_state *inst __attribute__((unused))) {
   return;
 }
 
-void drive_through_start_on_entry_on_update(t_state *inst
-                                            __attribute__((unused))) {
-  return;
-}
+void drive_through_start_on_entry_on_update(t_state *inst __attribute__((unused))) { return; }
 
 void forward_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_M);
@@ -84,10 +79,9 @@ void backwards_on_entry(t_state *inst __attribute__((unused))) {
 }
 
 void backwards_on_update(t_state *inst __attribute__((unused))) {
-  if (CLOCK_get_milliseconds() - *inst->ui32p_state_entry_time_ms >
-      BACKWAD_DELAY_TRESHOLD) {
+  if (CLOCK_get_milliseconds() - *inst->ui32p_state_entry_time_ms > BACKWAD_DELAY_TRESHOLD) {
 
-    ENGINE_set_duty_cicle( ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_BACKWARD);
+    ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_BACKWARD);
     ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_BACKWARD);
 
     // Left motors forward
@@ -104,11 +98,9 @@ void left_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_LM);
   INFO("left\n");
 
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT,
-                        SETTING_ENGINE_PWM_POWER_TURN_FORWARD_LOW);
-  ENGINE_set_duty_cicle(
-      ENGINE_PWM_LEFT,
-      SETTING_ENGINE_PWM_POWER_TURN_FORWARD); // set to 7/8 speed
+  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_TURN_FORWARD_LOW);
+  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT,
+                        SETTING_ENGINE_PWM_POWER_TURN_FORWARD);  // set to 7/8 speed
 
   // Left motors backwards
   UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -125,10 +117,8 @@ void hard_left_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_L);
   INFO("hard left\n");
 
-  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT,
-                        SETTING_ENGINE_PWM_POWER_TURN_BACKWARD);
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT,
-                        SETTING_ENGINE_PWM_POWER_TURN_FORWARD);
+  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_TURN_BACKWARD);
+  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_TURN_FORWARD);
 
   // Left motors backwards
   UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -145,10 +135,8 @@ void right_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_MR);
   INFO("right\n");
 
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT,
-                        SETTING_ENGINE_PWM_POWER_TURN_FORWARD);
-  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT,
-                        SETTING_ENGINE_PWM_POWER_TURN_FORWARD_LOW);
+  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_TURN_FORWARD);
+  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_TURN_FORWARD_LOW);
 
   // Left motors forward
   SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -166,8 +154,7 @@ void hard_right_on_entry(t_state *inst __attribute__((unused))) {
   INFO("hard right\n");
 
   ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_TURN_FORWARD);
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT,
-                        SETTING_ENGINE_PWM_POWER_TURN_BACKWARD);
+  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_TURN_BACKWARD);
 
   // Left motors forward
   SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -199,18 +186,16 @@ void check_is_start_field_on_entry(t_state *inst __attribute__((unused))) {
   return;
 }
 
-void check_is_start_field_on_update(t_state *inst __attribute__((unused))) {
-  return;
-}
+void check_is_start_field_on_update(t_state *inst __attribute__((unused))) { return; }
 
 void stop_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_LMR);
   INFO("stop\n");
 
   ENGINE_set_duty_cicle(ENGINE_PWM_LEFT,
-                        SETTING_ENGINE_PWM_POWER_MAX); // set to full speed
+                        SETTING_ENGINE_PWM_POWER_MAX);  // set to full speed
   ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT,
-                        SETTING_ENGINE_PWM_POWER_MAX); // set to full speed
+                        SETTING_ENGINE_PWM_POWER_MAX);  // set to full speed
 
   // Stop left motors
   UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -221,7 +206,7 @@ void stop_on_entry(t_state *inst __attribute__((unused))) {
 
   // print special round ending
   t_roboter *tp_robi = ROBOTER_get_instance();
-  switch (tp_robi->i8_current_round) { // when round finished
+  switch (tp_robi->i8_current_round) {  // when round finished
   case 1:
     UI(MSG_ROUND_1_COMPLETE);
     break;
@@ -245,9 +230,9 @@ static uint32_t ui32_PAUSE_MSG_time_last_ms = 0;
 
 void pause_on_entry(t_state *inst __attribute__((unused))) {
   ENGINE_set_duty_cicle(ENGINE_PWM_LEFT,
-                        SETTING_ENGINE_PWM_POWER_MAX); // set to full speed
+                        SETTING_ENGINE_PWM_POWER_MAX);  // set to full speed
   ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT,
-                        SETTING_ENGINE_PWM_POWER_MAX); // set to full speed
+                        SETTING_ENGINE_PWM_POWER_MAX);  // set to full speed
 
   // Stop left motors
   UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -261,14 +246,12 @@ void pause_on_entry(t_state *inst __attribute__((unused))) {
 
 void pause_on_update(t_state *inst __attribute__((unused))) {
 
-  if (CLOCK_get_milliseconds() - ui32_PAUSE_MSG_time_last_ms >
-      PAUSE_MSG_PERIOD_MS) {
+  if (CLOCK_get_milliseconds() - ui32_PAUSE_MSG_time_last_ms > PAUSE_MSG_PERIOD_MS) {
     UI(MSG_PAUSING);
     ui32_PAUSE_MSG_time_last_ms = CLOCK_get_milliseconds();
   }
 
-  if (CLOCK_get_milliseconds() - ui32_PAUSE_SHIFT_time_last_ms >
-      PAUSE_SHIFT_PERIOD_MS) {
+  if (CLOCK_get_milliseconds() - ui32_PAUSE_SHIFT_time_last_ms > PAUSE_SHIFT_PERIOD_MS) {
     if (ui8_PAUSE_SHIFT_state % 3 == 0) {
       SHIFT_push(1);
       ui8_PAUSE_SHIFT_state = 1;
