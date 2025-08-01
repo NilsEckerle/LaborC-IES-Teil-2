@@ -38,6 +38,10 @@
   "Not on the starting field, I am in state SEARCHING. " \
   "Place me there please...\n\n"
 
+/** @brief Searching message period
+ * @note the period is the time between two ocouring events.
+ * 1s/1 = 1s == 1000ms/1 = 1000ms
+ */
 #define SEARCHING_MSG_PERIOD_MS CALCULATE_PERIOD_MS(1)
 
 /**
@@ -53,6 +57,10 @@
  */
 #define MSG_FMT_DRIVING_ROUND "Round and round I go during state DRIVING, currently round %u\n\n"
 
+/** @brief Driving message period
+ * @note the period is the time between two ocouring events.
+ * 1s/1 = 1s == 1000ms/1 = 1000ms
+ */
 #define DRIVING_MSG_PERIOD_MS CALCULATE_PERIOD_MS(1)
 
 /**
@@ -117,51 +125,84 @@
   "I am in state PAUSING .... zzzZZZzzzZZZzzz .... wake me up with P " \
   "again.\n\n"
 
+/** @brief Pause message period
+ * @note the period is the time between two ocouring events.
+ * 1s/1 = 1s == 1000ms/1 = 1000ms
+ */
 #define PAUSE_MSG_PERIOD_MS CALCULATE_PERIOD_MS(1)
 
-#define PRINT_WAITING_HELP()                                                   \
-  do {                                                                         \
-    UI("========== ROBOTER HELP ==========\n");                                \
-    UI("FROM HERE:\n");                                                        \
-    UI("'S'       - to start driving\n");                                      \
-    UI("'?'       - to get this help\n");                                      \
-    UI("'C'       - to get into config\n");                                    \
-    UI("CONFIG:\n");                                                           \
-    UI("'W'       - to get back to waiting\n");                                \
-    UI("'R'       - to configure rounds to drive\n");                          \
-    UI("'L'       - to configure line follower sensor tresholds\n");           \
-    UI("'P'       - to configure engine power scaling (only slows engine "     \
-       "down)\n");                                                             \
-    UI("DRIVING\n");                                                           \
-    UI("'P'       - toggle driving pause\n");                                  \
-    UI("==================================\n\n");                              \
+/** @brief Prints the Waiting help
+ * @note this had to split up into multiple strings and prints,
+ * so that the print buffer could be smaller, to save memory.
+ */
+#define PRINT_WAITING_HELP()                                               \
+  do {                                                                     \
+    UI("========== ROBOTER HELP ==========\n");                            \
+    UI("FROM HERE:\n");                                                    \
+    UI("'S'       - to start driving\n");                                  \
+    UI("'?'       - to get this help\n");                                  \
+    UI("'C'       - to get into config\n");                                \
+    UI("CONFIG:\n");                                                       \
+    UI("'W'       - to get back to waiting\n");                            \
+    UI("'R'       - to configure rounds to drive\n");                      \
+    UI("'L'       - to configure line follower sensor tresholds\n");       \
+    UI("'P'       - to configure engine power scaling (only slows engine " \
+       "down)\n");                                                         \
+    UI("DRIVING\n");                                                       \
+    UI("'P'       - toggle driving pause\n");                              \
+    UI("==================================\n\n");                          \
   } while (0)
 
-#define PRINT_CONFIG_HELP()                                                    \
-  do {                                                                         \
-    UI("Send char to select:\n");                                              \
-    UI("'W' - got back to waiting state\n");                                   \
-    UI("'R' - got to round config\n");                                         \
-    UI("'L' - go to line follower threshold config\n\n");                      \
+/** @brief Prints the config help
+ * @note this had to split up into multiple strings and prints,
+ * so that the print buffer could be smaller, to save memory.
+ */
+#define PRINT_CONFIG_HELP()                               \
+  do {                                                    \
+    UI("Send char to select:\n");                         \
+    UI("'W' - got back to waiting state\n");              \
+    UI("'R' - got to round config\n");                    \
+    UI("'L' - go to line follower threshold config\n\n"); \
   } while (0)
 
-#define PRINT_CONFIG_LINE_FOLLOWER_THRESHOLDS()                                \
-  do {                                                                         \
-    UI("COMMANDS:\n");                                                         \
-    UI("'C' - confirm and go back to config\n");                                \
-    UI("'L' - set threshold of left sensor\n");                                \
-    UI("'M' - set threshold of middle sensor\n");                              \
-    UI("'R' - set threshold of right sensor\n\n");                             \
+/** @brief Prints the line follower config help
+ * @note this had to split up into multiple strings and prints,
+ * so that the print buffer could be smaller, to save memory.
+ */
+#define PRINT_CONFIG_LINE_FOLLOWER_THRESHOLDS()    \
+  do {                                             \
+    UI("COMMANDS:\n");                             \
+    UI("'C' - confirm and go back to config\n");   \
+    UI("'L' - set threshold of left sensor\n");    \
+    UI("'M' - set threshold of middle sensor\n");  \
+    UI("'R' - set threshold of right sensor\n\n"); \
   } while (0)
 
+/** 
+ * @brief Format string to print newly configured round count
+ * @note Use with printf-like functions to display the new round configuration
+ * @param %u Unsigned integer representing the new number of rounds
+ */
 #define MSG_FMT_ROUNDS_SET_TO "Rounds set to %u laps.\n\n"
 
+/**
+ * @brief Prompt message asking user to enter number of rounds
+ * @note Displayed when configuring the number of rounds to drive
+ */
 #define MSG_ROUNDS_ASK_NUMBER "How many rounds to drive? (Enter a number.)\n\n"
 
-#define MSG_ENTER_VALUE_LF_TRESHOLD                                            \
-  "Enter number as line sensor treshold. (0-1023)\n\n"
+/**
+ * @brief Prompt message asking user to enter line follower sensor threshold value
+ * @note Displayed when configuring line follower sensor thresholds.
+ *       Valid range is 0-1023 (10-bit ADC resolution)
+ */
+#define MSG_ENTER_VALUE_LF_TRESHOLD "Enter number as line sensor treshold. (0-1023)\n\n"
 
-#define MSG_FMT_LF_TRESHOLD_SET_TO                                             \
-  "Line sensor treshold set to %u of max 1023.\n\n"
+/**
+ * @brief Format string to confirm newly set line follower threshold
+ * @note Use with printf-like functions to display the new threshold value
+ * @param %u Unsigned integer representing the new threshold value (0-1023)
+ */
+#define MSG_FMT_LF_TRESHOLD_SET_TO "Line sensor treshold set to %u of max 1023.\n\n"
 
-#endif // !SERIAL_MESSAGES_H
+#endif  // !SERIAL_MESSAGES_H
