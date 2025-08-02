@@ -11,7 +11,7 @@
 #include "tools/dynamic_array.h"
 #include <stdint.h>
 
-typedef struct state_machine t_state_machine;
+typedef struct state_machine state_machine_t;
 
 /**
  * @brief Individual state in a hierarchical state machine
@@ -144,7 +144,7 @@ void STATE_set_parent(t_state *tp_state, t_state *tp_new_parent);
  *       evaluation. If a transition leads to a non-existent state, the state
  *       machine switches to its error state.
  */
-void STATE_check_edges(t_state *tp_state, t_state_machine *state_machine);
+void STATE_check_edges(t_state *tp_state, state_machine_t *state_machine);
 
 /**
  * @brief Destroys a state and frees all associated memory

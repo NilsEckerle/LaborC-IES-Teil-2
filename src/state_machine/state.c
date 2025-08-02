@@ -61,7 +61,7 @@ void STATE_set_parent(t_state *tp_state, t_state *tp_new_parent) {
   return;
 }
 
-void STATE_check_edges(t_state *tp_state, t_state_machine *state_machine) {
+void STATE_check_edges(t_state *tp_state, state_machine_t *state_machine) {
   if (NULL == tp_state) {
     WARNING("[check_edges] tp_state is NULL!\n");
     return;
