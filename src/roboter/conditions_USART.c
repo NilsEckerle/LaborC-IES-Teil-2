@@ -11,7 +11,23 @@
 #include <stdlib.h>
 #include <string.h>
 
-
+/**
+ * @brief Macro to generate USART character condition functions
+ *
+ * This macro creates a condition function that checks for a specific single-character
+ * USART command. The generated function follows the pattern condition_USART_[chr].
+ *
+ * @param chr The character to check for (without quotes)
+ *
+ * Generated function behavior:
+ * - Checks if USART has a complete string available
+ * - Compares received string with stringified chr parameter
+ * - Consumes the string from buffer on successful match
+ * - Returns 1 on match, 0 on no match or no string available
+ * 
+ * @note Used to generate functions like condition_USART_S, condition_USART_R, etc.
+ * @see BUILD_FUNCTION_condition_USART_chr usage in conditions_USART.c
+ */
 #define BUILD_FUNCTION_condition_USART_chr(chr)                         \
   uint8_t condition_USART_##chr(t_state *inst __attribute__((unused)),  \
                                 void *vp_dto __attribute__((unused))) { \
