@@ -53,47 +53,31 @@ void ENGINE_init() {
   return;
 }
 
-// void setDutyCycle(uint8_t pin, uint8_t value)
+#define PWM_CHANNEL_CONFIG(compare_reg, com_bit1, com_bit0, port_bit) \
+  do {                                                                \
+    if (ui8_pwm_compare_value == 0) {                                 \
+      UNSET_BIT(TCCR0A, com_bit1);                                    \
+      UNSET_BIT(TCCR0A, com_bit0);                                    \
+      UNSET_BIT(PORTD, port_bit);                                     \
+    } else if (ui8_pwm_compare_value == 255) {                        \
+      UNSET_BIT(TCCR0A, com_bit1);                                    \
+      UNSET_BIT(TCCR0A, com_bit0);                                    \
+      SET_BIT(PORTD, port_bit);                                       \
+    } else {                                                          \
+      SET_BIT(TCCR0A, com_bit1);                                      \
+      UNSET_BIT(TCCR0A, com_bit0);                                    \
+      compare_reg = ui8_pwm_compare_value;                            \
+    }                                                                 \
+  } while (0)
+
 //  This function is coppied from iesmotors.c and then modified
 void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value) {
-  // TODO:
-  // Suggestion to handle PD6 - note the code-clones wrt. PD5 below!
-  // Code-clones are extraordinary f cky! Correct this (tricky though
-  // due to the PP-macros, which you cannot simply pass to functions)!
-  // (But PP-macros can help you here....)
-
   TRACE("set_duty_cicle side: %s value %d\n", ui8_side == 0 ? "LEFT" : "RIGHT",
         ui8_pwm_compare_value);
 
   if (ui8_side == ENGINE_PWM_LEFT) {
-    if (ui8_pwm_compare_value == 0) {
-      UNSET_BIT(TCCR0A, COM0A1);
-      UNSET_BIT(TCCR0A, COM0A0);  // Normal port operation mode
-      UNSET_BIT(PORTD, PD6);      // PD6 LOW, equals 0% duty,
-    }  // timer disconnected
-    else if (ui8_pwm_compare_value == 255) {
-      UNSET_BIT(TCCR0A, COM0A1);
-      UNSET_BIT(TCCR0A, COM0A0);  // Normal port operation mode
-      SET_BIT(PORTD, PD6);        // PD6 HIGH, equals 100% duty,
-    }  // timer disconnected
-    else {
-      SET_BIT(TCCR0A, COM0A1);        // OC0A to LOW on Compare Match,
-      UNSET_BIT(TCCR0A, COM0A0);      // to HIGH at BOTTOM (non-inverting mode)
-      OCR0A = ui8_pwm_compare_value;  // generates sequences of 1-0-1-0...
-    }  // for certain periods of time
+    PWM_CHANNEL_CONFIG(OCR0A, COM0A1, COM0A0, PD6);
   } else if (ui8_side == ENGINE_PWM_RIGHT) {
-    if (ui8_pwm_compare_value == 0) {
-      UNSET_BIT(TCCR0A, COM0B1);
-      UNSET_BIT(TCCR0A, COM0B0);
-      UNSET_BIT(PORTD, PD5);
-    } else if (ui8_pwm_compare_value == 255) {
-      UNSET_BIT(TCCR0A, COM0B1);
-      UNSET_BIT(TCCR0A, COM0B0);
-      SET_BIT(PORTD, PD5);
-    } else {
-      SET_BIT(TCCR0A, COM0B1);
-      UNSET_BIT(TCCR0A, COM0B0);
-      OCR0B = ui8_pwm_compare_value;
-    }
+    PWM_CHANNEL_CONFIG(OCR0B, COM0B1, COM0B0, PD5);
   }
 }
