@@ -48,13 +48,13 @@ abhaengig von position nachrichten ausgeben.
 - [x] `P` toggle Pause while driving. only in DRIVING
 
 ## Print ausgaben
-- [-] Alle Prints mit doppelten Zeilenumbruch
+- [x] Alle Prints mit doppelten Zeilenumbruch
 - [x] Carriage Return muss das letzte zeichen sein.
 
 ## Softwarequalitaet
 
 ### Coding conventions
-- [ ] Space indenting, no tabs (Nope, wont do)
+- [x] Space indenting, no tabs
 - [x] only english
 - [x] Sinnvol modularisieren
 - [ ] no magic numbers in .c files!!!
@@ -72,13 +72,13 @@ ich diese Struktur nicht umsetzen.
 auf english
 - [ ] Start page for a rough complete project overview
 - [ ] on Start page explain the build proccess
-- [ ] Bereitgestellten Sourcecode selbstaendig dokumentieren und auf Conventions
+- [x] Bereitgestellten Sourcecode selbstaendig dokumentieren und auf Conventions
       anpassen
-- [ ] doxygen HTML!
-- [ ] docu build per makefile
+- [x] doxygen HTML!
+- [x] docu build per makefile
 - [ ] Start page image of Robi
-- [ ] keinen doku ordner mit abgeben, der wird generiert.
-- [ ] doxyfile und Bilder in ordner `res`
+- keinen doku ordner mit abgeben, der wird generiert.
+- [x] doxyfile und Bilder in ordner `res`
 - [ ] auf startseite zusatzfunktionen anpreisen!
 
 ## Build system
