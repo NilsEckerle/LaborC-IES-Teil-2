@@ -32,3 +32,15 @@ void __attribute__((unused)) debug_printf_P(const char *prefix, const char *form
   // Send to USART
   USART_print(debug_buffer);
 }
+
+void debug_printf_to_file(const char *prefix, const char *format, ...) {
+    FILE *fp = fopen("diagram.txt", "a");
+    if (fp) {
+        va_list args;
+        va_start(args, format);
+        fprintf(fp, "%s", prefix);
+        vfprintf(fp, format, args);
+        va_end(args);
+        fclose(fp);
+    }
+}
