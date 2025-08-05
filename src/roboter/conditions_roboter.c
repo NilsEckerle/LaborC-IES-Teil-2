@@ -1,3 +1,4 @@
+#ifndef GENERATE_STATE_MACHINE_DIAGRAM
 #include "roboter/conditions_roboter.h"
 #include "roboter/roboter.h"
 
@@ -23,3 +24,16 @@ uint8_t condition_has_no_rounds(t_state *inst __attribute__((unused)),
   }
   return 0;
 }
+#else
+#include "roboter/conditions_roboter.h"
+
+uint8_t condition_has_rounds(t_state *inst __attribute__((unused)),
+                             void *vp_dto __attribute__((unused))) {
+  return 0;
+}
+
+uint8_t condition_has_no_rounds(t_state *inst __attribute__((unused)),
+                                void *vp_dto __attribute__((unused))) {
+  return 0;
+}
+#endif // !GENERATE_STATE_MACHINE_DIAGRAM

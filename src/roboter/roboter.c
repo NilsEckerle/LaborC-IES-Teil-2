@@ -1,3 +1,4 @@
+#ifndef GENERATE_STATE_MACHINE_DIAGRAM
 #include "roboter/roboter.h"
 
 #include "configuration/robot_settings.h"
@@ -36,3 +37,10 @@ t_roboter *ROBOTER_get_instance() {
   INFO("[ROBOTER_get_instance] returning.\n");
   return &g_t_roboter_instance;
 }
+#else
+#include "roboter/roboter.h"
+
+void ROBOTER_init(t_roboter *robi) { return; }
+
+t_roboter *ROBOTER_get_instance() { return NULL; }
+#endif // !GENERATE_STATE_MACHINE_DIAGRAM

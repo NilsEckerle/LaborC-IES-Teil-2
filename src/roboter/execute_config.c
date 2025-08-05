@@ -1,3 +1,4 @@
+#ifndef GENERATE_STATE_MACHINE_DIAGRAM
 #include "roboter/execute_config.h"
 #include "configuration/serial_messages.h"
 #include "roboter/roboter.h"
@@ -44,3 +45,18 @@ void execute_set_robi_rounds(t_state *tp_current_state __attribute__((unused)), 
 	UI(MSG_FMT_ROUNDS_SET_TO, *value);
 	ROBOTER_get_instance()->i8_max_rounds = *value;
 }
+#else
+#include "roboter/execute_config.h"
+
+void execute_set_robi_lf_l_threshold(t_state *tp_current_state __attribute__((unused)), void *vp_dto) {
+}
+
+void execute_set_robi_lf_m_threshold(t_state *tp_current_state __attribute__((unused)), void *vp_dto) {
+}
+
+void execute_set_robi_lf_r_threshold(t_state *tp_current_state __attribute__((unused)), void *vp_dto) {
+}
+
+void execute_set_robi_rounds(t_state *tp_current_state __attribute__((unused)), void *vp_dto) {
+}
+#endif // !GENERATE_STATE_MACHINE_DIAGRAM

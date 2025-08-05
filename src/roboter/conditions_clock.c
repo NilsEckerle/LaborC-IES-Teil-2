@@ -1,3 +1,4 @@
+#ifndef GENERATE_STATE_MACHINE_DIAGRAM
 #include "roboter/conditions_clock.h"
 #include "configuration/robot_settings.h"
 #include "hardware/clock.h"
@@ -22,3 +23,14 @@ uint8_t condition_5_seconds_after_entry(t_state *inst __attribute__((unused)),
   }
   return 0;
 }
+#else
+#include "roboter/conditions_clock.h"
+
+uint8_t condition_start_field_delay(t_state *inst __attribute__((unused)),
+                                    void *vp_dto __attribute__((unused))) {
+}
+
+uint8_t condition_5_seconds_after_entry(t_state *inst __attribute__((unused)),
+                                        void *vp_dto __attribute__((unused))) {
+}
+#endif // !GENERATE_STATE_MACHINE_DIAGRAM

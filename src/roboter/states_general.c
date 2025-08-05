@@ -1,3 +1,4 @@
+#ifndef GENERATE_STATE_MACHINE_DIAGRAM
 #include "roboter/states_general.h"
 #include "hardware/engine.h"
 #include "hardware/linienfolger.h"
@@ -30,3 +31,17 @@ void error_on_update(t_state *inst __attribute__((unused))) {
 void nothing_on_entry(t_state *inst __attribute__((unused))) { return; }
 
 void nothing_on_update(t_state *inst __attribute__((unused))) { return; }
+#else
+#include "roboter/states_general.h"
+
+void error_on_entry(t_state *inst __attribute__((unused))) {
+}
+
+void error_on_update(t_state *inst __attribute__((unused))) {
+}
+
+void nothing_on_entry(t_state *inst __attribute__((unused))) {}
+
+void nothing_on_update(t_state *inst __attribute__((unused))) {}
+
+#endif // !GENERATE_STATE_MACHINE_DIAGRAM

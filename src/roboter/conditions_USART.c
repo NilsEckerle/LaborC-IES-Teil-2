@@ -1,3 +1,4 @@
+#ifndef GENERATE_STATE_MACHINE_DIAGRAM
 // #define LOG_LEVEL LOG_LEVEL_TRACE
 #include "tools/logger.h"
 
@@ -126,3 +127,59 @@ uint8_t condition_USART_isdigit(t_state *inst __attribute__((unused)),
 
   return is_digit;
 }
+#else
+#include "roboter/conditions_USART.h"
+#include <string.h>
+
+/**
+ * @brief Macro to generate USART character condition functions
+ *
+ * This macro creates a condition function that checks for a specific single-character
+ * USART command. The generated function follows the pattern condition_USART_[chr].
+ *
+ * @param chr The character to check for (without quotes)
+ *
+ * Generated function behavior:
+ * - Checks if USART has a complete string available
+ * - Compares received string with stringified chr parameter
+ * - Consumes the string from buffer on successful match
+ * - Returns 1 on match, 0 on no match or no string available
+ * 
+ * @note Used to generate functions like condition_USART_S, condition_USART_R, etc.
+ * @see BUILD_FUNCTION_condition_USART_chr usage in conditions_USART.c
+ */
+#define BUILD_FUNCTION_condition_USART_chr(chr)                         \
+  uint8_t condition_USART_##chr(t_state *inst __attribute__((unused)),  \
+                                void *vp_dto __attribute__((unused))) { \
+    return 0;                                                           \
+  }
+
+BUILD_FUNCTION_condition_USART_chr(S);
+
+BUILD_FUNCTION_condition_USART_chr(C);
+
+BUILD_FUNCTION_condition_USART_chr(L);
+
+BUILD_FUNCTION_condition_USART_chr(M);
+
+BUILD_FUNCTION_condition_USART_chr(R);
+
+BUILD_FUNCTION_condition_USART_chr(W);
+
+BUILD_FUNCTION_condition_USART_chr(P);
+
+uint8_t condition_USART_helper_clear_invalid_input(t_state *inst __attribute__((unused)),
+                                                   void *vp_dto __attribute__((unused))) {
+  return 0;
+}
+
+uint8_t condition_USART_questionmark(t_state *inst __attribute__((unused)),
+                                     void *vp_dto __attribute__((unused))) {
+  return 0;
+}
+
+uint8_t condition_USART_isdigit(t_state *inst __attribute__((unused)),
+                                void *vp_dto __attribute__((unused))) {
+  return 0;
+}
+#endif // !GENERATE_STATE_MACHINE_DIAGRAM

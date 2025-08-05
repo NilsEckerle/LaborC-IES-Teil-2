@@ -1,3 +1,4 @@
+#ifndef GENERATE_STATE_MACHINE_DIAGRAM
 #include "roboter/states_drive.h"
 #include "hardware/clock.h"
 #include "hardware/engine.h"
@@ -262,3 +263,50 @@ void pause_on_update(t_state *inst __attribute__((unused))) {
     ui32_PAUSE_SHIFT_time_last_ms = CLOCK_get_milliseconds();
   }
 }
+#else
+#include "roboter/states_drive.h"
+
+void drive_logic_super_state_on_entry(t_state *inst __attribute__((unused))) {}
+
+void drive_logic_super_state_on_update(t_state *inst __attribute__((unused))) {}
+
+void drive_through_start_on_entry(t_state *inst __attribute__((unused))) {}
+
+void drive_through_start_on_entry_on_update(t_state *inst __attribute__((unused))) { return; }
+
+void forward_on_entry(t_state *inst __attribute__((unused))) {}
+
+void forward_on_update(t_state *inst __attribute__((unused))) { return; }
+
+void backwards_on_entry(t_state *inst __attribute__((unused))) {}
+
+void backwards_on_update(t_state *inst __attribute__((unused))) {}
+
+void left_on_entry(t_state *inst __attribute__((unused))) {}
+
+void left_on_update(t_state *inst __attribute__((unused))) {}
+
+void hard_left_on_entry(t_state *inst __attribute__((unused))) {}
+
+void hard_left_on_update(t_state *inst __attribute__((unused))) {}
+
+void right_on_entry(t_state *inst __attribute__((unused))) {}
+
+void right_on_update(t_state *inst __attribute__((unused))) {}
+
+void hard_right_on_entry(t_state *inst __attribute__((unused))) {}
+
+void hard_right_on_update(t_state *inst __attribute__((unused))) {}
+
+void check_is_start_field_on_entry(t_state *inst __attribute__((unused))) {}
+
+void check_is_start_field_on_update(t_state *inst __attribute__((unused))) {}
+
+void stop_on_entry(t_state *inst __attribute__((unused))) {}
+
+void stop_on_update(t_state *inst __attribute__((unused))) {}
+
+void pause_on_entry(t_state *inst __attribute__((unused))) {}
+
+void pause_on_update(t_state *inst __attribute__((unused))) {}
+#endif  // !GENERATE_STATE_MACHINE_DIAGRAM
