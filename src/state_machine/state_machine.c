@@ -6,7 +6,6 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
-#include <util/delay.h>
 
 int8_t STATE_MACHINE_add_state(state_machine_t *inst, t_state *new_state) {
   // guards
@@ -82,6 +81,9 @@ void STATE_MACHINE_update(state_machine_t *tp_state_machine) {
 }
 
 void STATE_MACHINE_run(state_machine_t *inst) {
+#ifdef GENERATE_STATE_MACHINE_DIAGRAM
+  return;
+#endif
   while (1) {
     STATE_MACHINE_update(inst);
   }
