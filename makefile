@@ -62,6 +62,27 @@ flash_simulide: build
 flash_arduino: build
 	avrdude -c arduino -p atmega328p -P $(ARDUINO_DEVICE_FILE) -b 115200 -U flash:w:bin/firmware.hex
 
+state_machine_diagramm:
+	@echo "Building state machine diagram generator..."
+	@mkdir -p tmp_native
+	gcc -std=gnu99 -DGENERATE_STATE_MACHINE_DIAGRAM -DLOGGER_USE_PRINTF \
+		-Iinclude -o tmp_native/diagram_gen \
+		src/main.c \
+		src/state_machine/state.c \
+		src/state_machine/state_machine.c \
+		src/tools/logger.c \
+		src/tools/dynamic_array.c \
+		$$(find src/roboter/ -name "*.c")
+	@rm -f diagram.txt
+	@echo "@startuml" > diagram.txt
+	@echo "[*] --> t_state_init_robi" >> diagram.txt
+	./tmp_native/diagram_gen || true
+	@echo "@enduml" >> diagram.txt
+	@sed -i 's/condition_//g; s/USART_//g; s/execute_//g' diagram.txt
+	plantuml diagram.txt -o res/images
+	@rm -rf tmp_native
+	@echo "Diagram generated in res/images/"
+
 clean_documentation:
 	@rm -rf $(DOCS_DIR)
 
