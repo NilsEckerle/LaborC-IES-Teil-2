@@ -65,6 +65,10 @@ flash_arduino: build
 clean_documentation:
 	@rm -rf $(DOCS_DIR)
 
+generate_state_machine_diagram:
+	./scripts/extract-state-machine.sh state_machine_diagram.txt
+	plantuml state_machine_diagram.txt -o res/images
+
 documentation:
 	@mkdir -p $(DOCS_DIR)
 	cd res && doxygen Doxyfile
@@ -74,4 +78,4 @@ show_documentation: documentation
 	
 clean_all: clean clean_documentation
 
-.PHONY: help default build flash_arduino flash_simulide documentation clean clean_documentation clean_all
+.PHONY: generate_state_machine_diagram help default build flash_arduino flash_simulide documentation clean clean_documentation clean_all
