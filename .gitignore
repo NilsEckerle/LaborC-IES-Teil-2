@@ -6,3 +6,4 @@ test/dyn_arr/.cache/clangd/index
 test/dyn_arr/main
 test-build
 Testing/
+state_machine_diagram.txt
