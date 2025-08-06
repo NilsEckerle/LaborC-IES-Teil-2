@@ -5,6 +5,7 @@
 #include <stdlib.h>
 // #define LOG_LEVEL LOG_LEVEL_TRACE
 #include "tools/dynamic_array.h"
+#include "tools/iesusart.h"
 #include "tools/logger.h"
 
 static void do_nothing(t_state *tp_state __attribute__((unused)),
@@ -102,6 +103,7 @@ void STATE_check_edges(t_state *tp_state, state_machine_t *state_machine) {
       return;
     }
   }
+  USART_consume_on_second_call_string();
   return;
 }
 
