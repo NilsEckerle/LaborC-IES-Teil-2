@@ -1,5 +1,7 @@
 # LaborC-IES-Teil-2
 
+![Roboter image](roboter.png)
+
 ## Features
 **Base features**
 - Drive 3 rounds then stop
@@ -26,7 +28,7 @@
     - Configurable rounds to drive
 
 ## Requirements
-Project was tested and developed onn debian.
+Project was tested and developed on debian.
 To install requirements run:
 ```bash
 sudo apt install cmake gcc-avr binutils-avr avr-libc
