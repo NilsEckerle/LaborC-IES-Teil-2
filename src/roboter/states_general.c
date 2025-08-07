@@ -1,4 +1,5 @@
 #include "roboter/states_general.h"
+#include "configuration/robot_settings.h"
 #include "hardware/engine.h"
 #include "hardware/linienfolger.h"
 #include "hardware/shiftregister.h"
@@ -10,8 +11,8 @@ void error_on_entry(t_state *inst __attribute__((unused))) {
   SHIFT_push_state((LF_detection_state)LF_NONE);
   INFO("error\n");
 
-  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, 255);   // set to full speed
-  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, 255);  // set to full speed
+  ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_MAX);   // set to full speed
+  ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_MAX);  // set to full speed
 
   // Stop left motors
   UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
