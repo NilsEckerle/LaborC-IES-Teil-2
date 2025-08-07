@@ -1,9 +1,17 @@
 # LaborC-IES-Teil-2
 
 ## Requirements
-on debian install
+On debian install
+To install requirements run:
 ```bash
 sudo apt install cmake gcc-avr binutils-avr avr-libc
+```
+
+To generate the state machine diagram you have to install `plantuml`. Also needed
+is `grep`, `perl`, and `sed`, which all should be installed by default.
+To install requirements run:
+```bash
+sudo apt install plantuml grep perl sed
 ```
 
 ## Build
