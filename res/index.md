@@ -17,7 +17,7 @@
     - Adding a parrent state to achive state hierachie to avoid edge duplication
 - State machine diagram generation. See `scripts/extract-state-machine.sh` and
   `make generate_state_machine_diagram`
-    - For a example see `Related Pages > State machine diagram` in the
+    - For a example see `Related Pages -> State machine diagram` in the
       documentation
     - External source code analysis to extract states and edges, so the code
       doesn't need unnessesary complexity like mocking the hardware. See

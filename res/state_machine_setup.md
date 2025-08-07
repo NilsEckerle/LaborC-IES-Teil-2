@@ -6,8 +6,8 @@ In the diagrm is the current state machine setup.
 
 **Entry:** The green dot indicates the entry state of the state machine.
 
-**Edges:** Each arrow is a edge, that can be passed into the next state. Each edge has a
-condition and some have execution function that get called when passing a edge.
+**Edges:** Each arrow is an edge, that can be passed into the next state. Each edge has a
+condition and some have execution function that get called when passing an edge.
 
 **Hierachie:** Some states are grouped by a 'parent state' (They build the hierachie).
 The parrent state edges are checked before the own edges are.
