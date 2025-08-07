@@ -1,6 +1,6 @@
 # LaborC-IES-Teil-2
 
-![Roboter image](roboter.png)
+![Roboter image](res/images/roboter.png)
 
 ## Features
 **Base features**
