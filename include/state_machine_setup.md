@@ -1,2 +1,2 @@
 # state machine setup
-![State diagram](../res/image/state_machine_diagram.png)
+![State diagram](res/images/state_machine_diagram.png)
