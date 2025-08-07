@@ -57,7 +57,7 @@ abhaengig von position nachrichten ausgeben.
 - [x] Space indenting, no tabs
 - [x] only english
 - [x] Sinnvol modularisieren
-- [ ] no magic numbers in .c files!!!
+- [x] no magic numbers in .c files!!!
 
 ### Files
 - files and functions kurz halten
@@ -70,16 +70,16 @@ ich diese Struktur nicht umsetzen.
 
 ## Dokumentation
 auf english
-- [ ] Start page for a rough complete project overview
-- [ ] on Start page explain the build proccess
+- [x] Start page for a rough complete project overview
+- [x] on Start page explain the build proccess
 - [x] Bereitgestellten Sourcecode selbstaendig dokumentieren und auf Conventions
       anpassen
 - [x] doxygen HTML!
 - [x] docu build per makefile
-- [ ] Start page image of Robi
+- [x] Start page image of Robi
 - keinen doku ordner mit abgeben, der wird generiert.
 - [x] doxyfile und Bilder in ordner `res`
-- [ ] auf startseite zusatzfunktionen anpreisen!
+- [x] auf startseite zusatzfunktionen anpreisen!
 
 ## Build system
 Makefile und nichts anderes!!!
