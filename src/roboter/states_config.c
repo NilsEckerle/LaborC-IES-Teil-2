@@ -62,8 +62,8 @@ void config_lf_static_on_update(t_state *inst __attribute__((unused))) {
   if (CLOCK_get_milliseconds() - *inst->ui32p_state_entry_time_ms > delay) {
     INFO("config_lf_static_rounds");
     PRINT_CONFIG_LINE_FOLLOWER_THRESHOLDS();
-    UI("Left  : '%d' - Middle: '%d' - Right : '%d'\n\n", ADC_get_avg(ADC_LF_LEFT, 10),
-       ADC_get_avg(ADC_LF_MIDDLE, 10), ADC_get_avg(ADC_LF_RIGHT, 10));
+    UI("Left  : '%d' - Middle: '%d' - Right : '%d'\n\n", ADC_get_avg(ADC_LF_LEFT, ADC_AVG_WINDOW),
+       ADC_get_avg(ADC_LF_MIDDLE, ADC_AVG_WINDOW), ADC_get_avg(ADC_LF_RIGHT, ADC_AVG_WINDOW));
     *inst->ui32p_state_entry_time_ms = CLOCK_get_milliseconds();
   }
   return;
