@@ -50,6 +50,8 @@ make help   # show more commands
 ```
 
 ## Build documentation
+On github see the pages prebuild documentation https://nilseckerle.github.io/LaborC-IES-Teil-2/
+
 To build the documentation run
 ```bash
 make documentation  # builds the documentation in docs/
