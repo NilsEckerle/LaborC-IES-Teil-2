@@ -32,6 +32,7 @@ state_machine_t *configure_state_machine() {
 
   // init states
   // config
+  t_state *t_state_config_super_state = STATE_constructor(nothing_on_entry, nothing_on_update);
   t_state *t_state_init_robi = STATE_constructor(init_robi_on_entry, init_robi_on_update);
 
   t_state *t_state_config = STATE_constructor(config_on_entry, config_on_update);
@@ -71,92 +72,80 @@ state_machine_t *configure_state_machine() {
 
   // configure states
   // init
-  STATE_add_edge(t_state_init_robi, condition_allways, t_state_waiting);
+  STATE_add_edge(t_state_init_robi, 
+      condition_allways, 
+      t_state_waiting);
 
+  STATE_add_edge(t_state_config_super_state, condition_USART_W, t_state_waiting);
   // config
   STATE_add_edge(t_state_config, condition_USART_R, t_state_config_rounds);
-  STATE_add_edge(t_state_config, condition_USART_W, t_state_waiting);
   STATE_add_edge(t_state_config, condition_USART_L, t_state_config_lf_static);
-  STATE_add_edge(t_state_config, condition_USART_helper_clear_invalid_input, t_state_error);
   // config rounds
   STATE_add_edge(t_state_config_rounds, condition_USART_C, t_state_config);
   STATE_add_edge_with_execute(t_state_config_rounds, condition_USART_isdigit,
                               execute_set_robi_rounds, t_state_config);
-  STATE_add_edge(t_state_config_rounds, condition_USART_helper_clear_invalid_input, t_state_error);
   // config lf static
   STATE_add_edge(t_state_config_lf_static, condition_USART_C, t_state_config);
   STATE_add_edge(t_state_config_lf_static, condition_USART_L, t_state_config_lf_static_left);
   STATE_add_edge(t_state_config_lf_static, condition_USART_M, t_state_config_lf_static_middle);
   STATE_add_edge(t_state_config_lf_static, condition_USART_R, t_state_config_lf_static_right);
-  STATE_add_edge(t_state_config_lf_static, condition_USART_helper_clear_invalid_input,
-                 t_state_config_lf_static);
   // config lf static left
   STATE_add_edge(t_state_config_lf_static_left, condition_USART_C, t_state_config_lf_static);
   STATE_add_edge_with_execute(t_state_config_lf_static_left, condition_USART_isdigit,
                               execute_set_robi_lf_l_threshold, t_state_config_lf_static);
-  STATE_add_edge(t_state_config_lf_static_left, condition_USART_helper_clear_invalid_input,
-                 t_state_config_lf_static_left);
   // config lf static middle
   STATE_add_edge(t_state_config_lf_static_middle, condition_USART_C, t_state_config_lf_static);
   STATE_add_edge_with_execute(t_state_config_lf_static_middle, condition_USART_isdigit,
                               execute_set_robi_lf_m_threshold, t_state_config_lf_static);
-  STATE_add_edge(t_state_config_lf_static_middle, condition_USART_helper_clear_invalid_input,
-                 t_state_config_lf_static_middle);
   // config lf static right
   STATE_add_edge(t_state_config_lf_static_right, condition_USART_C, t_state_config_lf_static);
   STATE_add_edge_with_execute(t_state_config_lf_static_right, condition_USART_isdigit,
                               execute_set_robi_lf_r_threshold, t_state_config_lf_static);
-  STATE_add_edge(t_state_config_lf_static_right, condition_USART_helper_clear_invalid_input,
-                 t_state_config_lf_static_right);
   // waiting
-  STATE_add_edge(t_state_waiting, condition_LF_NOT_LMR, t_state_searching);
+  STATE_add_edge(t_state_waiting, condition_LF_NEITHER_L_M_R, t_state_searching);
   STATE_add_edge_with_execute(t_state_waiting, condition_USART_S, execute_print_fresh_start,
                               t_state_drive_throught);
   STATE_add_edge_with_execute(t_state_waiting, condition_USART_questionmark,
                               execute_print_waiting_help, t_state_waiting);
   STATE_add_edge(t_state_waiting, condition_USART_C, t_state_config);
-  STATE_add_edge(t_state_waiting, condition_USART_helper_clear_invalid_input, t_state_error);
   // searching
-  STATE_add_edge(t_state_searching, condition_LF_LMR, t_state_waiting);
+  STATE_add_edge(t_state_searching, condition_LF_L_M_R, t_state_waiting);
 
   // drive_logic_super_state
-  STATE_add_edge(t_state_drive_logic_super_state, condition_LF_LMR, t_state_check_for_start);
+  STATE_add_edge(t_state_drive_logic_super_state, condition_LF_L_M_R, t_state_check_for_start);
   STATE_add_edge(t_state_drive_logic_super_state, condition_USART_P, t_state_pause);
-  STATE_add_edge(t_state_drive_logic_super_state, condition_USART_helper_clear_invalid_input,
-                 t_state_drive_logic_super_state);
 
   // pause
   STATE_add_edge(t_state_pause, condition_USART_P, t_state_forward);
-  STATE_add_edge(t_state_pause, condition_USART_helper_clear_invalid_input, t_state_pause);
 
   // drive_through_start
-  STATE_add_edge(t_state_drive_throught, condition_LF_NOT_LMR, t_state_forward);
+  STATE_add_edge(t_state_drive_throught, condition_LF_NEITHER_L_M_R, t_state_forward);
 
   // check for start field
   STATE_add_edge(t_state_check_for_start, condition_start_field_delay, t_state_stop);
-  STATE_add_edge(t_state_check_for_start, condition_check_for_start_to_forward, t_state_forward);
+  STATE_add_edge(t_state_check_for_start, condition_LF_nL_nM_nR, t_state_forward);
 
   // forward
-  STATE_add_edge(t_state_forward, condition_forward_to_left, t_state_left);
-  STATE_add_edge(t_state_forward, condition_forward_to_right, t_state_right);
-  STATE_add_edge(t_state_forward, condition_forward_to_backwards, t_state_backwards);
+  STATE_add_edge(t_state_forward, condition_LF_L_X_nR, t_state_left);
+  STATE_add_edge(t_state_forward, condition_LF_nL_X_R, t_state_right);
+  STATE_add_edge(t_state_forward, condition_LF_nL_nM_nR, t_state_backwards);
 
   // backward
-  STATE_add_edge(t_state_backwards, condition_backwards_to_forward, t_state_forward);
+  STATE_add_edge(t_state_backwards, condition_LF_ANY, t_state_forward);
 
   // left
-  STATE_add_edge(t_state_left, condition_left_to_hard_left, t_state_hard_left);
-  STATE_add_edge(t_state_left, condition_left_to_forward, t_state_forward);
+  STATE_add_edge(t_state_left, condition_LF_X_nM_X, t_state_hard_left);
+  STATE_add_edge(t_state_left, condition_LF_nL_X_X, t_state_forward);
 
-  STATE_add_edge(t_state_hard_left, condition_LF_NONE, t_state_hard_left);
-  STATE_add_edge(t_state_hard_left, condition_hard_left_to_left, t_state_left);
+  STATE_add_edge(t_state_hard_left, condition_LF_nL_nM_nR, t_state_hard_left);
+  STATE_add_edge(t_state_hard_left, condition_LF_X_M_X, t_state_left);
 
   // right
-  STATE_add_edge(t_state_right, condition_right_to_hard_right, t_state_hard_right);
-  STATE_add_edge(t_state_right, condition_right_to_forward, t_state_forward);
+  STATE_add_edge(t_state_right, condition_LF_X_nM_X, t_state_hard_right);
+  STATE_add_edge(t_state_right, condition_LF_X_X_nR, t_state_forward);
 
-  STATE_add_edge(t_state_hard_right, condition_LF_NONE, t_state_hard_right);
-  STATE_add_edge(t_state_hard_right, condition_hard_right_to_right, t_state_right);
+  STATE_add_edge(t_state_hard_right, condition_LF_nL_nM_nR, t_state_hard_right);
+  STATE_add_edge(t_state_hard_right, condition_LF_X_M_X, t_state_right);
 
   // stop
   STATE_add_edge(t_state_stop, condition_has_rounds, t_state_drive_throught);
@@ -175,12 +164,20 @@ state_machine_t *configure_state_machine() {
   STATE_set_parent(t_state_right, t_state_drive_logic_super_state);
   STATE_set_parent(t_state_hard_right, t_state_drive_logic_super_state);
 
+  STATE_set_parent(t_state_config, t_state_config_super_state);
+  STATE_set_parent(t_state_config_lf_static, t_state_config_super_state);
+  STATE_set_parent(t_state_config_lf_static_left, t_state_config_super_state);
+  STATE_set_parent(t_state_config_lf_static_middle, t_state_config_super_state);
+  STATE_set_parent(t_state_config_lf_static_right, t_state_config_super_state);
+  STATE_set_parent(t_state_config_rounds, t_state_config_super_state);
+
   INFO("[configure_state_machine] all state herarchy set\n");
 
   // configure state machine
   STATE_MACHINE_add_error_state(state_machine, t_state_error);
 
   STATE_MACHINE_add_state(state_machine, t_state_config);
+  STATE_MACHINE_add_state(state_machine, t_state_config_super_state);
   STATE_MACHINE_add_state(state_machine, t_state_config_rounds);
   STATE_MACHINE_add_state(state_machine, t_state_config_lf_static);
   STATE_MACHINE_add_state(state_machine, t_state_config_lf_static_left);
