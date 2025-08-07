@@ -8,7 +8,7 @@
 #include <string.h>
 #include <util/delay.h>
 
-int8_t STATE_MACHINE_add_state(state_machine_t *inst, t_state *new_state) {
+int8_t STATE_MACHINE_add_state(t_state_machine *inst, t_state *new_state) {
   // guards
   if (NULL == inst || NULL == new_state) {
     WARNING("[add_state] invalid parameter inst or new_state\n");
@@ -33,7 +33,7 @@ int8_t STATE_MACHINE_add_state(state_machine_t *inst, t_state *new_state) {
   return 0;
 }
 
-int8_t STATE_MACHINE_add_error_state(state_machine_t *inst, t_state *new_state) {
+int8_t STATE_MACHINE_add_error_state(t_state_machine *inst, t_state *new_state) {
   if (NULL == inst || NULL == new_state) {
     WARNING("[add_error_state] invalid parameter inst of new_state\n");
     return 1;
@@ -49,11 +49,11 @@ int8_t STATE_MACHINE_add_error_state(state_machine_t *inst, t_state *new_state) 
   return 0;
 }
 
-int8_t STATE_MACHINE_set_start_state(state_machine_t *inst, t_state *start_state) {
+int8_t STATE_MACHINE_set_start_state(t_state_machine *inst, t_state *start_state) {
   return STATE_MACHINE_set_current_state(inst, start_state);
 }
 
-int8_t STATE_MACHINE_set_current_state(state_machine_t *inst, t_state *tp_new_state) {
+int8_t STATE_MACHINE_set_current_state(t_state_machine *inst, t_state *tp_new_state) {
   if (inst == NULL || tp_new_state == NULL) {
     return 1;
   }
@@ -65,7 +65,7 @@ int8_t STATE_MACHINE_set_current_state(state_machine_t *inst, t_state *tp_new_st
   return 0;
 }
 
-void STATE_MACHINE_update(state_machine_t *tp_state_machine) {
+void STATE_MACHINE_update(t_state_machine *tp_state_machine) {
   t_state *tp_state = tp_state_machine->tp_current_state;
 
   INFO_SPAM("[run] running state adress: %p\n", tp_state);
@@ -81,13 +81,13 @@ void STATE_MACHINE_update(state_machine_t *tp_state_machine) {
   STATE_check_edges(tp_state, tp_state_machine);
 }
 
-void STATE_MACHINE_run(state_machine_t *inst) {
+void STATE_MACHINE_run(t_state_machine *inst) {
   while (1) {
     STATE_MACHINE_update(inst);
   }
 }
 
-void STATE_MACHINE_destructor(state_machine_t *inst) {
+void STATE_MACHINE_destructor(t_state_machine *inst) {
   if (NULL != inst) {
     if (NULL != inst->arrp_states) {
       DYN_ARR_destructor(&inst->arrp_states);  // field
@@ -97,8 +97,8 @@ void STATE_MACHINE_destructor(state_machine_t *inst) {
   }
 }
 
-state_machine_t *STATE_MACHINE_constructor() {
-  state_machine_t *inst = malloc(sizeof(state_machine_t));
+t_state_machine *STATE_MACHINE_constructor() {
+  t_state_machine *inst = malloc(sizeof(t_state_machine));
   if (NULL == inst) {
     WARNING("[STATE_MACHINE_constructor] malloc failed for instance!\n");
     return NULL;
