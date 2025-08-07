@@ -30,7 +30,7 @@ typedef struct state_machine {
   t_state *tp_error_state;   /**< Pointer to the designated error/fallback state */
 
   uint8_t bool_is_new_state; /**< Flag indicating if the current state was just entered */
-} state_machine_t;
+} t_state_machine;
 
 /**
  * @brief Registers a new state with the state machine
@@ -49,7 +49,7 @@ typedef struct state_machine {
  *       as transition targets. The state machine does not take ownership
  *       of the state memory - states must be freed separately.
  */
-int8_t STATE_MACHINE_add_state(state_machine_t *tp_state_machine, t_state *new_state);
+int8_t STATE_MACHINE_add_state(t_state_machine *tp_state_machine, t_state *new_state);
 
 /**
  * @brief Registers a state as the designated error state
@@ -68,7 +68,7 @@ int8_t STATE_MACHINE_add_state(state_machine_t *tp_state_machine, t_state *new_s
  *       state will replace any previously configured error state. The error
  *       state should implement appropriate error handling or recovery logic.
  */
-int8_t STATE_MACHINE_add_error_state(state_machine_t *tp_state_machine, t_state *new_state);
+int8_t STATE_MACHINE_add_error_state(t_state_machine *tp_state_machine, t_state *new_state);
 
 /**
  * @brief Sets the initial state for the state machine
@@ -85,7 +85,7 @@ int8_t STATE_MACHINE_add_error_state(state_machine_t *tp_state_machine, t_state 
  *       The start state should be registered with the state machine before
  *       calling this function, though this is not enforced.
  */
-int8_t STATE_MACHINE_set_start_state(state_machine_t *tp_state_machine, t_state *start_state);
+int8_t STATE_MACHINE_set_start_state(t_state_machine *tp_state_machine, t_state *start_state);
 
 /**
  * @brief Transitions the state machine to a new state
@@ -103,7 +103,7 @@ int8_t STATE_MACHINE_set_start_state(state_machine_t *tp_state_machine, t_state 
  *       with the state machine. The new state flag ensures that on_entry()
  *       is called exactly once when entering the new state.
  */
-int8_t STATE_MACHINE_set_current_state(state_machine_t *tp_state_machine, t_state *new_state);
+int8_t STATE_MACHINE_set_current_state(t_state_machine *tp_state_machine, t_state *new_state);
 
 /**
  * @brief Executes one update cycle of the state machine
@@ -124,7 +124,7 @@ int8_t STATE_MACHINE_set_current_state(state_machine_t *tp_state_machine, t_stat
  * @warning This function assumes the current state is valid and non-NULL.
  *          Undefined behavior may occur if called on an uninitialized state machine.
  */
-void STATE_MACHINE_update(state_machine_t *tp_state_machine);
+void STATE_MACHINE_update(t_state_machine *tp_state_machine);
 
 /**
  * @brief Runs the state machine in an infinite loop
@@ -139,7 +139,7 @@ void STATE_MACHINE_update(state_machine_t *tp_state_machine);
  *          indefinitely. Ensure proper initialization before calling.
  *          Use STATE_MACHINE_update() directly for non-blocking execution.
  */
-void STATE_MACHINE_run(state_machine_t *inst);
+void STATE_MACHINE_run(t_state_machine *inst);
 
 /**
  * @brief Destroys a state machine and frees all associated memory
@@ -155,7 +155,7 @@ void STATE_MACHINE_run(state_machine_t *inst);
  *       STATE_destructor(). The function handles partial initialization
  *       gracefully by checking for NULL pointers before freeing.
  */
-void STATE_MACHINE_destructor(state_machine_t *inst);
+void STATE_MACHINE_destructor(t_state_machine *inst);
 
 /**
  * @brief Creates and initializes a new state machine instance
@@ -174,6 +174,6 @@ void STATE_MACHINE_destructor(state_machine_t *inst);
  *       - No error state (NULL)
  *       - New state flag cleared
  */
-state_machine_t *STATE_MACHINE_constructor();
+t_state_machine *STATE_MACHINE_constructor();
 
 #endif  // !STATE_MACHINE_H

@@ -8,12 +8,13 @@
 #include "tools/iesusart.h"
 #include "tools/logger.h"
 
+// default "trash" function for STATE_add_edge with no execution
 static void do_nothing(t_state *tp_state __attribute__((unused)),
                        void *dto __attribute__((unused))) {}
 
 int8_t STATE_add_edge_with_execute(t_state *tp_state,
                                    uint8_t (*condition)(t_state *tp_current_state, void *vp_dto),
-                                   void (*fp_execute_on_transition)(t_state *tp_current_state,
+                                   void (*execute)(t_state *tp_current_state,
                                                                     void *vp_dto),
                                    t_state *next_state) {
   // guards
@@ -31,13 +32,14 @@ int8_t STATE_add_edge_with_execute(t_state *tp_state,
   }
   TRACE("add_edge: parameter valid\n");
 
+  // create new edge
   t_edge *edge = malloc(sizeof(t_edge));
   if (NULL == edge) {
     WARNING("[add_edge] malloc failed for edge!\n");
     return 2;
   }
   edge->condition = condition;
-  edge->fp_execute_on_transition = fp_execute_on_transition;
+  edge->execute = execute;
   edge->vp_dto = NULL;
   edge->state = next_state;
 
@@ -62,7 +64,8 @@ void STATE_set_parent(t_state *tp_state, t_state *tp_new_parent) {
   return;
 }
 
-void STATE_check_edges(t_state *tp_state, state_machine_t *state_machine) {
+void STATE_check_edges(t_state *tp_state, t_state_machine *state_machine) {
+  // guards
   if (NULL == tp_state) {
     WARNING("[check_edges] tp_state is NULL!\n");
     return;
@@ -85,14 +88,14 @@ void STATE_check_edges(t_state *tp_state, state_machine_t *state_machine) {
     t_edge *edge = DYN_ARR_get_as_ptr(tp_state->tdynarr_edges, i, t_edge *);
     TRACE("checking edge 'adress %p : to adress %p'.\n", edge, edge->state);
 
-    // parrent conditions
+    // check parrent conditions
     if (tp_state->tp_parent != 0) {
-      STATE_check_edges(tp_state->tp_parent, state_machine);
+      STATE_check_edges(tp_state->tp_parent, state_machine); // !! rekursion!
     }
 
-    // self conditions
+    // check self conditions
     if (edge->condition(tp_state, edge->vp_dto)) {
-      edge->fp_execute_on_transition(tp_state, ROBOTER_get_instance()->vp_dto);
+      edge->execute(tp_state, ROBOTER_get_instance()->vp_dto);
       TRACE("conditon is true!\n");
 
       int8_t rc = STATE_MACHINE_set_current_state(state_machine, edge->state);
@@ -103,6 +106,8 @@ void STATE_check_edges(t_state *tp_state, state_machine_t *state_machine) {
       return;
     }
   }
+  // clear USART buffer when false input was send. 
+  // i do it here so i dont have to add this as a condition to every state i use USART conditions.
   USART_consume_on_second_call_string();
   return;
 }
@@ -110,26 +115,34 @@ void STATE_check_edges(t_state *tp_state, state_machine_t *state_machine) {
 void STATE_destructor(t_state *tp_state) {
   if (NULL != tp_state) {
     if (NULL != tp_state->tdynarr_edges) {
-      DYN_ARR_destructor(&tp_state->tdynarr_edges);  // field
+      DYN_ARR_destructor(&tp_state->tdynarr_edges);  // free field
     }
 
-    free(tp_state);  // struct
+    if (NULL != tp_state->ui32p_state_entry_time_ms) {
+      free(tp_state->ui32p_state_entry_time_ms); // free field
+      tp_state->ui32p_state_entry_time_ms = NULL;
+    }
+
+    free(tp_state);  // free struct
   }
+
+  return;
 }
 
 t_state *STATE_constructor(void (*on_entry)(struct state *tp_state),
                            void (*on_update)(struct state *tp_state)) {
-  t_state *tp_state = malloc(sizeof(t_state));
-  if (NULL == tp_state) {
-    WARNING("[STATE_constructor] malloc failed for tp_state!\n");
-    return NULL;
-  }
-
   // guards
   if (on_entry == NULL) {
     return NULL;
   }
   if (on_update == NULL) {
+    return NULL;
+  }
+
+  // create new state
+  t_state *tp_state = malloc(sizeof(t_state));
+  if (NULL == tp_state) {
+    WARNING("[STATE_constructor] malloc failed for tp_state!\n");
     return NULL;
   }
 

@@ -11,7 +11,7 @@
 #include "tools/dynamic_array.h"
 #include <stdint.h>
 
-typedef struct state_machine state_machine_t;
+typedef struct state_machine t_state_machine;
 
 /**
  * @brief Individual state in a hierarchical state machine
@@ -66,7 +66,7 @@ typedef struct edge {
    * @param tp_current_state Pointer to the state being exited
    * @param vp_dto Data transfer object with transition data
    */
-  void (*fp_execute_on_transition)(t_state *tp_current_state, void *vp_dto);
+  void (*execute)(t_state *tp_current_state, void *vp_dto);
 
   t_state *state; /**< Pointer to the target state for this transition */
 
@@ -80,7 +80,7 @@ typedef struct edge {
  *
  * @param tp_state Source state to add the transition to
  * @param condition Function that determines when transition should occur
- * @param fp_execute_on_transition Function to execute during transition (can be NULL)
+ * @param execute Function to execute during transition (can be NULL)
  * @param next_state_name Target state for the transition
  * @return 0 on success, positive value on error:
  *         - 1: Invalid parameter (NULL pointer)
@@ -93,8 +93,7 @@ typedef struct edge {
  */
 int8_t STATE_add_edge_with_execute(t_state *tp_state,
                                    uint8_t (*condition)(t_state *tp_current_state, void *vp_dto),
-                                   void (*fp_execute_on_transition)(t_state *tp_current_state,
-                                                                    void *vp_dto),
+                                   void (*execute)(t_state *tp_current_state, void *vp_dto),
                                    t_state *next_state_name);
 
 /**
@@ -144,7 +143,7 @@ void STATE_set_parent(t_state *tp_state, t_state *tp_new_parent);
  *       evaluation. If a transition leads to a non-existent state, the state
  *       machine switches to its error state.
  */
-void STATE_check_edges(t_state *tp_state, state_machine_t *state_machine);
+void STATE_check_edges(t_state *tp_state, t_state_machine *state_machine);
 
 /**
  * @brief Destroys a state and frees all associated memory

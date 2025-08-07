@@ -40,12 +40,14 @@ int8_t DYN_ARR_add(t_dyn_arr *tp_array, void *vp_data) {
 }
 
 void *DYN_ARR_get(t_dyn_arr *tp_array, uint8_t ui8_index) {
+  // guards
   if (NULL == tp_array) {
     return NULL;
   }
   if (tp_array->ui8_size <= ui8_index) {
     return NULL;
   }
+
   return tp_array->vpp_data_array[ui8_index];
 }
 
@@ -54,6 +56,7 @@ int8_t DYN_ARR_destructor(t_dyn_arr **tpp_array) {
     return 0;
   }
 
+  // itterate over everything and free
   if (NULL != (*tpp_array)) {
     if (NULL != (*tpp_array)->vpp_data_array) {
       if ((*tpp_array)->ui8_size > 0) {

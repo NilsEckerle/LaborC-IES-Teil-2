@@ -21,10 +21,10 @@
 #include <avr/io.h>
 #include <stdint.h>
 
-state_machine_t *configure_state_machine() {
+t_state_machine *configure_state_machine() {
 
   // init state machine
-  state_machine_t *state_machine = STATE_MACHINE_constructor();
+  t_state_machine *state_machine = STATE_MACHINE_constructor();
   if (NULL == state_machine) {
     FATAL("Failed to construct state_machine.\n");
     return NULL;
@@ -215,7 +215,7 @@ int main() {
   USART_init(UBRR_SETTING);
   INFO("USART_init\n");
 
-  state_machine_t *state_machine = configure_state_machine();
+  t_state_machine *state_machine = configure_state_machine();
   if (NULL == state_machine) {
     return 1;
   }

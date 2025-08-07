@@ -39,7 +39,7 @@ int8_t LF_get_state(LF_index lf_index) {
 }
 
 LF_detection_state LF_bitstring_to_state(uint8_t ui_lf_detection_bitstring) {
-  if (ui_lf_detection_bitstring > 7) {
+  if (ui_lf_detection_bitstring > (LF_detection_state)LF_UNDEFINED) {
     return (LF_detection_state)LF_UNDEFINED;
   }
 

@@ -2,6 +2,7 @@
 
 static char debug_buffer[128];
 
+// print from SRAM
 void __attribute__((unused)) debug_printf(const char *prefix, const char *format, ...) {
   va_list args;
   va_start(args, format);
@@ -17,6 +18,7 @@ void __attribute__((unused)) debug_printf(const char *prefix, const char *format
   USART_print(debug_buffer);
 }
 
+// print from PROGRAM MEMORY
 void __attribute__((unused)) debug_printf_P(const char *prefix, const char *format, ...) {
   va_list args;
   va_start(args, format);
