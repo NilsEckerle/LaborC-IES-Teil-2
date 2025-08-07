@@ -107,13 +107,15 @@ create_styling() {
 ' Background colors
 skinparam backgroundColor #282828
 skinparam handwritten false
+skinparam shadowing false
 
 ' State styling
 skinparam state {
-    BackgroundColor #3c3836
-    BorderColor #665c54
+    BackgroundColor #665c54
+    BorderColor #ebdbb2
     FontColor #ebdbb2
     FontSize 16
+    FontStyle bold
     FontName Arial
     ArrowColor #83a598
     ArrowThickness 2
@@ -147,12 +149,13 @@ skinparam stateEndColor #fb4934
 skinparam stateArrow {
     FontColor #d5c4a1
     FontSize 14
+    FontStyle bold
 }
 
 ' Generic arrow styling for transitions
 skinparam arrow {
     FontColor #d5c4a1
-    Color #83a598
+    Color #d65d0e
 }
 
 ' Fallback font color settings
