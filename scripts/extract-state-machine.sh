@@ -1,5 +1,5 @@
 #!/bin/bash
-DIAGRAM_NAME="state_machine_diagram"
+DIAGRAM_NAME="diagram"
 regex_STATE_add_edge='STATE_add_edge\s*\(\s*([^,\s]+)\s*,\s*([^,\s]+)\s*,\s*([^)]+)\s*\)'
 regex_STATE_add_edge_with_execute='STATE_add_edge_with_execute\s*\(\s*([^,\s]+)\s*,\s*([^,\s]+)\s*,\s*([^,\s]+)\s*,\s*([^)]+)\s*\)'
 regex_STATE_set_parent='STATE_set_parent\s*\(\s*([^,\s]+)\s*,\s*([^)]+)\s*\)'
@@ -16,7 +16,7 @@ extract_add_edges() {
   while IFS= read -r line; do
     if [[ -n "$line" ]]; then
       add_edge_results+=("$line")
-      echo "$line"
+      # echo "$line"
     fi
   done < <(echo "$files" | xargs perl -0777 -ne "while(/$regex_STATE_add_edge/gs) { print \"\$1,\$2,\$3\n\" }")
 }
@@ -28,7 +28,7 @@ extract_add_edges_with_execute() {
   while IFS= read -r line; do
     if [[ -n "$line" ]]; then
       add_edge_with_execute_results+=("$line")
-      echo "$line"
+      # echo "$line"
     fi
   done < <(echo "$files" | xargs perl -0777 -ne "while(/$regex_STATE_add_edge_with_execute/gs) { print \"\$1,\$2,\$3,\$4\n\" }")
 }
@@ -40,7 +40,7 @@ extract_set_parents() {
   while IFS= read -r line; do
     if [[ -n "$line" ]]; then
       set_parent_results+=("$line")
-      echo "$line"
+      # echo "$line"
     fi
   done < <(echo "$files" | xargs perl -0777 -ne "while(/$regex_STATE_set_parent/gs) { print \"\$1,\$2\n\" }")
 }
@@ -53,9 +53,9 @@ process_add_edges() {
     param1=$(echo "$param1" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
     param2=$(echo "$param2" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
     param3=$(echo "$param3" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    
+
     echo "$param1 --> $param3 : $param2" >> "${DIAGRAM_NAME}.txt"
-    echo "Added: $param1 --> $param3 : $param2"
+    # echo "Added: $param1 --> $param3 : $param2"
   done
 }
 
@@ -67,9 +67,9 @@ process_add_edges_with_execute() {
     param2=$(echo "$param2" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
     param3=$(echo "$param3" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
     param4=$(echo "$param4" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    
+
     echo "$param1 --> $param4 : $param2\\n'$param3'" >> "${DIAGRAM_NAME}.txt"
-    echo "Added with execute: $param1 --> $param4 : $param2 '$param3'"
+    # echo "Added with execute: $param1 --> $param4 : $param2 '$param3'"
   done
 }
 
@@ -79,11 +79,11 @@ process_set_parents() {
     IFS=',' read -r param1 param2 <<< "$result"
     param1=$(echo "$param1" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
     param2=$(echo "$param2" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    
+
     echo "state $param2 {
     state $param1
   }" >> "${DIAGRAM_NAME}.txt"
-    echo "Added $param2, parent of $param1"
+    # echo "Added $param2, parent of $param1"
   done
 }
 
@@ -101,13 +101,107 @@ EOF
   echo "State machine diagram written to ${DIAGRAM_NAME}.txt"
 }
 
+create_styling() {
+  echo "Add styling to diagram."
+  cat >> "${DIAGRAM_NAME}.txt" << EOF
+' Background colors
+skinparam backgroundColor #282828
+skinparam handwritten false
+
+' State styling
+skinparam state {
+    BackgroundColor #3c3836
+    BorderColor #665c54
+    FontColor #ebdbb2
+    FontSize 16
+    FontName Arial
+    ArrowColor #83a598
+    ArrowThickness 2
+}
+
+' Start/End state colors - multiple approaches for compatibility
+skinparam stateStart {
+    BackgroundColor #b8bb26
+    BorderColor #98971a
+}
+
+skinparam stateEnd {
+    BackgroundColor #fb4934
+    BorderColor #cc241d
+}
+
+' Circle/dot styling (for entry/exit points)
+skinparam circle {
+    BackgroundColor #b8bb26
+    BorderColor #98971a
+    FontColor #ebdbb2
+}
+
+' Additional circle styling attempts
+skinparam circleStartRadius 8
+skinparam circleEndRadius 8
+skinparam stateStartColor #b8bb26
+skinparam stateEndColor #fb4934
+
+' Arrow/transition text styling
+skinparam stateArrow {
+    FontColor #d5c4a1
+    FontSize 14
+}
+
+' Generic arrow styling for transitions
+skinparam arrow {
+    FontColor #d5c4a1
+    Color #83a598
+}
+
+' Fallback font color settings
+skinparam defaultFontColor #d5c4a1
+
+' Activity colors for more complex states
+skinparam activity {
+    BackgroundColor #504945
+    BorderColor #7c6f64
+    FontColor #d5c4a1
+}
+
+' Note styling
+skinparam note {
+    BackgroundColor #32302f
+    BorderColor #7c6f64
+    FontColor #a89984
+}
+
+' Title styling
+skinparam title {
+    FontColor #fabd2f
+    FontSize 18
+    FontStyle bold
+}
+
+' Legend styling
+skinparam legend {
+    BackgroundColor #32302f
+    BorderColor #7c6f64
+    FontColor #bdae93
+}
+EOF
+}
+
 create_entry_edge() {
+  echo "Add entry edge to diagram."
   cat >> "${DIAGRAM_NAME}.txt" << EOF
 [*] --> t_state_init_robi
 EOF
 }
 
 main() {
+  if [[ -n "$1" ]]; then
+    DIAGRAM_NAME=$1
+  else
+    DIAGRAM_NAME="state_machine_diagram"
+  fi
+
   # Extract data from source files
   extract_add_edges
   extract_add_edges_with_execute
@@ -115,6 +209,7 @@ main() {
   
   # Create state machine diagram
   create_diagram_header
+  create_styling
 
   create_entry_edge
   
