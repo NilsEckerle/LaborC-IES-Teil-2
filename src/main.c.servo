@@ -1,0 +1,22 @@
+#include "hardware/ultrasonic.h"
+#include <util/delay.h>
+
+int main() {
+  SONIC_init();
+
+  SONIC_rotation(SERVO_rotation_left);
+  _delay_ms(1000);
+
+  SONIC_rotation(SERVO_rotation_half_left);
+  _delay_ms(1000);
+
+  SONIC_rotation(SERVO_rotation_front);
+  _delay_ms(1000);
+
+  SONIC_rotation(SERVO_rotation_half_right);
+  _delay_ms(1000);
+
+  SONIC_rotation(SERVO_rotation_right);
+
+  return 0;
+}
