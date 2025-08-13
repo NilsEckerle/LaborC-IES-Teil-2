@@ -8,7 +8,7 @@ volatile uint32_t seconds = 0;
 
 // Timer1 overflow interrupt service routine
 ISR(TIMER1_OVF_vect) {
-  milliseconds += 32;
+  milliseconds += CLOCK_STEP_MS;
 
   if (milliseconds >= 1000) {
     milliseconds -= 1000;

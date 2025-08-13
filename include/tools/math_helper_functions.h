@@ -23,4 +23,10 @@
  */
 #define CALCULATE_PERCENT(MAX, PERCENT) (typeof(MAX))(MAX * PERCENT / 100)
 
+#define ABS(X) (((X)<0) ? -(X) : (X))
+
+#define MIN(X, Y) (((X)<(Y)) ? (X) : (Y))
+
+#define MAX(X, Y) (((X)>(Y)) ? (X) : (Y))
+
 #endif  // !MATH_HELPER_FUNCTIONS_H

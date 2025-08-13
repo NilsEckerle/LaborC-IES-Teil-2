@@ -136,6 +136,8 @@
  */
 #define CLOCK_ICIE1_BIT 5
 
+#define CLOCK_STEP_MS 32
+
 /**
  * @brief Initialize the clock system
  *
