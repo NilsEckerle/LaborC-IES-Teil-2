@@ -2,18 +2,18 @@
 #include "state_machine/state.h"
 #include "state_machine/state_machine.h"
 
-#include "roboter/states_config.h"
-#include "roboter/states_drive.h"
-#include "roboter/states_general.h"
+#include "roboter/states/config.h"
+#include "roboter/states/drive.h"
+#include "roboter/states/general.h"
 
-#include "roboter/conditions_LF.h"
-#include "roboter/conditions_USART.h"
-#include "roboter/conditions_clock.h"
-#include "roboter/conditions_general.h"
-#include "roboter/conditions_roboter.h"
+#include "roboter/conditions/LF.h"
+#include "roboter/conditions/USART.h"
+#include "roboter/conditions/clock.h"
+#include "roboter/conditions/general.h"
+#include "roboter/conditions/roboter.h"
 
-#include "roboter/execute_USART.h"
-#include "roboter/execute_config.h"
+#include "roboter/executes/USART.h"
+#include "roboter/executes/config.h"
 
 #include "tools/iesusart.h"
 #include "tools/logger.h"
@@ -46,6 +46,10 @@ t_state_machine *configure_state_machine() {
                                                                nothing_on_entry);
   t_state *t_state_config_lf_static_right = STATE_constructor(lf_set_treshold_prompt_on_entry,
                                                               nothing_on_entry);
+  t_state *t_state_config_lf_auto = STATE_constructor(config_lf_auto_on_entry,
+                                                      config_lf_auto_on_update);
+  t_state *t_state_config_lf_take_sample = STATE_constructor(config_lf_take_sample_on_entry,
+                                                             config_lf_take_sample_on_update);
   t_state *t_state_waiting = STATE_constructor(waiting_on_entry, waiting_on_update);
   t_state *t_state_searching = STATE_constructor(searching_on_entry, searching_on_update);
   t_state *t_state_resetting = STATE_constructor(reset_on_entry, reset_on_update);
@@ -72,9 +76,7 @@ t_state_machine *configure_state_machine() {
 
   // configure states
   // init
-  STATE_add_edge(t_state_init_robi, 
-      condition_allways, 
-      t_state_waiting);
+  STATE_add_edge(t_state_init_robi, condition_allways, t_state_waiting);
 
   STATE_add_edge(t_state_config_super_state, condition_USART_W, t_state_waiting);
   // config
@@ -86,6 +88,7 @@ t_state_machine *configure_state_machine() {
                               execute_set_robi_rounds, t_state_config);
   // config lf static
   STATE_add_edge(t_state_config_lf_static, condition_USART_C, t_state_config);
+  STATE_add_edge(t_state_config_lf_static, condition_USART_A, t_state_config_lf_auto);
   STATE_add_edge(t_state_config_lf_static, condition_USART_L, t_state_config_lf_static_left);
   STATE_add_edge(t_state_config_lf_static, condition_USART_M, t_state_config_lf_static_middle);
   STATE_add_edge(t_state_config_lf_static, condition_USART_R, t_state_config_lf_static_right);
@@ -101,6 +104,11 @@ t_state_machine *configure_state_machine() {
   STATE_add_edge(t_state_config_lf_static_right, condition_USART_C, t_state_config_lf_static);
   STATE_add_edge_with_execute(t_state_config_lf_static_right, condition_USART_isdigit,
                               execute_set_robi_lf_r_threshold, t_state_config_lf_static);
+  // config lf auto
+  STATE_add_edge(t_state_config_lf_auto, condition_USART_C, t_state_config_lf_static);
+  STATE_add_edge(t_state_config_lf_auto, condition_CLOCK_4_seconds, t_state_config_lf_take_sample);
+  // take sample
+  STATE_add_edge_with_execute(t_state_config_lf_take_sample, condition_CLOCK_1_seconds, execute_set_robi_lf_tresholds, t_state_config_lf_auto);
   // waiting
   STATE_add_edge(t_state_waiting, condition_LF_NEITHER_L_M_R, t_state_searching);
   STATE_add_edge_with_execute(t_state_waiting, condition_USART_S, execute_print_fresh_start,
@@ -170,6 +178,8 @@ t_state_machine *configure_state_machine() {
   STATE_set_parent(t_state_config_lf_static_middle, t_state_config_super_state);
   STATE_set_parent(t_state_config_lf_static_right, t_state_config_super_state);
   STATE_set_parent(t_state_config_rounds, t_state_config_super_state);
+  STATE_set_parent(t_state_config_lf_auto, t_state_config_super_state);
+  STATE_set_parent(t_state_config_lf_take_sample, t_state_config_super_state);
 
   INFO("[configure_state_machine] all state herarchy set\n");
 
@@ -186,6 +196,8 @@ t_state_machine *configure_state_machine() {
   STATE_MACHINE_add_state(state_machine, t_state_waiting);
   STATE_MACHINE_add_state(state_machine, t_state_searching);
   STATE_MACHINE_add_state(state_machine, t_state_resetting);
+  STATE_MACHINE_add_state(state_machine, t_state_config_lf_auto);
+  STATE_MACHINE_add_state(state_machine, t_state_config_lf_take_sample);
 
   STATE_MACHINE_add_state(state_machine, t_state_drive_throught);
   STATE_MACHINE_add_state(state_machine, t_state_forward);

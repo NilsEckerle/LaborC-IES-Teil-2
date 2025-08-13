@@ -1,5 +1,5 @@
 #include "state_machine/state.h"
-#include "roboter/roboter.h"
+#include "roboter/roboter_model.h"
 #include "state_machine/state_machine.h"
 #include <stdint.h>
 #include <stdlib.h>

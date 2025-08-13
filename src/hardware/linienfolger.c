@@ -1,6 +1,6 @@
 #include "hardware/linienfolger.h"
 #include "hardware/adc.h"
-#include "roboter/roboter.h"
+#include "roboter/roboter_model.h"
 #include "tools/bit_functions.h"
 #include "tools/logger.h"
 #include <stdint.h>
