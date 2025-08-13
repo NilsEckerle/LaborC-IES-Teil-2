@@ -20,10 +20,12 @@
 /** @brief Count of samples taken to calculate LF average */
 #define SETTING_LF_AVG_SAMPLES 10
 
+#define SETTING_LF_CONFIG_AUTO_DIFFERENCE_TRESHOLD 50
+
 /** @brief Default threshold for the left line follower
  * @note range 0-1024
  */
-#define SETTING_LF_LEFT_DEFAULT_THRESHOLD 150
+#define SETTING_LF_LEFT_DEFAULT_THRESHOLD 500
 
 /** @brief Default threshold for the middle line follower
  * @note range 0-1024
@@ -33,15 +35,21 @@
 /** @brief Default threshold for the right line follower
  * @note range 0-1024
  */
-#define SETTING_LF_RIGHT_DEFAULT_THRESHOLD 150
+#define SETTING_LF_RIGHT_DEFAULT_THRESHOLD 500
+
+#define SETTING_LF_MIN_THRESHOLD 120
+
+#define SETTING_LF_AUTO_TRESHOLD_PUFFER 40
+
+#define LF_TAKE_SAMPLE_BLINK_PERIOD_MS CALCULATE_PERIOD_MS(20)
 
 // Driving
 
 /** @brief Delay before start field is detected to prevent detection in corners */
-#define SETTING_START_FIELD_DELAY_MS 170
+#define SETTING_START_FIELD_DELAY_MS 190
 
 /** @brief Delay before backward is detected to prevent deadlock in corners */
-#define BACKWAD_DELAY_TRESHOLD 20
+#define BACKWAD_DELAY_TRESHOLD 30
 
 // Engine
 

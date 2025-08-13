@@ -205,4 +205,14 @@
  */
 #define MSG_FMT_LF_TRESHOLD_SET_TO "Line sensor treshold set to %u of max 1023.\n\n"
 
+#define PRINT_CONFIG_LF_AUTO_HELP() \
+  do {\
+    UI("Automatic line sensor treshold config entered.\n"); \
+    UI("Please position the roboter in various places to take a sample.\n"); \
+    UI("Each time wait till the LEDs start to blink rapidly.\n"); \
+    UI("After finishing sampeling exit this mode with [C]onfirm\n"); \
+    UI("'C' - Confirm and go back\n"); \
+    UI("'W' - Jump into waiting state\n\n"); \
+  } while(0)
+
 #endif  // !SERIAL_MESSAGES_H
