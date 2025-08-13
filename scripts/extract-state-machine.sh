@@ -9,10 +9,15 @@ declare -a add_edge_results=()
 declare -a add_edge_with_execute_results=()
 declare -a set_parent_results=()
 
+# Function to clean up parameter names
+cleanup_param() {
+  echo "$1" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g; s/robi_//g; s/lf_//g; s/CLOCK_//g"
+}
+
 extract_add_edges() {
   echo "=== Extracting STATE_add_edge matches (3 params) ==="
   local files=$(find src -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.h" \) ! -path "*/state_machine/*")
-  
+
   while IFS= read -r line; do
     if [[ -n "$line" ]]; then
       add_edge_results+=("$line")
@@ -24,7 +29,7 @@ extract_add_edges() {
 extract_add_edges_with_execute() {
   echo "=== Extracting STATE_add_edge_with_execute matches (4 params) ==="
   local files=$(find src -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.h" \) ! -path "*/state_machine/*")
-  
+
   while IFS= read -r line; do
     if [[ -n "$line" ]]; then
       add_edge_with_execute_results+=("$line")
@@ -36,7 +41,7 @@ extract_add_edges_with_execute() {
 extract_set_parents() {
   echo "=== Extracting STATE_set_parent matches (2 params) ==="
   local files=$(find src -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.h" \) ! -path "*/state_machine/*")
-  
+
   while IFS= read -r line; do
     if [[ -n "$line" ]]; then
       set_parent_results+=("$line")
@@ -49,10 +54,10 @@ process_add_edges() {
   echo "Processing add_edge results..."
   for result in "${add_edge_results[@]}"; do
     IFS=',' read -r param1 param2 param3 <<< "$result"
-    # Remove any whitespace
-    param1=$(echo "$param1" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    param2=$(echo "$param2" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    param3=$(echo "$param3" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
+
+    param1=$(cleanup_param "$param1")
+    param2=$(cleanup_param "$param2")
+    param3=$(cleanup_param "$param3")
 
     echo "$param1 --> $param3 : $param2" >> "${DIAGRAM_NAME}.txt"
     # echo "Added: $param1 --> $param3 : $param2"
@@ -63,10 +68,11 @@ process_add_edges_with_execute() {
   echo "Processing add_edge_with_execute results..."
   for result in "${add_edge_with_execute_results[@]}"; do
     IFS=',' read -r param1 param2 param3 param4 <<< "$result"
-    param1=$(echo "$param1" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    param2=$(echo "$param2" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    param3=$(echo "$param3" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    param4=$(echo "$param4" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
+
+    param1=$(cleanup_param "$param1")
+    param2=$(cleanup_param "$param2")
+    param3=$(cleanup_param "$param3")
+    param4=$(cleanup_param "$param4")
 
     echo "$param1 --> $param4 : $param2\\n'$param3'" >> "${DIAGRAM_NAME}.txt"
     # echo "Added with execute: $param1 --> $param4 : $param2 '$param3'"
@@ -77,14 +83,15 @@ process_set_parents() {
   echo "Processing set_parent results..."
   for result in "${set_parent_results[@]}"; do
     IFS=',' read -r param1 param2 <<< "$result"
-    param1=$(echo "$param1" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    param2=$(echo "$param2" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
+
+    param1=$(cleanup_param "$param1")
+    param2=$(cleanup_param "$param2")
 
     echo "state $param2 {
-    state $param1
-  }" >> "${DIAGRAM_NAME}.txt"
-    # echo "Added $param2, parent of $param1"
-  done
+      state $param1
+    }" >> "${DIAGRAM_NAME}.txt"
+  # echo "Added $param2, parent of $param1"
+done
 }
 
 create_diagram_header() {
@@ -98,7 +105,7 @@ create_diagram_footer() {
   cat >> "${DIAGRAM_NAME}.txt" << EOF
 @enduml
 EOF
-  echo "State machine diagram written to ${DIAGRAM_NAME}.txt"
+echo "State machine diagram written to ${DIAGRAM_NAME}.txt"
 }
 
 create_styling() {
@@ -119,25 +126,25 @@ skinparam state {
     FontName Arial
     ArrowColor #83a598
     ArrowThickness 2
-}
+  }
 
 ' Start/End state colors - multiple approaches for compatibility
 skinparam stateStart {
     BackgroundColor #b8bb26
     BorderColor #98971a
-}
+  }
 
 skinparam stateEnd {
     BackgroundColor #fb4934
     BorderColor #cc241d
-}
+  }
 
 ' Circle/dot styling (for entry/exit points)
 skinparam circle {
     BackgroundColor #b8bb26
     BorderColor #98971a
     FontColor #ebdbb2
-}
+  }
 
 ' Additional circle styling attempts
 skinparam circleStartRadius 8
@@ -150,13 +157,13 @@ skinparam stateArrow {
     FontColor #d5c4a1
     FontSize 14
     FontStyle bold
-}
+  }
 
 ' Generic arrow styling for transitions
 skinparam arrow {
     FontColor #d5c4a1
     Color #d65d0e
-}
+  }
 
 ' Fallback font color settings
 skinparam defaultFontColor #d5c4a1
@@ -166,28 +173,28 @@ skinparam activity {
     BackgroundColor #504945
     BorderColor #7c6f64
     FontColor #d5c4a1
-}
+  }
 
 ' Note styling
 skinparam note {
     BackgroundColor #32302f
     BorderColor #7c6f64
     FontColor #a89984
-}
+  }
 
 ' Title styling
 skinparam title {
     FontColor #fabd2f
     FontSize 18
     FontStyle bold
-}
+  }
 
 ' Legend styling
 skinparam legend {
     BackgroundColor #32302f
     BorderColor #7c6f64
     FontColor #bdae93
-}
+  }
 EOF
 }
 
@@ -209,18 +216,18 @@ main() {
   extract_add_edges
   extract_add_edges_with_execute
   extract_set_parents
-  
+
   # Create state machine diagram
   create_diagram_header
   create_styling
 
   create_entry_edge
-  
+
   # Process all extracted data
   process_set_parents
   process_add_edges
   process_add_edges_with_execute
-  
+
   # Finalize diagram
   create_diagram_footer
 }
