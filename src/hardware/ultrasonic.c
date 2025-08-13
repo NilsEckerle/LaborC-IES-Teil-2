@@ -5,7 +5,9 @@ void SONIC_rotation(e_servo_rotation e_rotation) {
   SERVO_PWM_TIMER_OCRB = e_rotation;
 }
 
-void _SONIC_init_sonic() {}
+void _SONIC_init_sonic() {
+
+}
 
 void _SONIC_init_servo() {
   SET_BIT(SERVO_DDR, SERVO_BIT); // set output
