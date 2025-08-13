@@ -115,9 +115,27 @@ uint8_t condition_LF_X_M_X(t_state *inst __attribute__((unused)),
                            void *vp_dto __attribute__((unused)));
 
 uint8_t condition_LF_nL_X_X(t_state *inst __attribute__((unused)),
-                           void *vp_dto __attribute__((unused)));
+                            void *vp_dto __attribute__((unused)));
 
 uint8_t condition_LF_X_X_nR(t_state *inst __attribute__((unused)),
-                           void *vp_dto __attribute__((unused)));
+                            void *vp_dto __attribute__((unused)));
+
+uint8_t condition_LF_L_or_R(t_state *inst __attribute__((unused)),
+                            void *vp_dto __attribute__((unused)));
+
+uint8_t condition_LF_L_nM_X(t_state *inst __attribute__((unused)),
+                            void *vp_dto __attribute__((unused)));
+
+uint8_t condition_LF_L_M_nR(t_state *inst __attribute__((unused)),
+                            void *vp_dto __attribute__((unused)));
+
+uint8_t condition_LF_X_nM_R(t_state *inst __attribute__((unused)),
+                            void *vp_dto __attribute__((unused)));
+
+uint8_t condition_LF_nL_M_R(t_state *inst __attribute__((unused)),
+                            void *vp_dto __attribute__((unused)));
+
+uint8_t condition_LF_nL_M_nR(t_state *inst __attribute__((unused)),
+                             void *vp_dto __attribute__((unused)));
 
 #endif  // CONDITIONS_LF_H

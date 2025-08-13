@@ -131,18 +131,23 @@ t_state_machine *configure_state_machine() {
   STATE_add_edge(t_state_forward, condition_LF_nL_nM_nR, t_state_backwards);
 
   // backward
-  STATE_add_edge(t_state_backwards, condition_LF_ANY, t_state_forward);
+  STATE_add_edge(t_state_backwards, condition_LF_L_nM_X, t_state_hard_left);
+  STATE_add_edge(t_state_backwards, condition_LF_X_nM_R, t_state_hard_right);
+  STATE_add_edge(t_state_backwards, condition_LF_L_M_nR, t_state_hard_left);
+  STATE_add_edge(t_state_backwards, condition_LF_nL_M_R, t_state_hard_right);
 
   // left
   STATE_add_edge(t_state_left, condition_LF_X_nM_X, t_state_hard_left);
-  STATE_add_edge(t_state_left, condition_LF_nL_X_X, t_state_forward);
+  STATE_add_edge(t_state_left, condition_LF_nL_nM_nR, t_state_hard_left);
+  STATE_add_edge(t_state_left, condition_LF_nL_M_nR, t_state_forward);
 
   STATE_add_edge(t_state_hard_left, condition_LF_nL_nM_nR, t_state_hard_left);
   STATE_add_edge(t_state_hard_left, condition_LF_X_M_X, t_state_left);
 
   // right
   STATE_add_edge(t_state_right, condition_LF_X_nM_X, t_state_hard_right);
-  STATE_add_edge(t_state_right, condition_LF_X_X_nR, t_state_forward);
+  STATE_add_edge(t_state_right, condition_LF_nL_nM_nR, t_state_hard_right);
+  STATE_add_edge(t_state_right, condition_LF_nL_M_nR, t_state_forward);
 
   STATE_add_edge(t_state_hard_right, condition_LF_nL_nM_nR, t_state_hard_right);
   STATE_add_edge(t_state_hard_right, condition_LF_X_M_X, t_state_right);

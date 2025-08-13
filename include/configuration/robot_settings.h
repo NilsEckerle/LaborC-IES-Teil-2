@@ -23,22 +23,22 @@
 /** @brief Default threshold for the left line follower
  * @note range 0-1024
  */
-#define SETTING_LF_LEFT_DEFAULT_THRESHOLD 150
+#define SETTING_LF_LEFT_DEFAULT_THRESHOLD 300
 
 /** @brief Default threshold for the middle line follower
  * @note range 0-1024
  */
-#define SETTING_LF_MIDDLE_DEFAULT_THRESHOLD 500
+#define SETTING_LF_MIDDLE_DEFAULT_THRESHOLD 400
 
 /** @brief Default threshold for the right line follower
  * @note range 0-1024
  */
-#define SETTING_LF_RIGHT_DEFAULT_THRESHOLD 150
+#define SETTING_LF_RIGHT_DEFAULT_THRESHOLD 400
 
 // Driving
 
 /** @brief Delay before start field is detected to prevent detection in corners */
-#define SETTING_START_FIELD_DELAY_MS 170
+#define SETTING_START_FIELD_DELAY_MS 180
 
 /** @brief Delay before backward is detected to prevent deadlock in corners */
 #define BACKWAD_DELAY_TRESHOLD 20
@@ -54,12 +54,12 @@
 /** @brief Defines forward power
  * @note Used for Speed while driving forward
  */
-#define SETTING_ENGINE_PWM_POWER_FORWARD CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 90)
+#define SETTING_ENGINE_PWM_POWER_FORWARD CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 60)
 
 /** @brief Defines backward power
  * @note Used for Speed while driving backward
  */
-#define SETTING_ENGINE_PWM_POWER_BACKWARD CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 60)
+#define SETTING_ENGINE_PWM_POWER_BACKWARD CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 40)
 
 /** @brief Defines turn speed of the outside wheel */
 #define SETTING_ENGINE_PWM_POWER_TURN_FORWARD CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 90)

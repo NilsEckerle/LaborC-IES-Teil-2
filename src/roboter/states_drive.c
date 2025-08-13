@@ -1,3 +1,7 @@
+#include <util/delay.h>
+#define LOG_LEVEL LOG_LEVEL_INFO
+#include "tools/logger.h"
+
 #include "roboter/states_drive.h"
 #include "hardware/clock.h"
 #include "hardware/engine.h"
@@ -9,8 +13,6 @@
 #include "configuration/robot_settings.h"
 #include "configuration/serial_messages.h"
 
-// #define LOG_LEVEL LOG_LEVEL_INFO
-#include "tools/logger.h"
 #include "tools/math_helper_functions.h"
 #include <stdint.h>
 
@@ -82,7 +84,7 @@ void backwards_on_update(t_state *inst __attribute__((unused))) {
   if (CLOCK_get_milliseconds() - *inst->ui32p_state_entry_time_ms > BACKWAD_DELAY_TRESHOLD) {
 
     ENGINE_set_duty_cicle(ENGINE_PWM_LEFT, SETTING_ENGINE_PWM_POWER_BACKWARD);
-    ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, SETTING_ENGINE_PWM_POWER_BACKWARD);
+    ENGINE_set_duty_cicle(ENGINE_PWM_RIGHT, CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_BACKWARD, 80));
 
     // Left motors forward
     UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
@@ -90,6 +92,7 @@ void backwards_on_update(t_state *inst __attribute__((unused))) {
     // Right motors forward
     SET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
     UNSET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
+    _delay_ms(20);
   }
   return;
 }
@@ -103,8 +106,8 @@ void left_on_entry(t_state *inst __attribute__((unused))) {
                         SETTING_ENGINE_PWM_POWER_TURN_FORWARD);  // set to 7/8 speed
 
   // Left motors backwards
-  UNSET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
-  SET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
+  SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
+  UNSET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
   // Right motors forward
   UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
   SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
@@ -142,8 +145,8 @@ void right_on_entry(t_state *inst __attribute__((unused))) {
   SET_BIT(ENGINE_HB_IN1_PORT, ENGINE_HB_IN1_BIT);
   UNSET_BIT(ENGINE_HB_IN2_PORT, ENGINE_HB_IN2_BIT);
   // Right motors backwards
-  SET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
-  UNSET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
+  UNSET_BIT(ENGINE_HB_IN3_PORT, ENGINE_HB_IN3_BIT);
+  SET_BIT(ENGINE_HB_IN4_PORT, ENGINE_HB_IN4_BIT);
   return;
 }
 
