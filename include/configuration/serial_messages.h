@@ -140,6 +140,7 @@
     UI("========== ROBOTER HELP ==========\n");                            \
     UI("FROM HERE:\n");                                                    \
     UI("'S'       - to start driving\n");                                  \
+    UI("'ST'      - to start driving and timing each round\n");            \
     UI("'?'       - to get this help\n");                                  \
     UI("'C'       - to get into config\n");                                \
     UI("CONFIG:\n");                                                       \
@@ -148,7 +149,7 @@
     UI("'L'       - to configure line follower sensor tresholds\n");       \
     UI("'P'       - to configure engine power scaling (only slows engine " \
        "down)\n");                                                         \
-    UI("DRIVING\n");                                                       \
+    UI("DRIVING:\n");                                                      \
     UI("'P'       - toggle driving pause\n");                              \
     UI("==================================\n\n");                          \
   } while (0)
@@ -172,6 +173,7 @@
 #define PRINT_CONFIG_LINE_FOLLOWER_THRESHOLDS()    \
   do {                                             \
     UI("COMMANDS:\n");                             \
+    UI("'W' - got back to waiting state\n");       \
     UI("'C' - confirm and go back to config\n");   \
     UI("'L' - set threshold of left sensor\n");    \
     UI("'M' - set threshold of middle sensor\n");  \
@@ -204,5 +206,7 @@
  * @param %u Unsigned integer representing the new threshold value (0-1023)
  */
 #define MSG_FMT_LF_TRESHOLD_SET_TO "Line sensor treshold set to %u of max 1023.\n\n"
+
+#define MSG_FMT_ROUND_TIMING "Round %d took %u.%u seconds.\n\n"
 
 #endif  // !SERIAL_MESSAGES_H
