@@ -2,24 +2,26 @@
 #include "state_machine/state.h"
 #include "state_machine/state_machine.h"
 
-#include "roboter/states_config.h"
-#include "roboter/states_drive.h"
-#include "roboter/states_general.h"
+#include "roboter/states/config.h"
+#include "roboter/states/drive.h"
+#include "roboter/states/general.h"
 
-#include "roboter/conditions_LF.h"
-#include "roboter/conditions_USART.h"
-#include "roboter/conditions_clock.h"
-#include "roboter/conditions_general.h"
-#include "roboter/conditions_roboter.h"
+#include "roboter/conditions/LF.h"
+#include "roboter/conditions/USART.h"
+#include "roboter/conditions/clock.h"
+#include "roboter/conditions/general.h"
+#include "roboter/conditions/roboter.h"
 
-#include "roboter/execute_USART.h"
-#include "roboter/execute_config.h"
 
-#include "tools/iesusart.h"
+#include "roboter/executes/USART.h"
+#include "roboter/executes/config.h"
+
+#include "tools/usart.h"
 #include "tools/logger.h"
 
 #include <avr/io.h>
 #include <stdint.h>
+#include <string.h>
 
 t_state_machine *configure_state_machine() {
 
@@ -61,6 +63,7 @@ t_state_machine *configure_state_machine() {
   t_state *t_state_hard_left = STATE_constructor(hard_left_on_entry, hard_left_on_update);
   t_state *t_state_right = STATE_constructor(right_on_entry, right_on_update);
   t_state *t_state_hard_right = STATE_constructor(hard_right_on_entry, hard_right_on_update);
+  t_state *t_state_round_end = STATE_constructor(round_end_on_entry, round_end_on_update);
   t_state *t_state_stop = STATE_constructor(stop_on_entry, stop_on_update);
   t_state *t_state_error = STATE_constructor(error_on_entry, error_on_update);
   t_state *t_state_drive_logic_super_state = STATE_constructor(drive_logic_super_state_on_entry,
@@ -105,6 +108,8 @@ t_state_machine *configure_state_machine() {
   STATE_add_edge(t_state_waiting, condition_LF_NEITHER_L_M_R, t_state_searching);
   STATE_add_edge_with_execute(t_state_waiting, condition_USART_S, execute_print_fresh_start,
                               t_state_drive_throught);
+  STATE_add_edge_with_execute(t_state_waiting, condition_USART_ST, execute_enable_round_timing,
+                              t_state_drive_throught);
   STATE_add_edge_with_execute(t_state_waiting, condition_USART_questionmark,
                               execute_print_waiting_help, t_state_waiting);
   STATE_add_edge(t_state_waiting, condition_USART_C, t_state_config);
@@ -122,7 +127,7 @@ t_state_machine *configure_state_machine() {
   STATE_add_edge(t_state_drive_throught, condition_LF_NEITHER_L_M_R, t_state_forward);
 
   // check for start field
-  STATE_add_edge(t_state_check_for_start, condition_start_field_delay, t_state_stop);
+  STATE_add_edge(t_state_check_for_start, condition_start_field_delay, t_state_round_end);
   STATE_add_edge(t_state_check_for_start, condition_LF_nL_nM_nR, t_state_forward);
 
   // forward
@@ -131,25 +136,30 @@ t_state_machine *configure_state_machine() {
   STATE_add_edge(t_state_forward, condition_LF_nL_nM_nR, t_state_backwards);
 
   // backward
-  STATE_add_edge(t_state_backwards, condition_LF_ANY, t_state_forward);
+  STATE_add_edge(t_state_backwards, condition_LF_L_X_nR, t_state_hard_left);
+  STATE_add_edge(t_state_backwards, condition_LF_nL_X_R, t_state_hard_right);
+  STATE_add_edge(t_state_backwards, condition_LF_nL_M_nR, t_state_forward);
 
   // left
   STATE_add_edge(t_state_left, condition_LF_X_nM_X, t_state_hard_left);
   STATE_add_edge(t_state_left, condition_LF_nL_X_X, t_state_forward);
 
   STATE_add_edge(t_state_hard_left, condition_LF_nL_nM_nR, t_state_hard_left);
-  STATE_add_edge(t_state_hard_left, condition_LF_X_M_X, t_state_left);
+  STATE_add_edge(t_state_hard_left, condition_LF_nL_X_X, t_state_left);
 
   // right
   STATE_add_edge(t_state_right, condition_LF_X_nM_X, t_state_hard_right);
   STATE_add_edge(t_state_right, condition_LF_X_X_nR, t_state_forward);
 
   STATE_add_edge(t_state_hard_right, condition_LF_nL_nM_nR, t_state_hard_right);
-  STATE_add_edge(t_state_hard_right, condition_LF_X_M_X, t_state_right);
+  STATE_add_edge(t_state_hard_right, condition_LF_X_X_nR, t_state_right);
+
+  // check stop
+  STATE_add_edge(t_state_round_end, condition_has_rounds, t_state_drive_throught);
+  STATE_add_edge(t_state_round_end, condition_has_no_rounds, t_state_stop);
 
   // stop
-  STATE_add_edge(t_state_stop, condition_has_rounds, t_state_drive_throught);
-  STATE_add_edge(t_state_stop, condition_has_no_rounds, t_state_resetting);
+  STATE_add_edge(t_state_stop, condition_allways, t_state_resetting);
 
   // resetting
   STATE_add_edge(t_state_resetting, condition_5_seconds_after_entry, t_state_waiting);
@@ -212,16 +222,19 @@ t_state_machine *configure_state_machine() {
 }
 
 int main() {
+  // allways init USART first, so the logger works
   USART_init(UBRR_SETTING);
   INFO("USART_init\n");
 
   t_state_machine *state_machine = configure_state_machine();
   if (NULL == state_machine) {
+    FATAL("Statemachine config failed!!!");
     return 1;
   }
 
   INFO("[main] now starting state machine\n");
-  STATE_MACHINE_run(state_machine);
+  STATE_MACHINE_run(state_machine); // infinit loop
 
+  FATAL("End of code reached. This shouldn't hapen. Check the infinit loop.");
   return 0;
 }
