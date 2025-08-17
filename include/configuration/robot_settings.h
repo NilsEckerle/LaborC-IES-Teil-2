@@ -23,17 +23,17 @@
 /** @brief Default threshold for the left line follower
  * @note range 0-1024
  */
-#define SETTING_LF_LEFT_DEFAULT_THRESHOLD 150
+#define SETTING_LF_LEFT_DEFAULT_THRESHOLD 200
 
 /** @brief Default threshold for the middle line follower
  * @note range 0-1024
  */
-#define SETTING_LF_MIDDLE_DEFAULT_THRESHOLD 500
+#define SETTING_LF_MIDDLE_DEFAULT_THRESHOLD 800
 
 /** @brief Default threshold for the right line follower
  * @note range 0-1024
  */
-#define SETTING_LF_RIGHT_DEFAULT_THRESHOLD 150
+#define SETTING_LF_RIGHT_DEFAULT_THRESHOLD 200
 
 // Driving
 
@@ -41,7 +41,7 @@
 #define SETTING_START_FIELD_DELAY_MS 170
 
 /** @brief Delay before backward is detected to prevent deadlock in corners */
-#define BACKWAD_DELAY_TRESHOLD 20
+#define SETTINGBACKWAD_DELAY_TRESHOLD 0
 
 // Engine
 
@@ -62,16 +62,16 @@
 #define SETTING_ENGINE_PWM_POWER_BACKWARD CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 60)
 
 /** @brief Defines turn speed of the outside wheel */
-#define SETTING_ENGINE_PWM_POWER_TURN_FORWARD CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 90)
+#define SETTING_ENGINE_PWM_POWER_TURN_FORWARD CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 100)
 
 /** @brief Defines turn speed of the inside wheel in soft turns */
 #define SETTING_ENGINE_PWM_POWER_TURN_FORWARD_LOW \
-  CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 30)
+  CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 0)
 
 /** @brief Defines turn speed of the inside wheel in hard turns 
  * @note this wheel is ment to turn backward
  */
-#define SETTING_ENGINE_PWM_POWER_TURN_BACKWARD CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 70)
+#define SETTING_ENGINE_PWM_POWER_TURN_BACKWARD CALCULATE_PERCENT(SETTING_ENGINE_PWM_POWER_MAX, 100)
 
 // WAITING
 
@@ -79,7 +79,7 @@
  * @note the period is the time between two ocouring events.
  * 1s/5 = 0.2s == 1000ms/5 = 200ms
  */
-#define WAITING_BLINK_PERIOD_MS CALCULATE_PERIOD_MS(5)
+#define SETTING_WAITING_BLINK_PERIOD_MS CALCULATE_PERIOD_MS(5)
 
 // PAUSE
 
@@ -87,6 +87,6 @@
  * @note the period is the time between two ocouring events.
  * 1s/10 = 0.1s == 1000ms/10 = 100ms
  */
-#define PAUSE_SHIFT_PERIOD_MS CALCULATE_PERIOD_MS(10)
+#define SETTING_PAUSE_SHIFT_PERIOD_MS CALCULATE_PERIOD_MS(10)
 
 #endif  // !ROBOT_SETTINGS_H
