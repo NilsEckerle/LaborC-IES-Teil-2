@@ -1,4 +1,4 @@
-# LaborC-IES-Teil-2
+# line follower roboter
 
 ![Roboter image](res/images/roboter.png)
 
@@ -20,16 +20,18 @@
     - For a example see `Related Pages > State machine diagram` in the
       documentation
     - External source code analysis to extract states and edges, so the code
-      doesn't need unnessesary complexity like mocking the hardware. See
+      doesn't need unnessesary complexity like mocking the hardware.
     - Generation via *plantuml*. See https://plantuml.com/
 - Runtime configuration of Roboter. See *'?' when running roboter for help*
     - Configurable line follower sensor treshold for left, middle and right
       seperatly
     - Configurable rounds to drive
+- Round timing with 'ST' as start commands. This prints out the elapsed time
+  each round.
 
 ## Requirements
 Project was tested and developed on debian.
-To install requirements run:
+To install the requirements run:
 ```bash
 sudo apt install cmake gcc-avr binutils-avr avr-libc
 ```
@@ -44,17 +46,18 @@ sudo apt install plantuml grep perl sed
 ## Build
 To build this project run make in the root of the project:
 ```bash
-make        # builds and flashes to standart arduino port
+make        # builds and flashes to standart arduino /dev/tty*
 make build  # builds the project
 make help   # show more commands
 ```
 
 ## Build documentation
-On github see the pages prebuild documentation https://nilseckerle.github.io/LaborC-IES-Teil-2/
+On github see the pages prebuild documentation https://nilseckerle.github.io/line-follower-robot/
 
-To build the documentation run
+To build the documentation localy run
 ```bash
 make documentation  # builds the documentation in docs/
+make show_documentation  # opens the documentation in firefox
 ```
 
 ### generating new state machine diagram image
