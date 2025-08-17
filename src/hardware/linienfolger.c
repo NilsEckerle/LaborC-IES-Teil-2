@@ -1,6 +1,6 @@
 #include "hardware/linienfolger.h"
 #include "hardware/adc.h"
-#include "roboter/roboter.h"
+#include "roboter/roboter_model.h"
 #include "tools/bit_functions.h"
 #include "tools/logger.h"
 #include <stdint.h>
@@ -22,6 +22,7 @@ void LF_init() {
 int8_t LF_get_state(LF_index lf_index) {
   t_roboter *robi = ROBOTER_get_instance();
   uint16_t value = 0;
+
   switch (lf_index) {
   case LF_LEFT:
     value = ADC_get_avg(ADC_LF_LEFT, ADC_AVG_WINDOW);

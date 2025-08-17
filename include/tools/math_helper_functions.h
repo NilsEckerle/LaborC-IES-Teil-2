@@ -21,6 +21,6 @@
  * @param PERCENT Percentage value (0-100)
  * @return Calculated percentage value with same type as MAX
  */
-#define CALCULATE_PERCENT(MAX, PERCENT) (typeof(MAX))(MAX * PERCENT / 100)
+#define CALCULATE_PERCENT(MAX, PERCENT) ((typeof(MAX))(MAX * PERCENT / 100))
 
 #endif  // !MATH_HELPER_FUNCTIONS_H

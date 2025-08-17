@@ -31,7 +31,7 @@ void CLOCK_init() {
   UNSET_BIT(TCCR1B, CLOCK_WGM12_BIT);
   UNSET_BIT(TCCR1B, CLOCK_WGM13_BIT);
 
-  // Set prescaler to 64 (CS12:0 = 011)
+  // Set prescaler to 8 ( 010)
   // This gives us: 16MHz / 8 = 2MHz timer frequency
   // Timer period = 1/2MHz = 5e-7 microseconds per tick
   // Overflow occurs every 65536 ticks = 65536 * 5e-7 = 32,768 microseconds

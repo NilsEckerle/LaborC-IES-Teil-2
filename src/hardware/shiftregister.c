@@ -1,6 +1,8 @@
-#include "hardware/shiftregister.h"
-#include "tools/bit_functions.h"
 #include "tools/logger.h"
+
+#include "hardware/shiftregister.h"
+
+#include "tools/bit_functions.h"
 #include <stdint.h>
 #include <util/delay.h>
 

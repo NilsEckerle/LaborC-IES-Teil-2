@@ -1,6 +1,6 @@
 /**
- * @file 
- * @brief 
+ * @file bit_functions.h
+ * @brief contains macros and functions to manipulate single bits in different types
  * @author Nils Eckerle
  * @date 2025-07-30
  */

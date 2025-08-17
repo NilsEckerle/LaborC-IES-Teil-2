@@ -1,7 +1,7 @@
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "Line Follower Roboter"
 PROJECT_NUMBER         =
-PROJECT_BRIEF          = "This Project is the code for a Line Following Roboter. This is a student project for 'LaborC' at the University of Kassel."
+PROJECT_BRIEF          = "This project is the code for a line following roboter from 2025."
 PROJECT_LOGO           =
 OUTPUT_DIRECTORY       = ../docs
 CREATE_SUBDIRS         = YES

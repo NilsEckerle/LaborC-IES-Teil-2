@@ -9,6 +9,10 @@ declare -a add_edge_results=()
 declare -a add_edge_with_execute_results=()
 declare -a set_parent_results=()
 
+cleanup_param() {
+  echo "$1" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g; s/t_state_//g; s/robi_lf_//g; s/nL/!L/g; s/nM/!M/g; s/nR/!R/g; s/X_/X-/g; s/L_/L-/g; s/M_/M-/g;"
+}
+
 extract_add_edges() {
   echo "=== Extracting STATE_add_edge matches (3 params) ==="
   local files=$(find src -type f \( -name "*.c" -o -name "*.cpp" -o -name "*.h" \) ! -path "*/state_machine/*")
@@ -50,9 +54,9 @@ process_add_edges() {
   for result in "${add_edge_results[@]}"; do
     IFS=',' read -r param1 param2 param3 <<< "$result"
     # Remove any whitespace
-    param1=$(echo "$param1" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    param2=$(echo "$param2" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    param3=$(echo "$param3" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
+    param1=$(cleanup_param $param1)
+    param2=$(cleanup_param $param2)
+    param3=$(cleanup_param $param3)
 
     echo "$param1 --> $param3 : $param2" >> "${DIAGRAM_NAME}.txt"
     # echo "Added: $param1 --> $param3 : $param2"
@@ -63,10 +67,10 @@ process_add_edges_with_execute() {
   echo "Processing add_edge_with_execute results..."
   for result in "${add_edge_with_execute_results[@]}"; do
     IFS=',' read -r param1 param2 param3 param4 <<< "$result"
-    param1=$(echo "$param1" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    param2=$(echo "$param2" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    param3=$(echo "$param3" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    param4=$(echo "$param4" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
+    param1=$(cleanup_param $param1)
+    param2=$(cleanup_param $param2)
+    param3=$(cleanup_param $param3)
+    param4=$(cleanup_param $param4)
 
     echo "$param1 --> $param4 : $param2\\n'$param3'" >> "${DIAGRAM_NAME}.txt"
     # echo "Added with execute: $param1 --> $param4 : $param2 '$param3'"
@@ -77,8 +81,8 @@ process_set_parents() {
   echo "Processing set_parent results..."
   for result in "${set_parent_results[@]}"; do
     IFS=',' read -r param1 param2 <<< "$result"
-    param1=$(echo "$param1" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
-    param2=$(echo "$param2" | tr -d ' ' | sed "s/condition_//g; s/USART_//g; s/execute_//g; s/LF_//g")
+    param1=$(cleanup_param $param1)
+    param2=$(cleanup_param $param2)
 
     echo "state $param2 {
     state $param1
@@ -194,7 +198,7 @@ EOF
 create_entry_edge() {
   echo "Add entry edge to diagram."
   cat >> "${DIAGRAM_NAME}.txt" << EOF
-[*] --> t_state_init_robi
+[*] --> init_robi
 EOF
 }
 

@@ -11,8 +11,6 @@
  * Sets up pins for H-bridge pwm control.
  *
  * @return nothing, this function can't fail.
- *
- * @note This function is coppied from iesmotors.c
  */
 static void ENGINE_init_pwm() {
   // Disable all interrupts
@@ -70,7 +68,6 @@ void ENGINE_init() {
     }                                                                 \
   } while (0)
 
-//  This function is coppied from iesmotors.c and then modified
 void ENGINE_set_duty_cicle(uint8_t ui8_side, uint8_t ui8_pwm_compare_value) {
   TRACE("set_duty_cicle side: %s value %d\n", ui8_side == 0 ? "LEFT" : "RIGHT",
         ui8_pwm_compare_value);

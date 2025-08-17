@@ -1,4 +1,4 @@
-# LaborC-IES-Teil-2
+# line follower roboter
 
 ![Roboter image](roboter.png)
 
@@ -20,12 +20,14 @@
     - For a example see `Related Pages -> State machine diagram` in the
       documentation
     - External source code analysis to extract states and edges, so the code
-      doesn't need unnessesary complexity like mocking the hardware. See
+      doesn't need unnessesary complexity like mocking the hardware.
     - Generation via *plantuml*. See https://plantuml.com/
 - Runtime configuration of Roboter. See *'?' when running roboter for help*
     - Configurable line follower sensor treshold for left, middle and right
       seperatly
     - Configurable rounds to drive
+- Round timing with 'ST' as start commands. This prints out the elapsed time
+  each round.
 
 ## Requirements
 Project was tested and developed on debian.

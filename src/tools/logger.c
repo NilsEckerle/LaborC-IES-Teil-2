@@ -1,5 +1,9 @@
 #include "tools/logger.h"
 
+#include "tools/usart.h"
+#include <stdio.h>
+#include <string.h>
+
 static char debug_buffer[128];
 
 // print from SRAM

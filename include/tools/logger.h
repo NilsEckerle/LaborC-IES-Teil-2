@@ -8,11 +8,8 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
-#include "tools/iesusart.h"
 #include <avr/pgmspace.h>
 #include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
 
 /**
  * @brief Log level definitions for message filtering

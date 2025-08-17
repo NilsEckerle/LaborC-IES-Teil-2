@@ -1,6 +1,7 @@
 /**
- * @file 
- * @brief 
+ * @file dynamic_array.h
+ * @brief dynamic array data structure
+ * @note This has a scaling of n -> n+1 so this is inefficient in some usecases.
  * @author Nils Eckerle
  * @date 2025-07-30
  */
