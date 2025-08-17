@@ -1,4 +1,5 @@
-#include "tools/iesusart.h"
+#include "tools/usart.h"
+#include "roboter/roboter_model.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <stdio.h>
@@ -36,10 +37,9 @@ void USART_init(unsigned long ubrr) {
  */
 void USART_transmitByte(unsigned char data) {
   // Wait for empty transmit buffer
-  while (!(UCSR0A & (1 << UDRE0))) {
-    // Busy waiting! zzzZZZzzzZZZzzz
-  }
-  // Put data into buffer, send the data
+  while (!(UCSR0A & (1 << UDRE0))) {}
+
+  // send data (noting is called, everything in UDR0 is send)
   UDR0 = data;
 }
 
@@ -71,7 +71,7 @@ ISR(USART_RX_vect) {
     // Null terminate the string
     usart_rx_buffer[usart_buffer_index] = '\0';
     usart_str_valid = 1;  // Mark string as complete
-    // Don't reset buffer_index here - let main code do it
+    // Don't reset buffer_index here, this is done, when char gets consumed
     return;
   }
 
@@ -86,7 +86,7 @@ ISR(USART_RX_vect) {
   usart_buffer_index++;
 }
 
-// Helper functions (add these to your USART module)
+// Helper functions
 char *USART_get_string(void) {
   if (usart_str_valid) {
     return (char *)usart_rx_buffer;

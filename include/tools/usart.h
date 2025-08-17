@@ -1,12 +1,12 @@
 /**
- * @file iesusart.h
+ * @file usart.h
  * @brief USART communication interface for AVR microcontrollers
  * @author Nils Eckerle
  * @date 2025-07-30
  */
 
-#ifndef IESUSART_h
-#define IESUSART_h
+#ifndef USART_h
+#define USART_h
 
 #include <stdint.h>
 
